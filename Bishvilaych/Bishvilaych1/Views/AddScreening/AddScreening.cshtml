@@ -1,0 +1,62 @@
+﻿@using BussinessLayer
+@{
+    ViewBag.Title = "AddScreening";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@*אורית אוחיון*@
+<h2>AddScreening</h2>
+@model Screenings
+<body dir="rtl">
+    <form action=@Url.Action("addScreening") method="post" id="frm1">
+        <h1>הוספת בדיקת עזר</h1>
+        <label>בדיקה: </label>
+        <select id="sel" name="Screening">
+            @{
+                BL_AddScreening bbb = new BL_AddScreening();
+                List<ScreeningsKinds> l = new List<ScreeningsKinds>();
+                l = bbb.DrawScreningList();
+                foreach (var item in l)
+                {
+                    <option value="@item.Code">@item.Screening</option>
+                }
+            }
+
+        </select>
+        <br />
+        <br />
+        <label>תאריך: </label>
+        <input id="Text1" type="date"name="SDate" />
+        <br />
+        <br />
+        <label>שנה:    </label>
+        <input id="Text1" type="text" name="Year" />
+        <br />
+        <br />
+        <label>ערך:    </label>
+        <textarea id="TextArea1" rows="2" cols="20" name="Text"></textarea>
+        <br />
+        <input id="Submit1" type="submit" value="הוסף" />
+    </form>
+    <!--<div>
+        <label>jבדיקה:</label>
+        <br />
+        <label>תאריך:</label>
+        <br />
+        <label>שנה:</label>
+        <br />
+        <label>ערך:</label>
+
+    </div>
+    <div>
+        <select id="sel"></select>
+        <br />
+        <input id="Text1" type="text" />
+        <br />
+        <input id="Text1" type="text" />
+        <br />
+        <textarea id="TextArea1" rows="2" cols="20"></textarea>
+
+
+    </div>-->
+</body>
+

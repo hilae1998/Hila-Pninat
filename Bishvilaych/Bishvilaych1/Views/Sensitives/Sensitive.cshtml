@@ -1,0 +1,86 @@
+﻿@*Avishag*@
+@{
+    ViewBag.Title = "Sensitive";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@using DataAccessLayer;
+@using BussinesLayer;
+@using BussinessLayer;
+<h2>Sensitive</h2>
+
+<body dir="rtl">
+    <div style="margin-top:300px">
+        <h2>הוספת רגישות</h2>
+        <table>
+
+            <tr>
+                <td>רגישות:</td>
+            </tr>
+            <tr>
+                <td>כללי:<input id="Text1" type="text" />
+           
+                    <select name="SensitivitiesKinds">
+                        @{
+                            BussinessLayer.BL_AddMedicineVitaminAndSensitivities bs = new BussinessLayer.BL_AddMedicineVitaminAndSensitivities();
+                            List<SensitivitiesKinds> ls = new List<SensitivitiesKinds>();
+                            ls = bs.Draw_KindSS();
+                            foreach (var item in ls)
+                            {
+                                <option value="@item.Sensitivity">@item.Sensitivity</option>
+                            }
+                        }
+                    </select>
+          
+
+                <td>תרופה:<input id="Text2" type="text" />
+                <td>
+                    <select name="MedicinesKind">
+                        @{
+                            BussinessLayer.BL_AddMedicineVitaminAndSensitivities bm = new BussinessLayer.BL_AddMedicineVitaminAndSensitivities();
+                            List<MedicinesKind> lm = new List<MedicinesKind>();
+                            lm = bm.Draw_MedicineSS();
+                            foreach (var item in lm)
+                            {
+                                <option value="@item.Medicine">@item.Medicine</option>
+                            }
+                        }
+                    </select>
+
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>השפעה:<input id="Text3" type="text" />
+                <td>
+                    <select name="Medicines">
+                        @{
+                            BussinessLayer.BL_AddMedicineVitaminAndSensitivities bi = new BussinessLayer.BL_AddMedicineVitaminAndSensitivities();
+                            List<Medicines> li = new List<Medicines>();
+                            li = bi.Draw_Influenss();
+                            foreach (var item in li)
+                            {
+                                <option value="@item.Influens">@item.Influens</option>
+                            }
+                        }
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>תאריך קביעה:<input id="Text4" type="text" /></td>
+                
+            </tr>
+
+            <tr>
+                <td>קובע:<input id="Text5" type="text" /></td>
+                
+            </tr>
+
+        </table>
+
+        <br />
+        <input id="Submit1" type="submit" value="הוסף" />
+
+    </div>
+</body>

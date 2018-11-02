@@ -1,0 +1,57 @@
+﻿
+/*master*/
+body {
+    /*#eacbe9*/
+    background-size: cover;
+  
+}
+
+
+.logo {
+    width: 11%;
+}
+header .logo{
+    top:15px;
+   
+    width: 11%;
+}
+hr {
+    background-color: #810040;
+    height: 1px;
+    border: none;
+    width: 100%;
+    margin: 0px;
+}
+
+footer {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    background-color: #810040;
+    color: white;
+    text-align: center;
+}
+
+/*------------------------------------------------*/
+
+.homeBtn {
+    border: 2px solid #810040;
+    background-color: #810040;
+    margin: 1em 1em 1em 1em;
+    width: 10em;
+    /*height: 7em;*/
+    border-radius: 10px 10px;
+    float: right;
+    color: white;
+    text-decoration: none !important;
+    font-size: large;
+    padding: 3em 0px 3em 0px;
+}
+
+.mainHome {
+    text-align: center;
+    padding: 10em 10em 0em 10em;
+    font-family:Arial;
+   
+}
+.mainHome :hover {
+            opacity: 0.8;}

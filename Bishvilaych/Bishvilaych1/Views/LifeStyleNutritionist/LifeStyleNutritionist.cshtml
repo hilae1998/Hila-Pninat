@@ -1,0 +1,65 @@
+﻿
+@*@model IEnumerable<Bishvilaych.Controllers.MyModel>*@
+
+@{
+    ViewBag.Title = "LifeStyleNuztritionist";
+    Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
+}
+@model LifeStyle
+
+
+<h2>LifeStyleNutritionist</h2>
+
+
+@using (Html.BeginForm())
+{
+    <div>
+        <label>Vitals</label><br />
+        <label>Height</label>
+        <input type="text" name="Height" value="@Html.DisplayFor(model=>model.Height)" /><br />
+        <label>Weight </label>
+        <input type="text" name="Wieght" value="@Html.DisplayFor(model=>model.Wieght)" /><br />
+        <label>BMI </label>
+        <input type="text" name="BMI" value="@Html.DisplayFor(model=>model.BMI)" /><br />
+        <label>Blood Pressure</label>
+        <input type="text" name="BloodPressure" value="@Html.DisplayFor(model=>model.BloodPressure)" /><br />
+        <label>Pulse </label>
+        <input type="text" name="pulse" value="@Html.DisplayFor(model=>model.pulse)" />
+        /
+        <input type="text" /><br />
+        <label>Nutrition</label><br />
+        <label>Does not eat certain food</label>
+        <input type="text" name="NotEat" value="@Html.DisplayFor(model=>model.NotEat)" />
+        <input type="text" name="NotEatT" value="@Html.DisplayFor(model=>model.NotEatT)" /><br />
+        <label>How many meals</label>
+        <input type="text" name="Meals" value="@Html.DisplayFor(model=>model.Meals)" /><br />
+        <label>Eat fruits daily</label>
+        <input type="text" name="Fruits" value="@Html.DisplayFor(model=>model.Fruits)" /><br />
+        <label>Eats vegtables daily</label>
+        <input type="text" name="Vegetables" value="@Html.DisplayFor(model=>model.Vegetables)" /><br />
+        <label>Eat dairy daily</label>
+        <input type="text" name="Dairy" value="@Html.DisplayFor(model=>model.Dairy)" /><br />
+        <label>How many cups of water a day</label>
+        <input type="text" name="Water" value="@Html.DisplayFor(model=>model.Water)" /><br />
+        <label>Following a particular diet</label>
+        
+  
+        <select name="Diet" >
+            <option selected="@( Html.DisplayFor(model=>model.Diet).ToString()=="true"?"selected" : "")">True</option>
+            <option selected="@(Html.DisplayFor(model=>model.Diet).ToString()=="false"?"selected" : "")">False</option>
+        </select>
+
+        <input type="text" name="Diet" value="" />
+        
+        <input type="text" name="DietT" value="@Html.DisplayFor(model=>model.DietT)" /><br />
+        <label>Hours of sleep per night</label>
+        <input type="text" name="SleepingHours" value="@Html.DisplayFor(model=>model.SleepingHours)" /><br />
+        <label>Regular physical activity</label>
+        <input type="text" name="Activity" value="@Html.DisplayFor(model=>model.Activity)" /><br />
+
+        <input id="btnSave" type="submit" value="שמור" />
+
+    </div>
+}
+
+

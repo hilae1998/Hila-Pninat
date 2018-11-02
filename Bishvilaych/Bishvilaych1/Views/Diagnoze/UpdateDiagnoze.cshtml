@@ -1,0 +1,55 @@
+﻿@*Avishag*@
+
+@{
+    ViewBag.Title = "UpdateDiagnoze";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+<h2>UpdateDiagnoze</h2>
+@model Diagnozes
+<body dir="rtl">
+    <form action=@Url.Action("addDiagnoze")>
+        <center>
+            <div style="margin-top:300px">
+                <h2>ערוך אבחון</h2>
+                <table>
+
+                    <tr>
+                        <td>אבחנה:</td>
+                        <td>
+                            <input id="Text1" type="text" />
+                            <select id="select1">
+                                <option selected="selected"></option>
+                                <option></option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>סטאטוס:</td>
+                        <td>
+                            <input id="Text2" type="text" />
+                            <select id="select2">
+                                <option selected="selected"></option>
+                                <option></option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>תאריך התחלה:</td>
+                        <td><input id="Text3" type="text" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>תאריך סיום:</td>
+                        <td><input id="Text4" type="text" /></td>
+                    </tr>
+                </table>
+                <div>
+                </div>
+                <input id="Submit1" type="submit" value="עדכן" />
+            </div>
+
+        </center>
+</form>
+</body>

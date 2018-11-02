@@ -1,0 +1,46 @@
+﻿@*לאה אמסלם*@
+@*20/06/18*@
+
+@{
+    ViewBag.Title = "Patiants";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@using Bishvilaych.Controllers
+@using BussinessLayer
+@model  List<Patiants>
+
+<h2 style="text-align:center">מטופלות במעקב</h2>
+<table dir="rtl" style="width:100%;" border="1">
+    <thead>
+        <tr>
+            <td style="text-align:center">קופת חולים</td>
+            <td style="text-align:center">טלפון נוסף</td>
+            <td style="text-align:center">טלפון</td>
+            <td style="text-align:center">שם מלא</td>
+            <td style="text-align:center">תעודת זהות</td>
+            <td style="text-align:center">מעקב</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in Model)
+            {
+
+              <tr>
+                  @{
+                      Kupot k = new Kupot();
+                      BLKupah blk = new BLKupah();
+                      k = blk.Kupah(item.Kupah);
+                    <td>@k.Kupah</td>
+                }                  
+                  <td>@item.Phone2</td>
+                  <td>@item.Phone</td>
+                  <td>@(item.FirstName+ "  "+item.LastName) </td>
+                  <td>@item.Id</td>
+                  <td>@item.followedup </td>
+              </tr>
+            }
+        }
+    </tbody>
+</table>

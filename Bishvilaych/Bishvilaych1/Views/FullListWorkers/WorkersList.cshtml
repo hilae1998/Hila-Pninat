@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "WorkersList";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@using Bishvilaych.Controllers 
+@model List<Workers>
+@*אורית אוחיון*@
+<h2>WorkersList</h2>
+<h2 dir="rtl" style="text-underline-position:unset">רשימת עובדות</h2>
+
+@*בלחיצה כפולה תפתח טבלת עובדות*@
+
+<script type="text/javascript">
+       $(document).ready(function () {
+            $('table tr').dblclick(function () {
+                $.ajax({
+                    url: '@Url.Action("WorkerDetails", "WorkerDetailsController")',
+                    type: 'POST',
+                    success: function (result) { }
+                });
+            });
+        });
+</script>
+<table dir="rtl" style="width:100%;" border="1">
+    <tr>
+        <td style="text-align:center">מספר זהות</td>
+        <td style="text-align:center">שם מלא   </td>
+        <td style="text-align:center">תפקיד    </td>
+    </tr>
+
+    <tbody>
+        @{
+            foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.FirstName+ "  "+@item.LastName </td>
+                    <td>@item.Job</td>
+                 
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

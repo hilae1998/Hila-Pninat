@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "AddReceipt";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@model receipt
+
+<script>
+
+</script>
+
+<h2>AddReceipt</h2>
+
+<h2>קבלה</h2>
+<form action="@Url.Action("AddReceipt")" method="post">
+    <div>
+        <label>תאריך:</label>
+        <input type="text" id="receiptDate" /><br />
+        <br />
+        <label>סכום:</label>
+        <input type="text" id="Sum" /><br />
+        <label>אופן התשלום: </label>
+        <select id="PayBy" onchange="selectPay()">
+            <option>מזומן</option>
+            <option>שיק</option>
+            <option>אשראי</option>
+        </select>
+
+        <label id="chequaNum">שיק מספר: </label>
+        <input type="text" /><br />
+        <label>בנק: </label>
+        <select id="BankAccount">
+            <option value="1">a</option>
+            <option value="2">b</option>
+            <option value="3">c</option>
+        </select><br />
+        <label>סניף: </label>
+        <input type="text" id="Branch" /><br />
+        <label>מספר חשבון:  </label>
+        <input type="text" id="PaymentNum" /><br />
+
+
+        <label>סוג כרטיס: </label>
+        <select id="CardsKind">
+            <option>a</option>
+            <option>b</option>
+            <option>c</option>
+        </select><br />
+
+
+        <label>מספר כרטיס: </label>
+        <input type="text" id="CreditCard" /><br />
+
+        <label>בתוקף: </label>
+        <input type="text" id="Validity" /><br />
+
+        <label>שם בעל הכרטיס: </label>
+        <input type="text" id="name" /><br />
+
+        <input id="Button1" type="button" value="הוסף תשלום" />
+        <input id="Button2" type="submit" value="הדפס קבלה" />
+
+    </div>
+</form>

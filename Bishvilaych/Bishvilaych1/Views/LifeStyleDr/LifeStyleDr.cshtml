@@ -1,0 +1,385 @@
+﻿@model LifeStyle
+@{
+    ViewBag.Title = "LifeStyleDr";
+    Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
+}
+
+<script @*type="text/javascript" *@>
+
+
+    $(document).ready(function () {
+        var dict = new Array();
+        alert($("#dateofpatiants").val())
+        console.log($("#dateofpatiants"))
+        //ריקון המידע
+        $("#dateofpatiants").html("")
+        $.ajax({
+            type: "get",
+            url: "@Url.Action("getLastVisit")",
+            data: {},
+         success: function(data) {
+         console.log(data)
+         alert("מה המצב?")
+         $.each(data, function () {
+             var key = Object.keys(this)[0]//מביא לי את שם המפתח לדייט
+             var val = Object.keys(this)[1]//מביא לי את שם המפתח לרשימה
+             dict.push({
+                 date: this[key],//מביא לי את התאריך
+                 mylifestyle: this[val]//מביא לי את הליסט
+             })
+         }) //end each function
+
+            ToJavaScriptDate(dict)
+
+        },
+        error: function () {
+            alert("error: No Connection")
+            console.log(arguments)
+        }
+    }
+
+
+)
+
+
+
+
+
+        $(".herf").click(function () {//כאשר בוחרים תאריך
+
+            alert("vutt")
+            console.log(this.title);
+            if (this.title != $("#now").attr("title")){
+                $("#ButtonSumbit").prop("disabled",true );
+            }
+            else {
+                $("#ButtonSumbit").prop("disabled", false);
+            }
+            console.log(dict[1])
+    })
+
+
+
+
+
+
+    function ToJavaScriptDate(value) {
+
+        for(var i=0;i<value.length;i++)
+        {
+            var ref = "#";
+            var tit= value[i].date;
+            console.log(value[i].date)
+            console.log(111)
+            console.log(value[i].mylife);
+            if (tit != $("#now").attr("title")) {
+
+                var link = $("<a href='" + ref + "' title='" + value[i].date + "'>" + value[i].date + "</a>")
+
+
+            $(link).click(function () {//יצירת אירוע לכל לינק לחיצה
+                alert("vutt")
+
+                var list;
+                var lis;
+                for (var j = 0; j < dict. length; j++) {
+
+
+                    if(this.title==dict[j].date){//שלוף את הנתונים של התאריך הנבחר
+                        list = dict[j].mylifestyle
+
+                    }
+                }
+                Showall(list);
+
+                if (this.title != $("#now").attr("title")) {
+                    $("#ButtonSumbit").prop("disabled",true);
+                }
+                else {
+                    $("#ButtonSumbit").prop("disabled", false);
+                }
+
+
+            })
+            $("#dateofpatiants").append(link)
+            $("#dateofpatiants").append("<br/>")
+
+
+        }
+            else {
+                 
+
+                    var link = $("<a href='" + ref + "' title='" + value[i].date + "'>" +"היום"+ "</a>")
+                    $(link).click(function () {
+                        alert("vutt")
+
+                        var list;
+                        var lis;
+                        for (var j = 0; j < dict.length; j++) {
+
+
+                            if (this.title == dict[j].date) {//שלוף את הנתונים של התאריך הנבחר
+                                list = dict[j].mylifestyle
+
+                            }
+                        }
+                        Showall(list);
+                        if (this.title != $("#now").attr("title")) {
+                            $("#ButtonSumbit").prop("disabled", true);
+                        }
+                        else {
+                            $("#ButtonSumbit").prop("disabled", false);
+                        }
+
+                    })
+                    $("#dateofpatiants").append(link)
+                    $("#dateofpatiants").append("<br/>")
+       
+            }
+        }
+        }
+    });
+
+     function Showall(list)
+     {
+         console.log(list.Acohol)
+         console.log(list.PassiveSmoking)
+        //$("#selectAcohol").prop("selectedIndex", list.Acohol)
+        $("#Text058").prop("value", list.AcoholT)
+        $("#SelectSmoking").prop("selectedIndex", list.Smoking)
+        $("#inputBi_polarT").prop("value", list.Bi_polarT)
+        $("#inputAnxietyT").prop("value", list.AnxietyT)
+        $("#inputAbT").prop("value", list.AbT)
+        $("#inputDepressionT").prop("value", list.DepressionT)
+        $("#inputDrugsT").prop("value", list.DrugsT)
+        $("#inputPastDrugsT").prop("value", list.PastDrugsT) 
+        $("#inputNotEatT").prop("value", list.NotEatT)
+        $("#inputPassiveSmokingT").prop("value", list.PassiveSmokingT)
+        $("#inputOtherMentallssueT").prop("value", list.OtherMentallssueT)
+        $("#inputDisordersEatingT").prop("value", list.DisordersEatingT)
+        $("#inputPastDisordersEatingT").prop("value", list.PastDisordersEatingT)
+        $("#inputPastDrugsT").prop("value", list.PastDrugsT)
+        $("#inputRelationT").prop("value", list.RelationT)
+        $("#inputTraumaT").prop("value", list.TraumaT)
+        $("#inputSt").prop("value", list.St)
+
+    }
+
+
+
+
+    $("#Select111").dblclick(function () {
+        if ($("#Select111").val() == "Yes")
+            $("#Select111").prop("selectedIndex", 1);
+        else
+            $("#Select111").prop("selectedIndex", 0);
+    });
+
+
+    $("#selectavita").dblclick(function () {
+        if ($("#selectavita").val() == "Yes")
+            $("#selectavita").prop("selectedIndex", 1);
+        else
+            $("#selectavita").prop("selectedIndex", 0);
+    });
+
+    function myFunction(){
+        if (document.getElementById("Select111").value == "yes") {
+            document.getElementById('SelectAllRadio').style.display = 'block';
+
+        }
+        else {
+            document.getElementById('SelectAllRadio').style.display = 'none';
+        }
+    }
+
+    $(document).ready(function () {
+        $('input[type=radio][name=mood]').change(function () {
+            if (this.value == 'anxiety') {
+                //document.getElementById('a2').disabled = true;
+                //document.getElementById('a3').disabled = true;
+                //document.getElementById('a4').disabled = true;
+                document.getElementById('a22').style.display = 'none';
+                document.getElementById('a11').style.display = 'block';
+                document.getElementById('a33').style.display = 'none';
+                document.getElementById('a44').style.display = 'none';
+            }
+            else
+            {
+                if (this.value == 'Bi-polar') {
+
+                    alert("Gg");
+                    //document.getElementById("a1").disabled = true;
+                    //document.getElementById("a3").disabled = true;
+                    //document.getElementById("a4").disabled = true;
+                    document.getElementById('a22').style.display = 'block';
+                    document.getElementById('a11').style.display = 'none';
+                    document.getElementById('a33').style.display = 'none';
+                    document.getElementById('a44').style.display = 'none';
+
+
+                }
+                else {
+                    if (this.value == 'depression') {
+
+                        //document.getElementById("a2").disabled = true;
+                        //document.getElementById("a1").disabled = true;
+                        //document.getElementById("a4").disabled = true;
+                        document.getElementById('a33').style.display = 'block';
+                        document.getElementById('a11').style.display = 'none';
+                        document.getElementById('a22').style.display = 'none';
+                        document.getElementById('a44').style.display = 'none';
+                    }
+                    else {
+                        if (this.value == 'other') {
+                            //document.getElementById("a2").disabled = true;
+                            //document.getElementById("a3").disabled = true;
+                            //document.getElementById("a1").disabled = true;
+                            document.getElementById('a33').style.display = 'none';
+                            document.getElementById('a11').style.display = 'none';
+                            document.getElementById('a22').style.display = 'none';
+                            document.getElementById('a44').style.display = 'block';
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+
+    $("#yesno").dblclick(function () {
+
+        if ($("#yesno").val() == "Yes")
+            $("#yesno").prop("selectedIndex", 1);
+        else
+            $("#yesno").prop("selectedIndex", 0);
+    });
+
+
+    Mentioned:  $("#yesno").val()==1?true:false,
+        FollowUp: $("#Follo").val(),
+
+
+</script>
+
+
+@using (Html.BeginForm())
+{
+
+<h2>@ViewBag.err</h2>
+<h2>LifeStyleDr</h2>
+
+
+
+<div dir="ltr">
+
+    <fieldset>
+        <p id="dateofpatiants"></p><br />
+        <a href="#" id="now" class="herf" title="@DateTime.Today.ToShortDateString()" style="display:none">היום</a><br />
+    </fieldset>
+
+    <div>
+        <label><strong>Alcohol hx</strong></label>
+    </div>
+    <div>
+        <label>Did you ever drink a lot of alcohol in the past?</label>
+        <label><select id="selectAcohol" name="Acohol" value=@Html.DisplayFor(model => model.Acohol)><option>Yes</option> <option selected="selected">No</option></select></label>
+        <label><input id="Text058" type="text" name="AcoholT" value=@Html.DisplayFor(model => model.AcoholT)/></label>
+    </div>
+    <div>
+        <label><strong>Smoking hx</strong></label>
+    </div>
+    <div>
+        <label>Do you smoke?</label>
+        <label> <select id="SelectSmoking"><option  value=@Html.DisplayFor(model => model.Smoking)>Yes</option><option selected="selected" value=@Html.DisplayFor(model => model.Smoking)>No</option></select></label>
+    </div>
+    <div>
+
+        <label>Have you ever smoked?</label>
+        <label><select id="Select1"><option id="yes">Yes</option><option selected="selected" value="no">No</option></select></label>
+    </div>
+    <div>
+        <label> Exposed to smoke</label>
+        <label><select id="Select2"> <option value="yes">Yes</option>   <option selected="selected" value="no">No</option></select></label>
+        <label><input type="text" id="inputPassiveSmokingT" name="PassiveSmokingT" value=@Html.DisplayFor(model => model.PassiveSmokingT)/></label>
+    </div>
+    <div>
+        <label><sdivong>Drug use</sdivong></label>
+    </div>
+    <div>
+        <label>Do you use any drugs</label>
+        <label><select id="Select2"><option value="yes">Yes</option>  <option selected="selected" value="no">No</option></select></label>
+        <label><input type="text" id="inputDrugsT" name="DrugsT" value=@Html.DisplayFor(model => model.DrugsT)/></label>
+    </div>
+    <div>
+        <label>Did you ever used drugs in the past</label>
+        <label><select id="Select2"><option value="yes">Yes</option><option selected="selected" value="no">No</option></select></label>
+        <label><input type="text" id="inputPastDrugsT" name="PastDrugsT" value=@Html.DisplayFor(model=> model.PastDrugsT)/></label>
+    </div>
+    <div>
+        <label>Exposure to divauma</label>
+        <label><select id="Select2"><option value="yes">Yes</option><option selected="selected" value="no">No</option></select></label>
+        <label><input type="text" id="inputTraumaT" name="TraumaT" @Html.DisplayFor(model=> model.TraumaT) /></label>
+    </div>
+    <div>
+        <label><sdivong>Eating Disorders</sdivong></label>
+    </div>
+    <div>
+        <label> presently </label>
+        <label><select id="Select1"><option id="yes">Yes</option><option selected="selected" value="no">No</option></select></label>
+        <label>
+            <input type="text" id="inputDisordersEatingT" name="DisordersEatingT" value=@Html.DisplayFor(model => model.DisordersEatingT)/>
+        </label>
+    </div>
+    <div>
+        <label>past</label>
+        <label><select id="Select2"><option value="yes">Yes</option><option selected="selected" value="no">No</option></select></label>
+        <label><input type="text" id="inputPastDisordersEatingT" name="PastDisordersEatingT" @Html.DisplayFor(model=> model.PastDisordersEatingT)/></label>
+    </div>
+
+    <div>
+        <label>Mood/mental health issues</label>
+        <select id="Select111" onchange="myFunction()"> <option value="yes">Yes</option><option selected="selected" value="no">No</option></select>
+
+        <div1 id="SelectAllRadio" style="display:none">
+            <input id="a1" name="mood" class="a" type="radio" value="anxiety"> anxiety              <div id="a11" style="display:none"><select><option value="yes">Yes </option>  <option selected="selected" value="no">No</option></select><input id="Text1" type="text" name="AnxietyT" @Html.DisplayFor(model=> model.AnxietyT)/> </div><br />
+            <input id="a2" name="mood" class="a" type="radio" value="Bi-polar"> Bi-polar            <div id="a22" style="display:none"><select id="mySelect"><option value="yes">Yes </option>  <option selected="selected" value="no">No</option></select><input id="Text1" type="text" name="Bi_polarT" value=@Html.DisplayFor(model => model.Bi_polarT) /></div> <br />
+            <input name="mood" id="a3" class="a" type="radio" value="depression"> depression        <div id="a33" style="display:none"><select id="mySelect" onchange="myFunction()"><option value="yes">Yes </option>  <option selected="selected" value="no">No</option></select><input id="Text1" type="text" name="DepressionT" value=@Html.DisplayFor(model => model.DepressionT) /></div><br />
+            <input id="a4" name="mood" class="a" type="radio" checked="checked" value="other">other <div id="a44" style="display:block"><select id="mySelect" onchange="myFunction()"><option value="yes">Yes </option>  <option selected="selected" value="no">No</option></select><input id="Text1" type="text" name="OtherMentallssueT" value=@Html.DisplayFor(model => model.OtherMentallssueT)/></div>
+        </div1>
+
+    </div>
+
+    <div>
+        <label><sdivong>_______</sdivong></label>
+    </div>
+
+    <div>
+        <label>??????????????????????????</label>
+        <label> <select id="Select1"> <option>Yes</option> <option value="no" selected="selected">No</option></select> </label>
+        <label><input id="inputRelationT" type="text" name="RelationT" value=@Html.DisplayFor(model => model.RelationT) /></label>
+    </div>
+
+    <div>
+        <label>???????????????</label>
+        <label><select id="Select1"><option>Yes</option> <option selected="selected" value="no">No</option></select> </label>
+        <label><input id="inputAbT" type="text" name="AbT" value=@Html.DisplayFor(model => model.AbT) /></label>
+    </div>
+
+    <div>
+        <label>???????????????????????????????????</label>
+        <label colspan="3"><input id="inputSt" type="text" name="St" value=@Html.DisplayFor(model => model.St)/> </label>
+    </div>
+    <input id="ButtonSumbit" type="submit" value="שמור" style="font-weight:bolder">
+
+
+
+</div>
+}
+
+
+
+
+
+
+

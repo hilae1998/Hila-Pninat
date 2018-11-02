@@ -1,0 +1,115 @@
+﻿@using Bishvilaych.Controllers
+@model receipt
+@using BussinessLayer
+@{
+    ViewBag.Title = "LifeStyleNuztritionist";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+<script>
+    var count = 0;
+    function selectPay() {
+        var x = document.getElementById("PayBy").value
+        if (x == "אשראי") {
+            alert("n");
+            document.getElementById("Card").style.display = 'block'
+            document.getElementById("chequa").style.display = 'none'
+            document.getElementById("addPayment").style.display = 'block'
+        }
+        if (x == "שיק") {
+            document.getElementById("Card").style.display = 'none'
+            document.getElementById("chequa").style.display = 'block'
+            document.getElementById("addPayment").style.display = 'block'
+        }
+        if (x == "מזומן") {
+            document.getElementById("Card").style.display = 'none'
+            document.getElementById("chequa").style.display = 'none'
+            document.getElementById("addPayment").style.display = 'none'
+        }
+
+
+    }
+
+    function addPay()//הכפלת הדיב
+    {
+        count++;
+        var elmnt = document.getElementsByName("div1")[0];
+        var cln = elmnt.cloneNode(true);
+        document.body.appendChild(cln);
+
+    }
+
+    function addOption()
+    {
+       
+    }
+
+
+</script>
+<body>
+
+    <form action="@Url.Action("AddReceipt")" method="post" id="frm">
+        <div name="div1">
+            <label>תאריך:</label>
+            <input type="date" name="receiptDate" /><br />
+            <br />
+            <label>סכום:</label>
+            <input type="text" name="Sum" /><br />
+            <label>אופן התשלום: </label>
+            <select name="PayBy" id="PayBy" onchange="selectPay()">
+                @{ 
+                    List<PayBy> p = new List<PayBy>();
+                    
+                }
+                <option>מזומן</option>
+                <option>שיק</option>
+                <option>אשראי</option>
+                <option>העברה בנקאית</option>@*כמו מזומן*@
+            </select>
+            <div name="chequa" id="chequa" class="disp">
+                <label id="chequaNum1" name="chequaNum1">שיק מספר: </label>
+                <input id="chequaNum" name="chequaNum" type="text" /><br />
+                <label id="BankAccount1" name="BankAccount1">בנק: </label>
+                <select id="BankAccount" name="BankAccount">
+                    @{ 
+                        List<Banks> b = new List<Banks>();
+                        BLAddReceipt bl = new BLAddReceipt();
+                        b = bl.getAllBanks();
+                        foreach(var item in b)
+                        {                           
+                            <option value="@item.BankNum">@item.BankName-@item.BankNum</option>
+                        }
+                    }
+                </select><br />
+                <label>סניף: </label>
+                <input type="text" name="Branch" /><br />
+                <label>מספר חשבון:  </label>
+                <input type="text" name="PaymentNum" /><br />
+
+            </div>
+            <div name="Card" id="Card" class="disp">
+                <label>סוג כרטיס: </label>
+                <select id="CardsKind">
+                    <option>a</option>
+                    <option>b</option>
+                    <option>c</option>
+                </select><br />
+                <label>מספר כרטיס: </label>
+                <input type="text" name="CreditCard" /><br />
+                <label>בתוקף: </label>
+                <input type="text" name="Validity" /><br />
+                <label>שם בעל הכרטיס: </label>
+                <input type="text" name="name" /><br />
+            </div>
+            <input id="addPayment" type="button" value="הוסף תשלום" class="disp" onclick="addPay()" />
+            <input id="Button2" type="submit" value="הדפס קבלה" />
+
+        </div>
+    </form>
+   
+</body>
+<style>
+    .disp {
+        display: none;
+    }
+
+</style>

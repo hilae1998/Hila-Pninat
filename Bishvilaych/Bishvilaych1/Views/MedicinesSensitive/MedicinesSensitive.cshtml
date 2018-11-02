@@ -1,0 +1,95 @@
+﻿@*Ma'ayan*@
+
+@model Bishvilaych.Controllers.MyMedicinesSensitive
+@{
+    ViewBag.Title = "MedicinesSensitive";
+    Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
+} 
+
+
+<h1 dir="rtl">תרופות ותוספים</h1>
+
+<table dir="rtl" style="width: 1000px; height: 150px">
+    <thead>
+        <tr>
+            <td><h2>קוד</h2></td>
+            <td><h2>פעיל</h2></td>
+            <td><h2>תרופה/תוסף</h2></td>
+            <td><h2>צורת מתן</h2></td>
+            <td><h2>מינון</h2></td>
+            <td><h2>ימים</h2></td>
+            <td><h2>אופן מתן</h2></td>
+            <td><h2>הערות</h2></td>
+            <td><h2>נרשם על ידי</h2></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Medicines item in Model.MyM)
+        {
+            if (Model.MyM != null)
+            {      
+
+                <tr>
+                    <td>@item.Code</td>
+                    <td>@item.Active</td>
+                    <td> פרוצדורה ויטמין/תרופה</td>
+                    <td>@item.GivenKind</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Days</td>
+                    <td>@item.GivenOn</td>
+                    <td>@item.Text</td>
+                    <td>פרוצדורה עובדת</td>
+                </tr>
+            }
+        }
+        
+    </tbody>
+</table>
+
+<li>@Html.ActionLink("מחק", "", "")</li>
+<li>@Html.ActionLink("ערוך", "", "")</li>
+<li>@Html.ActionLink("חדש", "MedicineVitamin", "MedicineVitamin")</li>
+
+<br />
+<br />
+<br />
+
+<h1 dir="rtl">רגישויות</h1>
+
+<table dir="rtl" style="width: 1000px; height: 150px">
+    <thead>
+        <tr>
+            <td><h2>קוד</h2></td>
+            <td><h2>סוג</h2></td>
+            <td><h2>רגישות</h2></td>
+            <td><h2>השפעה</h2></td>
+            <td><h2>תאריך קביעה</h2></td>
+            <td><h2>קובע</h2></td>
+            <td><h2>נרשם על ידי</h2></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Sensitivities item in Model.MyS)
+        {
+            if (Model.MyS != null)
+            {
+                var dd = item.DesicionDate.ToShortDateString();
+                <tr>
+                    <td>@item.Code</td>
+                    <td>@item.Kind</td>
+                    <td>פרוצדורה כללית/תרופה</td>
+                    <td>@item.Influenss</td>
+                    <td>@dd</td>
+                    <td>@item.Desided</td>
+                    <td>פרוצדורה עובדת</td>
+                </tr>
+            }
+        }
+</tbody>
+</table>
+
+<li>@Html.ActionLink("מחק", "", "")</li>
+<li>@Html.ActionLink("ערוך", "", "")</li>
+<li>@Html.ActionLink("חדש", "Sensitive", "Sensitives")</li>
+
+

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "DocumentScanner";
+    Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
+}
+
+<h2>DocumentScanner</h2>
+<script>
+    function AddRow()
+    {
+        // Find a <table> element with id="myTable":
+        var table = document.getElementById("Table");
+        // Create an empty <tr> element and add it to the 1st position of the table:
+        var row = table.insertRow(1);
+        // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        // Add some text to the new cells:
+        cell1.innerHTML = "NEW CELL1";
+        cell2.innerHTML = "NEW CELL2";
+        cell3.innerHTML = "NEW CELL3";
+
+        $('#File1').append('<p>שלום וברכה</p>');
+    }
+    //function Scan()
+    //{
+        
+    //}
+</script>
+<div>
+    <input id="File1" type="file" onchange="AddRow()" /><input id="Text1" type="text" placeholder="שם מסמך" />
+    <center>
+        <table id="Table" class="table table-hover" style="width:70%; border-style:initial; direction:rtl; color:white;font-size:20px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            <thead>
+                <tr style="background-color:darkgrey">
+                    <td>תאריך</td>
+                    <td>שם המסמך</td>
+                    <td>&nbsp;</td>
+                </tr>
+            <thead>
+        </table>
+    </center>
+</div>

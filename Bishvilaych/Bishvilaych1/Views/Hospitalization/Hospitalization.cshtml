@@ -1,0 +1,59 @@
+﻿
+@*Avishag*@
+
+@{
+    ViewBag.Title = "Hospitalization";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@using DataAccessLayer;
+@using BussinesLayer;
+@using BussinessLayer;
+
+<body dir="rtl">
+    <form id="form1" method="post" action=@Url.Action("addHospitalization","Hospitalization")
+    <center>
+        <div style="margin-top:150px">
+            <h2>הוספת אשפוז</h2>
+            <table>
+                <tr>
+                    <td>שנה:</td>
+                    <td><input id="Text1" type="text" /></td>
+                </tr>
+
+                <tr>
+                    <td>בית חולים:</td>
+                    <td>
+                        <select name="Hospitals">
+                            @{
+                                BussinessLayer.BL_AddDiagnozeAndHospitalization bh = new BussinessLayer.BL_AddDiagnozeAndHospitalization();
+                                List<Hospitals> lh = new List<Hospitals>();
+                                lh = bh.Draw_Hospital();
+                                foreach (var item in lh)
+                                {
+                                    <option value="@item.hospital">@item.hospital</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>מחלקה:</td>
+                    <td><input id="Text1" type="text" /></td>
+                </tr>
+
+                <tr>
+                    <td>סיבת אשפוז:</td>
+                    <td><input id="Text1" type="text" /></td>
+                </tr>
+            </table>
+
+            <div>
+                <input id="Submit1" type="submit" value="הוסף" />
+            </div>
+
+        </div>
+
+    </center>
+    </form>
+</body>

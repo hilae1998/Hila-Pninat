@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Sensitive";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Sensitive</h2>
+
+<body dir="rtl">
+    <div style="margin-top:300px">
+        <h2>הוספת רגישות</h2>
+        <table>
+
+            <tr>
+                <td>רגישות:</td>
+                <td>כללי:<input id="Text1" type="text" />
+                <td>
+                <td>
+                    <select id="select1">
+                        <option selected="selected">Anaphylaxis</option>
+                        <option>Diarrhea</option>
+                        <option>Nausea</option>
+                        <option>Vomiting</option>
+                        <option>Rash</option>
+                        <option>Other</option>
+                    </select>
+                </td>
+                <td>תרופה:<input id="Text2" type="text" />
+                <td>
+                <td>
+                    <select id="select2">
+                        <option selected="selected"></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>השפעה:<input id="Text3" type="text" /></td>
+                <td>
+                    <select id="select3">
+                        <option selected="selected"></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>תאריך קביעה:</td>
+                <td><input id="Text4" type="text" /></td>
+            </tr>
+
+            <tr>
+                <td>אופן מתן:</td>
+                <td><input id="Text5" type="text" /></td>
+            </tr>
+
+        </table>
+
+        <br />
+        <input id="Submit1" type="submit" value="הוסף" />
+
+    </div>
+</body>

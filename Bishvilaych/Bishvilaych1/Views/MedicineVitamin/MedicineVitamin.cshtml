@@ -1,0 +1,107 @@
+﻿@*Avishag*@
+
+@{
+    ViewBag.Title = "MedicineVitamin";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@using DataAccessLayer;
+@using BussinesLayer;
+@using BussinessLayer;
+<h2>MedicineVitamin</h2>
+
+<body dir="rtl">
+    <center>
+        <div style="margin-top:300px">
+            <h2>הוספת תרופות ותוספים</h2>
+            <table>
+                    <tr>
+                        <td><input id="radio" type="radio" />תרופה</td>
+                        <td>
+                            <input id="Text1" type="text" />
+                            <select name="MedicinesKind">
+                                @{
+                                    BussinessLayer.BL_AddMedicineVitaminAndSensitivities bm = new BussinessLayer.BL_AddMedicineVitaminAndSensitivities();
+                                    List<MedicinesKind> lm = new List<MedicinesKind>();
+                                    lm = bm.Draw_Medicine();
+                                    foreach (var item in lm)
+                                    {
+                                        <option value="@item.Medicine">@item.Medicine</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                        </tr>
+
+                    <tr>
+                        <td><input id="radio" type="radio" />תוסף</td>
+                        <td>
+                            <input id="Text1" type="text" />
+                            <select name="Vitamins">
+                                @{
+                                    BussinessLayer.BL_AddMedicineVitaminAndSensitivities bv = new BussinessLayer.BL_AddMedicineVitaminAndSensitivities();
+                                    List<Vitamins> lv= new List<Vitamins>();
+                                    lv = bv.Draw_Vitamin();
+                                    foreach (var item in lv)
+                                    {
+                                        <option value="@item.Vitamin">@item.Vitamin</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                    </tr>
+             
+                <tr>
+                    <td>פעיל</td>
+                    <td><input id="Checkbox1" type="checkbox" /></td>
+                </tr>
+
+                <tr>
+                    <td>צורת מתן</td>
+                    <td>
+                        <select name="Medicines">
+                            @{
+                                BussinessLayer.BL_AddMedicineVitaminAndSensitivities bg = new BussinessLayer.BL_AddMedicineVitaminAndSensitivities();
+                                List<Medicines> lg = new List<Medicines>();
+                                lg = bg.Draw_GivenKind();
+                                foreach (var item in lg)
+                                {
+                                    <option value="@item.Influens">@item.Influens</option>
+                                }
+                            }
+                        </select>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>מינון</td>
+                    <td><input id="Text1" type="text" /></td>
+                </tr>
+
+                <tr>
+                    <td>ימים</td>
+                    <td><input id="Text1" type="text" /></td>
+                </tr>
+
+                <tr>
+                    <td>אופן מתן</td>
+                    <td><input id="Text1" type="text" /></td>
+                </tr>
+
+                <tr>
+                    <td>הערות</td>
+                    <td><input id="Text1" type="text" /></td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <input id="Submit1" type="submit" value="הדפסת מרשם" />
+        </div>
+
+        <div>
+            <input id="Submit1" type="submit" value="הוסף" />
+        </div>
+
+    </center>
+</body>

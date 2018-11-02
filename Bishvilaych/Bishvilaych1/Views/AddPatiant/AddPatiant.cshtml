@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "AddPatiant";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+
+@using DataAccessLayer;
+@using BussinesLayer;
+@using BussinessLayer;
+
+<style>
+.myButton {
+	background-color:#dcdcdc;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+	border-radius:7px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#777777;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding:6px 14px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ffffff;
+}
+.myButton:hover {
+	background-color:transparent;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+</style>
+<script>
+    $(document).ready(function(){
+    $("#Text1").on("blur", function () {
+               
+        $.ajax({
+            type: 'get',
+            url: "@Url.Action("checkID")",
+            data: { ID: $("#Text1").val() },
+            success: function (data) {
+                $("#idp").html("")
+            $("#idp").append(data)
+        },
+        error:function(){}})
+    })
+    })
+</script>
+
+<!DOCTYPE html>
+@*//אושרית אביוב*@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <center>
+        <form id="form1" method="post" action="@Url.Action("addPatiant","AddPatiant")">
+            <div dir="rtl">
+                <fieldset style="margin-top:75px; height:470px; width:500px; box-shadow:150px;">
+
+                    <div style="margin-top:150px">
+                        <h1 style="font-family:Arial;font-size:50px">הוספת מטופלת</h1>
+                        <div>
+                            <label style="font-size:25px;font-family:Arial">מספר זהות:</label><br />
+                            <input id="Text1" type="text" name="Id" maxlength="9" pattern="(?=.*\d)(?=.*[0-9]).{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" />
+                        </div>
+                        <div>
+                            <label style="font-size:25px;font-family:Arial">שם פרטי:</label><br />
+                            <input id="Text2" type="text" name="FirstName" maxlength="20" />
+                        </div>
+                        <div>
+                            <label style="font-size:25px;font-family:Arial">שם משפחה:</label><br />
+                            <input id="Text3" type="text" name="LastName" maxlength="20" />
+                        </div>
+                        <div>
+                            <label style="font-size:25px;font-family:Arial">קופות חולים:</label><br />
+                            @*<select id="select1">
+                        <option selected="selected">לאומית</option>
+                        <option>כללית</option>
+                        <option>מאוחדת</option>
+                        <option>מכבי</option>
+                    </select>*@
+                            <select name="Kupah">
+                                @{
+                                    BussinessLayer.BL_AddPatiants blv = new BussinessLayer.BL_AddPatiants();
+                                    List<Kupot> l = new List<Kupot>();
+                                    l = blv.Draw_Kupah();
+                                    foreach (var item in l)
+                                    {
+                                        <option value="@item.Code">@item.Kupah</option>
+                                    }
+                                }
+                            </select>
+                            <div id="idp"></div>
+                        </div>
+                        <input class="myButton" id="Submit1" type="submit" value="הוסף" />
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </center>
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Acount";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<form action="@Url.Action("Acount")" method="post">
+    <h2>Acount</h2>
+    @*<input type="text"id="name" name="userName">:שם משתמש</input>
+    <input type="text" ID="password" name="password">:סיסמה</input>
+    <Button ID="enter" Text="הכנס" type="submit" />*@
+    <div id="full">
+
+        <div>
+            <input id="Text1" type="text" />
+            <TextBox id="name">:שם משתמש</TextBox>
+        </div>
+
+        <div>
+            <input id="Password1" type="password" />
+            <TextBox id="name1">:סיסמה</TextBox>
+        </div>
+
+        <div>
+            <Button ID="enter" type="submit"/>הכנס
+        </div>
+
+    </div>
+</form>

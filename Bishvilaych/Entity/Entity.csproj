@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ACF55C8D-2B8C-4C97-BD87-995A66F01CE6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Entity</RootNamespace>
+    <AssemblyName>Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authorizations.cs" />
+    <Compile Include="Banks.cs" />
+    <Compile Include="Customers.cs" />
+    <Compile Include="DiagnozeKinds.cs" />
+    <Compile Include="Diagnozes.cs" />
+    <Compile Include="FollowUp.cs" />
+    <Compile Include="Hospitals.cs" />
+    <Compile Include="Hospitalizations.cs" />
+    <Compile Include="immunizations.cs" />
+    <Compile Include="Jobs.cs" />
+    <Compile Include="Kupot.cs" />
+    <Compile Include="LifeStyle.cs" />
+    <Compile Include="MaritalStatus.cs" />
+    <Compile Include="Medicines.cs" />
+    <Compile Include="MedicinesKind.cs" />
+    <Compile Include="Mucosa.cs" />
+    <Compile Include="PastGenicology.cs" />
+    <Compile Include="Patiants.cs" />
+    <Compile Include="PayBy.cs" />
+    <Compile Include="PhysicalExam.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reccomendations.cs" />
+    <Compile Include="receipt.cs" />
+    <Compile Include="Screenings.cs" />
+    <Compile Include="ScreeningsKinds.cs" />
+    <Compile Include="Sensitivities.cs" />
+    <Compile Include="SensitivitiesKinds.cs" />
+    <Compile Include="Statuses.cs" />
+    <Compile Include="Summary.cs" />
+    <Compile Include="Updatings.cs" />
+    <Compile Include="VisitReason.cs" />
+    <Compile Include="Vitamins.cs" />
+    <Compile Include="Workers.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,54 @@
+﻿@*לאה אמסלם*@
+@*20/6/18*@
+
+@{
+    ViewBag.Title = "Customers_";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@using Bishvilaych.Controllers
+
+@model List<Customers>
+ 
+@*בלחיצה כפולה תפתח טבלת לקוחה*@
+    <script type="text/javascript">
+       $(document).ready(function () {
+            $('table tr').dblclick(function () {
+                $.ajax({
+                    url: '@Url.Action("ReciepitsListOfCustomers", "ReciepitsListOfCustomersController")',
+                    type: 'POST',
+                    success: function (result) { }
+                });
+            });
+        });
+    </script>
+
+<h2 style="text-align:center">רשימת לקוחות</h2>
+<table dir="rtl" style="width:100%;" border="1" >
+    <thead>
+        <tr>
+            <td style="text-align:center" >רחוב</td>
+            <td style="text-align:center" >עיר</td>
+            <td style="text-align:center" >טלפון נוסף</td>
+            <td style="text-align:center" >טלפון</td>
+            <td style="text-align:center" >שם מלא</td>
+            <td style="text-align:center" >תעודת זהות</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+           foreach (var item in Model)
+           {
+               
+              <tr>
+                  <td>@item.Street</td>
+                  <td>@item.City</td>
+                  <td>@item.Phone2</td>
+                  <td>@item.Phone</td>
+                  <td>@(item.FirstName + " " +item.LastName)</td>
+                  <td>@item.Id</td>
+              </tr>
+           }
+        }
+    </tbody>
+</table>

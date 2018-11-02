@@ -1,0 +1,67 @@
+﻿
+@model  Screenings 
+@using BussinessLayer     
+@{
+    ViewBag.Title = "AddImmusations";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@*אורית אוחיון*@
+<h2>AddImmusations</h2>
+@*<from action="@Url.Action("SelectLanguage")">*@
+  
+<body dir="rtl">
+        <form action=@Url.Action("AddImmusations") method="post" id="frm">
+            <div name="div1">
+                <h1>הוספת חיסון</h1>
+                <label>חיסון: </label>
+                <select id="sel" name="immunization">
+                    @{
+                        BL_AddImmunization blv = new BL_AddImmunization();
+                        List<immunizations> l = new List<immunizations>();
+                        l = blv.Draw_ImmusationList();
+                        foreach (var item in l)
+                        {
+                            <option value="@item.Code">@item.immunization</option>
+                        }
+                    }
+                </select>
+                <br />
+                <br />
+                <label>תאריך: </label>
+                <input id="Text1" type="date" name="SDate" />
+                <br />
+                <br />
+                <label>שנה:    </label>
+                <input id="Text1" type="text" name="Year" />
+                <br />
+                <br />
+                <label>הערות:    </label>
+                <textarea id="TextArea1" rows="2" cols="20" name="Text"></textarea>
+                <br />
+                <input id="Submit1" type="submit" value="הוסף" />
+            </div>
+        </form>
+        <!--<div>
+            <label>jחיסון:</label>
+            <br />
+            <label>תאריך:</label>
+            <br />
+            <label>שנה:</label>
+            <br />
+            <label>הערות:</label>
+
+        </div>
+        <div>
+            <select id="sel"></select>
+            <br />
+            <input id="Text1" type="text" />
+            <br />
+            <input id="Text1" type="text" />
+            <br />
+            <textarea id="TextArea1" rows="2" cols="20"></textarea>
+
+
+        </div>-->
+
+    </body>
+@*<</from>*@

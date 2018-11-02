@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "VisitReason";
+    Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
+}
+
+<h2>VisitReason</h2>
+
+@using (Html.BeginForm())
+{
+    <h2>@ViewBag.err</h2>
+    <div>
+        <label for="AgeOfMenarche" style="font-size:21px; font-weight:bold">General Wellness check-up  </label>
+        <input name="AgeOfMenarche" id="AgeOfMenarche" type="number" min="1" , max="120" value=@Html.DisplayFor(model => model.AgeOfMenarche) />
+        <br />
+        <br />
+        <br />
+        <label for="CycleRegular" style="font-size:21px; font-weight:bold">Are cycles regular?  </label> <select class="yesno" name="CycleRegular" id="CycleRegular" onload="Load2(CycleRegular)">
+            <option selected="selected">No</option>
+            <option>Yes</option>
+        </select>  <input name="CycleRegularT" id="CycleRegularT" type="text" value=@Html.DisplayFor(model => model.CycleRegularT)>
+        <br />
+        <br />
+        <br />
+        <label for="MenstrualSyptoms" style="font-size:17px">Any symptoms surrounding your menstrual cycle?  </label><select class="yesno" name="MenstrualSyptoms" id="MenstrualSyptoms" onload="Load3(MenstrualSyptoms)">
+            <option selected="selected">No</option>
+            <option>Yes</option>
+        </select>  <input name="MenstrualSyptomsT" id="MenstrualSyptomsT" type="text" value=@Html.DisplayFor(model => model.MenstrualSyptomsT)>
+        <br />
+        <br />
+        <br />
+        <label for="MenopauseSyptoms" style="font-size:17px">Any symptoms surrounding menopause?  </label>
+        <select class="yesno" name="MenopauseSyptoms" id="MenopauseSyptoms" onload="Load4(MenopauseSyptoms)">
+            <option name="MenopauseSyptoms" selected="selected">No</option>
+            <option name="MenopauseSyptoms">Yes</option>
+        </select>  <input name="MenopauseSyptomsT" id="MenopauseSyptomsT" type="text" value=@Html.DisplayFor(model => model.MenopauseSyptomsT)>
+        <br />
+        <br />
+        <br />
+        <label for="Contraception" style="font-size:21px; font-weight:bold">Contraception hx  </label>  <select class="yesno" name="Contraception" id="Contraception" onchange="visible()" onload="Load5(Contraception)">
+            <option selected="selected">No</option>
+            <option>Yes</option>
+        </select>  <select name="ContraceptionT" id="ContraceptionT" onload="Load6(id)" @*style="display:none"*@>
+            <option>Cerazette</option>
+            <option>Diane-35</option>
+            <option>Diaphragm</option>
+            <option>Feminet</option>
+            <option>IUD</option>
+            <option>Mercilon</option>
+            <option>Microlite</option>
+            <option>NuvaRing</option>
+            <option>Other</option>
+        </select>
+        <br />
+        <br />
+        <br />
+        <input id="Button1" type="submit" value="שמור" style="font-weight:bolder" onclick="ok()">
+    </div>

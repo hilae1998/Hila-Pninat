@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewBag.Title = "VisitSummary";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+
+
+@using DataAccessLayer;
+@using BussinesLayer;
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script>
+    $(document).ready(function () {
+
+
+
+        //הסתר את כל הפקדים בעלי הקלאס
+        enable_cb("block1");
+        enable_cb("block2");
+        enable_cb("obtain");
+        enable_cb("Check");
+        enable_cb("Referral");
+        //כשאר לוחצים על הפקד הראשי
+        $("#i3_1").click(function () {
+
+            enable_cb("block1", "#i3_1")
+        })
+
+        $("#i3_2").click(function () {
+
+            enable_cb("block2", "#i3_2")
+        })
+
+        $("#i3_8").click(function () {
+
+            enable_cb("obtain", "#i3_8")
+        })
+
+        $("#i3_9").click(function () {
+
+            enable_cb("Check", "#i3_9")
+        })
+
+        $("#i3_10").click(function () {
+
+            enable_cb("Referral", "#i3_10")
+        })
+
+
+        function enable_cb(string, a) {//פונקציה המקבלת את קלאס הפקדים להסתרה ואת  איידי הפקד הראשי
+            if ($(a).is(":checked"))//אם הפקד הראשי לחוץ
+                $("input." + string).prop("disabled", false);//הראה את כל הפקדים המוסתרים
+            else{
+                $("input." + string).prop("disabled", true);//הסתר את כל הפקדים המשוייכים
+                $("input." + string).prop("checked", false);//מחק את הסימונים במידה ומסומנים
+            }
+        }
+
+    });
+
+
+
+
+
+
+
+</script>
+
+
+<form action="@Url.Action("SavevisitSummary","VisitSummary")>
+
+    <div style=" width:450px;height:100px;font-family:Calibri">
+    <span style="font-size:larger;font-family:Calibri"><b>Health Care Maintenance:</b></span> <br />
+    diet, regular physical activity, calcium and vitamin D requirements,<br />
+    routine eye, skin and dental exams discussed with patient.<br />
+    Breast self exam instructed.<br />
+    Appropriate screening for age discussed with patient.
+    <select>
+        <option>Yes</option>
+        <option>No</option>
+    </select>
+    <br />
+    </div><br />
+    <label>
+        <b>follow up:</b>
+    </label>
+    <select name="FollowUp">
+        @{
+            BussinessLayer.BLVisitSummery blv = new BussinessLayer.BLVisitSummery();
+            List<FollowsUp> l = new List<FollowsUp>();
+            l = blv.getFollowUp();
+            foreach (var item in l)
+            {
+                <option value="@item.FollowUp">@item.FollowUp</option>
+            }
+        }
+    </select>
+
+
+
+    <b>RECOMMENDATION</b>
+
+    <div id="i1">
+        <input id="i1_1" type="checkbox" /> Glucose<br />
+        <input id="i1_2" type="checkbox" /> Lipid profile<br />
+        <input id="i1_3" type="checkbox" /> Liver function<br />
+        <input id="i1_4" type="checkbox" /> Renal profile<br />
+        <input id="i1_5" type="checkbox" /> Tsh<br />
+        <input id="i1_6" type="checkbox" />  Vitamin b12<br />
+        <input id="i1_7" type="checkbox" /> Folic acid<br />
+        <input id="i1_8" type="checkbox" />  Vitamin d<br />
+        <input id="i1_9" type="checkbox" />  Magnesium<br />
+        <input id="i1_10" type="checkbox" />  Iron<br />
+        <input id="i1_11" type="checkbox" />  Occult blood<br />
+
+
+    </div>
+    <div>
+        <input id="i1_12" type="checkbox" />  Ferritin<br />
+        <input id="i1_13" type="checkbox" />  Cbc<br />
+        <input id="i1_14" type="checkbox" />  Sodium<br />
+        <input id="i1_15" type="checkbox" />  Potassium<br />
+        <input id="i1_16" type="checkbox" />  Bun<br />
+        <input id="i1_17" type="checkbox" />  Hgba1c<br />
+        <input id="i1_18" type="checkbox" />  urinalysis<br />
+        <input id="i1_19" type="checkbox" /><input id="Text1" type="text" style="width:40px" /><br />
+        <input id="i1_20" type="checkbox" /><input id="Text1" type="text" style="width:40px" /><br />
+        <input id="i1_21" type="checkbox" /><input id="Text1" type="text" style="width:40px" /><br />
+    </div>
+    <div id="i2">
+        <input id="i2_1" type="checkbox" /> bmd<br />
+        <input id="i2_2" type="checkbox" /> Bone scan<br />
+        <input id="i2_3" type="checkbox" /> Breast us<br />
+        <input id="i2_4" type="checkbox" /> cbe<br />
+        <input id="i2_5" type="checkbox" /> colonoscopy<br />
+        <input id="i2_6" type="checkbox" /> Ct&nbsp;<input id="Text1" type="text" style="width:40px" /><br />
+        <input id="i2_7" type="checkbox" /> doppler<br />
+        <input id="i2_8" type="checkbox" /> ecc<br />
+        <input id="i2_9" type="checkbox" /> echo<br />
+        <input id="i2_10" type="checkbox" /> eeg<br />
+        <input id="i2_11" type="checkbox" /> emg<br />
+
+    </div>
+    <div>
+        <input id="i2_12" type="checkbox" /> gastroscopy<br />
+        <input id="i2_13" type="checkbox" /> nolter<br />
+        <input id="i2_14" type="checkbox" /> mammography<br />
+        <input id="i2_15" type="checkbox" /> mri&nbsp;<input id="Text1" type="text" style="width:40px" /><br />
+        <input id="i2_16" type="checkbox" /> pap<br />
+        <input id="i2_17" type="checkbox" /> sigmoidoscopy<br />
+        <input id="i2_18" type="checkbox" /> Pelvic us<br />
+        <input id="i2_19" type="checkbox" /> X-ray&nbsp;<input id="Text1" type="text" style="width:40px" /><br />
+        <input id="i2_20" type="checkbox" /> us&nbsp;<input id="Text1" type="text" style="width:40px" /><br />
+        <input id="i2_21" type="checkbox" />  <input id="Text1" type="text" style="width:40px" /><br />
+        <input id="i2_22" type="checkbox" /> <input id="Text1" type="text" style="width:40px" /><br />
+
+
+    </div>
+
+    <input id="i3_1" type="checkbox" />  Take vitamin d3<br />
+    &nbsp; &nbsp; &nbsp; <input id="i3_1_1" class="block1" type="checkbox" />  1000 IU daily, which is equivalent to 5 drops of 200 IU or 35 drops once  a week<br />
+    &nbsp; &nbsp; &nbsp; <input id="i3_1_2" class="block1" type="checkbox" />  2000 IU daily, which is either 5 drops of 400 IU or 35 drops once a week<br />
+    &nbsp; &nbsp; &nbsp; <input id="i3_1_3" class="block1" type="checkbox" />  Other&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    <input id="i3_2" type="checkbox" /> Take folic acid every day<br />
+    &nbsp; &nbsp;&nbsp; <input id="i3_2_1" class="block2" type="checkbox" /> 400 mcg<br />
+    &nbsp; &nbsp; &nbsp;<input id="i3_2_2" class="block2" type="checkbox" /> Other&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    <input id="i3_3" type="checkbox" />Take vitamin b12&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    <input id="i3_4" type="checkbox" /> Other vitamins&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    <input id="i3_5" type="checkbox" />Exercise for:&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    <input id="i3_6" type="checkbox" />Obtain pelvic ultrasound<br />
+    <input id="i3_7" type="checkbox" /> Do a clinical breast exam yearly<br />
+    <input id="i3_8" type="checkbox" />Obtain the following immunizations:<br />
+    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_1" />  the flu vaccine now and every winter&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_2" /> the tetanus vaccine now and once every 10 years&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_3" />  Pneumovax&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_4" /> Zoster&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_5" />  Hepatitis A vaccine&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_6" /> Hepatitis B vaccine&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    <input id="i3_9" type="checkbox" />  Check if you are immune to:<br />
+    &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_1" />  Hepatitis A<br />
+    &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_2" />  Hepatitis B<br />
+    &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_3" />  Other&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    <input id="i3_10" type="checkbox" /> Referral for:<br />
+    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_1" />  Pelvic floor exercises&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_2" /> Physical therapist&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_3" />  Physician – specialist&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_4" />  Psychologist&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_5" />  Registered dietitian&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_6" />  Sex therapist&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_7" />  social worker&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+    <input id="i3_11" type="checkbox" />  Prescription given for:&nbsp;<input id="Text1" type="text" style="width:150px" /><br />
+
+
+    <input id="Button1" type="button" value="הדפס המלצות" />
+    <input id="Button1" type="button" value="הדפס תיק רפואי" />
+    <input id="Button1" type="submit" value="סיום תיק רפואי" />
+    @Html.ActionLink("סיום תיק רפואי", "SavevisitSummary", "VisitSummary");
+
+
+
+
+</form>
+
+
+

@@ -1,0 +1,104 @@
+﻿@*Ma'ayan*@
+@using System.Collections.Generic;
+@using System.Web.Mvc;
+@using BussinesLayer;
+@model Bishvilaych.Controllers.MyPastMedical
+@{
+    ViewBag.Title = "PastMedical";
+    Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
+}
+                                                                         
+
+<h1 dir="rtl">אבחונים</h1>
+
+<table dir="rtl" style="width: 1000px; height: 150px">
+    <thead>
+        <tr>
+            <td><h2>קוד</h2></td>
+            <td><h2>סטאטוס</h2> </td>
+            <td><h2>אבחנה</h2> </td>
+            <td><h2>תאריך התחלה</h2> </td>
+            <td><h2>תאריך סיום</h2> </td>
+            <td><h2>נרשם על ידי</h2></td>
+        </tr>
+    </thead>
+    <tbody>
+           @foreach (Diagnozes item in Model.MyD)
+           {
+               if (Model.MyD!= null)
+               {
+                   var bd= item.BeginDate.ToShortDateString();
+                   var ed = item.EndDate.ToShortDateString();
+                   BLDiagnozes bld = new BLDiagnozes();
+                   string nd= bld.GetNameDiagnoze(item.Diagnoze).Single();
+                   string ns = bld.GetNameStatus(item.Diagnoze).Single();
+                   string nw = bld.GetNameWorker(item.Diagnoze).Single();
+
+                <tr>
+                    <td>@item.Code</td>
+                    <td>@ns</td>
+                    <td>@nd</td>
+                    <td>@bd</td>
+                    <td>@ed</td>
+                    <td>@nw</td>
+                </tr>
+               }
+           }               
+    </tbody>
+
+</table>               
+
+
+<li>@Html.ActionLink("מחק", "", "")</li>
+<li>@Html.ActionLink("ערוך", "", "")</li>
+<li>@Html.ActionLink("חדש", "Diagnoze", "Diagnoze")</li>
+
+
+<br />
+<br />
+<br />
+
+
+<h1 dir="rtl">אשפוזים</h1>
+
+<table dir="rtl" style="width: 1000px; height: 150px">
+    <thead>
+        <tr>
+            <td><h2>קוד</h2></td>
+            <td><h2>שנה</h2></td>
+            <td><h2>בית חולים</h2></td>
+            <td><h2>מחלקה</h2></td>
+            <td><h2>סיבה</h2></td>
+            <td><h2>נרשם על ידי</h2></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Hospitalizations item in Model.MyH)
+        {
+            if (Model.MyH!=null)
+            {
+                
+               
+                <tr>
+                    <td>@item.Code</td>
+                    <td>@item.Year</td>
+                    <td>פרוצדורה ביהח</td>
+                    <td>@item.Department</td>
+                    <td>@item.Reason</td>
+                    <td>פרוצדורה עובדת</td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+<li>@Html.ActionLink("מחק", "", "")</li>
+<li>@Html.ActionLink("ערוך", "", "")</li>
+<li>@Html.ActionLink("חדש", "Hospitalization", "Hospitalization")</li>
+
+<br />
+<br />
+<br />
+
+

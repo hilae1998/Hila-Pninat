@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "AddCustomer";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>הוספת לקוחה</h2>
+
+@model Customers
+
+@* תקינות תז, קלט מחרוזת , קלט מספרים *@
+<script>
+    
+    function b()
+    {
+    }
+           
+
+</script>
+
+<form action=@Url.Action("AddCustomer") method="post" >
+    <div>
+        <label>מספר זהות</label>
+        <input type="text" name="Id" /><br />
+        <label>שם פרטי</label>
+        <input type="text" name="FirstName"/><br />
+        <label>שם משפחה</label>
+        <input type="text" name="LastName"/><br />
+        <label>טלפון</label>
+        <input type="text" name="Phone"/><br />
+        <label>טלפון נוסף</label>
+        <input type="text" name="Phone2"/><br />
+        <label>רחוב</label>
+        <input type="text" name="Street"/><br />
+        <label>עיר</label>
+        <input type="text" name="City"/><br />
+
+        <input type="submit" value="הוסף"/>
+    </div>
+</form>
