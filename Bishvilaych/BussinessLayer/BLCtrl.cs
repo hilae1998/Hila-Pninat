@@ -64,8 +64,8 @@ namespace BussinessLayer
             {
                 return defaultItem;
             }
-            //if (f != null)
-            //    return f;
+            if (f != null)
+                return f;
             return defaultItem;
         }
 
@@ -145,8 +145,8 @@ namespace BussinessLayer
             {
                 return defaultItem;
             }
-            //if (f != null)
-            //    return f;
+            if (f != null)
+                return f;
             return defaultItem;
         }
 

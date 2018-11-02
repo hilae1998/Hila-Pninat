@@ -89,8 +89,7 @@ namespace BussinessLayer
             Params.Add("@id", BLCtrl.sendString(id1, ""));
            
             DataSet ds = dm.getSummary(Params);
-           
-            s.UpdateCode = BLCtrl.getInt(ds.Tables[0].Rows[0], "UpdateCode", 0);
+        
             s.Mentioned = BLCtrl.getBool( ds.Tables[0].Rows[0],"Mentioned",false);
             s.FollowUp = BLCtrl.getInt(ds.Tables[0].Rows[0], "FollowUp", 0);
         
