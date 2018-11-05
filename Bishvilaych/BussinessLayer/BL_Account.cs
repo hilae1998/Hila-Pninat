@@ -11,7 +11,7 @@ namespace BussinessLayer
     {
         public int Cheak_Username(int Id)
         {
-            //בלה בלה בלה
+            //בלה בלה בלה בלה
             //DA_Acount DP = new DA_Acount();
             //ListDictionary Params = new ListDictionary();
             //Params.Add("@id", Id);
