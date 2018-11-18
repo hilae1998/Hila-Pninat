@@ -29,7 +29,7 @@ namespace Bishvilaych1.Controllers
         {
             BLAddCustomer bl = new BLAddCustomer();
             int i = 0;
-            i = bl.CheckID(c.Id);
+        //    i = bl.CheckID(c.Id);
             if (i != 20)
             {
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 /// <summary>
 /// Summary description for Class1
 /// </summary>
@@ -7,6 +8,7 @@ public class Patiants
 {
     public int Code { get; set; }
     public string Id { get; set; }
+    [Required]
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Doctor { get; set; }

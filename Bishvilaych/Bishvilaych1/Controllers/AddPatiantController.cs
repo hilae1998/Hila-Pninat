@@ -22,20 +22,26 @@ namespace Bishvilaych.Controllers
             BL_AddPatiants b = new BL_AddPatiants();
             int i = 0;
             i = b.CheckID(s.Id);
-            if (i != 20)
+            if (i == 20)
             {
-
+                if (ModelState.IsValid)
+                {
+                    int result = b.Add_Patiants(s.Id, s.FirstName, s.LastName, s.Kupah);
+                    ViewBag.message = "מטופל נוסף למערכת בהצלחה";
+                    return View(new Patiants());
+                }
             }
             else
             {
-                int result = b.Add_Patiants(s.Id, s.FirstName, s.LastName, s.Kupah);
+                s.Id = "";
+                ModelState.AddModelError("Id", "מטופל קיים במערכת");
             }                     
-            return View();
+            return View(s);
         }
         [HttpGet]
         public ActionResult checkID(string ID)
         {
-            BussinessLayer.BL_AddPatiants b = new BussinessLayer.BL_AddPatiants();
+            BL_AddPatiants b = new BL_AddPatiants();
 
             int i;
             string messege;
@@ -43,7 +49,7 @@ namespace Bishvilaych.Controllers
             i = b.CheckID(ID);
             if (i == 20)
             {
-                messege = "מטופל נכנס למערכת בהצלחה";
+                messege = "";
             }
             else
             {
