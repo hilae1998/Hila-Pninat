@@ -49,6 +49,8 @@
     })
     })
 
+
+
     
 </script>
 <!DOCTYPE html>
@@ -62,24 +64,30 @@
         <form id="form1" method="post" action=@Url.Action("addWorker","AddWorker")>
             <div dir="rtl">
                 <fieldset style="margin-top:75px; height:390px; width:500px; box-shadow:150px;">
-                    <div style="margin-top:100px">
+                    <div style="margin-top:90px">
                         <h1 style="font-family:Arial;font-size:50px">הוספת עובדת</h1>
-                        <div>
-                            <label style="font-size:25px;font-family:Arial">מספר זהות:</label><br />
-                            <input id="Text1" type="text" maxlength="9" pattern="(?=.*\d)(?=.*[0-9]).{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" name="Id" />
+
+                        <div style="margin-right:0%; margin-left:55px">
+                            <label style="font-size:25px;font-family:Arial">מספר זהות:</label>
+                            <input id="Text1" type="text" maxlength="9" pattern="(?=.*\d)(?=.*[0-9]).{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" name="Id" placeholder="הכנס/י תעודת זהות" required/>
                         </div>
-                        <div>
-                            <label style="font-size:25px;font-family:Arial">שם פרטי:</label><br />
-                            <input id="Text2" type="text" maxlength="20" name="FirstName" />
+
+
+                        <div style="margin-right:0%; margin-left:80px">
+                            <label style="font-size:25px;font-family:Arial">שם פרטי:</label>
+                            <input id="Text2" type="text" maxlength="20" name="FirstName" placeholder="הכנס/י שם פרטי" required />
                         </div>
-                        <div>
-                            <label style="font-size:25px;font-family:Arial">שם משפחה:</label><br />
-                            <input id="Text3" type="text" name="LastName" maxlength="20" />
+
+                        <div style="margin-right:0%; margin-left:50px">
+                            <label style="font-size:25px;font-family:Arial">שם משפחה:</label>
+                            <input id="Text3" type="text" name="LastName" maxlength="20" placeholder="הכנס/י שם משפחה" required />
                         </div>
-                        <br />
-                        <input class="myButton" id="Submit1" type="submit" value="הוסף" />
-                        <br />
-                        <div id="idP"></div>
+
+                        <div id="idp"></div>
+                        <div style="margin-right:0%; margin-left:280px">
+                            <br /><br /><input class="myButton" id="Submit1" type="submit" value="הוסף" />
+                        </div>
+                        
                     </div>
                 </fieldset>
             </div>

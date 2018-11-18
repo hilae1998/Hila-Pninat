@@ -3,11 +3,38 @@
     ViewBag.Title = "AddCustomer";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
+@using DataAccessLayer;
+@using BussinesLayer;
+@using BussinessLayer;
 
-<h2>הוספת לקוחה</h2>
+@*@model Customers*@
+<style>
+    .myButton {
+        background-color: #dcdcdc;
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px;
+        border-radius: 7px;
+        border: 1px solid #dcdcdc;
+        display: inline-block;
+        cursor: pointer;
+        color: #777777;
+        font-family: Arial;
+        font-size: 17px;
+        font-weight: bold;
+        padding: 6px 14px;
+        text-decoration: none;
+        text-shadow: 0px 0px 0px #ffffff;
+    }
 
-@model Customers
+        .myButton:hover {
+            background-color: transparent;
+        }
 
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }
+</style>
 @* תקינות תז, קלט מחרוזת , קלט מספרים *@
 <script>
     
@@ -18,7 +45,7 @@
 
 </script>
 
-<form action=@Url.Action("AddCustomer") method="post" >
+@*<form action=@Url.Action("AddCustomer") method="post" >
     <div>
         <label>מספר זהות</label>
         <input type="text" name="Id" /><br />
@@ -37,4 +64,60 @@
 
         <input type="submit" value="הוסף"/>
     </div>
-</form>
+</form>*@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <center>
+        <form id="form1" action=@Url.Action("AddCustomer") method="post">
+            <div dir="rtl">
+                <fieldset style="margin-top:75px; height:390px; width:500px; box-shadow:150px;">
+                    <div style="margin-top:40px">
+                        <h1 style="font-family:Arial;font-size:50px">הוספת לקוחה</h1>
+
+                        <div style="margin-right:0%; margin-left:55px">
+                            <label style="font-size:25px;font-family:Arial">מספר זהות:</label>
+                            <input id="Text1" type="text" maxlength="9" pattern="(?=.*\d)(?=.*[0-9]).{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" name="Id" placeholder="הכנס/י תעודת זהות" required />
+                        </div>
+
+                        <div style="margin-right:0%; margin-left:80px">
+                            <label style="font-size:25px;font-family:Arial">שם פרטי:</label>
+                            <input id="Text2" type="text" maxlength="20" name="FirstName" placeholder="הכנס/י שם פרטי" required />
+                        </div>
+
+                        <div style="margin-right:0%; margin-left:50px">
+                            <label style="font-size:25px;font-family:Arial">שם משפחה:</label>
+                            <input id="Text3" type="text" name="LastName" maxlength="20" placeholder="הכנס/י שם משפחה" required />
+                        </div>
+                        <div style="margin-right:0%; margin-left:110px">
+                            <label style="font-size:25px;font-family:Arial">טלפון:</label>
+                            <input id="Text3" type="text" name="Phone" maxlength="15" pattern="(?=.*\d)(?=.*[0-9]).{7,15}" title="נא הקש/י מספר בעל 7 ספרות ומעלה" placeholder="הכנס/י מספר טלפון" required />
+                        </div>
+                        <div style="margin-right:0%; margin-left:60px">
+                            <label style="font-size:25px;font-family:Arial">טלפון נוסף:</label>
+                            <input id="Text3" type="text" name="Phone2" maxlength="15" pattern="(?=.*\d)(?=.*[0-9]).{7,15}" title="נא הקש/י מספר בעל 7 ספרות ומעלה" placeholder="הכנס/י מספר טלפון"/>
+                        </div>
+                        <div style="margin-right:0%; margin-left:113px">
+                            <label style="font-size:25px;font-family:Arial">רחוב:</label>
+                            <input id="Text3" type="text" name="Street" maxlength="40" placeholder="הכנס/י רחוב" required />
+                        </div>
+                        <div style="margin-right:0%; margin-left:125px">
+                            <label style="font-size:25px;font-family:Arial">עיר:</label>
+                            <input id="Text3" type="text" name="City" maxlength="20" placeholder="הכנס/י עיר" required />
+                        </div>
+                        
+                        <div style="margin-right:0%; margin-left:280px">
+                            <br /><input class="myButton" id="Submit1" type="submit" value="הוסף" />
+                        </div>
+                        <div id="idp"></div>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </center>
+</body>
+</html>

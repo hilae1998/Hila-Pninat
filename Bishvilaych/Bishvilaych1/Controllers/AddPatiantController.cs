@@ -47,7 +47,7 @@ namespace Bishvilaych.Controllers
             }
             else
             {
-                messege = "לקוח קיים במערכת";
+                messege = "מטופל קיים במערכת";
             }
             return Json(messege, JsonRequestBehavior.AllowGet);
 

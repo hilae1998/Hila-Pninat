@@ -15,14 +15,8 @@ namespace BussinessLayer
             //DA_Acount DP = new DA_Acount();
             //ListDictionary Params = new ListDictionary();
             //Params.Add("@id", Id);
-
             //int result = DP.Cheak_Username(Params);
             //return result;
-            //בהצלחהההה
-            //ffff
-            //fff
-            //ddd
-            //ffff
             return 0;
 
         }

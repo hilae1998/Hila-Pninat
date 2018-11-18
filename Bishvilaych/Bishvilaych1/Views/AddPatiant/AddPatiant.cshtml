@@ -52,7 +52,7 @@
 </script>
 
 <!DOCTYPE html>
-@*//אושרית אביוב*@
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
@@ -60,32 +60,36 @@
 <body>
     <center>
         <form id="form1" method="post" action="@Url.Action("addPatiant","AddPatiant")">
-            <div dir="rtl">
+            <div dir="rtl" >
                 <fieldset style="margin-top:75px; height:470px; width:500px; box-shadow:150px;">
-
-                    <div style="margin-top:150px">
+                    <div style="margin-top:90px">
                         <h1 style="font-family:Arial;font-size:50px">הוספת מטופלת</h1>
-                        <div>
-                            <label style="font-size:25px;font-family:Arial">מספר זהות:</label><br />
-                            <input id="Text1" type="text" name="Id" maxlength="9" pattern="(?=.*\d)(?=.*[0-9]).{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" />
+
+                        <div style="margin-right:0%; margin-left:55px">
+                            <label style="font-size:25px;font-family:Arial">מספר זהות:</label>
+                            <input id="Text1" type="text" name="Id" maxlength="9" pattern="(?=.*\d)(?=.*[0-9]).{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" placeholder="הכנס/י תעודת זהות" required/>
                         </div>
-                        <div>
-                            <label style="font-size:25px;font-family:Arial">שם פרטי:</label><br />
-                            <input id="Text2" type="text" name="FirstName" maxlength="20" />
+
+
+                        <div style="margin-right:0%; margin-left:80px">
+                            <label style="font-size:25px;font-family:Arial">שם פרטי:</label>
+                            <input id="Text2" type="text" name="FirstName" maxlength="20" placeholder="הכנס/י שם פרטי" required/>
                         </div>
-                        <div>
-                            <label style="font-size:25px;font-family:Arial">שם משפחה:</label><br />
-                            <input id="Text3" type="text" name="LastName" maxlength="20" />
+
+                        <div style="margin-right:0%; margin-left:50px">
+                            <label style="font-size:25px;font-family:Arial">שם משפחה:</label>
+                            <input id="Text3" type="text" name="LastName" maxlength="20" placeholder="הכנס/י שם משפחה" required/>
                         </div>
-                        <div>
-                            <label style="font-size:25px;font-family:Arial">קופות חולים:</label><br />
+
+                        <div style="margin-right:0%; margin-left:150px">
+                            <label style="font-size:25px;font-family:Arial">קופות חולים:</label>
                             @*<select id="select1">
                         <option selected="selected">לאומית</option>
                         <option>כללית</option>
                         <option>מאוחדת</option>
                         <option>מכבי</option>
                     </select>*@
-                            <select name="Kupah">
+                            <select name="Kupah" style="font-size:15px">
                                 @{
                                     BussinessLayer.BL_AddPatiants blv = new BussinessLayer.BL_AddPatiants();
                                     List<Kupot> l = new List<Kupot>();
@@ -96,9 +100,11 @@
                                     }
                                 }
                             </select>
-                            <div id="idp"></div>
                         </div>
-                        <input class="myButton" id="Submit1" type="submit" value="הוסף" />
+                        <div id="idp"></div>
+                        <div style="margin-right:0%; margin-left:280px">
+                            <br><input class="myButton" id="Submit1" type="submit" value="הוסף" />
+                        </div>
                     </div>
                 </fieldset>
             </div>
@@ -106,3 +112,4 @@
     </center>
 </body>
 </html>
+
