@@ -8,7 +8,6 @@ public class Patiants
 {
     public int Code { get; set; }
     public string Id { get; set; }
-    [Required]
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Doctor { get; set; }

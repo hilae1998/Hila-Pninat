@@ -24,6 +24,7 @@ namespace Bishvilaych.Controllers
             i = b.CheckID(s.Id);
             if (i == 20)
             {
+                ModelState.Remove("Id");
                 if (ModelState.IsValid)
                 {
                     int result = b.Add_Patiants(s.Id, s.FirstName, s.LastName, s.Kupah);
