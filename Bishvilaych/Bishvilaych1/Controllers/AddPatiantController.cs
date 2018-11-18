@@ -43,7 +43,7 @@ namespace Bishvilaych.Controllers
             i = b.CheckID(ID);
             if (i == 20)
             {
-                messege = "";
+                messege = "מטופל נכנס למערכת בהצלחה";
             }
             else
             {

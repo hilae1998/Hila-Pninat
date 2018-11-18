@@ -16,14 +16,50 @@ namespace Bishvilaych1.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public ActionResult AddCustomer(Customers c)
+        //{
+        //    BLAddCustomer bl = new BLAddCustomer();
+        //    int result = bl.Add_Customers(c.Id,c.FirstName,c.LastName,c.Phone,c.Phone2,c.City,c.Street);
+        //    return View(c);//המסך נסגר עם הודעה או מציג את הויו עם הנתונים
+        //}
+
         [HttpPost]
         public ActionResult AddCustomer(Customers c)
         {
             BLAddCustomer bl = new BLAddCustomer();
-            int result = bl.Add_Customers(c.Id,c.FirstName,c.LastName,c.Phone,c.Phone2,c.City,c.Street);
-            return View(c);//המסך נסגר עם הודעה או מציג את הויו עם הנתונים
-        }
+            int i = 0;
+            i = bl.CheckID(c.Id);
+            if (i != 20)
+            {
 
+            }
+            else
+            {
+                int result = bl.Add_Customers(c.Id, c.FirstName, c.LastName, c.Phone, c.Phone2, c.City, c.Street);
+            }
+            return View();
+        }
+        [HttpGet]
+        public ActionResult checkID(string ID)
+        {
+            BussinessLayer.BL_AddPatiants b = new BussinessLayer.BL_AddPatiants();
+
+            int i;
+            string messege;
+
+            i = b.CheckID(ID);
+            if (i == 20)
+            {
+                messege = "מטופל נכנס למערכת בהצלחה";
+            }
+            else
+            {
+                messege = "מטופל קיים במערכת";
+            }
+            return Json(messege, JsonRequestBehavior.AllowGet);
+
+        }
         //[System.Web.Services.WebMethod]
         //public bool LegalId(string s)
         //{

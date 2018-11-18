@@ -37,12 +37,19 @@
 </style>
 @* תקינות תז, קלט מחרוזת , קלט מספרים *@
 <script>
-    
-    function b()
-    {
-    }
-           
-
+    $(document).ready(function(){
+    $("#Text1").on("blur", function () {
+        $.ajax({
+            type: 'get',
+            url: "@Url.Action("checkID")",
+            data: { ID: $("#Text1").val() },
+            success: function (data) {
+                $("#idp").html("")
+            $("#idp").append(data)
+        },
+        error:function(){}})
+    })
+    })
 </script>
 
 @*<form action=@Url.Action("AddCustomer") method="post" >
