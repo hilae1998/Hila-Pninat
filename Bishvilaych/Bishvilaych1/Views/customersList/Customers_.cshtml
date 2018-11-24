@@ -1,54 +1,51 @@
-﻿@*לאה אמסלם*@
-@*20/6/18*@
+﻿
 
 @{
     ViewBag.Title = "Customers_";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
-}
 
+}
+@model List<Customers>
+@*מסך 42*@
 @using Bishvilaych.Controllers
 
-@model List<Customers>
- 
-@*בלחיצה כפולה תפתח טבלת לקוחה*@
-    <script type="text/javascript">
-       $(document).ready(function () {
-            $('table tr').dblclick(function () {
-                $.ajax({
-                    url: '@Url.Action("ReciepitsListOfCustomers", "ReciepitsListOfCustomersController")',
-                    type: 'POST',
-                    success: function (result) { }
-                });
-            });
-        });
-    </script>
+<style>
+    td {
+        text-align: center;
+    }
+</style>
 
+<script type="text/javascript">
+</script>
+@*בלחיצה כפולה תפתח טבלת לקוחה*@
 <h2 style="text-align:center">רשימת לקוחות</h2>
-<table dir="rtl" style="width:100%;" border="1" >
+<table class="table table-bordered" dir="ltr">
     <thead>
         <tr>
-            <td style="text-align:center" >רחוב</td>
-            <td style="text-align:center" >עיר</td>
-            <td style="text-align:center" >טלפון נוסף</td>
-            <td style="text-align:center" >טלפון</td>
-            <td style="text-align:center" >שם מלא</td>
-            <td style="text-align:center" >תעודת זהות</td>
+            <td>רחוב</td>
+            <td>עיר</td>
+            <td>טלפון נוסף</td>
+            <td>טלפון</td>
+            <td>שם מלא</td>
+            <td>תעודת זהות</td>
         </tr>
     </thead>
     <tbody>
         @{
-           foreach (var item in Model)
-           {
-               
-              <tr>
-                  <td>@item.Street</td>
-                  <td>@item.City</td>
-                  <td>@item.Phone2</td>
-                  <td>@item.Phone</td>
-                  <td>@(item.FirstName + " " +item.LastName)</td>
-                  <td>@item.Id</td>
-              </tr>
-           }
+            foreach (var item in Model)
+            {
+                if (item.Id != "")
+                {
+                    <tr ondblclick="location.href = '@(Url.Action("ReciepitsListOfCustomers", "ReciepitsListOfCustomers", new { Id = item.Id }))'">
+                        <td>@item.Street</td>
+                        <td>@item.City</td>
+                        <td>@item.Phone2</td>
+                        <td>@item.Phone</td>
+                        <td>@(item.FirstName + " " + item.LastName)</td>
+                        <td>@item.Id</td>
+                    </tr>
+                }
+            }
         }
     </tbody>
 </table>

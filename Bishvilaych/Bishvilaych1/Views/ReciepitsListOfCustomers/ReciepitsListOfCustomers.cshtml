@@ -1,28 +1,25 @@
-﻿
-
-@*Ayala Gozlan*@
+﻿@*מסך 43*@
 @*לא לשכוח ליצור קישור לדף 33*@
 
-    @{
-        ViewBag.Title = "ReciepitsListOfCustomers";
-        Layout = "~/Views/Shared/_LayoutPage.cshtml";
-    }
+@{
+    ViewBag.Title = "ReciepitsListOfCustomers";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
 
 @model Bishvilaych.Controllers.MyCustomersRecepitModels
 <form id="form1" dir="rtl">
 
+    <h2>לקוחה</h2>
+    <label>:מספר זהות</label>
+    <label>@Html.DisplayFor(model => model.MyC.Id)</label>
 
-<h2>לקוחה</h2>
-<label>:מספר זהות</label>
-<label>@Html.DisplayFor(model => model.MyC.Id)</label>
-
-<label>:שם מלא</label>
-<label>@Html.DisplayFor(model => model.MyC.FirstName)</label>
-<label>@Html.DisplayFor(model => model.MyC.LastName)</label>
+    <label>:שם מלא</label>
+    <label>@Html.DisplayFor(model => model.MyC.FirstName)</label>
+    <label>@Html.DisplayFor(model => model.MyC.LastName)</label>
 
 
     <h1>קבלות</h1>
-    <table id="tbl" class="table table-hover" style="width:70%">
+    <table id="tbl" dir="rtl" class="table table-hover" style="width:70%">
         <thead>
             <tr>
                 <td>תאריך</td>
@@ -52,9 +49,9 @@
 </form>
 
 <script type="text/javascript">
-// Popup window code
-function newPopup(url) {
-	popupWindow = window.open(
-		'/AddReceipt/AddReceipt', 'popUpWindow', 'height=600,width=600,left=650,top=150,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
-}
+    // Popup window code
+    function newPopup(url) {
+        popupWindow = window.open(
+            '/AddReceipt/AddReceipt', 'popUpWindow', 'height=600,width=600,left=650,top=150,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+    }
 </script>

@@ -174,7 +174,9 @@
     <Content Include="Procedure\update_followed_up.sql" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="scripts\jquery-1.10.2.js" />
+    <Content Include="scripts\bootstrap.min.css" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\jquery-3.3.1.min.js" />
     <Content Include="Views\AddPatiant1\AddPatiant.aspx" />
     <Content Include="Views\FollowedPatiant\Demography.aspx" />
     <Content Include="Views\FollowedPatiant\Patiants.aspx" />
@@ -186,7 +188,6 @@
     <Content Include="Views\ScreeningsKinds\ScreeningsKings.aspx" />
     <Content Include="Views\Sticker\Stiker.aspx" />
     <Content Include="Views\WorkerList\WorkersList.aspx" />
-    <Content Include="Views\Workers\Workers.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +296,7 @@
     <Content Include="Views\Sensitive\Sensitive.cshtml" />
     <Content Include="Views\Stiker\Stiker.cshtml" />
     <Content Include="Views\Visit_Summary\VisitSummary.cshtml" />
+    <Content Include="Views\Reciepts\Reciepts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
