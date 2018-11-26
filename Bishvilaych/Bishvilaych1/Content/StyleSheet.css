@@ -3,9 +3,14 @@
 body {
     /*#eacbe9*/
     background-size: cover;
-  
+   margin: 0;
+   padding:0;
+   font-family:Arial, Helvetica, sans-serif
 }
-
+html{
+    min-height:100%;
+     position:relative; 
+}
 
 .logo {
     width: 11%;
@@ -22,13 +27,20 @@ hr {
     width: 100%;
     margin: 0px;
 }
-
+#wrapper{
+    margin-bottom:20px;
+}
 footer {
-    margin-bottom: 0px;
-    padding-bottom: 0px;
+   bottom: 0;
+    left: 0;
+    right: 0;
+    height:20px;
     background-color: #810040;
     color: white;
     text-align: center;
+     position: absolute;
+     width:100%;
+     
 }
 
 /*------------------------------------------------*/
