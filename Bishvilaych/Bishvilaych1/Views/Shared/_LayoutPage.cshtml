@@ -6,8 +6,11 @@
     <title>@ViewBag.Title</title>
     <link href="../../Content/StyleSheet.css" rel="stylesheet" />
     <script src="~/scripts/jquery-3.3.1.min.js"></script>
-    <link href="~/scripts/bootstrap.min.css" rel="stylesheet" />
-    <script src="~/scripts/bootstrap.min.js"></script>
+    <link href="~/scripts/bootstrapRTL.min.css" rel="stylesheet" />
+    <link href="~/scripts/bootstrapRTL-theme.min.css" rel="stylesheet" />
+    <script src="~/scripts/bootstrapRTL.min.js"></script>
+    <link href="~/scripts/datatables.min.css" rel="stylesheet" />
+    <script src="~/scripts/datatables.min.js"></script>
 </head>
 
 <body>
@@ -15,7 +18,7 @@
         <img alt="לוגו" src="~/Images/logo 3d ivrit.jpg" class="logo" />
         <hr />
     </header>
-    <div>
+    <div id="wrapper">
         @RenderBody()
     </div>
     <footer>
