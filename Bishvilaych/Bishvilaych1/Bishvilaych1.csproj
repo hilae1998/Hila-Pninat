@@ -176,6 +176,11 @@
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.min.css" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\bootstrapRTL-theme.min.css" />
+    <Content Include="scripts\bootstrapRTL.min.css" />
+    <Content Include="scripts\bootstrapRTL.min.js" />
+    <Content Include="scripts\datatables.min.css" />
+    <Content Include="scripts\datatables.min.js" />
     <Content Include="scripts\jquery-3.3.1.min.js" />
     <Content Include="Views\AddPatiant1\AddPatiant.aspx" />
     <Content Include="Views\FollowedPatiant\Demography.aspx" />
