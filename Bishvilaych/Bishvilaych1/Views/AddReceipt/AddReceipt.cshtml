@@ -7,170 +7,182 @@
 }
 @*מסך 32-קבלה חדשה*@
 <script>
-    var count = 0;
-    function selectPay() {
-        var x = document.getElementById("PayBy").value
+    var count = 1;
+    function selectPay(select) {
+        var x = select.value
+        var divId = $(select).closest('section').attr('id')
         if (x == "אשראי") {
-            document.getElementById("Card").style.display = 'block'
-            document.getElementById("chequa").style.display = 'none'
-            document.getElementById("addPayment").style.display = 'block'
+            $("#" + divId + " .Card").show();
+            $("#" + divId + " .chequa").hide();
+            $("#" + divId + " .addPayment").show();
         }
         if (x == "שיק") {
-            document.getElementById("Card").style.display = 'none'
-            document.getElementById("chequa").style.display = 'block'
-            document.getElementById("addPayment").style.display = 'block'
+            $("#" + divId + " .Card").hide();
+            $("#" + divId + " .chequa").show();
+            $("#" + divId + " .addPayment").show();
         }
         if (x == "מזומן") {
-            document.getElementById("Card").style.display = 'none'
-            document.getElementById("chequa").style.display = 'none'
-            document.getElementById("addPayment").style.display = 'none'
+            $("#" + divId + " .Card").hide();
+            $("#" + divId + " .chequa").hide();
+            $("#" + divId + " .addPayment").hide();
         }
 
 
     }
 
-    function addPay()//הכפלת הדיב
+    function addPay(button)//הכפלת הדיב
     {
-        count++;
-        var elmnt = document.getElementsByName("div1")[0];
-        var cln = elmnt.cloneNode(true);
-        document.body.appendChild(cln);
+        if ($(button).val() === "הוסף תשלום") {
+            count++;
+            var elmnt = $("#div1")[0];
+            var cln = elmnt.cloneNode(true);
+            cln.setAttribute("id", 'div' + count)
+            $("#wrp").append("<hr/>")
+            $("#wrp").append(cln);
+           $(button).val("בטל הוספת תשלום")
+        }
+        else {
+            var divId = $(button).closest('section').attr('id')
+            var newId=parseInt(divId)+1;
+            $("#" +newId).remove()
+            count--;
+}
 
+        
     }
 
     function addOption() {
 
     }
-
+   
 
 </script>
 <style>
- 
     .btn-pink {
-        background-color: rgba(129, 0, 64, 0.88);    
+        background-color: rgba(129, 0, 64, 0.88);
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
         border: none;
         cursor: pointer;
-       
     }
 
         .btn-pink:hover {
             opacity: 0.8;
-            color:white;
+            color: white;
         }
-
 </style>
 <body dir="rtl">
     <h1 style="margin-right:20%">קבלה חדשה</h1><br />
     <form action="@Url.Action("AddReceipt")" method="post" id="frm" class="form-horizontal " dir="rtl" style="margin-right:20%">
-        <div name="div1">
-            <div class="form-group col-xs-4">
-                
+        <div id="wrp">
+            <section id="div1">
+                <div class="form-group col-xs-4">
+
                     <label class="control-label">תאריך:</label>
                     <input type="date" name="receiptDate" class="form-control " />
-              
-            </div>
 
-            <div class="form-group ">
-                <div class="col-xs-3">
-                    <label class="control-label">סכום:</label>
-                    <input type="text" name="Sum" class="form-control" required pattern="[+-]?([0-9]*[.])?[0-9]+" />
-                </div>
-            </div>
-
-            <div class="form-group ">
-                <div class="col-xs-4">
-                    <label class="control-label">אופן התשלום: </label>
-                    <select name="PayBy" id="PayBy" onchange="selectPay()" class="form-control">
-                        @{
-                            List<PayBy> p = new List<PayBy>();
-
-                        }
-                        <option>מזומן</option>
-                        <option>שיק</option>
-                        <option>אשראי</option>
-                        <option>העברה בנקאית</option>@*כמו מזומן*@
-                    </select>
-                </div>
-            </div>
-
-            <div name="chequa" id="chequa" class="disp">
-                <div class="form-group col-xs-4">
-                    
-                        <label id="chequaNum1" name="chequaNum1">שיק מספר: </label>
-                        <input id="chequaNum" name="chequaNum" type="text" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
-                   
                 </div>
 
-                <div class="form-group">
-                    <div class="col-xs-6">
-                        <label id="BankAccount1" name="BankAccount1">בנק: </label>
-                        <select id="BankAccount" name="BankAccount" class="form-control">
+                <div class="form-group ">
+                    <div class="col-xs-3">
+                        <label class="control-label">סכום:</label>
+                        <input type="text" name="Sum" class="form-control" required pattern="[+-]?([0-9]*[.])?[0-9]+" />
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-xs-4">
+                        <label class="control-label">אופן התשלום: </label>
+                        <select name="PayBy" onchange="selectPay(this)" class="PayBy form-control">
                             @{
-                                List<Banks> b = new List<Banks>();
-                                BLAddReceipt bl = new BLAddReceipt();
-                                b = bl.getAllBanks();
-                                foreach (var item in b)
-                                {
-                                    <option value="@item.BankNum">@item.BankName-@item.BankNum</option>
-                                }
+                                List<PayBy> p = new List<PayBy>();
+
                             }
+                            <option>מזומן</option>
+                            <option>שיק</option>
+                            <option>אשראי</option>
+                            <option>העברה בנקאית</option>@*כמו מזומן*@
                         </select>
                     </div>
                 </div>
-                <div class="form-group col-xs-4">
-                  
+
+                <div name="chequa" class="chequa disp">
+                    <div class="form-group col-xs-4">
+
+                        <label id="chequaNum1" name="chequaNum1">שיק מספר: </label>
+                        <input id="chequaNum" name="chequaNum" type="text" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-6">
+                            <label id="BankAccount1" name="BankAccount1">בנק: </label>
+                            <select id="BankAccount" name="BankAccount" class="form-control">
+                                @{
+                                    List<Banks> b = new List<Banks>();
+                                    BLAddReceipt bl = new BLAddReceipt();
+                                    b = bl.getAllBanks();
+                                    foreach (var item in b)
+                                    {
+                                        <option value="@item.BankNum">@item.BankName-@item.BankNum</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4">
+
                         <label class="control-label">סניף: </label>
                         <input type="text" name="Branch" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
-                    
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-4">
-                        <label class="control-label">מספר חשבון:  </label>
-                        <input type="text" name="PaymentNum" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-4">
+                            <label class="control-label">מספר חשבון:  </label>
+                            <input type="text" name="PaymentNum" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div name="Card" id="Card" class="disp">
-                <div class="form-group col-xs-4">
-                    
+                <div name="Card" class="Card disp">
+                    <div class="form-group col-xs-4">
+
                         <label class="control-label">סוג כרטיס: </label>
                         <select id="CardsKind" class="form-control">
                             <option>a</option>
                             <option>b</option>
                             <option>c</option>
                         </select>
-                   
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-4">
-                        <label class="control-label">מספר כרטיס: </label>
-                        <input type="text" name="CreditCard" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
+
                     </div>
-                </div>
-                <div class="form-group col-xs-4">
-                    
+                    <div class="form-group">
+                        <div class="col-xs-4">
+                            <label class="control-label">מספר כרטיס: </label>
+                            <input type="text" name="CreditCard" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4">
+
                         <label class="control-label">בתוקף: </label>
                         <input type="text" name="Validity" class="form-control" />
-                   
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-4">
-                        <label class="control-label">שם בעל הכרטיס: </label>
-                        <input type="text" name="name" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-4">
+                            <label class="control-label">שם בעל הכרטיס: </label>
+                            <input type="text" name="name" class="form-control" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <input id="addPayment" type="button" class="btn-pink btn disp col-xs-3" value="הוסף תשלום" onclick="addPay()" style="margin-left:4px"/>
-                <input id="Button2" type="submit" class="btn-pink btn col-xs-3" value="הדפס קבלה" />
-               
-            </div>
+                <div>
+                    <input type="button" class="addPayment btn-pink btn disp col-xs-3" value="הוסף תשלום" onclick="addPay(this)" style="margin-left:4px" />
 
+
+                </div>
+
+            </section>
         </div>
-
+        <input id="Button2" type="submit" class="btn-pink btn col-xs-3" value="הדפס קבלה" />
     </form>
 
 </body>
