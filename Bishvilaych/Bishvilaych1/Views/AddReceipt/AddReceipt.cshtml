@@ -15,49 +15,57 @@
             $("#" + divId + " .Card").show();
             $("#" + divId + " .chequa").hide();
             $("#" + divId + " .addPayment").show();
+            $("#" + divId + " .bankait").hide();
         }
         if (x == "שיק") {
             $("#" + divId + " .Card").hide();
             $("#" + divId + " .chequa").show();
             $("#" + divId + " .addPayment").show();
+            $("#" + divId + " .bankait").hide();
         }
         if (x == "מזומן") {
             $("#" + divId + " .Card").hide();
             $("#" + divId + " .chequa").hide();
-            $("#" + divId + " .addPayment").hide();
+            $("#" + divId + " .addPayment").show();
+            $("#" + divId + " .bankait").hide();
         }
+        if (x == "העברה בנקאית") {
 
-
+            $("#" + divId + " .Card").hide();
+            $("#" + divId + " .chequa").hide();
+            $("#" + divId + " .addPayment").show();
+            $("#" + divId + " .bankait").show();
+        }
     }
 
-    function addPay(button)//הכפלת הדיב
+    function addPay()//הכפלת הדיב
     {
-        if ($(button).val() === "הוסף תשלום") {
-            count++;
-            var elmnt = $("#div1")[0];
-            var cln = elmnt.cloneNode(true);
-            cln.setAttribute("id", 'div' + count)
-            $("#wrp").append("<hr/>")
-            $("#wrp").append(cln);
-           $(button).val("בטל הוספת תשלום")
-        }
-        else {
-            var divId = $(button).closest('section').attr('id')
-            var newId=parseInt(divId)+1;
-            $("#" +newId).remove()
-            count--;
-}
-
-        
+        var removebtn = "<a href='#' class='btn-pink btn col-xs-2' style='float:right' onclick='removediv(this)'>"
+                        + "<span class='glyphicon glyphicon-remove'></span> ביטול</a>"
+        count++;
+        var elmnt = $("#div1")[0];
+        var cln = elmnt.cloneNode(true);
+        cln.setAttribute("id", 'div' + count)
+        $("#wrp").append(cln);
+        $(cln).append(removebtn);
+        //$(cln).scrollTop($(cln).height())
     }
 
-    function addOption() {
-
+    function removediv(button) {
+        var divId = $(button).closest('section').attr('id')
+        var res = divId.split("div");
+        $("#div" + res[1]).remove();
+        $(button).remove();
+        count--;
     }
-   
+
 
 </script>
 <style>
+    .disp {
+        display: none;
+    }
+
     .btn-pink {
         background-color: rgba(129, 0, 64, 0.88);
         color: white;
@@ -76,21 +84,20 @@
     <h1 style="margin-right:20%">קבלה חדשה</h1><br />
     <form action="@Url.Action("AddReceipt")" method="post" id="frm" class="form-horizontal " dir="rtl" style="margin-right:20%">
         <div id="wrp">
-            <section id="div1">
+            <section id="div1" class="form-group">
+
                 <div class="form-group col-xs-4">
 
                     <label class="control-label">תאריך:</label>
                     <input type="date" name="receiptDate" class="form-control " />
 
                 </div>
-
                 <div class="form-group ">
                     <div class="col-xs-3">
                         <label class="control-label">סכום:</label>
                         <input type="text" name="Sum" class="form-control" required pattern="[+-]?([0-9]*[.])?[0-9]+" />
                     </div>
                 </div>
-
                 <div class="form-group ">
                     <div class="col-xs-4">
                         <label class="control-label">אופן התשלום: </label>
@@ -106,42 +113,41 @@
                         </select>
                     </div>
                 </div>
-
-                <div name="chequa" class="chequa disp">
-                    <div class="form-group col-xs-4">
+                <div name="chequa" class="chequa disp form-group">
+                    <div class="col-xs-4">
 
                         <label id="chequaNum1" name="chequaNum1">שיק מספר: </label>
                         <input id="chequaNum" name="chequaNum" type="text" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
 
                     </div>
-
-                    <div class="form-group">
-                        <div class="col-xs-6">
-                            <label id="BankAccount1" name="BankAccount1">בנק: </label>
-                            <select id="BankAccount" name="BankAccount" class="form-control">
-                                @{
-                                    List<Banks> b = new List<Banks>();
-                                    BLAddReceipt bl = new BLAddReceipt();
-                                    b = bl.getAllBanks();
-                                    foreach (var item in b)
-                                    {
-                                        <option value="@item.BankNum">@item.BankName-@item.BankNum</option>
-                                    }
+                </div>
+                <div class="bankait disp form-group ">
+                    <div class="col-xs-5">
+                        <label id="BankAccount1" name="BankAccount1">בנק: </label>
+                        <select id="BankAccount" name="BankAccount" class="form-control">
+                            @{
+                                List<Banks> b = new List<Banks>();
+                                BLAddReceipt bl = new BLAddReceipt();
+                                b = bl.getAllBanks();
+                                foreach (var item in b)
+                                {
+                                    <option value="@item.BankNum">@item.BankName-@item.BankNum</option>
                                 }
-                            </select>
-                        </div>
+                            }
+                        </select>
                     </div>
-                    <div class="form-group col-xs-4">
+
+                    <div class="col-xs-2">
 
                         <label class="control-label">סניף: </label>
                         <input type="text" name="Branch" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
 
                     </div>
-                    <div class="form-group">
-                        <div class="col-xs-4">
-                            <label class="control-label">מספר חשבון:  </label>
-                            <input type="text" name="PaymentNum" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
-                        </div>
+                    <div class="col-xs-3">
+
+                        <label class="control-label">מספר חשבון:  </label>
+                        <input type="text" name="PaymentNum" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
+
                     </div>
                 </div>
                 <div name="Card" class="Card disp">
@@ -175,19 +181,17 @@
                     </div>
                 </div>
                 <div>
-                    <input type="button" class="addPayment btn-pink btn disp col-xs-3" value="הוסף תשלום" onclick="addPay(this)" style="margin-left:4px" />
+                    <input type="button" class="addPayment btn-pink btn  col-xs-2" value="הוסף תשלום" onclick="addPay()" style="margin-left:4px" />
 
 
                 </div>
 
             </section>
         </div>
-        <input id="Button2" type="submit" class="btn-pink btn col-xs-3" value="הדפס קבלה" />
+        <div class="form-group">
+            <input id="Button2" type="submit" class="btn-pink btn col-xs-3" value="הדפס קבלה" style="left:10%;float:left" />
+        </div>
     </form>
 
 </body>
-<style>
-    .disp {
-        display: none;
-    }
-</style>
+
