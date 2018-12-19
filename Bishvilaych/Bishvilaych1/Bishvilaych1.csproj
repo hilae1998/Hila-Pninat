@@ -189,7 +189,6 @@
     <Content Include="Views\LifeStyleDr\Demography.aspx" />
     <Content Include="Views\Patiants\VisitReason.aspx" />
     <Content Include="Views\ReciepitsListOfCustomers\ReciepitsListOfCustomers.cshtml" />
-    <Content Include="Views\ReciepitsListOfPatiants\Reciepts.aspx" />
     <Content Include="Views\ScreeningsKinds\ScreeningsKings.aspx" />
     <Content Include="Views\Sticker\Stiker.aspx" />
     <Content Include="Views\WorkerList\WorkersList.aspx" />
