@@ -176,54 +176,51 @@ namespace DataAccessLayer
            
         }
 
-        // ExecuteNonQuery
-        public void ExecuteNonQuery(string ConnectionString, string StoredProcedure, ref ListDictionary Params)
-        {
-            SqlCommand cmd = new SqlCommand();
-            string param = null;
-            try
-            {
-                cmd.CommandText = StoredProcedure;
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = new SqlConnection(ConnectionString);
+        //// ExecuteNonQuery
+        //public void ExecuteNonQuery(string ConnectionString, string StoredProcedure, ref ListDictionary Params)
+        //{
+        //    SqlCommand cmd = new SqlCommand();
+        //    string param = null;
+        //    try
+        //    {
+        //        cmd.CommandText = StoredProcedure;
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.Connection = new SqlConnection(ConnectionString);
 
-                if (Params != null)
-                {
-                    foreach (string param_loopVariable in Params.Keys)
-                    {
-                        param = param_loopVariable;
-                        cmd.Parameters.AddWithValue(param, Params[param]);
-                    }
-                }
+        //        if (Params != null)
+        //        {
+        //            foreach (string param_loopVariable in Params.Keys)
+        //            {
+        //                param = param_loopVariable;
+        //                cmd.Parameters.AddWithValue(param, Params[param]);
+        //            }
+        //        }
 
-                cmd.Connection.Open();
-                cmd.ExecuteNonQuery();
-                cmd.Connection.Close();
+        //        cmd.Connection.Open();
+        //        cmd.ExecuteNonQuery();
+        //        cmd.Connection.Close();
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-                //to_do
-                //Logger.LoggerManager.Error("ExecuteNonQuery: " + StoredProcedure + ", " + ex.ToString());
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //        //to_do
+        //        //Logger.LoggerManager.Error("ExecuteNonQuery: " + StoredProcedure + ", " + ex.ToString());
+        //    }
+        //}
 
         // ExecuteNonQueryFunction - return integer
         public int ExecuteNonQueryFunction(string ConnectionString, string StoredProcedure, ref ListDictionary Params)
         {
             SqlCommand cmd = new SqlCommand();
             string param = null;
-            int returnvalue = -1;
-
+            int returnvalue = -1;//If the procedure runs successfully, the value changes to positiv num 
             try
             {
                 cmd.CommandText = StoredProcedure;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = new SqlConnection(ConnectionString);
-               // cmd.BeginExecuteReader();
-
-                if (Params != null)
+                if (Params != null)//add parameters to procedure
                 {
                     foreach (string param_loopVariable in Params.Keys)
                     {
@@ -231,22 +228,16 @@ namespace DataAccessLayer
                         cmd.Parameters.AddWithValue(param, Params[param]);
                     }
                 }
-
                 cmd.Parameters.Add("@myOut", SqlDbType.Int).Direction = ParameterDirection.Output;
-               // cmd.Parameters.Add("@result", SqlDbType.Int).Value = -1;
-
                 cmd.Connection.Open();
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();//execute the procedure
                 cmd.Connection.Close();
-
                 returnvalue = Convert.ToInt32(cmd.Parameters["@myOut"].Value);
-
             }
             catch (Exception ex)
             {
                 throw ex;
-                //to_do
-                //Logger.LoggerManager.Error("ExecuteNonQueryFunction: " + StoredProcedure + ", " + ex.ToString());
+                //TODO: throw exception to client side
             }
             return returnvalue;
         }

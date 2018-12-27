@@ -152,26 +152,6 @@
     <Content Include="Images\logo 3d.jpg" />
     <Content Include="Images\prod_big52660_3528.jpg" />
     <Content Include="Images\tapet.jpg" />
-    <Content Include="Procedure\AddOrUpdatePhysicalExam-ortal.sql" />
-    <Content Include="Procedure\Check_Customers.sql" />
-    <Content Include="Procedure\Check_Patiants.sql" />
-    <Content Include="Procedure\Check_Workers.sql" />
-    <Content Include="Procedure\GetAuthorizations.sql" />
-    <Content Include="Procedure\getCustomers.sql" />
-    <Content Include="Procedure\getCustomersById.sql" />
-    <Content Include="Procedure\getFolloaed_patient.sql" />
-    <Content Include="Procedure\GetJob.sql" />
-    <Content Include="Procedure\getKupot.sql" />
-    <Content Include="Procedure\getMaterialStatus.sql" />
-    <Content Include="Procedure\getPatiantsById.sql" />
-    <Content Include="Procedure\GetPhyicalExam-ortal.sql" />
-    <Content Include="Procedure\getReceipt.sql" />
-    <Content Include="Procedure\GetWorker.sql" />
-    <Content Include="Procedure\UpdatePatiant.sql" />
-    <Content Include="Procedure\UpdatePhysicalExam-ortal.sql" />
-    <Content Include="Procedure\UpdateUserNameAndPassword.sql" />
-    <Content Include="Procedure\UpdateWorker.sql" />
-    <Content Include="Procedure\update_followed_up.sql" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.min.css" />
@@ -299,6 +279,7 @@
     <Content Include="Views\Sensitive\Sensitive.cshtml" />
     <Content Include="Views\Stiker\Stiker.cshtml" />
     <Content Include="Views\Reciepts\Reciepts.cshtml" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

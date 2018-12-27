@@ -34,8 +34,7 @@ namespace DataAccessLayer
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
 
-        //insert, update...
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
+       
         public int Add_Patiants(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
