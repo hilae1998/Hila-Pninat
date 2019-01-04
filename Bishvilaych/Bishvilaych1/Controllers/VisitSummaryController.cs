@@ -11,29 +11,36 @@ namespace Bishvilaych.Controllers
     {
         BLVisitSummery b = new BLVisitSummery();
         public ActionResult VisitSummary()
-        {            
+        {
             return View();
         }
         [HttpPost]
-        public ActionResult SavevisitSummary(Reccomendations[] a, Summary[] b)
+        public ActionResult SavevisitSummary(Reccomendations[] a, Summary[] b)//עדכון/הוספת סיכום הביקור
         {
-
+            int result, result2;
             BussinessLayer.BLVisitSummery blv2 = new BussinessLayer.BLVisitSummery();
-            string aj = Session["Patiant"].ToString();
-            if (a != null) { 
-            foreach (var item in a)
-            {
-               
-               int result= blv2.UpdateReccomendations(DateTime.Today, Session["Patiant"].ToString(), item.Code, item.Reccomendation);
-            }}
-            if (b != null) { 
-            foreach (var item in b)
-            {
-                int result2 = blv2.UpdateSummary(DateTime.Today, Session["Patiant"].ToString(), item.Mentioned, item.FollowUp);
-            }}
-            return  RedirectToAction ("VisitSummary");
-
+            if (a != null && b != null) {
+                foreach (var item in a)
+                {
+                    result = blv2.UpdateReccomendations(DateTime.Today, Session["Patiant"].ToString(), item.Code, item.Reccomendation);
+                    if (result == -1)
+                    {
+                        return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                foreach (var item in b)
+                {
+                    result2 = blv2.UpdateSummary(DateTime.Today, Session["Patiant"].ToString(), item.Mentioned, item.FollowUp);
+                    if (result2 == -1)
+                    {
+                        return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json("הפעולה בוצעה בהצלחה", JsonRequestBehavior.AllowGet);
+            }
+            return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
         }
+    
 
        [HttpGet]
         public ActionResult getLastVisit()//פונקציה להחזרת האובייקט בתור גייסון

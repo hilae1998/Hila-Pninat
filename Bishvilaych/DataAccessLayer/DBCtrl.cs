@@ -239,6 +239,10 @@ namespace DataAccessLayer
                // throw ex;
                 //TODO: throw exception to client side
             }
+            finally
+            {
+                cmd.Connection.Close();
+            }
             return returnvalue;
         }
 

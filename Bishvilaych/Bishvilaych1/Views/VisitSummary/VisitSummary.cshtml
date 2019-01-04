@@ -40,18 +40,18 @@
                     }
                     $("#yesno").prop("selectedIndex", dictionary[dictionary.length - 1].Mentioned)//עדכון פקדי סלקט למידע הרצוי
                     switch (dictionary[dictionary.length - 1].FollowUp) {
-                     case 1:   {
-                         $("#Follo").prop("selectedIndex", 0)
-                         break;
-                     }
-                     case 2: {
-                         $("#Follo").prop("selectedIndex", 1)
-                         break;
-                     }
-                     case 3:{
-                         $("#Follo").prop("selectedIndex", 2)
-                         break;
-                     }
+                        case 1: {
+                            $("#Follo").val("To return to clinic for pap test");
+                            break;
+                        }
+                        case 2: {
+                            $("#Follo").val("Will be in touch with patient when results of pap(and labs) are available and if she doesn't hear from us in 6 weeks to get in touch with us")
+                            break;
+                        }
+                        case 3: {
+                            $("#Follo").val("Will be in touch with patient when labs are available and if she doesn't hear from us in 6 weeks to get in touch with us")
+                            break;
+                        }
                     }
                  //בדוק שוב אם יש פקדים שצריכים להסיר להם את החסימה
                     enable_cb("block1", "#i3_1")
@@ -93,15 +93,15 @@
             $("#yesno").prop("selectedIndex", ment)
             switch (foll) {
                 case 1: {
-                    $("#Follo").prop("selectedIndex", 0)
+                    $("#Follo").val("To return to clinic for pap test");
                     break;
                 }
                 case 2: {
-                    $("#Follo").prop("selectedIndex", 1)
+                    $("#Follo").val("Will be in touch with patient when results of pap(and labs) are available and if she doesn't hear from us in 6 weeks to get in touch with us")
                     break;
                 }
                 case 3: {
-                    $("#Follo").prop("selectedIndex", 2)
+                    $("#Follo").val("Will be in touch with patient when labs are available and if she doesn't hear from us in 6 weeks to get in touch with us")
                     break;
                 }
             }
@@ -113,13 +113,13 @@
                 enable_cb("Referral", "#i3_10")
         })
 
-        //הסתר את כל הפקדים בעלי הקלאס
+        //חסימת  כל הפקדים בעלי הקלאס
         enable_cb("block1");
         enable_cb("block2");
         enable_cb("obtain");
         enable_cb("Check");
         enable_cb("Referral");
-        // הסתרת קבוצות פקדים או הראתם בהתאם לראש הפקדים
+        // חסימת קבוצות פקדים או הראתם בהתאם לראש הפקדים
         $("#i3_1").click(function () {
 
             enable_cb("block1", "#i3_1")
@@ -148,7 +148,7 @@
                 $("input." + string).prop("disabled", false);//הראה את כל הפקדים המוסתרים
             }
             else {
-                $("input." + string).prop("disabled", true);//הסתר את כל הפקדים המשוייכים
+                $("input." + string).prop("disabled", true);//חסימת כל הפקדים המשוייכים
                 $("input." + string).prop("checked", false);//מחק את הסימונים במידה ומסומנים
             }
         }
@@ -184,9 +184,24 @@
 
             }) //end function each
             var dict2 = new Array();
+            var follo;
+            switch ($("#Follo").val()) {
+                case "To return to clinic for pap test": {
+                    follo = 1;
+                    break;
+                }
+                case "Will be in touch with patient when results of pap(and labs) are available and if she doesn't hear from us in 6 weeks to get in touch with us": {
+                    follo=2
+                    break;
+                }
+                case "Will be in touch with patient when labs are available and if she doesn't hear from us in 6 weeks to get in touch with us": {
+                    follo=3
+                    break;
+                }
+            }
             dict2.push({//מילוי אובייקט בנתוני הסלקט
                 Mentioned:  $("#yesno").prop("selectedIndex")==1?false:true,
-                FollowUp: $("#Follo").prop("selectedIndex"),
+                FollowUp: follo
 
             })
 
@@ -199,20 +214,23 @@
             data: JSON.stringify({ 'a': dict, 'b': dict2 }),
 
             success: function (result) {
-                $(".p_text").html("הפעולה בוצעה בהצלחה.")
+                $(".p_text").html(result)              
                 $('#myModal').modal('show');
                
 
             },
             error:function(){
-                $(".p_text").html("הפעולה נכשלה.")
+                $(".p_text").html(result)
                 $('#myModal').modal('show');
             }
         })
 
      })//end function click
-
+        $('#myModal').on('hidden.bs.modal', function () {
+            window.location.reload();
+        });
     });//end document.ready
+
 </script>
 <style>
     #lastvisit {
@@ -316,7 +334,7 @@
                 l = blv.getFollowUp();
                 foreach (var item in l)
                 {
-                    <option value="@item.Code">@item.FollowUp</option>
+                    <option >@item.FollowUp</option>
                 }
             }
         </select>
@@ -407,7 +425,7 @@
     &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_1" name="391" value="Hepatitis A" />  Hepatitis A<br />
     &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_2" name="392" value=" Hepatitis B">  Hepatitis B<br />
     &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_3" name="393" />  Other&nbsp;<input class="Check" name="r393" id="Text1" type="text" style="width:150px" /><br />
-    <input id="i3_10" type="checkbox" /> Referral for:<br />
+    <input id="i3_10" type="checkbox" name="310"/> Referral for:<br />
     &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_1" name="3101" />  Pelvic floor exercises&nbsp;<input class="Referral" name="r3101" id="Text1" type="text" style="width:150px" /><br />
     &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_2" name="3102" /> Physical therapist&nbsp;<input class="Referral" id="Text1" name="r3102" type="text" style="width:150px" /><br />
     &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_3" name="3103" />  Physician – specialist&nbsp;<input class="Referral" id="Text1" name="r3103" type="text" style="width:150px" /><br />
@@ -418,8 +436,8 @@
     <input id="i3_11" type="checkbox" name="311" />  Prescription given for:&nbsp;<input id="Text1" name="r311" type="text" style="width:150px" /><br />
 
 
-    <input id="Button2" type="button" value="הדפס המלצות" />
-    <input id="Button1" type="button" value="הדפס תיק רפואי" />
+    @*<input id="Button2" type="button" value="הדפס המלצות" />
+    <input id="Button1" type="button" value="הדפס תיק רפואי" />*@
     <input id="ButtonSubmit" type="button"  data-toggle="modal" @*data-target="#myModal"*@ value="סיום תיק רפואי" />
 
 
