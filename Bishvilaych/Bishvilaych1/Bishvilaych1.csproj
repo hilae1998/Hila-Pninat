@@ -162,6 +162,13 @@
     <Content Include="Images\tapet.jpg" />
     <Content Include="Images\txt.png" />
     <Content Include="Images\xls.png" />
+    <Content Include="ScannedPatientsDocuments\207446006\gfgf.png" />
+    <Content Include="ScannedPatientsDocuments\207446006\ו6ו6.jpg" />
+    <Content Include="ScannedPatientsDocuments\207446006\ייי.png" />
+    <Content Include="ScannedPatientsDocuments\311521421\20180110_124712.jpg" />
+    <Content Include="ScannedPatientsDocuments\311521421\20181203_200557-1.jpg" />
+    <Content Include="ScannedPatientsDocuments\311521421\ניני.png" />
+    <Content Include="ScannedPatientsDocuments\311521421\שחשס.png" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.min.css" />
@@ -283,6 +290,7 @@
     <Content Include="Views\Visit_Summary\VisitSummary.cshtml" />
     <Content Include="Views\LifeStyleDr\LifeStyleDr.cshtml" />
     <Content Include="Views\PastMedical\Edit1.cshtml" />
+    <Content Include="ScannedPatientsDocuments\311521421\מאמי" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -293,7 +301,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
-    <Folder Include="ScannedPatientsDocuments\" />
     <Folder Include="Views\AddLSNutritionist\" />
   </ItemGroup>
   <ItemGroup>
