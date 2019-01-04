@@ -220,18 +220,19 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(dict),
                 success: function (result) {
-                    $(".p_text").html("הפעולה בוצעה בהצלחה.")
+                    $(".p_text").html(result)
                     $('#myModal').modal('show');
-
-
                 },
                 error: function () {
-                    $(".p_text").html("הפעולה נכשלה.")
+                    $(".p_text").html(result)
                     $('#myModal').modal('show');
                 }
             })
 
         })//end function click
+        $('#myModal').on('hidden.bs.modal', function () {
+            window.location.reload();
+        });
     });
 
 

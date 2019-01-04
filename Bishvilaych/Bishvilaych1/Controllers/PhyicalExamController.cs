@@ -43,10 +43,10 @@ namespace Bishvilaych.Controllers
                 p.Toes, p.ToesT, p.Pattelar, p.PattelarT, p.Gait, p.GaitT, p.Speech, p.SpeechT,
                 p.Female, p.FemaleT, p.PelvicMucosa, p.Kegels, p.Cervix, p.VaginalWalls, p.VaginalWallsT, p.Pap, p.PapT);
                 if (result == 0)
-                    ViewBag.message = "הנתונים נשמרו בהצלחה";
+                    return Json("הנתונים נשמרו בהצלחה", JsonRequestBehavior.AllowGet);
                 else
-                    ViewBag.message = "התרחשה שגיאה";
-                return RedirectToAction("PhyicalExam");
+                    return Json("התרחשה שגיאה", JsonRequestBehavior.AllowGet);
+                
             }
             catch /*Exception e*/
             {
