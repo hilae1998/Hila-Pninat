@@ -34,7 +34,7 @@ namespace Bishvilaych.Controllers
             bool IsExist = System.IO.File.Exists(absolutePath);//
             if (file.ContentLength > 0)
             {
-                if (IsExist)//אם קיים מסמך בעל שם זהה
+                if (IsExist) //אם קיים מסמך בעל שם זהה
                 {
                     message = "קיים מסמך בעל שם זהה,נסה שם אחר";
                     return Json(message, JsonRequestBehavior.AllowGet);
