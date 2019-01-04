@@ -6,39 +6,114 @@
 
 <h2>DocumentScanner</h2>
 <script>
-    function AddRow()
-    {
-        // Find a <table> element with id="myTable":
-        var table = document.getElementById("Table");
-        // Create an empty <tr> element and add it to the 1st position of the table:
-        var row = table.insertRow(1);
-        // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        // Add some text to the new cells:
-        cell1.innerHTML = "NEW CELL1";
-        cell2.innerHTML = "NEW CELL2";
-        cell3.innerHTML = "NEW CELL3";
+    function upload() {
+        var formData = new FormData();
+        var totalFiles = document.getElementById("File1").files.length;
 
-        $('#File1').append('<p>שלום וברכה</p>');
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("File1").files[i];
+            var newname = $("#Text1").val()
+            formData.append("FileUpload", file);
+            formData.append("NewNameFile", newname);
+
+
+        }
+
+        $.ajax({
+            type: 'post',
+            url: "@Url.Action("DocumentScanner2", "DocumentScanner")",
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $(".p_text").html("הפעולה בוצעה בהצלחה.")
+                $('#myModal').modal('show');
+            },
+            error: function (error) {
+                $(".p_text").html("הפעולה בוצעה בהצלחה.")
+                $('#myModal').modal('show');
+            }
+        });
     }
-    //function Scan()
-    //{
-        
-    //}
+    function f(url) {
+        window.open("@"+url)
+    }
 </script>
 <div>
-    <input id="File1" type="file" onchange="AddRow()" /><input id="Text1" type="text" placeholder="שם מסמך" />
+
+    <input id="File1" type="file" name="file" />
+    <input id="Text1" name="newfilename" type="text" placeholder="שם מסמך" />
+    <input type="button" onclick="upload()" value="העלה" />
+
     <center>
-        <table id="Table" class="table table-hover" style="width:70%; border-style:initial; direction:rtl; color:white;font-size:20px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+        <table id="Table" class="table table-hover" style="width:70%; border-style:initial; direction:rtl; color:black;font-size:20px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
             <thead>
                 <tr style="background-color:darkgrey">
                     <td>תאריך</td>
                     <td>שם המסמך</td>
                     <td>&nbsp;</td>
                 </tr>
-            <thead>
+            </thead>
+            <tbody>
+                @{
+                    var files = Directory.GetFiles(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString() + "/"));
+                    if (files != null)
+                    {
+                        Exstension exs = new Exstension();
+                        FileInfo fInfo;
+                        foreach (var x in files)
+                        {
+                            fInfo = new FileInfo(x);
+                            var creation = fInfo.CreationTime;
+                            var fileName = Path.GetFileName(x);
+                            string ext = Path.GetExtension(x);
+                            string src = exs.DictExst[fileName.Split('.')[1]];
+                            string newpathforhtml = @"file:\\\" + fInfo.FullName;
+                            <tr>
+                                <td>@fInfo.CreationTime.ToShortDateString() </td>
+                                <td>@fileName.Split('.')[0]</td>
+                                <td>
+                                    @Html.ActionLink("ShowFileInNewTab", "ShowFileInNewTab", new {  path =  fInfo.FullName,type=fInfo.Extension })
+                                    @{
+                                        switch (ext)
+                                        {
+                                            case ".png":<img src="~/Images/FormatIcons/png.png" onclick="f(@fInfo.FullName)"/>
+                                                break;
+                                            case ".jpeg":<img src="~/Images/FormatIcons/jpg.png" onclick="f(@fInfo.FullName)"/>
+                                                break;
+                                            case ".pdf":<img src="~/Images/FormatIcons/pdf.png" onclick="f(@fInfo.FullName)"/>
+                                                break;
+                                            case ".jpg":<img src="~/Images/FormatIcons/jpg.png" onclick="f(@fInfo.FullName)"/>
+                                                break;
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                                            }
+                                        }
+                }
+            </tbody>
         </table>
     </center>
+   
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <p class="p_text"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">סגירה</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

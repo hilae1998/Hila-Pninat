@@ -10,17 +10,17 @@
 @using BussinesLayer;
 @model  Reccomendations
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
 <script>
     var dictionary = new Array();
     $(document).ready(function () {
-        $.ajax({//שולף לי את כל סיכומי הביקור,ומכניס לי לדיקשנרי
+        $.ajax({
             type: 'get',
             url: "@Url.Action("getLastVisit")",
             data:{},
-             success: function (result) {
-
+            success: function (result) {//בטעינת הדף,נשלפים כל סיכומי הביקור ומוכנסים לאובייקט
                     $.each(result, function (i) {
-                        var key= Object.keys(this)[0]//מביא לי את שם המפתח לדייט
+                        var key= Object.keys(this)[0]//מביא לי את שם המפתח לתאריך
                         var val= Object.keys(this)[1]//מביא לי את שם המפתח לרשימה
                         var follo = Object.keys(this)[2]//מביא לי את שם המפתח לפולו
                         var mention = Object.keys(this)[3]//מביא לי את שם המפתח למנשין
@@ -29,24 +29,22 @@
                             listRec:this[val],//מביא לי את הליסט
                             FollowUp: this[follo],//מביא לי את הפולו
                             Mentioned: this[mention]//מביא לי את המנשין
-
                         })
                     }) //end each function
-                    document.getElementById("MyForm").reset();   //אפס את הטופס
+                    document.getElementById("MyForm").reset();   //אפס את הטופס 
                     var list;
-                    list = dictionary[dictionary.length - 1].listRec//שלוף את הנתונים של היום לתוך ליסט
+                    list = dictionary[dictionary.length - 1].listRec//שלוף את הנתונים של היום-במידה וקיימים לתוך רשימה
                     for (var i = 0; i < list.length; i++) {//מלא את הטופס בנתונים של היום
                         $("input[name = '" + list[i].Code + "']").prop("checked",true)
                         $("input[name = 'r" + list[i].Code + "']").prop("value",list[i].Reccomendation)
                     }
-                    $("#yesno").prop("selectedIndex", dictionary[dictionary.length - 1].Mentioned)
+                    $("#yesno").prop("selectedIndex", dictionary[dictionary.length - 1].Mentioned)//עדכון פקדי סלקט למידע הרצוי
                     switch (dictionary[dictionary.length - 1].FollowUp) {
                      case 1:   {
                          $("#Follo").prop("selectedIndex", 0)
                          break;
                      }
                      case 2: {
-
                          $("#Follo").prop("selectedIndex", 1)
                          break;
                      }
@@ -69,20 +67,19 @@
         }
         }) //end ajax function
 
-        $(".herf").click(function () {//כאשר בוחרים תאיך
-
+        $(".herf").click(function () {//כאשר בוחרים תאריך עדכן את הפקדים בהתאם למידע השייך לאותו תאריך
+            var list, ment,foll;
             document.getElementById("MyForm").reset();//אפס את הטופס
-            if (this.title != $("#now").attr("title")) {//אם נכנסתה לתאריך שעבר,הפוך את כפתור השליחה ללא זמין
+            if (this.title != $("#now").attr("title")) //אם נכנסתה לתאריך שעבר,הפוך את כפתור השליחה ללא זמין
+            {
+                $("#ButtonSubmit").addClass("disablebutton")
                 $("#ButtonSubmit").prop("disabled", true);
             }
-            else
+            else {
                 $("#ButtonSubmit").prop("disabled", false);
-
-            var list;
-            var ment;
-            var foll;
+                $("#ButtonSubmit").removeClass("disablebutton")
+            }
             for (var i = 0; i < dictionary. length; i++) {
-
                if(this.title==dictionary[i].date){//שלוף את הנתונים של התאריך הנבחר
                    list = dictionary[i].listRec
                    ment = dictionary[i].Mentioned
@@ -100,7 +97,6 @@
                     break;
                 }
                 case 2: {
-
                     $("#Follo").prop("selectedIndex", 1)
                     break;
                 }
@@ -115,7 +111,7 @@
                 enable_cb("obtain", "#i3_8")
                 enable_cb("Check", "#i3_9")
                 enable_cb("Referral", "#i3_10")
-            })
+        })
 
         //הסתר את כל הפקדים בעלי הקלאס
         enable_cb("block1");
@@ -123,28 +119,23 @@
         enable_cb("obtain");
         enable_cb("Check");
         enable_cb("Referral");
-
-        //כשאר לוחצים על הפקד הראשי
+        // הסתרת קבוצות פקדים או הראתם בהתאם לראש הפקדים
         $("#i3_1").click(function () {
 
             enable_cb("block1", "#i3_1")
         })
-
         $("#i3_2").click(function () {
 
             enable_cb("block2", "#i3_2")
         })
-
         $("#i3_8").click(function () {
 
             enable_cb("obtain", "#i3_8")
         })
-
         $("#i3_9").click(function () {
 
             enable_cb("Check", "#i3_9")
         })
-
         $("#i3_10").click(function () {
 
             enable_cb("Referral", "#i3_10")
@@ -172,6 +163,7 @@
 
         $("#ButtonSubmit").click(function () {//כשלוחצים על סיום תיק רפואי
             var dict = new Array();
+
             $(":checkbox").each(function () {
                 if ($(this).prop("checked")== true) {
 
@@ -192,7 +184,6 @@
 
             }) //end function each
             var dict2 = new Array();
-
             dict2.push({//מילוי אובייקט בנתוני הסלקט
                 Mentioned:  $("#yesno").prop("selectedIndex")==1?false:true,
                 FollowUp: $("#Follo").prop("selectedIndex"),
@@ -208,11 +199,14 @@
             data: JSON.stringify({ 'a': dict, 'b': dict2 }),
 
             success: function (result) {
-
+                $(".p_text").html("הפעולה בוצעה בהצלחה.")
+                $('#myModal').modal('show');
+               
 
             },
             error:function(){
-                alert("error")
+                $(".p_text").html("הפעולה נכשלה.")
+                $('#myModal').modal('show');
             }
         })
 
@@ -256,7 +250,9 @@
         margin-left: 35%;
         color: #52172e;
     }
-
+    .disablebutton{
+ opacity: 0.8;
+    }
     input[type=button] {
         background-color: rgba(129, 0, 64, 0.88);
         color: white;
@@ -266,10 +262,7 @@
         cursor: pointer;
         width: 10%;
     }
-
-        input[type=button]:hover {
-            opacity: 0.8;
-        }
+    
 </style>
 
 
@@ -427,10 +420,29 @@
 
     <input id="Button2" type="button" value="הדפס המלצות" />
     <input id="Button1" type="button" value="הדפס תיק רפואי" />
-    <input id="ButtonSubmit" type="button" value="סיום תיק רפואי" />
+    <input id="ButtonSubmit" type="button"  data-toggle="modal" @*data-target="#myModal"*@ value="סיום תיק רפואי" />
 
 
 
 
 
 </form>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <p class="p_text"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">סגירה</button>
+            </div>
+        </div>
+
+    </div>
+</div>

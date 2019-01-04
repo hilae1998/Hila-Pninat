@@ -49,6 +49,7 @@
     <Compile Include="Customers.cs" />
     <Compile Include="DiagnozeKinds.cs" />
     <Compile Include="Diagnozes.cs" />
+    <Compile Include="Exstension.cs" />
     <Compile Include="FollowUp.cs" />
     <Compile Include="Hospitals.cs" />
     <Compile Include="Hospitalizations.cs" />

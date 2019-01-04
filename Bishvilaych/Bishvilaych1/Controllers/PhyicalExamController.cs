@@ -24,12 +24,12 @@ namespace Bishvilaych.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdatePhyicalExam(PhysicalExam p)
+        public ActionResult SavevPhyicalExam(PhysicalExam p)
         {
             try
             {
                 BLPhyicalExam bl = new BLPhyicalExam();
-                int result = bl.AddOrUpdatePhysicalExam1(Session["Patiant"].ToString(),
+                int result = bl.AddOrUpdatePhysicalExam1(DateTime.Today, Session["Patiant"].ToString(),
                 p.ApearsWell, p.ApearsWellT, p.PupilsEqual, p.PupilsEqualT, p.TmNormal, p.TmNormalT, p.Oropharynx,
                 p.OropharynxT, p.Atraumatic, p.AtraumaticT, p.HeentMucosa, p.HeentMucosaT, p.Supple,
                 p.SuppleT, p.thyromegaly, p.thyromegalyT, p.HeartsoundsRegular, p.HeartsoundsRegularT, p.Murmur,
@@ -42,11 +42,11 @@ namespace Bishvilaych.Controllers
                 p.EXTRash, p.EXTRashT, p.Varicosities, p.VaricositiesT, p.Pppx4, p.Pppx4T, p.PedalEdema, p.PedalEdemaT,
                 p.Toes, p.ToesT, p.Pattelar, p.PattelarT, p.Gait, p.GaitT, p.Speech, p.SpeechT,
                 p.Female, p.FemaleT, p.PelvicMucosa, p.Kegels, p.Cervix, p.VaginalWalls, p.VaginalWallsT, p.Pap, p.PapT);
-                if (result == 100)
+                if (result == 0)
                     ViewBag.message = "הנתונים נשמרו בהצלחה";
                 else
                     ViewBag.message = "התרחשה שגיאה";
-                return View(p);
+                return RedirectToAction("PhyicalExam");
             }
             catch /*Exception e*/
             {

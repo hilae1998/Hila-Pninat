@@ -4,37 +4,49 @@
 
 <!DOCTYPE html>
 <style>
-   ul {
-   
-    top:0px;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: rgba(129, 0, 64, 0.88);
-    border:2px solid #52172e;
-    font-family:Calibri;
-    font-size:15px;
-}
+     .disablebutton{
+ opacity: 0.8;
+    }
+    ul {
+        top: 0px;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: rgba(129, 0, 64, 0.88);
+        border: 2px solid #52172e;
+        font-family: Calibri;
+        font-size: 15px;
+    }
 
-li {
-    float: left;
-}
+    li {
+        float: left;
+    }
 
-li a {
-    display: inline-block;
-    color: #fff;
-    text-align: right;
-    padding: 15px 5.2px 15px 5.5px;
-    text-decoration: none;
-    border-right:solid 1px #fff
-}
+        li a {
+            display: inline-block;
+            color: #fff;
+            text-align: right;
+            padding: 15px 5.2px 15px 5.5px;
+            text-decoration: none;
+            border-right: solid 1px #fff;
+        }
 
-    li a:hover {
-        background-color: #cbacb8;
-        color: white;
- }
+            li a:hover {
+                background-color: #cbacb8;
+                color: white;
+            }
 
+    .modal-dialog {
+        text-align:center;
+        font-size:30px;
+        right: auto;
+        left: 0% !important;
+    }
+
+    input[type=button]:hover {
+        opacity: 0.8;
+    }
 </style>
 <html>
 <head>
@@ -56,7 +68,7 @@ li a {
         <li>@Html.ActionLink("תרופות ורגישויות", "MedicinesSensitive", "MedicinesSensitive")</li>
         <li>@Html.ActionLink("עבר רפואי", "PastMedical", "PastMedical")</li>
         <li>@Html.ActionLink("סיבת הביקור", "visitReason", "visitReason")</li>
-        <li>@Html.ActionLink("פרטים דמוגרפיים", "Demography", "Patiants")</li>       
+        <li>@Html.ActionLink("פרטים דמוגרפיים", "Demography", "Patiants")</li>
     </ul>
     <div>
         @RenderBody()

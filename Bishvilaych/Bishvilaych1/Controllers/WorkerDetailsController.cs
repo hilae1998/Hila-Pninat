@@ -59,14 +59,14 @@ namespace Bishvilaych.Controllers
         [HttpPost]
         public ActionResult updateWorker(Workers w)
         {
-           
+            ViewBag.validation = "";
             BLWorkerDetails b = new BLWorkerDetails();
             int result = b.UpdateWorker(Session["WorkerDetails"].ToString(),BLCtrl.sendString( w.FirstName,""), BLCtrl.sendString(w.LastName,"")
                ,BLCtrl.sendInt( w.Job,1),BLCtrl.sendInt( w.Authorization,1), BLCtrl.sendString(w.City,""), BLCtrl.sendString(w.Street,""), BLCtrl.sendString(w.Phone,"")
                , BLCtrl.sendString(w.Phone2,""), BLCtrl.sendString(w.Fax,""), BLCtrl.sendString(w.Email,""),BLCtrl.sendDateTime( w.BirthDate,new DateTime()));
             if (result == 0)
             {
-                ViewBag.validation = "נקבע בהצלחה";
+                ViewBag.validation = "הפרטים נקבעו בהצלחה";
               return  RedirectToAction("WorkerDetails");
             }
 

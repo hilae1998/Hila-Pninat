@@ -148,10 +148,19 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\flow.jpg" />
+    <Content Include="Images\FormatIcons\jpg.png" />
+    <Content Include="Images\FormatIcons\pdf .png" />
+    <Content Include="Images\FormatIcons\png.png" />
+    <Content Include="Images\FormatIcons\txt.png" />
+    <Content Include="Images\FormatIcons\xls.png" />
     <Content Include="Images\logo 3d ivrit.jpg" />
     <Content Include="Images\logo 3d.jpg" />
+    <Content Include="Images\pdf .png" />
+    <Content Include="Images\png.png" />
     <Content Include="Images\prod_big52660_3528.jpg" />
     <Content Include="Images\tapet.jpg" />
+    <Content Include="Images\txt.png" />
+    <Content Include="Images\xls.png" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.min.css" />
@@ -291,6 +300,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="ScannedPatientsDocuments\" />
     <Folder Include="Views\AddLSNutritionist\" />
   </ItemGroup>
   <ItemGroup>

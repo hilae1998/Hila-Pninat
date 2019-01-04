@@ -36,24 +36,24 @@ namespace Bishvilaych.Controllers
         }
 
        [HttpGet]
-        public ActionResult getLastVisit()
+        public ActionResult getLastVisit()//פונקציה להחזרת האובייקט בתור גייסון
         {
             List<MyDict> myl = new List<MyDict>();
             myl = funcGetAjax();
             return Json(myl, JsonRequestBehavior.AllowGet);
         }
-        private List<MyDict> funcGetAjax()
-        {
-            List<DateTime> l2 = new List<DateTime>();
-            l2 = b.get_updating(Session["Patiant"].ToString());
-            Summary s;
+        private List<MyDict> funcGetAjax()//פונקציה לטעינת כל סיכומי הביקור והכנסתם לאובייקט
+        {   Summary s;
             List<MyDict> myl = new List<MyDict>();
             MyDict j;
+            List<DateTime> l2 = new List<DateTime>();
+            List<Reccomendations> ListRecommendations;
+            l2 = b.get_updating(Session["Patiant"].ToString());// הרצת פרוצדורה לטעינת תאריכי עדכון קודמים         
             foreach (var item in l2)
             {
-                s = b.getSummary(item, Session["Patiant"].ToString());
+                s = b.getSummary(item, Session["Patiant"].ToString());//הפעלת פרוצדורה לטעינת סיכום בהתאם לתאריך
                 j = new MyDict();
-                List<Reccomendations> ListRecommendations = new List<Reccomendations>();
+                ListRecommendations = new List<Reccomendations>();
                 ListRecommendations = b.getReccomendations(item, Session["Patiant"].ToString());
                 DateTime t = new DateTime(item.Year, item.Month, item.Day);
                 j.date = t.ToShortDateString();

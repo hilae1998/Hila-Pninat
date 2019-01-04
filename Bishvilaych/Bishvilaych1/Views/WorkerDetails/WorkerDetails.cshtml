@@ -53,20 +53,20 @@
 </style>
 
     <script>
-    
-        $(document).ready(function(){
+        function check() {
             $("#UserName1").on("blur", function () {
                
                 $.ajax({
                     type: 'get',
                     url: "@Url.Action("checkusername")",
                     data: { value: $("#UserName1").val() },
-                    success: function (data) {
-                        $("#user").append(data)
-                    },
-                    error:function(){}})
-            })
-                    
+                success: function (data) {
+                    $("#user").append(data)
+                },
+                error:function(){}})
+        })
+        }
+        $(document).ready(function(){       
                 $("#message").hide()
            
             // When the user clicks on the password field, show the message box
@@ -115,8 +115,13 @@
             })
             
             })
-        
-                
+        function showResetPassword()
+        {
+            $("#ResetPassword").show()
+        }
+        function splitime() {
+           alert($("#date").val().split(" ")[0])
+        }
     </script>
 
 
@@ -152,14 +157,16 @@
         <input  name="Phone2" type="text" style="width:150px"value="@Model.Phone2" />טלפון נוסף<br />
         <input  name="Fax" type="text" style="width:150px" value="@Model.Fax"/>פקס<br />
         <input  name="Email" type="text" style="width:150px" value="@Model.Email"/>אימייל<br />
-        <input  name="BirthDate" type="datetime" value="@Model.BirthDate" />תאריך לידה<br />
+        <input id="date" name="BirthDate" type="datetime" onchange="splitime()" value="@Model.BirthDate" />תאריך לידה<br />
     </div>
     <input id="Submit1" type="submit" value="עדכן" />
 </form>
-<div>
+<div>@this.ViewBag.validation </div>
+<input type="button" onclick="showResetPassword()" value="קביעת סיסמא חדשה"/>
+<div id="ResetPassword" hidden>
    <form id=form2 action="@Url.Action("SetUserNameAndPassword","WorkerDetails")" method="post">
         <label>קביעת שם משתמש וסיסמא</label><br />
-        <input id="UserName1" name="username"  maxlength="10" type="text" required placeholder=" שם משתמש לא יותר מ10 תווים"/>שם משתמש<br />
+        <input onblur="check()" id="UserName1" name="username"  maxlength="10" type="text" required placeholder="שם משתמש לא יותר מ10 תווים"/>שם משתמש<br />
         <input id="Password1" title="לפחות אות אחת,לפחות ספרה אחת,לפחות 6 תווים" name="password" pattern="(?=.*\d)(?=.*[a-z-A-Z]).{6,10}" maxlength="10" type="password" required placeholder="סיסמא בת 6-10 תווים"/>סיסמא<br />
          <input id="rd1"  type="submit" value="אישור"/><br />
        <div id="message">
@@ -171,6 +178,7 @@
        <div id="user" style="width:100px;height:50px;color:red;"></div>
     </form>
 </div>
+
 
 
 

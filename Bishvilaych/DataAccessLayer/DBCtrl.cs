@@ -236,7 +236,7 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                throw ex;
+               // throw ex;
                 //TODO: throw exception to client side
             }
             return returnvalue;
