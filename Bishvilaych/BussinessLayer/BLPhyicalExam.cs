@@ -1,6 +1,7 @@
 ﻿using BussinessLayer;
 using DataAccessLayer;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
 //craet BLPhyicalExam by ortal alon
@@ -16,6 +17,7 @@ namespace BussinesLayer
             Params.Add("@id", id);
             DataSet ds = dap.GetPhyicalExam(Params);
             PhysicalExam p = new PhysicalExam();
+            p.PupilsEqualT= BLCtrl.getString(ds.Tables[0].Rows[0], "PupilsEqualT", "");
             p.UpdateCode = BLCtrl.getInt( ds.Tables[0].Rows[0],"UpdateCode",0);
             p.ApearsWell = BLCtrl.getBool( ds.Tables[0].Rows[0],"ApearsWell",false);
             p.ApearsWellT = BLCtrl.getString(ds.Tables[0].Rows[0], "ApearsWellT","");
@@ -104,7 +106,7 @@ namespace BussinesLayer
         //    throw new NotImplementedException();
         //}
 
-        public int AddOrUpdatePhysicalExam1(string id,           
+        public int AddOrUpdatePhysicalExam1(DateTime date,string id,           
          bool ApearsWell ,
          string ApearsWellT ,
          bool PupilsEqual ,
@@ -188,7 +190,7 @@ namespace BussinesLayer
         {
             DAPhyicalExam dm = new DAPhyicalExam();
             ListDictionary Params = new ListDictionary();
-           
+            Params.Add("@date", BLCtrl.sendDateTime(date, new DateTime()));
             Params.Add("@id",BLCtrl.sendString( id,""));
             Params.Add("@ApearsWell2", BLCtrl.sendBool(ApearsWell,false));
             Params.Add("@ApearsWellT2",BLCtrl.sendString( ApearsWellT,""));
@@ -273,6 +275,29 @@ namespace BussinesLayer
            
             int result = dm.AddOrUpdatePhysicalExam(Params);
             return result;
+        }
+        public List<DateTime> get_updating(string id1)
+        {
+
+            VisitSummary dm = new VisitSummary();
+            ListDictionary Params = new ListDictionary();
+            Params.Add("@id", id1);
+
+            DataSet ds = dm.get_Updating(Params);
+            List<DateTime> l = new List<DateTime>();
+            DateTime f;
+
+            foreach (DataRow item in ds.Tables[0].Rows)
+            {
+                f = new DateTime();
+                f = item.Field<DateTime>("UpdateDate");
+                l.Add(f);
+            }
+
+            return l;
+
+
+
         }
     }
 }

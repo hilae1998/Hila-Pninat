@@ -11,49 +11,56 @@ namespace Bishvilaych.Controllers
     {
         BLVisitSummery b = new BLVisitSummery();
         public ActionResult VisitSummary()
-        {            
+        {
             return View();
         }
         [HttpPost]
-        public ActionResult SavevisitSummary(Reccomendations[] a, Summary[] b)
+        public ActionResult SavevisitSummary(Reccomendations[] a, Summary[] b)//עדכון/הוספת סיכום הביקור
         {
-
+            int result, result2;
             BussinessLayer.BLVisitSummery blv2 = new BussinessLayer.BLVisitSummery();
-            string aj = Session["Patiant"].ToString();
-            if (a != null) { 
-            foreach (var item in a)
-            {
-               
-               int result= blv2.UpdateReccomendations(DateTime.Today, Session["Patiant"].ToString(), item.Code, item.Reccomendation);
-            }}
-            if (b != null) { 
-            foreach (var item in b)
-            {
-                int result2 = blv2.UpdateSummary(DateTime.Today, Session["Patiant"].ToString(), item.Mentioned, item.FollowUp);
-            }}
-            return  RedirectToAction ("VisitSummary");
-
+            if (a != null && b != null) {
+                foreach (var item in a)
+                {
+                    result = blv2.UpdateReccomendations(DateTime.Today, Session["Patiant"].ToString(), item.Code, item.Reccomendation);
+                    if (result == -1)
+                    {
+                        return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                foreach (var item in b)
+                {
+                    result2 = blv2.UpdateSummary(DateTime.Today, Session["Patiant"].ToString(), item.Mentioned, item.FollowUp);
+                    if (result2 == -1)
+                    {
+                        return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json("הפעולה בוצעה בהצלחה", JsonRequestBehavior.AllowGet);
+            }
+            return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
         }
+    
 
        [HttpGet]
-        public ActionResult getLastVisit()
+        public ActionResult getLastVisit()//פונקציה להחזרת האובייקט בתור גייסון
         {
             List<MyDict> myl = new List<MyDict>();
             myl = funcGetAjax();
             return Json(myl, JsonRequestBehavior.AllowGet);
         }
-        private List<MyDict> funcGetAjax()
-        {
-            List<DateTime> l2 = new List<DateTime>();
-            l2 = b.get_updating(Session["Patiant"].ToString());
-            Summary s;
+        private List<MyDict> funcGetAjax()//פונקציה לטעינת כל סיכומי הביקור והכנסתם לאובייקט
+        {   Summary s;
             List<MyDict> myl = new List<MyDict>();
             MyDict j;
+            List<DateTime> l2 = new List<DateTime>();
+            List<Reccomendations> ListRecommendations;
+            l2 = b.get_updating(Session["Patiant"].ToString());// הרצת פרוצדורה לטעינת תאריכי עדכון קודמים         
             foreach (var item in l2)
             {
-                s = b.getSummary(item, Session["Patiant"].ToString());
+                s = b.getSummary(item, Session["Patiant"].ToString());//הפעלת פרוצדורה לטעינת סיכום בהתאם לתאריך
                 j = new MyDict();
-                List<Reccomendations> ListRecommendations = new List<Reccomendations>();
+                ListRecommendations = new List<Reccomendations>();
                 ListRecommendations = b.getReccomendations(item, Session["Patiant"].ToString());
                 DateTime t = new DateTime(item.Year, item.Month, item.Day);
                 j.date = t.ToShortDateString();

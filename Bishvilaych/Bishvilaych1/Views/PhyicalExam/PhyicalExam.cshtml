@@ -3,39 +3,57 @@
     ViewBag.Title = "PhyicalExam";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
-@using Bishvilaych.Controllers
+
+@using DataAccessLayer;
+@using BussinesLayer;
 @model PhysicalExam
 <style>
-     ul {
-   
-    top:0px;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: rgba(129, 0, 64, 0.88);
-    border:2px solid #52172e;
-    font-family:Calibri;
-    font-size:15px;
-}
+    ul {
+        top: 0px;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: rgba(129, 0, 64, 0.88);
+        border: 2px solid #52172e;
+        font-family: Calibri;
+        font-size: 15px;
+    }
 
-li {
-    float: left;
-}
+    li {
+        float: left;
+    }
 
-li a {
-    display: inline-block;
-    color: #fff;
-    text-align: right;
-    padding: 15px 5.2px 15px 5.5px;
-    text-decoration: none;
-    border-right:solid 1px #fff
-}
+    #lastvisit {
+        border: 2px solid #52172e;
+        padding: 10px 10px 2px 10px;
+        width: 130px;
+        color: #52172e;
+        overflow: auto;
+        text-align: center;
+        margin-left: 89%;
+        position: fixed;
+        background-color: #ffffff;
+    }
 
-    li a:hover {
-        background-color: #cbacb8;
-        color: white;
- }
+        #lastvisit a {
+            color: #52172e;
+            font-size: 20px;
+        }
+
+    li a {
+        display: inline-block;
+        color: #fff;
+        text-align: right;
+        padding: 15px 5.2px 15px 5.5px;
+        text-decoration: none;
+        border-right: solid 1px #fff;
+    }
+
+        li a:hover {
+            background-color: #cbacb8;
+            color: white;
+        }
 </style>
 <script>
     var dictionary = new Array();
@@ -43,35 +61,93 @@ li a {
         $.ajax({//שולף לי את כל סיכומי הביקור,ומכניס לי לדיקשנרי
             type: 'get',
             url: "@Url.Action("getLastVisit")",
-            data:{},
+            data: {},
             success: function (result) {
-                
-            $.each(result, function (i) {
-                var key= Object.keys(this)[0]//מביא לי את שם המפתח לדייט
-                var val= Object.keys(this)[1]//מביא לי את שם המפתח לרשימה
-               
-                dictionary.push({
-                    date: this[key],//מביא לי את התאריך
-                    listRec:this[val],//מביא לי את הליסט
-                    
 
-                })
-            }) //end each function    
-          //  document.getElementById("MyForm").reset();   //אפס את הטופס                          
-            var list;
-            list = dictionary[dictionary.length - 1].listRec//שלוף את הנתונים של היום לתוך ליסט
-                                 
-            //$("input[name = '" + list[ApearsWell] + "']").prop(list[ApearsWell]==0?"checked", true)
-            //$("input[name = '" + list[ApearsWellT] + "']").val(list.ApearsWellT)
+                $.each(result, function (i) {
+                    var key = Object.keys(this)[0]//מביא לי את שם המפתח לדייט
+                    var val = Object.keys(this)[1]//מביא לי את שם המפתח לרשימה
 
-           
-           
-        },                                                                                                          
-                 
-        error: function () {
-            alert("error")                       
-        }
-    }) //end ajax function
+                    dictionary.push({
+                        date: this[key],//מביא לי את התאריך
+                        listRec: this[val],//מביא לי את הליסט
+
+
+                    })
+                }) //end each function
+                //document.getElementById("MyForm").reset();   //אפס את הטופס
+                //שלוף את הנתונים של היום ומלא את הנתונים באלמנטים
+                for (var key in dictionary[dictionary.length - 1].listRec) {
+                    var theinput = document.getElementsByName(key)[0];
+                    if (theinput != undefined) {
+                        var type = theinput.type;
+                        switch (type) {
+                            case "text":
+                                $(theinput).val(dictionary[dictionary.length - 1].listRec[key]);
+                                break;
+                            case "checkbox":
+                                $(theinput).prop("checked", dictionary[dictionary.length - 1].listRec[key]);
+                                break;
+                            case "select-one":
+                                $(theinput).val(dictionary[dictionary.length - 1].listRec[key]);
+                                break;
+                        }//end switch
+                    }//end if
+                };//end for
+                //הצגת תיבות הטקסט במידה והצקבוקסים בחורים
+                if ($("#Checkbox40").is(":checked"))
+                    $("#Text40").css('display', 'inline-block');
+                if ($("#Checkbox41").is(":checked"))
+                    $("#select41").css('display', 'inline-block');
+                if ($("#Checkbox25").is(":checked"))
+                    $("#select25").css('display', 'inline-block');
+            },
+
+            error: function () {
+                alert("error")
+            }
+        }) //end ajax function
+        $(".herf").click(function () {//כאשר בוחרים תאריך עדכן את הפקדים בהתאם למידע השייך לאותו תאריך
+            //$('#MyForm')[0].reset();//אפס את הטופס
+            if (this.title != $("#now").attr("title")) //אם נכנסתה לתאריך שעבר,הפוך את כפתור השליחה ללא זמין
+            {
+                $("#ButtonSubmit").addClass("disablebutton")
+                $("#ButtonSubmit").prop("disabled", true);
+            }
+            else {
+                $("#ButtonSubmit").prop("disabled", false);
+                $("#ButtonSubmit").removeClass("disablebutton")
+            }
+            for (var i = 0; i < dictionary.length; i++) {
+                if (this.title == dictionary[i].date) {//שלוף את הנתונים של התאריך הנבחר ומלא אותם בפקדים
+                    for (var key in dictionary[i].listRec) {
+                        var theinput = document.getElementsByName(key)[0];
+                        if (theinput != undefined) {
+                            var type = theinput.type;
+                            switch (type) {
+                                case "text":
+                                    $(theinput).val(dictionary[i].listRec[key]);
+                                    break;
+                                case "checkbox":
+                                    $(theinput).prop("checked", dictionary[i].listRec[key]);
+                                    break;
+                                case "select-one":
+                                    $(theinput).val(dictionary[i].listRec[key]);
+                                    break;
+                            }//end switch
+                        }//end if
+                    };//end for
+                    //הצגת תיבות הטקסט במידה והצקבוקסים בחורים
+                    if ($("#Checkbox40").is(":checked"))
+                        $("#Text40").css('display', 'inline-block');
+                    if ($("#Checkbox41").is(":checked"))
+                        $("#select41").css('display', 'inline-block');
+                    if ($("#Checkbox25").is(":checked"))
+                        $("#select25").css('display', 'inline-block');
+                }//end if
+            }//end for
+        });
+
         $(document).on("click", "[type='checkbox']", function (e) {
             if (this.checked) {
                 $(this).attr("value", true);
@@ -79,225 +155,234 @@ li a {
                 $(this).attr("value", false);
             }
         });
+        //הצגת תיבות טקסט בסימון צקבוקס וההפך
         //if checked display option to choose
         $("#Checkbox25").click(function () {
             if ($("#Checkbox25").is(":checked"))
                 $("#select25").css('display', 'inline-block');
+            else {
+                $("#select25").css('display', 'none');
+                $("#select25").val("")
+
+            }
         });
         // if unchecked display option to choose
         $("#Checkbox41").click(function () {
             if ($("#Checkbox41").is(":checked"))
                 $("#select41").css('display', 'inline-block');
-            else
+            else {
+                $("#select41").val("")
                 $("#select41").css('display', 'none');
+            }
+
+        });
+        $("#Checkbox40").click(function () {
+            if ($("#Checkbox40").is(":checked"))
+                $("#Text40").css('display', 'inline-block');
+            else {
+                $("#Text40").css('display', 'none');
+                $("#Text40").val("");
+            }
+        });
+
+        $("#ButtonSubmit").click(function () {//שמירת בדיקה רפואית
+            var dict = {};//הגדרת אובייקט
+
+            $(":checkbox").each(function () {//ריצה על הצקבוקסים
+                var key = $(this).attr('name')
+                if ($(this).prop("checked") == true) {
+                    dict[key] = true//מילוי אובייקט בנתוני הצקבוקסים
+                }
+                else {
+                    dict[key] = false;//מילוי אובייקט בנתוני הצקבוקסים
+                }
+            })
+
+            $(":text").each(function () {//ריצה על תיבות הטקסט
+                var key = $(this).attr('name')
+                dict[key] = $(this).val()//מילוי אובייקט בנתוני תיבות הטקסט
+
+            })
+
+            //מילוי אובייקט בנתוני הסלקט
+            dict[$("#select20").attr('name')] = $("#select20").val()//ABDdescription
+            dict[$("#select25").attr('name')] = $("#select25").val()//SkinAbnormalitiesT
+            dict[$("#select39").attr('name')] = $("#select39").val()//cervix
+            dict[$("#PelvicMucosa").attr('name')] = $("#PelvicMucosa").val()//PelvicMucosa -int
+            dict[$("#select38").attr('name')] = $("#select38").val()//Kegels -int
+            dict[$("#select41").attr('name')] = $("#select41").val()//PapT
+
+
+            $.ajax({//שמירת הנתונים
+                type: 'POST',
+                url: "@Url.Action("SavevPhyicalExam")",
+                dataType: 'text',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(dict),
+                success: function (result) {
+                    $(".p_text").html(result)
+                    $('#myModal').modal('show');
+                },
+                error: function () {
+                    $(".p_text").html(result)
+                    $('#myModal').modal('show');
+                }
+            })
+
+        })//end function click
+        $('#myModal').on('hidden.bs.modal', function () {
+            window.location.reload();
         });
     });
 
-    @*function LoadSelect20()
-    {
-        switch(@Html.DisplayFor(models=>models.ABDdescription))
-        {
-            case 1: select20.selectedIndex(0);
-                break;
-            case 2: select20.selectedIndex(1);
-                break;
-            case 3: select20.selectedIndex(2);
-                break;
-        }
-    }
 
-    function Loadselect25()
-    {
-        switch(@Html.DisplayFor(models=>models.SkinAbnormalities))
-        {
-            case 1:select25.selectedIndex(0);
-                break;
-            case 2:select25.selectedIndex(1);
-                break;
-            case 3:select25.selectedIndex(2);
-                break;
-            case 4:select25.selectedIndex(3);
-                break;
-        }
-    }*@
+</script>
+<br /><br />
+<form id="MyForm" @*action="@Url.Action("UpdatePhyicalExam","PhyicalExam")" method="get"*@>
+    <div id="lastvisit">
+        @{
+            BLPhyicalExam blv = new BLPhyicalExam();
+            List<DateTime> l2 = new List<DateTime>();
+            l2 = blv.get_updating(Session["Patiant"].ToString());
+            foreach (var item in l2)
+            {
 
-    function Loadselect38() {
-        switch ($("#select38").val()) {
-            case 1: select38.selectedIndex(0);
-                break;
-            case 2: select38.selectedIndex(1);
-                break;
-            case 3: select38.selectedIndex(2);
-                break;
-        }
-    }
-    function Loadselect100() {
-        switch ($("#select100").val()) {
-            case 1: select38.selectedIndex(0);
-                break;
-            case 2: select38.selectedIndex(1);
-                break;
-            case 3: select38.selectedIndex(2);
-                break;
-        }
-    }
+                if (item.Date == DateTime.Today.Date)
+                {
+                    <a href="#" id="now" class="herf" title="@DateTime.Today.ToShortDateString()">היום</a><br />
+                }
+                else
+                {
+                    <a href="#" class="herf" title="@item.ToShortDateString()">@item.Day/@item.Month/@item.Year</a><br />
+                }
 
-    @*function Loadselect39()
-    {
-        switch(@Html.DisplayFor(models=>models.Cervix))
-        {
-            case 1:select39.selectedIndex(0);
-                break;
-            case 2:select39.selectedIndex(1);
-                break;
-            case 3:select39.selectedIndex(2);
-                break;
+            }
+
+
         }
-    }
-
-    function Loadselect41()
-    {
-        switch(@Html.DisplayFor(models=>models.PapT))
-        {
-            case 1:select41.selectedIndex(0);
-                break;
-            case 2:select41.selectedIndex(1);
-                break;
-            case 3:select41.selectedIndex(2);
-                break;
-            case 4:select41.selectedIndex(3);
-                break;
-            case 5:select41.selectedIndex(4);
-                break;
-            case 6:select41.selectedIndex(5);
-                break;
-}
-    }*@
-
-</script><br /><br />
-<form action="@Url.Action("UpdatePhyicalExam")" method="post">
-   
+    </div>
     <div>
+
         <label><b>Appearance</b></label>
         <div>
             <label>Appears Well</label>
-            <input id="Checkbox1" name="ApearsWell"   type="checkbox" >
-            <input id="Text1"  type="text" name="ApearsWellT" value="@Model.ApearsWellT" />
+            <input id="Checkbox1" name="ApearsWell" type="checkbox">
+            <input id="Text1" type="text" name="ApearsWellT" />
         </div>
         <div>
             <label><b>Heent</b></label>
         </div>
         <div>
             <label>PUPILS EQUAL AND REACTIVE</label>
-            <input id="Checkbox2" name="PupilsEqual" type="checkbox" />
-            <input id="Text2" type="text" name="PupilsEqualT" value="@Model.PupilsEqualT" /><br />
+            <input id="Checkbox2" type="checkbox" name="PupilsEqual" />
+            <input id="Text2" type="text" name="PupilsEqualT" /><br />
         </div>
         <div>
             <label>TM Normal</label>
-            <input id="Checkbox3" type="checkbox" />
-            <input id="Text3" type="text" name="TmNormalT" value="@Model.TmNormalT" /><br />
+            <input id="Checkbox3" type="checkbox" name="TmNormal" />
+            <input id="Text3" type="text" name="TmNormalT" /><br />
         </div>
         <div>
             <label>OROPHARYNX</label>
-            <input id="Checkbox4" type="checkbox" />
-            <input id="Text4" type="text" value="@Html.DisplayFor(models=>models.OropharynxT)" /><br />
+            <input id="Checkbox4" type="checkbox" name="Oropharynx" />
+            <input id="Text4" type="text" name="OropharynxT" /><br />
         </div>
         <div>
-            <label>ATRAUMATIC</label>ATRAUMATIC
+            <label>ATRAUMATIC</label>
 
-            <input id="Checkbox5" type="checkbox" />
-            <input id="Text5" type="text" value="@Html.DisplayFor(models=>models.AtraumaticT)" /><br />
+            <input id="Checkbox5" type="checkbox" name="Atraumatic" />
+            <input id="Text5" type="text" name="AtraumaticT" /><br />
         </div>
         <div>
             <label>MUCOSA MOIST AND PINK</label>
-            <input id="Checkbox6" type="checkbox" />
-            <input id="Text6" type="text" value="@Html.DisplayFor(models=>models.HeentMucosaT)" /><br />
+            <input id="Checkbox6" type="checkbox" name="HeentMucosa" />
+            <input id="Text6" type="text" name="HeentMucosaT" /><br />
         </div>
         <div>
             <label><b>Neck</b></label>
         </div>
         <div>
             <label>SUPPLE</label>
-            <input id="Checkbox7" type="checkbox" />
-            <input id="Text7" type="text" value="@Html.DisplayFor(models=>models.SuppleT)" /><br />
+            <input id="Checkbox7" type="checkbox" name="Supple" />
+            <input id="Text7" type="text" name="SuppleT" /><br />
         </div>
         <div>
             <label>THYROMEGALY</label>
-            <input id="Checkbox8" type="checkbox" />
-            <input id="Text8" type="text" value="@Html.DisplayFor(models=>models.thyromegalyT)" /><br />
+            <input id="Checkbox8" type="checkbox" name="thyromegaly" />
+            <input id="Text8" type="text" name="thyromegalyT" /><br />
         </div>
         <div>
             <label><b>CVS</b></label>
         </div>
         <div>
             <label>HEARTSOUNDS REGULAR</label>
-            <input id="Checkbox9" type="checkbox" />
-            <input id="Text9" type="text" value="@Html.DisplayFor(models=>models.HeartsoundsRegularT)" /><br />
+            <input id="Checkbox9" type="checkbox" name="HeartsoundsRegular" />
+            <input id="Text9" type="text" name="HeartsoundsRegularT" /><br />
         </div>
         <div>
             <label>MURMUR</label>
-            <input id="Checkbox10" type="checkbox" />
-            <input id="Text10" type="text" value="@Html.DisplayFor(models=>models.MurmurT)" /><br />
+            <input id="Checkbox10" type="checkbox" name="Murmur" />
+            <input id="Text10" type="text" name="MurmurT" /><br />
         </div>
         <div>
             <label><b>Lungs</b></label>
         </div>
         <div>
             <label>GOOD AIR ENdivY ALL LUNG FIELDS</label>
-            <input id="Checkbox11" type="checkbox" />
-            <input id="Text11" type="text" value="@Html.DisplayFor(models=>models.GoodAirT)" /><br />
+            <input id="Checkbox11" type="checkbox" name="GoodAir" />
+            <input id="Text11" type="text" name="GoodAirT" /><br />
         </div>
         <div>
             <label>CLEAR TO AUSCULTATION</label>
-            <input id="Checkbox12" type="checkbox" />
-            <input id="Text12" type="text" value="@Html.DisplayFor(models=>models.ClearToAuscultationT)" /><br />
+            <input id="Checkbox12" type="checkbox" name="ClearToAuscultation" />
+            <input id="Text12" type="text" name="ClearToAuscultationT" /><br />
         </div>
         <div>
             <label><b>Breast Exam</b></label>
         </div>
         <div>
             <label>Symmedivical</label>
-            <input id="Checkbox13" type="checkbox" />
-            <input id="Text13" type="text" value="@Html.DisplayFor(models=>models.SymmetricalBreastT)" /><br />
+            <input id="Checkbox13" type="checkbox" name="SymmetricalBreast" />
+            <input id="Text13" type="text" name="SymmetricalBreastT" /><br />
         </div>
         <div>
             <label>Palpable masses</label>
-            <input id="Checkbox14" type="checkbox" />
-            <input id="Text14" type="text" value="@Html.DisplayFor(models=>models.PalpableT)" /><br />
+            <input id="Checkbox14" type="checkbox" name="Palpable" />
+            <input id="Text14" type="text" name="PalpableT" /><br />
         </div>
         <div>
             <label>Skin changes/lesions</label>
-            <input id="Checkbox15" type="checkbox" />
-            <input id="Text15" type="text" value="@Html.DisplayFor(models=>models.SkinChangesT)" /><br />
+            <input id="Checkbox15" type="checkbox" name="SkinChanges" />
+            <input id="Text15" type="text" name="SkinChangesT" /><br />
         </div>
         <div>
             <label>Nipple discharge</label>
-            <input id="Checkbox16" type="checkbox" />
-            <input id="Text16" type="text" value="@Html.DisplayFor(models=>models.NippleT)" /><br />
+            <input id="Checkbox16" type="checkbox" name="Nipple" />
+            <input id="Text16" type="text" name="NippleT" /><br />
         </div>
         <div>
             <label>Axillary lymphadenopathy</label>
-            <input id="Checkbox17" type="checkbox" />
-            <input id="Text17" type="text" value="@Html.DisplayFor(models=>models.AxillaryT)" /><br />
+            <input id="Checkbox17" type="checkbox" name="Axillary" />
+            <input id="Text17" type="text" name="AxillaryT" /><br />
         </div>
         <div>
             <label><b>ABD</b></label>
         </div>
         <div>
             <label>Soft</label>
-            <input id="Checkbox18" type="checkbox" />
-            <input id="Text18" type="text" value="@Html.DisplayFor(models=>models.SoftT)" /><br />
+            <input id="Checkbox18" type="checkbox" name="Soft" />
+            <input id="Text18" type="text" name="SoftT" /><br />
         </div>
         <div>
             <label>Tender</label>
-            <input id="Checkbox19" type="checkbox" />
+            <input id="Checkbox19" type="checkbox" name="Tender" />
             <label>
-                <input id="Text19" type="text" value="@Html.DisplayFor(models=>models.TenderT)" /><br />
+                <input id="Text19" type="text" name="TenderT" /><br />
             </label>
         </div>
         <div>
             <label>Description</label>
-            <select id="select20" onload="LoadSelect20()">
+            <select id="select20" name="ABDdescription">
                 <option>flat</option>
                 <option>obese</option>
                 <option>other</option>
@@ -306,33 +391,33 @@ li a {
         </div>
         <div>
             <label>Normoactive bowel sounds</label>
-            <input id="Checkbox21" type="checkbox" />
-            <input id="Text21" type="text" value="@Html.DisplayFor(models=>models.BowelSoundsT)" /><br />
+            <input id="Checkbox21" type="checkbox" name="BowelSounds" />
+            <input id="Text21" type="text" name="BowelSoundsT" /><br />
         </div>
         <div>
             <label>Renal artery bruits</label>
             <label>
-                <input id="Checkbox22" type="checkbox" />
+                <input id="Checkbox22" type="checkbox" name="RenalArtery" />
             </label>
-            <input id="Text22" type="text" value="@Html.DisplayFor(models=>models.RenalArteryT)" /><br />
+            <input id="Text22" type="text" name="RenalArteryT" /><br />
         </div>
         <div>
             <label>Masses</label>
-            <input id="Checkbox23" type="checkbox" />
-            <input id="Text23" type="text" value="@Html.DisplayFor(models=>models.MassesT)" /><br />
+            <input id="Checkbox23" type="checkbox" name="Masses" />
+            <input id="Text23" type="text" name="MassesT" /><br />
         </div>
         <div>
             <label>Organomegaly</label>
-            <input id="Checkbox24" type="checkbox" />
-            <input id="Text24" type="text" value="@Html.DisplayFor(models=>models.OrganomegalyT)" /><br />
+            <input id="Checkbox24" type="checkbox" name="Organomegaly" />
+            <input id="Text24" type="text" name="OrganomegalyT" /><br />
         </div>
         <div>
             <label><b>Skin</b></label>
         </div>
-        <div id=" divskin">
+        <div id="divskin">
             <label>Skin abnormalities</label>
-            <input id="Checkbox25" type="checkbox" />
-            <select id="select25" onload="Loadselect25()" style="display: none">
+            <input id="Checkbox25" type="checkbox" name="SkinAbnormalities" />
+            <select id="select25" style="display: none" name="SkinAbnormalitiesT">
                 <option>rash</option>
                 <option>suspicious lesions</option>
                 <option>nevi </option>
@@ -344,79 +429,79 @@ li a {
         </div>
         <div>
             <label>Significant scoliosis</label>
-            <input id="Checkbox26" type="checkbox" />
-            <input id="Text26" type="text" value="@Html.DisplayFor(models=>models.SignificantScoliosisT)" />
+            <input id="Checkbox26" type="checkbox" name="SignificantScoliosis" />
+            <input id="Text26" type="text" name="SignificantScoliosisT" />
         </div>
         <div>
             <label>Kyphosis</label>
-            <input id="Checkbox27" type="checkbox" />
-            <input id="Text27" type="text" value="@Html.DisplayFor(models=>models.KyphosisT)" />
+            <input id="Checkbox27" type="checkbox" name="Kyphosis" />
+            <input id="Text27" type="text" name="KyphosisT" />
         </div>
         <div>
             <label><b>EXT</b></label>
         </div>
         <div>
             <label>Edema</label>
-            <input id="Checkbox28" type="checkbox" />
+            <input id="Checkbox28" type="checkbox" name="Edema" />
             <label>
-                <input id="Text28" type="text" value="@Html.DisplayFor(models=>models.EdemaT)" />
+                <input id="Text28" type="text" name="EdemaT" />
             </label>
         </div>
         <div>
             <label>Rash</label>
-            <input id="Checkbox29" type="checkbox" />
-            <input id="Text29" type="text" value="@Html.DisplayFor(models=>models.EXTRashT)" />
+            <input id="Checkbox29" type="checkbox" name="EXTRash" />
+            <input id="Text29" type="text" name="EXTRashT" />
         </div>
         <div>
             <label>Varicosities</label>
-            <input id="Checkbox30" type="checkbox" />
-            <input id="Text30" type="text" value="@Html.DisplayFor(models=>models.VaricositiesT)" />
+            <input id="Checkbox30" type="checkbox" name="Varicosities" />
+            <input id="Text30" type="text" name="VaricositiesT" />
         </div>
         <div>
             <label>PPPX4</label>
-            <input id="Checkbox31" type="checkbox" />
-            <input id="Text31" type="text" value="@Html.DisplayFor(models=>models.Pppx4T)" />
+            <input id="Checkbox31" type="checkbox" name="Pppx4" />
+            <input id="Text31" type="text" name="Pppx4T" />
         </div>
         <div>
             <label>Pedal Edema</label>
-            <input id="Checkbox32" type="checkbox" />
-            <input id="Text32" type="text" value="@Html.DisplayFor(models=>models.PedalEdemaT)" />
+            <input id="Checkbox32" type="checkbox" name="PedalEdema" />
+            <input id="Text32" type="text" name="PedalEdemaT" />
         </div>
         <div>
             <label>Onychomycosis toes</label>
-            <input id="Checkbox33" type="checkbox" />
-            <input id="Text33" type="text" value="@Html.DisplayFor(models=>models.ToesT)" />
+            <input id="Checkbox33" type="checkbox" name="Toes" />
+            <input id="Text33" type="text" name="ToesT" />
         </div>
         <div>
             <label><b>Neuro</b></label>
         </div>
         <div>
             <label>patellar 2+bilaterally</label>
-            <input id="Checkbox34" type="checkbox" />
-            <input id="Text34" type="text" value="@Html.DisplayFor(models=>models.PattelarT)" />
+            <input id="Checkbox34" type="checkbox" name="Pattelar" />
+            <input id="Text34" type="text" name="PattelarT" />
         </div>
         <div>
             <label>Normal Gait</label>
-            <input id="Checkbox35" type="checkbox" />
-            <input id="Text35" type="text" value="@Html.DisplayFor(models=>models.TmNormalT)" />
+            <input id="Checkbox35" type="checkbox" name="Gait" />
+            <input id="Text35" type="text" name="GaitT" />
         </div>
         <div>
             <label>Normal Speech</label>
-            <input id="Checkbox36" type="checkbox" />
-            <input id="Text36" type="text" value="@Html.DisplayFor(models=>models.SpeechT)" />
+            <input id="Checkbox36" type="checkbox" name="Speech" />
+            <input id="Text36" type="text" name="SpeechT" />
         </div>
         <div>
             <label><b>Pelvic Exam Done</b></label>
         </div>
         <div>
             <label>female external genitalia normal</label>
-            <input id="Checkbox37" type="checkbox" />
-            <input id="Text37" type="text" value="@Html.DisplayFor(models=>models.FemaleT)" />
+            <input id="Checkbox37" type="checkbox" name="Female" />
+            <input id="Text37" type="text" name="FemaleT" />
         </div>
         <div>
             <label>Mucosa</label>
 
-            <select id="select100" onload="Loadselect100()" name="PelvicMucosa">
+            <select id="PelvicMucosa" name="PelvicMucosa">
                 <option value="1">moist</option>
                 <option value="2">atrophic</option>
 
@@ -424,8 +509,8 @@ li a {
         </div>
         <div>
             <label>Kegels</label>
-         
-            <select id="select38" onload="Loadselect38()" name="Kegels">
+
+            <select id="select38" name="Kegels">
                 <option value="1">weak</option>
                 <option value="2">moderate</option>
                 <option value="3">sdivong</option>
@@ -433,22 +518,22 @@ li a {
         </div>
         <div>
             <label>Cervix</label>
-            <select id="select39" onload="Loadselect39()">
-                <option >normal</option>
-                <option >ecdivopion</option>
-                <option >other</option>
+            <select id="select39" name="Cervix">
+                <option>normal</option>
+                <option>ecdivopion</option>
+                <option>other</option>
             </select>
 
         </div>
         <div>
             <label>Vaginal walls normal</label>
-            <input id="Checkbox40" type="checkbox" />
-            <input id="Text40" type="text" value="@Html.DisplayFor(models=>models.VaginalWallsT)" />
+            <input id="Checkbox40" type="checkbox" name="VaginalWalls" />
+            <input id="Text40" type="text" name="VaginalWallsT" style="display: none" />
         </div>
         <div>
             <label><b>Pap Done</b></label>
-            <input id="Checkbox41" type="checkbox" />
-            <select id="select41" onload="Loadselect41()">
+            <input id="Checkbox41" type="checkbox" name="Pap" />
+            <select id="select41" style="display: none" name="PapT">
                 <option class="papdone">deferred since</option>
                 <option class="papdone">kallah</option>
                 <option class="papdone">menstruating</option>
@@ -458,7 +543,7 @@ li a {
             </select>
         </div>
         <br />
-        <input id="Button1" type="submit" value="שמור" />
+        <input id="ButtonSubmit" type="button" value="שמור" />
 
         <br />
         <br />
@@ -468,4 +553,23 @@ li a {
         <br />
     </div>
 </form>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <p class="p_text"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">סגירה</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 }

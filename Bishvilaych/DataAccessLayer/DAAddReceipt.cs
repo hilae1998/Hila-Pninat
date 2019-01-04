@@ -20,7 +20,7 @@ namespace DataAccessLayer
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
-        public int addReceipt(ListDictionary Params) //קבלת רשימת פרמטרים
+        public int addReceipt(ListDictionary Params) 
         {
             DBCtrl db_ctrl = new DBCtrl();
             if (!db_ctrl.isConnected())
@@ -28,9 +28,9 @@ namespace DataAccessLayer
                 db_ctrl.connectToDb(connStr);
             }
 
-            string sp_name = "addReceipt"; //שם הפרוצדורה
+            string sp_name = "addReceipt"; //stored procedure name for execute
 
-            return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
+            return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //execute the sp
         }
 
 

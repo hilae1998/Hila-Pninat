@@ -10,17 +10,17 @@
 @using BussinesLayer;
 @model  Reccomendations
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
 <script>
     var dictionary = new Array();
     $(document).ready(function () {
-        $.ajax({//שולף לי את כל סיכומי הביקור,ומכניס לי לדיקשנרי
+        $.ajax({
             type: 'get',
             url: "@Url.Action("getLastVisit")",
             data:{},
-             success: function (result) {
-
+            success: function (result) {//בטעינת הדף,נשלפים כל סיכומי הביקור ומוכנסים לאובייקט
                     $.each(result, function (i) {
-                        var key= Object.keys(this)[0]//מביא לי את שם המפתח לדייט
+                        var key= Object.keys(this)[0]//מביא לי את שם המפתח לתאריך
                         var val= Object.keys(this)[1]//מביא לי את שם המפתח לרשימה
                         var follo = Object.keys(this)[2]//מביא לי את שם המפתח לפולו
                         var mention = Object.keys(this)[3]//מביא לי את שם המפתח למנשין
@@ -29,31 +29,29 @@
                             listRec:this[val],//מביא לי את הליסט
                             FollowUp: this[follo],//מביא לי את הפולו
                             Mentioned: this[mention]//מביא לי את המנשין
-
                         })
                     }) //end each function
-                    document.getElementById("MyForm").reset();   //אפס את הטופס
+                    document.getElementById("MyForm").reset();   //אפס את הטופס 
                     var list;
-                    list = dictionary[dictionary.length - 1].listRec//שלוף את הנתונים של היום לתוך ליסט
+                    list = dictionary[dictionary.length - 1].listRec//שלוף את הנתונים של היום-במידה וקיימים לתוך רשימה
                     for (var i = 0; i < list.length; i++) {//מלא את הטופס בנתונים של היום
                         $("input[name = '" + list[i].Code + "']").prop("checked",true)
                         $("input[name = 'r" + list[i].Code + "']").prop("value",list[i].Reccomendation)
                     }
-                    $("#yesno").prop("selectedIndex", dictionary[dictionary.length - 1].Mentioned)
+                    $("#yesno").prop("selectedIndex", dictionary[dictionary.length - 1].Mentioned)//עדכון פקדי סלקט למידע הרצוי
                     switch (dictionary[dictionary.length - 1].FollowUp) {
-                     case 1:   {
-                         $("#Follo").prop("selectedIndex", 0)
-                         break;
-                     }
-                     case 2: {
-
-                         $("#Follo").prop("selectedIndex", 1)
-                         break;
-                     }
-                     case 3:{
-                         $("#Follo").prop("selectedIndex", 2)
-                         break;
-                     }
+                        case 1: {
+                            $("#Follo").val("To return to clinic for pap test");
+                            break;
+                        }
+                        case 2: {
+                            $("#Follo").val("Will be in touch with patient when results of pap(and labs) are available and if she doesn't hear from us in 6 weeks to get in touch with us")
+                            break;
+                        }
+                        case 3: {
+                            $("#Follo").val("Will be in touch with patient when labs are available and if she doesn't hear from us in 6 weeks to get in touch with us")
+                            break;
+                        }
                     }
                  //בדוק שוב אם יש פקדים שצריכים להסיר להם את החסימה
                     enable_cb("block1", "#i3_1")
@@ -69,20 +67,19 @@
         }
         }) //end ajax function
 
-        $(".herf").click(function () {//כאשר בוחרים תאיך
-
+        $(".herf").click(function () {//כאשר בוחרים תאריך עדכן את הפקדים בהתאם למידע השייך לאותו תאריך
+            var list, ment,foll;
             document.getElementById("MyForm").reset();//אפס את הטופס
-            if (this.title != $("#now").attr("title")) {//אם נכנסתה לתאריך שעבר,הפוך את כפתור השליחה ללא זמין
+            if (this.title != $("#now").attr("title")) //אם נכנסתה לתאריך שעבר,הפוך את כפתור השליחה ללא זמין
+            {
+                $("#ButtonSubmit").addClass("disablebutton")
                 $("#ButtonSubmit").prop("disabled", true);
             }
-            else
+            else {
                 $("#ButtonSubmit").prop("disabled", false);
-
-            var list;
-            var ment;
-            var foll;
+                $("#ButtonSubmit").removeClass("disablebutton")
+            }
             for (var i = 0; i < dictionary. length; i++) {
-
                if(this.title==dictionary[i].date){//שלוף את הנתונים של התאריך הנבחר
                    list = dictionary[i].listRec
                    ment = dictionary[i].Mentioned
@@ -96,16 +93,15 @@
             $("#yesno").prop("selectedIndex", ment)
             switch (foll) {
                 case 1: {
-                    $("#Follo").prop("selectedIndex", 0)
+                    $("#Follo").val("To return to clinic for pap test");
                     break;
                 }
                 case 2: {
-
-                    $("#Follo").prop("selectedIndex", 1)
+                    $("#Follo").val("Will be in touch with patient when results of pap(and labs) are available and if she doesn't hear from us in 6 weeks to get in touch with us")
                     break;
                 }
                 case 3: {
-                    $("#Follo").prop("selectedIndex", 2)
+                    $("#Follo").val("Will be in touch with patient when labs are available and if she doesn't hear from us in 6 weeks to get in touch with us")
                     break;
                 }
             }
@@ -115,36 +111,31 @@
                 enable_cb("obtain", "#i3_8")
                 enable_cb("Check", "#i3_9")
                 enable_cb("Referral", "#i3_10")
-            })
+        })
 
-        //הסתר את כל הפקדים בעלי הקלאס
+        //חסימת  כל הפקדים בעלי הקלאס
         enable_cb("block1");
         enable_cb("block2");
         enable_cb("obtain");
         enable_cb("Check");
         enable_cb("Referral");
-
-        //כשאר לוחצים על הפקד הראשי
+        // חסימת קבוצות פקדים או הראתם בהתאם לראש הפקדים
         $("#i3_1").click(function () {
 
             enable_cb("block1", "#i3_1")
         })
-
         $("#i3_2").click(function () {
 
             enable_cb("block2", "#i3_2")
         })
-
         $("#i3_8").click(function () {
 
             enable_cb("obtain", "#i3_8")
         })
-
         $("#i3_9").click(function () {
 
             enable_cb("Check", "#i3_9")
         })
-
         $("#i3_10").click(function () {
 
             enable_cb("Referral", "#i3_10")
@@ -157,7 +148,7 @@
                 $("input." + string).prop("disabled", false);//הראה את כל הפקדים המוסתרים
             }
             else {
-                $("input." + string).prop("disabled", true);//הסתר את כל הפקדים המשוייכים
+                $("input." + string).prop("disabled", true);//חסימת כל הפקדים המשוייכים
                 $("input." + string).prop("checked", false);//מחק את הסימונים במידה ומסומנים
             }
         }
@@ -172,6 +163,7 @@
 
         $("#ButtonSubmit").click(function () {//כשלוחצים על סיום תיק רפואי
             var dict = new Array();
+
             $(":checkbox").each(function () {
                 if ($(this).prop("checked")== true) {
 
@@ -192,10 +184,24 @@
 
             }) //end function each
             var dict2 = new Array();
-
+            var follo;
+            switch ($("#Follo").val()) {
+                case "To return to clinic for pap test": {
+                    follo = 1;
+                    break;
+                }
+                case "Will be in touch with patient when results of pap(and labs) are available and if she doesn't hear from us in 6 weeks to get in touch with us": {
+                    follo=2
+                    break;
+                }
+                case "Will be in touch with patient when labs are available and if she doesn't hear from us in 6 weeks to get in touch with us": {
+                    follo=3
+                    break;
+                }
+            }
             dict2.push({//מילוי אובייקט בנתוני הסלקט
                 Mentioned:  $("#yesno").prop("selectedIndex")==1?false:true,
-                FollowUp: $("#Follo").prop("selectedIndex"),
+                FollowUp: follo
 
             })
 
@@ -208,17 +214,23 @@
             data: JSON.stringify({ 'a': dict, 'b': dict2 }),
 
             success: function (result) {
-
+                $(".p_text").html(result)              
+                $('#myModal').modal('show');
+               
 
             },
             error:function(){
-                alert("error")
+                $(".p_text").html(result)
+                $('#myModal').modal('show');
             }
         })
 
      })//end function click
-
+        $('#myModal').on('hidden.bs.modal', function () {
+            window.location.reload();
+        });
     });//end document.ready
+
 </script>
 <style>
     #lastvisit {
@@ -256,7 +268,9 @@
         margin-left: 35%;
         color: #52172e;
     }
-
+    .disablebutton{
+ opacity: 0.8;
+    }
     input[type=button] {
         background-color: rgba(129, 0, 64, 0.88);
         color: white;
@@ -266,10 +280,7 @@
         cursor: pointer;
         width: 10%;
     }
-
-        input[type=button]:hover {
-            opacity: 0.8;
-        }
+    
 </style>
 
 
@@ -323,7 +334,7 @@
                 l = blv.getFollowUp();
                 foreach (var item in l)
                 {
-                    <option value="@item.Code">@item.FollowUp</option>
+                    <option >@item.FollowUp</option>
                 }
             }
         </select>
@@ -414,7 +425,7 @@
     &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_1" name="391" value="Hepatitis A" />  Hepatitis A<br />
     &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_2" name="392" value=" Hepatitis B">  Hepatitis B<br />
     &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_3" name="393" />  Other&nbsp;<input class="Check" name="r393" id="Text1" type="text" style="width:150px" /><br />
-    <input id="i3_10" type="checkbox" /> Referral for:<br />
+    <input id="i3_10" type="checkbox" name="310"/> Referral for:<br />
     &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_1" name="3101" />  Pelvic floor exercises&nbsp;<input class="Referral" name="r3101" id="Text1" type="text" style="width:150px" /><br />
     &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_2" name="3102" /> Physical therapist&nbsp;<input class="Referral" id="Text1" name="r3102" type="text" style="width:150px" /><br />
     &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_3" name="3103" />  Physician – specialist&nbsp;<input class="Referral" id="Text1" name="r3103" type="text" style="width:150px" /><br />
@@ -425,12 +436,31 @@
     <input id="i3_11" type="checkbox" name="311" />  Prescription given for:&nbsp;<input id="Text1" name="r311" type="text" style="width:150px" /><br />
 
 
-    <input id="Button2" type="button" value="הדפס המלצות" />
-    <input id="Button1" type="button" value="הדפס תיק רפואי" />
-    <input id="ButtonSubmit" type="button" value="סיום תיק רפואי" />
+    @*<input id="Button2" type="button" value="הדפס המלצות" />
+    <input id="Button1" type="button" value="הדפס תיק רפואי" />*@
+    <input id="ButtonSubmit" type="button"  data-toggle="modal" @*data-target="#myModal"*@ value="סיום תיק רפואי" />
 
 
 
 
 
 </form>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <p class="p_text"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">סגירה</button>
+            </div>
+        </div>
+
+    </div>
+</div>
