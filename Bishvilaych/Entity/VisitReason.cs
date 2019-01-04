@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-    class VisitReason
+    public class VisitReason
     {
         public bool GeneralCheck { get; set; }
         public bool BreastExam { get; set; }

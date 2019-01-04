@@ -45,6 +45,7 @@ namespace BussinessLayer
             Params.Add("@occapation", BLCtrl.sendString(occapation, ""));
             Params.Add("@followedup", BLCtrl.sendBool(followedup, false));
 
+            
             int result = dm.UpdatePatiant(Params);
             return result;
 

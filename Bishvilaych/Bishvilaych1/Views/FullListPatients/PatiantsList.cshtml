@@ -5,88 +5,43 @@
 }
 @using Bishvilaych.Controllers
 @model List<Patiants>
-@*אורית אוחיון*@
-<h2>PatiantsList</h2>
-<h2 dir="rtl" style="text-underline-position:unset">רשימת מטופלות מלאה</h2>
+<h2 style="text-align:center">רשימת מטופלות מלאה</h2>
 @*בלחיצה כפולה תפתח טבלת לקוחה*@
 
-<script type="text/javascript">
-    function aa(code)
-    {
-        @*$.ajax({
-            type: 'GET',
-            url: "@Url.Action("Demography", "Patiants")",
-            data:[][id:@Session["Patiant"].ToString()],
-            success: function (result) {
-
-            },
-            Error: function () {
-                alert("error")
-            }
-        })*@
-        $.ajax({
-            type: 'GET',
-            url: "@Url.Action("dossesion", "FullListPatients")",
-            data: {id:code},
-        success: function (result) {
-
-        },
-        Error: function () {
-            alert("error")
-        }
-    })
+<style>
+    tr:hover {
+        cursor: pointer;
+        background-color: #ccc;
     }
+</style>
+
+
+<script>
 
 </script>
-       @*$(document).ready(function () {
-            $('table tr').dblclick(function () {
-                $.ajax({
-                    url: '@Url.Action("Demography", "Patiants")',
-                    type: 'POST',
-                    success: function (result)
-                    {
 
-                    }
-                    
-                    
-                });
-            });
-       });
 
-    @*//function aa(id)
-    //{}*@
-        @*$.ajax({
-            url: '@Url.Action("Demography", "Patiants")',
-            type: 'POST',
-            success: function (result) {
+<div style="width:100%;margin-left:10% ;margin-right:10%">
+    <table dir="rtl" style="width:70%;height:200px" border="1">
+        <thead>
+            <tr>
+                <td style="text-align:center">מספר זהות</td>
+                <td style="text-align:center">שם מלא</td>
+                <td style="text-align:center">רופא מטפל</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr onclick="location.href='@(Url.Action("dossesion", "FullListPatients",new {Id=item.Id}))'">
+                        <td>@item.Id</td>
+                        <td><lable>@item.FirstName</lable><lable>@item.LastName</lable></td>
+                        <td>@item.Doctor </td>
+                    </tr>
 
-            },
-            Error: function()
-            {
-
+                }
             }
-        });*@
-    
-
-<table dir="rtl" style="width:100%;" border="1">
-    <tr>
-        <td style="text-align:center">מספר זהות</td>
-        <td style="text-align:center">שם מלא</td>
-        <td style="text-align:center">רופא מטפל</td>
-    </tr>
-
-    <tbody>
-        @{
-            foreach (var item in Model)
-            {
-                <tr onclick="aa(@item.Id)">
-                    <td>@item.Id</td>                  
-                    <td><lable>@item.FirstName</lable><lable>@item.LastName</lable></td>
-                    <td>@item.Doctor </td>
-                </tr>
-                
-            }
-        }
-    </tbody>
-</table>
-
+        </tbody>
+    </table>
+    </div>

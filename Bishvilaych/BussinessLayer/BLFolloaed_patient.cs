@@ -11,8 +11,6 @@ using System.Threading.Tasks;
 
 namespace BussinesLayer
 {
-    // לאה אמסלם
-    // 27/5/18
     public class BLFolloaed_patient
     {
         public List<Patiants> getFolloaed_patient()
@@ -31,7 +29,8 @@ namespace BussinesLayer
                 p.Phone = BLCtrl.getString(item, "Phone", " ");
                 p.Phone2 = BLCtrl.getString(item, "Phone2", " ");
                 p.City = BLCtrl.getString(item, "City", " ");
-                p.Kupah = BLCtrl.getInt(item, "Kupah", 0);// לבדוק איך מביאים את שם הקופה שנמצא בפרוצודורה אחרת
+                p.Kupah = BLCtrl.getInt(item, "Kupah", 1);
+              //p.FollowUp = BLCtrl.getBool(item, "FollowUp", false);
                 lp.Add(p);
             }                       
             return lp;

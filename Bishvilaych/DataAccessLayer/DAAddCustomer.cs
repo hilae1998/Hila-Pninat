@@ -31,5 +31,17 @@ namespace DataAccessLayer
 
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
+        public int CheckCustomerID(ListDictionary Params) //קבלת רשימת פרמטרים
+        {
+            DBCtrl db_ctrl = new DBCtrl();
+            if (!db_ctrl.isConnected())
+            {
+                db_ctrl.connectToDb(connStr);
+            }
+
+            string sp_name = "CheckCustomerID"; //שם הפרוצדורה
+
+            return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
+        }
     }
 }

@@ -71,17 +71,17 @@ namespace BussinessLayer
 
         public static float getFloat(DataRow dr, string itemName, float defaultItem)
         {
-            float f;
+            double f;
             try
             {
-                f = dr.Field<float>(itemName);
+                f = dr.Field<double>(itemName);
             }
             catch(Exception ex)
             {
                 return defaultItem;
             }
             if (f != null)
-                return f;
+                return (float)f;
             return defaultItem;
         }
 

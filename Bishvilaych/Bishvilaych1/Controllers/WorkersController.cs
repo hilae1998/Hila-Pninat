@@ -25,6 +25,12 @@ namespace Bishvilaych.Controllers
         {
 
             BLCheck_Workers b = new BLCheck_Workers();
+
+            if (idWorkers.Length > 9 || idWorkers == "")
+            {
+                ViewBag.error = "תעודת זהות לא חוקית";
+                return View();
+            }
             if (b.Check_Workers(idWorkers) == 0)
             {
                 Session["WorkerDetails"] = idWorkers;
@@ -32,10 +38,10 @@ namespace Bishvilaych.Controllers
             }
             else
             {
-                if (b.Check_Workers(idWorkers) == 1)
-                    ViewBag.error = "תעודת זהות לא קיימת";
-            }               
-            return View("Workers");                         
+                //if (b.Check_Workers(idWorkers) == 1)
+                ViewBag.error = "תעודת זהות לא קיימת";
+                return View();
+            }
         }
     }
 }

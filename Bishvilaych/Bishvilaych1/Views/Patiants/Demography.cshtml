@@ -1,151 +1,243 @@
-﻿
-
-@*Ayala Gozlan*@
-
-@*לא לשכוח לבדוק את איך מקבלים את התאריך של היום בפונקציה age()*@
-@* SCRIPTלבדוק מה קורה עם  ה*@
-@*לבדוק מה קורה עם העידכון*@
-
-
-@model Bishvilaych.Controllers.MyModels
+﻿@model Bishvilaych.Controllers.MyModels
 
 @{
     ViewBag.Title = "Demography";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
+<script>
 
-
-@using (Html.BeginForm())
-{
-    <h2>Demography</h2>
-
-    <label>:מספר זהות</label>
-    <label >@Html.DisplayFor(model => model.MyP.Id)</label>
-
-    <label>:שם מלא</label>
-    <label>@Html.DisplayFor(model => model.MyP.FirstName)</label>
-    <label>@Html.DisplayFor(model => model.MyP.LastName)</label>
-    <br />
-
-    <input style="display:none" name="Id" type="text" ID="TxbId" value=@Html.DisplayFor(model => model.MyP.Id)/>
-
-    <label>שם פרטי</label>
-    <input name="FirstName" type="text" ID="TxbId" value=@Html.DisplayFor(model => model.MyP.FirstName) />
-    <br />
-
-    <label>שם משפחה</label>
-    <input name="LastName" type="text" ID="TxbId" value=@Html.DisplayFor(model => model.MyP.LastName) />
-    <br />
-
-    <label>רופא מטפל</label>
-    <input name="Doctor" type="text" ID="TxbDoctor" value=@Html.DisplayFor(model => model.MyP.Doctor)>
-    <br />
-
-    <label>הופנתה ע"י</label>
-    <select name="reffered" id="slc1" > 
-        <option name="reffered" id="familyqad" @((@Html.DisplayFor(model => model.MyP.reffered).ToString() == "משפחה") ? "selected" : "" )  >משפחה</option>
-        <option name="reffered" id="friends" @((@Html.DisplayFor(model => model.MyP.reffered).ToString() == "חברות") ? "selected" : "" )>חברות</option>
-        <option name="reffered" id="familyDoc" @((@Html.DisplayFor(model => model.MyP.reffered).ToString() == "רופא משפחה") ? "selected" : "" )>רופא משפחה</option>
-        <option name="reffered" id="outreachLecture" @((@Html.DisplayFor(model => model.MyP.reffered).ToString() == "הרצאה") ? "selected" : "" )>הרצאה</option>
-        <option name="reffered" typeof="text" id="otherR" @((@Html.DisplayFor(model => model.MyP.reffered).ToString() == "אחר") ? "selected" : "" )>אחר</option>
-    </select><br />
-
-    <label>שפה מועדפת</label>
-    <select name="Language" id="slc2" onload="fslc2()">
-        <option name="Language" id="hebrow" @((@Html.DisplayFor(model => model.MyP.Language).ToString() == "עברית") ? "selected" : "" )>עברית</option>
-        <option name="Language" id="english" @((@Html.DisplayFor(model => model.MyP.Language).ToString() == "English") ? "selected" : "" )>English</option>
-        <option name="Language" id="otherL" @((@Html.DisplayFor(model => model.MyP.Language).ToString() == "אחר") ? "selected" : "" )>אחר</option>
-    </select><br />
-
-    <label>עיר</label>
-    <input name="City" type="text" ID="TxtbCity" value=@Html.DisplayFor(model => model.MyP.City)><br />
-
-    <label>רחוב</label>
-    <input name="Street" type="text" ID="TxbStreet" value=@Html.DisplayFor(model => model.MyP.Street)><br />
-
-    <label>טלפון</label>
-    <input name="Phone" type="text" ID="TxbPhon" value=@Html.DisplayFor(model => model.MyP.Phone)><br />
-
-    <label>טלפון נוסף</label>
-    <input name="Phone2" type="text" ID="TxbPhon2" value=@Html.DisplayFor(model => model.MyP.Phone2)><br />
-
-    <label>פקס</label>
-    <input name="Fax" type="text" ID="TxbFax" value=@Html.DisplayFor(model => model.MyP.Fax)><br />
-
-    <label>אי-מייל</label>
-    <input name="Email" type="text" ID="TxbEmail" value=@Html.DisplayFor(model => model.MyP.Email)><br />
-
-    <label>תאריך לידה</label>
-    <input name="BirthDate" type="datetime" ID="BirthDate" value=@Html.DisplayFor(model => model.MyP.BirthDate) onchange="age()"><br />
-
-    <label>דרך להתקשרות</label>
-    <input name="ContactExam" type="text" ID="TxbWayConect" value=@Html.DisplayFor(model => model.MyP.ContactExam)><br />
-
-    <label>preferred way of contact ginformation </label>
-    <input name="ContactGinformation" type="text" ID="TxtGinfor" value=@Html.DisplayFor(model => model.MyP.ContactGinformation)><br />
-
-    <label>מוצא האב</label>
-    <input name="FathersOrigin" type="text" ID="TxtFather" value=@Html.DisplayFor(model => model.MyP.FathersOrigin)><br />
-
-    <label>מוצא האם</label>
-    <input name="MothersOrigin" type="text" ID="TxtMather" value=@Html.DisplayFor(model => model.MyP.MothersOrigin)><br />
-
-    <label>קופת חולים</label>
-    <select name="Kupah" id="slc3" onload="fslc3()">
-            @foreach (var item in Model.MyK)
-            {
-                <option name="Kupah" value=@item.Kupah id=@item.Kupah @((@Html.DisplayFor(model => model.MyP.Kupah).ToString() == item.Code.ToString()) ? "selected" : "" )>@item.Kupah</option>
-            }
-    </select><br />
-
-    <label>גיל</label>
-    <input type="text" ID="TxbAge" @*value=@((@Html.DisplayFor(model => model.MyP.BirthDate) != null) ? (DateTime.Today.Year - Convert.ToDateTime(@Html.DisplayFor(model => model.MyP.BirthDate)).Year).ToString() : "")*@><br />
-
-    <label  onload="maritalStatus()">מצב אישי</label><br />
-    foreach (var item in Model.MyS)
-    {
-        <input name="MaritalStatus" value=item. type="radio" ID=item.Status @((@Html.DisplayFor(model => model.MyP.MaritalStatus).ToString() == item.Code.ToString()) ? "checked" : "" )/>@item.Maritalstatus<br />
+    function f1() {
+        if (document.getElementById('checkchildren').checked == true) {
+            document.getElementById('c').style.display = 'block';
+            document.getElementById('num').value = 1;
+            document.getElementById('G').value = "";
+            document.getElementById('T').value = "";
+            document.getElementById('P').value = "";
+            document.getElementById('A').value = "";
+            document.getElementById('L').value = "";
+        }
+        else {
+            document.getElementById('c').style.display = 'none';
+            document.getElementById('num').value = 0;
+            document.getElementById('G').value = "";
+            document.getElementById('T').value = "";
+            document.getElementById('P').value = "";
+            document.getElementById('A').value = "";
+            document.getElementById('L').value = "";
+        }
     }
-    
 
-    <label>ילדים</label>
-    <input type="checkbox" @((@Html.DisplayFor(model => model.MyP.Children).ToString() != 0.ToString())? "checked" : "")  />
-    <br />
+    function ageAndValid(date) {
+        var result;
+        var s = String(date);
+        var d = new Date(s);
+        var myYear = d.getFullYear();
+        var myMonth = d.getMonth() + 1;
+        var myDay = d.getDate();
 
-    <div id="d" style="display:@((@Html.DisplayFor(model => model.MyP.Children).ToString() == 0.ToString())? "none" : "block")" >
 
-        <label>מספר ילדים</label>
-        <input name="Children" type="number" min="0" ID="TxbNumChild" value=@Html.DisplayFor(model => model.MyP.Children)><br />
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDay = today.getDate();
+        // if the user put invalid birthdate, which meens he put date that did't come yet(he didn't burn yet)
 
-        <label>G</label>
-        <input name="G" type="number" min="0" ID="TxbG" value=@Html.DisplayFor(model => model.MyP.G)><br />
+        if (todayYear - myYear <= 0) {
+            var ys = String(today.getFullYear() - 1);
+            var ms = String(today.getMonth() + 1);
+            var ds = String(today.getDate());
+            if (ds / 10 < 1)
+                ds = "0" + ds;
+            if (ms / 10 < 1)
+                ms = "0" + ms;
+            document.getElementById('BirthDate').value = ys + "-" + ms + "-" + ds;
+        }
+        else {
+            if (todayYear - myYear == 1) {
+                if (todayMonth < myMonth) {
+                    var ys = String(today.getFullYear() - 1);
+                    var ms = String(today.getMonth() + 1);
+                    var ds = String(today.getDate());
+                    if (ds / 10 < 1)
+                        ds = "0" + ds;
+                    if (ms / 10 < 1)
+                        ms = "0" + ms;
+                    document.getElementById('BirthDate').value = ys + "-" + ms + "-" + ds;
+                }
+                if (todayMonth == myMonth && todayDay < myDay) {
+                    var ys = String(today.getFullYear() - 1);
+                    var ms = String(today.getMonth() + 1);
+                    var ds = String(today.getDate());
+                    if (ds / 10 < 1)
+                        ds = "0" + ds;
+                    if (ms / 10 < 1)
+                        ms = "0" + ms;
+                    document.getElementById('BirthDate').value = ys + "-" + ms + "-" + ds;
+                }
+            }
+        }
 
-        <label>T</label>
-        <input name="T" type="number" min="0" ID="TxbT" value=@Html.DisplayFor(model => model.MyP.T)><br />
+        //return the age of the patiant
+        if (myMonth > todayMonth) {
+            result = todayYear - myYear - 1;
+        }
+        else {
+            if (myMonth == todayMonth && myDay > todayDay) {
+                result = todayYear - myYear - 1;
+            }
+            else {
+                result = todayYear - myYear;
+            }
+        }
+        if (todayYear - myYear <= 1) {
+            result = 1;
+        }
+        document.getElementById('TxbAge').value = result;
+    }
 
-        <label>P</label>
-        <input type="number" min="0" ID="TxbP" value=@Html.DisplayFor(model => model.MyP.P)><br />
+    function check0() {
+        if (document.getElementById('num').value == 0)
+            document.getElementById('num').value = 1;
+    }
 
-        <label>A</label>
-        <input name="A" type="number" min="0" ID="TxbA" value=@Html.DisplayFor(model => model.MyP.A)> <br />
+</script>
+<body onload="ageAndValid(document.getElementById('BirthDate').value)" dir="rtl" style="text-align:center">
+    @using (Html.BeginForm())
+    {
+        <div>
+            <h2>Demography</h2>
+            <br />
+            <table>
+                <tr>
+                    <td style="margin-top:0%; margin-right:60%; padding:20px">
+                        <div>
+                            <input style="display:none" name="Id" type="text" ID="TxbId" value="@Html.DisplayFor(model => model.MyP.Id)" required />
+                            <br />
 
-        <label>L</label>
-        <input name="L" type="number" min="0" ID="TxbL" value=@Html.DisplayFor(model => model.MyP.L)><br />
+                            <label for="FirstName">שם פרטי</label>
+                            <input name="FirstName" type="text" ID="FirstName" value="@Html.DisplayFor(item => Model.MyP.FirstName)" required /><br />
 
-    </div>
+                            <label for="LastName">שם משפחה</label>
+                            <input name="LastName" type="text" ID="LastName" value="@Html.DisplayFor(item => Model.MyP.LastName)" required /><br />
 
-    <label>אישור ליצירת קשר למעקב</label>
-    <select name="FollowUp" id="slc4" onload="fslc4()">
-        <option name="FollowUp" id="true" @((@Html.DisplayFor(model => model.MyP.FollowUp).ToString() == "כן") ? "selected" : "" )>כן</option>
-        <option name="FollowUp" id="false" @((@Html.DisplayFor(model => model.MyP.FollowUp).ToString() == "לא") ? "selected" : "" )>לא</option>
-    </select><br />
+                            <label for="Doctor">רופא מטפל</label>
+                            <input name="Doctor" type="text" ID="Doctor" value="@Html.DisplayFor(model => model.MyP.Doctor)" required><br />
 
-    <label>עיסוק</label>
-    <select name="Occupation" id="slc5" onload="fslc5()">
-        <option name="Occupation" id="Homemaker" @((@Html.DisplayFor(model => model.MyP.Occupation).ToString() == "עקרת בית") ? "selected" : "" )>עקרת בית</option>
-        <option name="Occupation" id="student" @((@Html.DisplayFor(model => model.MyP.Occupation).ToString() == "סטודנטית") ? "selected" : "" )>סטודנטית</option>
-        <option name="Occupation" id="otherB" @((@Html.DisplayFor(model => model.MyP.Occupation).ToString() == "אחר") ? "selected" : "" )>אחר</option>
-    </select><br />
+                            <label for="slc">הופנתה ע"י</label>
+                            <select name="reffered" id="slc">
+                                <option name="reffered" id="familyqad" @((Html.DisplayFor(model => model.MyP.reffered).ToString() == "משפחה") ? "selected" : "" )>משפחה</option>
+                                <option name="reffered" id="friends" @((Html.DisplayFor(model => model.MyP.reffered).ToString() == "חברות") ? "selected" : "" )>חברות</option>
+                                <option name="reffered" id="familyDoc" @((Html.DisplayFor(model => model.MyP.reffered).ToString() == "רופא משפחה") ? "selected" : "" )>רופא משפחה</option>
+                                <option name="reffered" id="outreachLecture" @((Html.DisplayFor(model => model.MyP.reffered).ToString() == "הרצאה") ? "selected" : "" )>הרצאה</option>
+                                <option name="reffered" typeof="text" id="otherR" @((Html.DisplayFor(model => model.MyP.reffered).ToString() == "אחר") ? "selected" : "" )>אחר</option>
+                            </select><br />
+                            <label for="slc1">שפה מועדפת</label>
+                            <select name="Language" id="slc1">
+                                <option name="Language" id="hebrew" @((Html.DisplayFor(model => model.MyP.Language).ToString() == "עברית") ? "selected" : "" )>עברית</option>
+                                <option name="Language" id="english" @((Html.DisplayFor(model => model.MyP.Language).ToString() == "English") ? "selected" : "" )>English</option>
+                                <option name="Language" id="otherL" @((Html.DisplayFor(model => model.MyP.Language).ToString() == "אחר") ? "selected" : "" )>אחר</option>
+                            </select><br />
 
-    <input type="submit" value="עדכן">
-}
+                            <label for="City">עיר</label>
+                            <input name="City" type="text" ID="City" value="@Html.DisplayFor(model => model.MyP.City)" required><br />
+
+                            <label for="Street">רחוב</label>
+                            <input name="Street" type="text" ID="Street" value="@Html.DisplayFor(model => model.MyP.Street)" required><br />
+
+                            <label for="Phone">טלפון</label>
+                            <input name="Phone" type="tel" ID="Phone" value="@Html.DisplayFor(model => model.MyP.Phone)" required><br />
+
+                            <label for="Phone2">טלפון נוסף</label>
+                            <input name="Phone2" type="tel" ID="Phone2" value="@Html.DisplayFor(model => model.MyP.Phone2)"><br />
+
+                            <label for="Fax">פקס</label>
+                            <input name="Fax" type="tel" ID="Fax" value="@Html.DisplayFor(model => model.MyP.Fax)">
+                        </div>
+                    </td>
+                    <td style=" margin-top:0%; padding:20px; margin-right:40px">
+                        <div>
+                            <label for="Email">אי-מייל</label>
+                            <input name="Email" type="email" ID="Email" title="כתובת אי-מייל אינה תקינה" value="@Html.DisplayFor(model => model.MyP.Email)"><br />
+
+                            <label for="BirthDate">תאריך לידה</label>
+                            <input name="BirthDate" type="date" ID="BirthDate" value="@Html.DisplayFor(model => model.MyP.BirthDate)" onchange="ageAndValid(this.value)" required><br />
+
+                            <label for="WayConect">דרך להתקשרות</label>
+                            <input name="ContactExam" type="text" ID="WayConect" value="@Html.DisplayFor(model => model.MyP.ContactExam)" required><br />
+
+                            <label for="Ginfor">preferred way of contact ginformation </label>
+                            <input name="ContactGinformation" type="text" ID="Ginfor" value="@Html.DisplayFor(model => model.MyP.ContactGinformation)" required><br />
+
+                            <label for="Father">מוצא האב</label>
+                            <input name="FathersOrigin" type="text" ID="Father" value="@Html.DisplayFor(model => model.MyP.FathersOrigin)" required><br />
+
+                            <label for="Mather">מוצא האם</label>
+                            <input name="MothersOrigin" type="text" ID="Mather" value="@Html.DisplayFor(model => model.MyP.MothersOrigin)" required><br />
+
+                            <label for="slc2">קופת חולים</label>
+                            <select name="Kupah" id="slc2">
+                                @for (int i = 0; i < Model.MyK.Count(); i++)
+                                {
+                                    <option name="Kupah" value=@Model.MyK[i].Code id=@Model.MyK[i].Code @((Html.DisplayFor(model => model.MyP.Kupah).ToString() == Model.MyK[i].Code.ToString()) ? "selected" : "" )>@Model.MyK[i].Kupah</option>
+                                }
+                            </select><br />
+
+
+                            <label>גיל</label>
+                            <input type="text" ID="TxbAge" disabled="disabled">
+                            <br />
+                            <label for="slc3">מצב אישי</label>
+                            <select name="MaritalStatus" id="slc3">
+                                @for (int i = 0; i < Model.MyS.Count(); i++)
+                                {
+                                    <option name="MaritalStatus" value=@Model.MyS[i].Code ID=@Model.MyS[i].Code @((Html.DisplayFor(model => model.MyP.MaritalStatus).ToString() == Model.MyS[i].Code.ToString()) ? "selected" : "" )>@Model.MyS[i].Maritalstatus </option>
+                                }
+                            </select>
+                        </div>
+                    </td>
+                    <td style="margin-top:0%; padding:20px; margin-right:80px">
+                        <div>
+                            <label for="checkchildren">ילדים</label>
+                            <input id="checkchildren" type="checkbox" @((Html.DisplayFor(model => model.MyP.Children).ToString() != 0.ToString()) ? "checked" : "") onchange="f1()" />
+                            <br />
+
+                            <div id="c" style="display:@((Html.DisplayFor(model => model.MyP.Children).ToString() == 0.ToString())? "none" : "inline-block")">
+
+                                <label for="num">מספר ילדים</label>
+                                <input id="num" name="Children" type="number" min="0" ID="TxbNumChild" value=@Html.DisplayFor(model => model.MyP.Children) oninput="check0()"><br />
+
+                                <label for="G">G</label>
+                                <input id="G" name="G" type="number" min="0" ID="TxbG" value=@Html.DisplayFor(model => model.MyP.G)><br />
+
+                                <label for="T">T</label>
+                                <input id="T" name="T" type="number" min="0" ID="TxbT" value=@Html.DisplayFor(model => model.MyP.T)><br />
+
+                                <label for="P">P</label>
+                                <input id="P" name="P" type="number" min="0" ID="TxbP" value=@Html.DisplayFor(model => model.MyP.P)><br />
+
+                                <label for="A">A</label>
+                                <input id="A" name="A" type="number" min="0" ID="TxbA" value=@Html.DisplayFor(model => model.MyP.A)> <br />
+
+                                <label for="L">L</label>
+                                <input id="L" name="L" type="number" min="0" ID="TxbL" value=@Html.DisplayFor(model => model.MyP.L)><br />
+                            </div>
+                            <br />
+                            <label for="FollowUp">אישור ליצירת קשר למעקב:</label>
+                            <input id="FollowUp" name="FollowUp" type="checkbox" value="true" @(Model.MyP.FollowUp ? "checked=\"checked\"" : "") />
+                            <br />
+                            <label for="slc5">עיסוק</label>
+                            <select name="Occupation" id="slc5">
+                                <option name="Occupation" id="Homemaker" @((Html.DisplayFor(model => model.MyP.Occupation).ToString() == "עקרת בית") ? "selected" : "" )>עקרת בית</option>
+                                <option name="Occupation" id="student" @((Html.DisplayFor(model => model.MyP.Occupation).ToString() == "סטודנטית") ? "selected" : "" )>סטודנטית</option>
+                                <option name="Occupation" id="otherB" @((Html.DisplayFor(model => model.MyP.Occupation).ToString() == "אחר") ? "selected" : "" )>אחר</option>
+                            </select><br />
+                            <label style="font-size:initial; color:#762d49">@ViewBag.status</label>
+                            <br />
+                            <input type="submit" value="עדכן">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</body>

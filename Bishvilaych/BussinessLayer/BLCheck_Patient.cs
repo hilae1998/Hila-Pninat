@@ -16,7 +16,7 @@ namespace BussinessLayer
             DACheck_Patient dcp = new DACheck_Patient();
             ListDictionary Params = new ListDictionary();
             Params.Add("@id", BLCtrl.sendString(id1, "") );
-            int result = dcp.Check_Patient(Params);//יש פה שגיאה בניסיון להריץ את הפרוצדורה
+            int result = dcp.Check_Patient(Params);
             return result;
         }
     }

@@ -24,19 +24,19 @@ namespace BussinesLayer//Ma'ayan
             {
 
                 D.Code = BLCtrl.getInt(item, "Code", 0);
-                D.Diagnoze = BLCtrl.getString(item, "Diagnoze", "");
-                D.Status = BLCtrl.getString(item, "Status", "");
+                D.Diagnoze = BLCtrl.getInt(item, "Diagnoze",1);
+                D.Status = BLCtrl.getInt(item, "Status", 1);
                 D.BeginDate = BLCtrl.getDateTime(item, "BeginDate", new DateTime(2018-1-1));
                 D.EndDate = BLCtrl.getDateTime(item, "EndDate", new DateTime(2018-1-1));
                 D.By = BLCtrl.getInt(item, "By", 0);
-                D.PatiantCode = BLCtrl.getString(item, "PatiantCode", "");
+                D.PatiantCode = BLCtrl.getInt(item, "PatiantCode", 0);
                 MyD.Add(D);
             }
             
             return MyD;
         }
 
-        public List<string> GetNameDiagnoze(string Num)
+        public List<string> GetNameDiagnoze(int Num)
         {
             DADiagnoze DAD = new DADiagnoze();
             ListDictionary Params = new ListDictionary();
@@ -49,7 +49,7 @@ namespace BussinesLayer//Ma'ayan
             return MyNameDiagnoze;
         }
 
-        public List<string> GetNameStatus(string Num)
+        public List<string> GetNameStatus(int Num)
         {
             DADiagnoze DAD = new DADiagnoze();
             ListDictionary Params = new ListDictionary();
@@ -62,7 +62,7 @@ namespace BussinesLayer//Ma'ayan
             return MyNameStatus;
         }
 
-        public List<string> GetNameWorker(string Num)
+        public List<string> GetNameWorker(int Num)
         {
             DADiagnoze DAD = new DADiagnoze();
             ListDictionary Params = new ListDictionary();
@@ -70,23 +70,39 @@ namespace BussinesLayer//Ma'ayan
             DataSet ds = DAD.GetNameWorker(Params);
             string S;
             List<string> MyNameWorker = new List<string>();
-            S = BLCtrl.getString(ds.Tables[0].Rows[0], "FullName", "");
+            S = BLCtrl.getString(ds.Tables[0].Rows[0], "FullName","");
             MyNameWorker.Add(S);
             return MyNameWorker;
         }
+        //public int DeleteDiagnoze(int Code)
+        //{
+        //    DADiagnoze DAD = new DADiagnoze();
+        //    ListDictionary Params = new ListDictionary();
+        //    Params.Add("@Code", Code);
+            
+        //    int result = DAD.DeleteDiagnoze(Params);
+        //    return result;
+        //}
 
-
-
-        public int DeleteDiagnoze(int Code)
+        public int UpdateDiagnoze(Diagnozes d, string id)
         {
             DADiagnoze DAD = new DADiagnoze();
             ListDictionary Params = new ListDictionary();
-            Params.Add("@Code", Code);
-
-            int result = DAD.DeleteDiagnoze(Params);
+            Params.Add("@BeginDate", d.BeginDate);
+            Params.Add("@By", d.By);
+            Params.Add("@Code", d.Code);
+            Params.Add("@Diagnoze", d.Diagnoze);
+            Params.Add("@EndDate", d.EndDate);
+            Params.Add("@PatiantCode", d.PatiantCode);
+            Params.Add("@Status", d.Status);
+            int result = DAD.UpdateDiagnoze(Params);
+            //List<Diagnozes> all= GetAllDiagnoze(id);
+            //string S;
+            //List<string> MyNameWorker = new List<string>();
+            //S = BLCtrl.getString(ds.Tables[0].Rows[0], "FullName", "");
+            //MyNameWorker.Add(S);
             return result;
         }
-
 
     }
 }

@@ -13,7 +13,6 @@ public class Hospitalizations
      public string  Reason { get; set; }
      public int By { get; set; }
      public string PatiantCode { get; set; }
-
 }
 
 

@@ -17,8 +17,8 @@
                                     }
                                     return((dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear());
                                     }*@
-<script>
-    $(document).ready(function () {
+
+@*$(document).ready(function () {
         var dictionary = new Array();
         console.log($("#dateofpatiants"))
         console.log(dictionary);
@@ -148,170 +148,133 @@
                 }
             }
         }
-    });
+    });*@
+<style>
 
+    .checkbox {
+        display: inline-block;
+        height: 18px;
+        width: 18px;
+    }
 
-    $(".yesno").dblclick(function ()
-        {
-            if( $(".yesno").val()=="Yes")
-                $(".yesno").prop("selectedIndex", 1);
-            else
-                $(".yesno").prop("selectedIndex", 0);
-        });
+    .text {
+        font-size: 20px;
+    }
+</style>
 
-        function Load2(id)// שליפת נתונים
-        {
-            var x = document.getElementById(id);
-            var tempo=@Html.DisplayFor(model => model.CycleRegular);
-            switch (tempo)
-            {
-                case 0:x.selectIndex(0);
-                    break;
-                case 1:x.selectIndex(1);
-                    break;
-            }
+<script>
+    function onLoad() {
+        var CycleRegular = '@Model.CycleRegular';
+        var MenstrualSyptoms = '@Model.MenstrualSyptoms';
+        var MenopauseSyptoms = '@Model.MenopauseSyptoms';
+        var Contraception = '@Model.Contraception';
+
+        if (CycleRegular == "True") {
+            document.getElementById('CycleRegularT').style.display = "inline-block";
         }
-        function Load3(id)// שליפת נתונים
-        {
-            var x = document.getElementById(id);
-            var tempo=@Html.DisplayFor(model => model.MenstrualSyptoms);
-            switch (tempo)
-            {
-                case 0:x.selectIndex(0);
-                    break;
-                case 1:x.selectIndex(1);
-                    break;
-            }
+        if (MenstrualSyptoms == "True") {
+            document.getElementById('MenstrualSyptomsT').style.display = "inline-block";
         }
-        function Load4(id)// שליפת נתונים
-        {
-            var x = document.getElementById(id);
-            var tempo=@Html.DisplayFor(model => model.MenopauseSyptoms);
-            switch (tempo)
-            {
-                case 0:x.selectIndex(0);
-                    break;
-                case 1:x.selectIndex(1);
-                    break;
-            }
+        if (MenopauseSyptoms == "True") {
+            document.getElementById('MenopauseSyptomsT').style.display = "inline-block";
+
         }
-        function Load5(id)// שליפת נתונים
+        if (Contraception == "True")
         {
-            var x = document.getElementById(id);
-            var tempo=@Html.DisplayFor(model => model.Contraception);
-            switch (tempo)
-            {
-                case 0:
-                    {
-                        x.selectIndex(0);
-                        var t=document.getElementById("ContraceptionT");
-                        t.style.display='block'; // if its "No" don't show the next select
-                    }
-                    break;
-                case 1:
-                    {
-                        x.selectIndex(1);
-                        var t=document.getElementById("ContraceptionT");
-                        t.style.display='block'; // if its "yes" show the next select
-                    }
-                    break;
-            }
-        }
-        function Load6(id)
-        {
-            var x = document.getElementById(id);
-            if(@Html.DisplayFor(model => model.ContraceptionT)!=null)
-            {
-                var tempo=@Html.DisplayFor(model => model.ContraceptionT);
-                switch (tempo)
+            document.getElementById('ContraceptionT').style.display = "inline-block";
+        }       
+    }
+
+    function onChangeDisplay(id,check) {
+
+        switch (id) {
+            case "CycleRegular":
                 {
-                    case "Cerazette":x.selectIndex(0);
-                        break;
-                    case "Diane-35":x.selectIndex(1);
-                        break;
-                    case "Diaphragm":x.selectIndex(2);
-                        break;
-                    case "Feminet":x.selectIndex(3);
-                        break;
-                    case "IUD":x.selectIndex(4);
-                        break;
-                    case "Mercilon":x.selectIndex(5);
-                        break;
-                    case "Microlite":x.selectIndex(6);
-                        break;
-                    case "NuvaRing":x.selectIndex(7);
-                        break;
-                    default:x.selectIndex(8);
+                    if (check == true) {
+                        document.getElementById('CycleRegularT').style.display = "inline-block";
+                        document.getElementById('CycleRegularT').value = "";
+                       
+                    }
+                    else
+                    {
+                        document.getElementById('CycleRegularT').value = "";
+                        document.getElementById('CycleRegularT').style.display = "none";
+                    }
+                    break;
                 }
-            }
-        }
-        function visible(id)
-        {
-            var x = document.getElementById(id);
-            var tempo=@Html.DisplayFor(model => model.Contraception);
-            switch (tempo)
-            {
-                case 0:
-                    {
-                        x.selectIndex(0);
-                        var t=document.getElementById("ContraceptionT");
-                        t.style.display='block'; // if its "No" don't show the next select
+            case "MenstrualSyptoms":
+                {
+                    if (check == true) {
+                        document.getElementById('MenstrualSyptomsT').style.display = "inline-block";
+                        document.getElementById('MenstrualSyptomsT').value = "";
+                       
+                    }
+                    else {
+                        document.getElementById('MenstrualSyptomsT').value = "";
+                        document.getElementById('MenstrualSyptomsT').style.display = "none";
                     }
                     break;
-                case 1:
-                    {
-                        x.selectIndex(1);
-                        var t=document.getElementById("ContraceptionT");
-                        t.style.display='block'; // if its "yes" show the next select
+                }
+            case "MenopauseSyptoms":
+                {
+                    if (check == true) {
+                        document.getElementById('MenopauseSyptomsT').style.display = "inline-block";
+                        document.getElementById('MenopauseSyptomsT').value = "";
+                      
+                    }
+                    else {
+                        document.getElementById('MenopauseSyptomsT').value = "";
+                        document.getElementById('MenopauseSyptomsT').style.display = "none";
                     }
                     break;
-            }
+                }
+            case "Contraception":
+                {
+                    if (check == true) {
+                        document.getElementById('ContraceptionT').style.display = "inline-block";
+                        document.getElementById("ContraceptionT").selectedIndex = "0";
+                        //document.getElementById('ContraceptionT0').value = true;
+                        //document.getElementById('ContraceptionT0').checked = "checked";
+                    }
+                    else {
+                        document.getElementById("ContraceptionT").selectedIndex = "0";
+                        //document.getElementById('ContraceptionT0').value = true;
+                        //document.getElementById('ContraceptionT0').checked = "checked";
+                        document.getElementById('ContraceptionT').style.display = "none";
+                    
+                        
+                    }
+                    break;
+                }
         }
-
-    })
+    }
 </script>
-
-@using (Html.BeginForm())
-{
-    <h2>@ViewBag.err</h2>
-    <div>
-        <fieldset>
-            <p id="dateofpatiants"></p><br />
-            <a href="#" id="now" class="herf" title="@DateTime.Today.ToShortDateString()" style="display:none">היום</a><br />
-        </fieldset>
-        <label for="AgeOfMenarche" style="font-size:21px; font-weight:bold">Age of Menarche:  </label>
-        <input name="AgeOfMenarche" id="AgeOfMenarche" type="number" min="1" , max="120" value=@Html.DisplayFor(model => model.AgeOfMenarche) />
+<body style="direction:ltr; text-align:center" onload="onLoad()">
+    @using (Html.BeginForm())
+    {
+        <h2>@ViewBag.err</h2>
+        <label class="text" for="AgeOfMenarche">Age of Menarche:</label>
+        <input name="AgeOfMenarche" id="AgeOfMenarche" height="18" width="18" type="number" min="1" , max="120" value=@Html.DisplayFor(model => model.AgeOfMenarche) />
         <br />
         <br />
-        <br />
-        <label for="CycleRegular" style="font-size:21px; font-weight:bold">Are cycles regular?  </label> 
-        <select @*class="yesno"*@ name="CycleRegular" id="CycleRegular" @*onload="Load2(CycleRegular)"*@>
-            <option name="CycleRegular0" id="CycleRegular1" @((@Html.DisplayFor(model => model.CycleRegular).ToString() == "false") ? "selected" : "" )>No</option>
-            <option name="CycleRegular1" id="CycleRegular2" @((@Html.DisplayFor(model => model.CycleRegular).ToString() == "true") ? "selected" : "" )>Yes</option>
-        </select>  
-        <input name="CycleRegularT" id="CycleRegularT" type="text" value=@Html.DisplayFor(model => model.CycleRegularT)>
+        <label class="text" for="CycleRegular">Are cycles regular?</label>
+        <input class="checkbox" id="" name="CycleRegular" type="checkbox" onchange="onChangeDisplay('CycleRegular', this.checked)" value="true" @(Model.CycleRegular ? "checked=\"checked\"" : "") />
+        <input name="CycleRegularT" id="CycleRegularT" type="text" style="display:none" value=@Html.DisplayFor(model => model.CycleRegularT)>
         <br />
         <br />
-        <br />
-        <label for="MenstrualSyptoms" style="font-size:17px">Any symptoms surrounding your menstrual cycle?  </label><select class="yesno" name="MenstrualSyptoms" id="MenstrualSyptoms" onload="Load3(MenstrualSyptoms)">
-            <option selected="selected">No</option>
-            <option>Yes</option>
-        </select>  <input name="MenstrualSyptomsT" id="MenstrualSyptomsT" type="text" value=@Html.DisplayFor(model => model.MenstrualSyptomsT)>
+        <label class="text" for="MenstrualSyptoms">Any symptoms surrounding your menstrual cycle?</label>
+        <input class="checkbox" id="MenstrualSyptoms" name="MenstrualSyptoms" type="checkbox" onchange="onChangeDisplay('MenstrualSyptoms',this.checked)" value="true" @(Model.MenstrualSyptoms ? "checked=\"checked\"" : "") />
+        <input name="MenstrualSyptomsT" id="MenstrualSyptomsT" type="text" style="display:none" value=@Html.DisplayFor(model => model.MenstrualSyptomsT)>
         <br />
         <br />
-        <br />
-        <label for="MenopauseSyptoms" style="font-size:17px">Any symptoms surrounding menopause?  </label>
-        <select class="yesno" name="MenopauseSyptoms" id="MenopauseSyptoms" onload="Load4(MenopauseSyptoms)">
-            <option name="MenopauseSyptoms" selected="selected">No</option>
-            <option name="MenopauseSyptoms">Yes</option>
-        </select>  <input name="MenopauseSyptomsT" id="MenopauseSyptomsT" type="text" value=@Html.DisplayFor(model => model.MenopauseSyptomsT)>
+        <label class="text" for="MenopauseSyptoms">Any symptoms surrounding menopause?</label>
+        <input class="checkbox" id="MenopauseSyptoms" name="MenopauseSyptoms" type="checkbox" onchange="onChangeDisplay('MenopauseSyptoms',this.checked)" value="true" @(Model.MenopauseSyptoms ? "checked=\"checked\"" : "") />
+        <input name="MenopauseSyptomsT" id="MenopauseSyptomsT" type="text" style="display:none" value=@Html.DisplayFor(model => model.MenopauseSyptomsT)>
         <br />
         <br />
-        <br />
-        <label for="Contraception" style="font-size:21px; font-weight:bold">Contraception hx  </label>  <select class="yesno" name="Contraception" id="Contraception" onchange="visible(Contraception)" onload="Load5(Contraception)">
-            <option selected="selected">No</option>
-            <option>Yes</option>
-        </select>  <select name="ContraceptionT" id="ContraceptionT" @*onload="Load6(this.id)"*@ @*style="display:none"*@>
+        <label class="text" for="Contraception">Contraception hx:</label>
+        <input class="checkbox" id="Contraception" name="Contraception" type="checkbox" onchange="onChangeDisplay('Contraception',this.checked)" value="true" @(Model.Contraception ? "checked=\"checked\"" : "") />
+        <select name="ContraceptionT" style="display:none" id="ContraceptionT">
             <option name="ContraceptionT0" id="ContraceptionT0" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Cerazette") ? "selected" : "" )>Cerazette</option>
             <option name="ContraceptionT1" id="ContraceptionT1" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Diane-35") ? "selected" : "" )>Diane-35</option>
             <option name="ContraceptionT2" id="ContraceptionT2" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Diaphragm") ? "selected" : "" )>Diaphragm</option>
@@ -321,10 +284,10 @@
             <option name="ContraceptionT6" id="ContraceptionT6" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Microlite") ? "selected" : "" )>Microlite</option>
             <option name="ContraceptionT7" id="ContraceptionT7" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "NuvaRing") ? "selected" : "" )>NuvaRing</option>
             <option name="ContraceptionT8" id="ContraceptionT8" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Other") ? "selected" : "" )>Other</option>
-        </select>  
+        </select>
         <br />
         <br />
-        <br />
-        <input id="ButtonSumbit" type="submit" value="שמור" style="font-weight:bolder" onclick="ok()">
-    </div>
-}
+        <label style="font-size:initial; color:#762d49">@ViewBag.status2</label><br />
+        <input id="ButtonSumbit" type="submit" value="שמור">
+    }
+</body>

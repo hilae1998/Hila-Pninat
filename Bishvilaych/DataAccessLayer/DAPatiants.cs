@@ -58,7 +58,7 @@ namespace DataAccessLayer
                 db_ctrl.connectToDb(connStr);
             }
 
-            string sp_name = "UpdatePatiant"; //שם הפרוצדורה
+            string sp_name = "updatePatiants"; //שם הפרוצדורה
 
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }

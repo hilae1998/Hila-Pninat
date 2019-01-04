@@ -78,6 +78,7 @@
     <Compile Include="BLSensitivities.cs" />
     <Compile Include="BLStiker.cs" />
     <Compile Include="BLUpdateDateAndCode.cs" />
+    <Compile Include="BLVisitReason.cs" />
     <Compile Include="BLVisitSummery.cs" />
     <Compile Include="BLWorker.cs" />
     <Compile Include="BLWorkerDetails.cs" />

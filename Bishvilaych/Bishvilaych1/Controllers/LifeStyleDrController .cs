@@ -12,13 +12,10 @@ namespace Bishvilaych.Controllers
         LifeStyle b = new LifeStyle();
         public ActionResult LifeStyleDr()
         {
-
-
-            //    if (Session["Patiant"] == null)
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
-
+            if (Session["Patiant"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             string id = Session["Patiant"].ToString(); //id - from Patiant controler
             BLDr_LigeStlye BL = new BLDr_LigeStlye();
             LifeStyle p = BL.Get_LifeStyle(DateTime.Today, id); //return the ditails of the patiant
@@ -28,14 +25,13 @@ namespace Bishvilaych.Controllers
 
 
         [HttpPost]
-        public ActionResult LifeStyledr(LifeStyle pg)
+        public ActionResult LifeStyleDr(LifeStyle pg)
         {
             try
             {
                 string id = Session["Patiant"].ToString();//id - from Patiant controler
                 BLDr_LigeStlye bl = new BLDr_LigeStlye();
                 int result = bl.AddOrUpdatelifestyle(id, DateTime.Today, pg);      // update the db with the new ditails
-
                 if (result == 0)
                 {
                     ViewBag.err = "הנתונים נשמרו בהצלחה";

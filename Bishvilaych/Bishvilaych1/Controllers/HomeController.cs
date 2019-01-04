@@ -1,8 +1,12 @@
-﻿using System;
+﻿using BussinesLayer;
+using BussinessLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
+
 
 namespace Bishvilaych.Controllers
 {
@@ -10,8 +14,16 @@ namespace Bishvilaych.Controllers
     {
         public ActionResult Home()
         {
-            ViewBag.auth = 0;
-            //ViewBag.auth = Session["auth"].ToString();
+            if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+                return RedirectToAction("Login", "Account");
+            string un = Session["UserName"].ToString(); 
+            string pw = Session["UserPasswerd"].ToString() ;
+            BLWorker bl = new BLWorker();
+            int job = bl.Cheak_JobUser(un, pw);
+            if (job == 0)
+                Session["auth"] = 5;
+            else
+                Session["auth"] = job;
             return View();
         }
 

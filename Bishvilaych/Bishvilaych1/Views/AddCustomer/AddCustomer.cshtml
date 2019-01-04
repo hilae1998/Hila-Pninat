@@ -1,4 +1,4 @@
-﻿
+﻿@model Customers
 @{
     ViewBag.Title = "AddCustomer";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
@@ -7,7 +7,6 @@
 @using BussinesLayer;
 @using BussinessLayer;
 
-@*@model Customers*@
 <style>
     .myButton {
         background-color: #dcdcdc;
@@ -35,96 +34,102 @@
             top: 1px;
         }
 </style>
-@* תקינות תז, קלט מחרוזת , קלט מספרים *@
 <script>
-    $(document).ready(function(){
-    $("#Text1").on("blur", function () {
-        $.ajax({
-            type: 'get',
-            url: "@Url.Action("checkID")",
-            data: { ID: $("#Text1").val() },
-            success: function (data) {
-                $("#idp").html("")
-            $("#idp").append(data)
-        },
-        error:function(){}})
-    })
+     $(document).ready(function () {
+
+        function addErrorMessage(data) {
+            var txt = "<div class='alert alert-danger'  role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" + data + "</div>";
+            $("#idp1").html("")
+            $("#idp1").append(txt)
+
+            window.setTimeout(function () {
+                $(".alert").fadeTo(0, 600).slideUp(400, function () {
+                    $(this).remove();
+                });
+            }, 3000);
+        }
+
+        $("#Text1").on("blur", function () {
+
+            $.ajax({
+                type: 'get',
+                url: "@Url.Action("checkCustomerID")",
+                data: { ID: $("#Text1").val() },
+                success: function (data) {
+                    if (data != "") {
+                        addErrorMessage(data);
+                    }
+                },
+                error: function () { }
+            })
+        })
     })
 </script>
 
-@*<form action=@Url.Action("AddCustomer") method="post" >
-    <div>
-        <label>מספר זהות</label>
-        <input type="text" name="Id" /><br />
-        <label>שם פרטי</label>
-        <input type="text" name="FirstName"/><br />
-        <label>שם משפחה</label>
-        <input type="text" name="LastName"/><br />
-        <label>טלפון</label>
-        <input type="text" name="Phone"/><br />
-        <label>טלפון נוסף</label>
-        <input type="text" name="Phone2"/><br />
-        <label>רחוב</label>
-        <input type="text" name="Street"/><br />
-        <label>עיר</label>
-        <input type="text" name="City"/><br />
 
-        <input type="submit" value="הוסף"/>
-    </div>
-</form>*@
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
     <center>
-        <form id="form1" action=@Url.Action("AddCustomer") method="post">
+        <form id="form1" action=@Url.Action("AddCustomer","AddCustomer") method="post">
             <div dir="rtl">
-                <fieldset style="margin-top:75px; height:390px; width:500px; box-shadow:150px;">
-                    <div style="margin-top:40px">
+                <fieldset style="margin-top:0px; height:390px; width:500px; box-shadow:150px;">
+                    <div style="margin-top:0px">
                         <h1 style="font-family:Arial;font-size:50px">הוספת לקוחה</h1>
 
                         <div style="margin-right:0%; margin-left:55px">
                             <label style="font-size:25px;font-family:Arial">מספר זהות:</label>
-                            <input id="Text1" type="text" maxlength="9" pattern="(?=.*\d)(?=.*[0-9]).{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" name="Id" placeholder="הכנס/י תעודת זהות" required />
+                            <input id="Text1" type="text" maxlength="9" pattern="[0-9]{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" name="Id" placeholder="הכנס/י תעודת זהות" required />
+                            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
                         </div>
 
                         <div style="margin-right:0%; margin-left:80px">
                             <label style="font-size:25px;font-family:Arial">שם פרטי:</label>
-                            <input id="Text2" type="text" maxlength="20" name="FirstName" placeholder="הכנס/י שם פרטי" required />
+                            <input id="Text2" type="text" maxlength="20" name="FirstName" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י שם פרטי" required />
                         </div>
-
                         <div style="margin-right:0%; margin-left:50px">
                             <label style="font-size:25px;font-family:Arial">שם משפחה:</label>
-                            <input id="Text3" type="text" name="LastName" maxlength="20" placeholder="הכנס/י שם משפחה" required />
+                            <input id="Text3" type="text" name="LastName" maxlength="20"pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י שם משפחה" required />
                         </div>
                         <div style="margin-right:0%; margin-left:110px">
                             <label style="font-size:25px;font-family:Arial">טלפון:</label>
-                            <input id="Text3" type="text" name="Phone" maxlength="15" pattern="(?=.*\d)(?=.*[0-9]).{7,15}" title="נא הקש/י מספר בעל 7 ספרות ומעלה" placeholder="הכנס/י מספר טלפון" required />
+                            <input id="Text4" type="text" name="Phone" maxlength="15" pattern="[0-9]{7,15}" title="נא הקש/י מספר בעל 7 ספרות ומעלה" placeholder="הכנס/י מספר טלפון" required />
                         </div>
                         <div style="margin-right:0%; margin-left:60px">
                             <label style="font-size:25px;font-family:Arial">טלפון נוסף:</label>
-                            <input id="Text3" type="text" name="Phone2" maxlength="15" pattern="(?=.*\d)(?=.*[0-9]).{7,15}" title="נא הקש/י מספר בעל 7 ספרות ומעלה" placeholder="הכנס/י מספר טלפון"/>
+                            <input id="Text5" type="text" name="Phone2" maxlength="15" pattern="[0-9]{7,15}" title="נא הקש/י מספר בעל 7 ספרות ומעלה" placeholder="הכנס/י מספר טלפון"/>
                         </div>
+
                         <div style="margin-right:0%; margin-left:113px">
                             <label style="font-size:25px;font-family:Arial">רחוב:</label>
-                            <input id="Text3" type="text" name="Street" maxlength="40" placeholder="הכנס/י רחוב" required />
+                            <input id="Text6" type="text" name="Street" maxlength="40" pattern="[א-ת0-9]+[א-ת0-9 /\]+" title="אותיות בעברית ומספרים בלבד" placeholder="הכנס/י רחוב" required />
                         </div>
                         <div style="margin-right:0%; margin-left:125px">
                             <label style="font-size:25px;font-family:Arial">עיר:</label>
-                            <input id="Text3" type="text" name="City" maxlength="20" placeholder="הכנס/י עיר" required />
+                            <input id="Text7" type="text" name="City" maxlength="20" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י עיר" required />
                         </div>
                         
                         <div style="margin-right:0%; margin-left:280px">
-                            <br /><input class="myButton" id="Submit1" type="submit" value="הוסף" />
+                            <br /> <input class="myButton" id="Submit1" type="submit" value="הוסף" />
                         </div>
-                        <div id="idp"></div>
                     </div>
-                </fieldset>
+                    <br />
+                    <div id="idp1">
+                        @if (ViewBag.message != null && ViewBag.message != "")
+                        {
+                            <script type="text/javascript">
+                                window.onload = function () {
+                                    var txt = "<div class='alert alert-success'  role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" + "@ViewBag.Message" + "</div>";
+                                    $("#idp1").html("")
+                                    $("#idp1").append(txt)
+
+                                    window.setTimeout(function () {
+                                        $(".alert").fadeTo(0, 600).slideUp(400, function () {
+                                            $(this).remove();
+                                        });
+                                    }, 3000);
+                                };
+                            </script>
+                        }
+                    </div>
+                </fieldset><br /><br /><br /><br /><br /><br />
             </div>
         </form>
     </center>
-</body>
-</html>

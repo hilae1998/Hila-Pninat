@@ -28,6 +28,7 @@
     <SccProvider>SAK</SccProvider>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -175,18 +176,17 @@
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
+    <None Include="scripts\jquery.validate-vsdoc.js" />
+    <Content Include="scripts\jquery.validate.js" />
+    <Content Include="scripts\jquery.validate.min.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="style\Layout.css" />
     <Content Include="Views\AddPatiant1\AddPatiant.aspx" />
-    <Content Include="Views\FollowedPatiant\Demography.aspx" />
-    <Content Include="Views\FollowedPatiant\Patiants.aspx" />
-    <Content Include="Views\FollowedPatiant\VisitReason.aspx" />
-    <Content Include="Views\LifeStyleDr\Demography.aspx" />
-    <Content Include="Views\Patiants\VisitReason.aspx" />
     <Content Include="Views\ReciepitsListOfCustomers\ReciepitsListOfCustomers.cshtml" />
     <Content Include="Views\ReciepitsListOfPatiants\Reciepts.aspx" />
     <Content Include="Views\ScreeningsKinds\ScreeningsKings.aspx" />
-    <Content Include="Views\Sticker\Stiker.aspx" />
-    <Content Include="Views\WorkerList\WorkersList.aspx" />
-    <Content Include="Views\Workers\Workers.aspx" />
+    <Content Include="Views\Stiker\Sticker\Stiker.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -204,9 +204,7 @@
     <Compile Include="Controllers\DocumentScannerController .cs" />
     <Compile Include="Controllers\Folloaed_patientController.cs" />
     <Compile Include="Controllers\FullListPatientsController .cs" />
-    <Compile Include="Controllers\FullListworkerController.cs" />
     <Compile Include="Controllers\FullListWorkersController.cs" />
-    <Compile Include="Controllers\FullListWorkerssController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalizationController.cs" />
     <Compile Include="Controllers\LifeStyleDrController .cs" />
@@ -229,6 +227,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\myStatic.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -258,11 +257,9 @@
     <Content Include="Views\PhyicalExam\PhyicalExam.cshtml" />
     <Content Include="Views\FullListPatients\PatiantsList.cshtml" />
     <Content Include="Views\FullListWorkers\WorkersList.cshtml" />
-    <Content Include="Views\Folloaed_patient\Patiants.cshtml" />
     <Content Include="Views\AddImmusation\AddImmusations.cshtml" />
     <Content Include="Views\WorkerDetails\WorkerDetails.cshtml" />
     <Content Include="Views\AddScreening\AddScreening.cshtml" />
-    <Content Include="Views\PastGenicology\PastGenicologi.cshtml" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -290,11 +287,11 @@
     <Content Include="Views\VisitReason\VisitReason.cshtml" />
     <Content Include="Views\DocumentScanner\DocumentScanner.cshtml" />
     <Content Include="Views\Acount\Acount.cshtml" />
-    <Content Include="Views\FullListWorkerss\WorkersList.cshtml" />
-    <Content Include="Views\LifeStyleNutrition1\AddLSNutritionist.cshtml" />
     <Content Include="Views\Sensitive\Sensitive.cshtml" />
     <Content Include="Views\Stiker\Stiker.cshtml" />
     <Content Include="Views\Visit_Summary\VisitSummary.cshtml" />
+    <Content Include="Views\LifeStyleDr\LifeStyleDr.cshtml" />
+    <Content Include="Views\PastMedical\Edit1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -304,7 +301,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="Views\AddLSNutritionist\" />
   </ItemGroup>

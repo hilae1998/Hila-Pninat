@@ -31,6 +31,18 @@ namespace DataAccessLayer
 
             return DW_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
-        
+        public int Cheak_JobUser(ListDictionary Params)
+        {
+            DBCtrl DW_ctrl = new DBCtrl();
+            if (!DW_ctrl.isConnected())
+            {
+                DW_ctrl.connectToDb(connStr);
+            }
+
+            string sp_name = "Cheak_JobUser";
+
+            return DW_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
+        }
+
     }
 }

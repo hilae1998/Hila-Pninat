@@ -19,6 +19,8 @@ public class Patiants
     public string Phone2 { get; set; }
     public string Fax { get; set; }
     public string Email { get; set; }
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")] //This template for the date type in Patiant page
+   // [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
     public DateTime BirthDate { get; set; }
     public string ContactExam { get; set; }
     public string ContactGinformation { get; set; }

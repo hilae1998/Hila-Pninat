@@ -18,9 +18,12 @@ namespace Bishvilaych.Controllers
             if (Session["Patiant"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            }  
+            }
+            ViewBag.status3 = Session["status3"];
+            Session["status3"] = "";
+
             BLLifeStyleNutritionist lsn = new BLLifeStyleNutritionist();
-            LifeStyle ls = lsn.getLifeStyleNutritionist(Session["Patiant"].ToString(),DateTime.Today);
+            LifeStyle ls = lsn.getLifeStyleNutritionist(Session["Patiant"].ToString(), DateTime.Today);
             return View(ls);
         }
 
@@ -30,20 +33,30 @@ namespace Bishvilaych.Controllers
             try
             {
                 BLLifeStyleNutritionist lsn = new BLLifeStyleNutritionist();
-                int result = lsn.addOrUpdateLifeStyleNutritionist((float)ls.Height, (float)ls.Wieght, ls.BMI,
+                int result = lsn.addOrUpdateLifeStyleNutritionist(ls.Height, ls.Wieght, ls.BMI,
                     ls.BloodPressure, ls.pulse, ls.NotEat, ls.NotEatT, ls.Meals, ls.Fruits, ls.Vegetables,
-                    ls.Dairy, ls.Water, ls.Diet, ls.DietT, (float)ls.SleepingHours, ls.Activity, DateTime.Today, Session["Patiant"].ToString());
+                    ls.Dairy, ls.Water, ls.Diet, ls.DietT, ls.SleepingHours, ls.Activity, DateTime.Today, Session["Patiant"].ToString());
                 if (result == 0)
-                   Session["message"] = "הנתונים נוספו בהצלחה";
+                {
+                    Session["status3"] = "הנתונים נשמרו בהצלחה";
+                    return RedirectToAction("LifeStyleNutritionist", "LifeStyleNutritionist", new { ls });
+                }
                 else
-                   Session["message"] = "שגיאה בהוספת הנתונים";                             
+                {
+                    Session["status3"] = "התרחשה שגיאה";
+                    return RedirectToAction("LifeStyleNutritionist", "LifeStyleNutritionist", new { ls });
+                }
+
             }
             catch (Exception)
             {
-                return View(ls);
+                Session["status3"] = "התרחשה שגיאה";
+                return RedirectToAction("LifeStyleNutritionist", "LifeStyleNutritionist", new { ls });
+                //   return View(ls);
             }
-            return View(ls);
         }
+
+
 
         public ActionResult AllDates()
         {
@@ -63,7 +76,7 @@ namespace Bishvilaych.Controllers
 
 
 
-       
+
 
 
     }

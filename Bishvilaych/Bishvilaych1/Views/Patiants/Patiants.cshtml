@@ -1,24 +1,23 @@
-﻿@*לאה אמסלם
-21/06/18*@
-@{
+﻿@{
     ViewBag.Title = "Patiants";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
-<div dir="rtl">
-    <div>       
-        <li>
-            @Html.ActionLink("הוספת מטופלת", "AddPatiant", "AddPatiant")
-        </li>
-        <br />
-        <li><form action="@Url.Action("Patiants", "Patiants") " method="post">
-                <text>תעודת זהות מטופלת:</text>   <input type="text" name="idpatiant" id="idpatiant"/>
-                 <input type="submit" value="הכנס" /><h2> @ViewBag.error </h2>
-            </form>
-        </li>
-        <br />
-        <li>@Html.ActionLink("רשימת מטופלות למעקב", "Patiants", "FollowedPatiant")</li>
-        <br />
-        <li> @Html.ActionLink("רשימת מטופלות מלאה", "PatiantsList", "FullListPatients")</li>
-    </div>
-</div> 
+<ul dir="rtl" style="list-style-type:none">
+    <li  @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 2.ToString() ? "style=display:block" : "style=display:none")>
+        @Html.ActionLink("הוספת מטופלת", "AddPatiant", "AddPatiant")
+    </li>
+    <br @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 2.ToString() ? "style=display:block" : "style=display:none") />
+    <li>
+        <form action="@Url.Action("Patiants", "Patiants") " method="post">
+            <text>תעודת זהות מטופלת:</text>   <input type="text" name="idpatiant" id="idpatiant" />
+            <input type="submit" value="הכנס" /><label style="color:red;font-size:initial">@ViewBag.error</label>
+        </form>
+    </li>
+    <br />
+    <li @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 2.ToString() ? "style=display:block" : "style=display:none")  >@Html.ActionLink("רשימת מטופלות למעקב", "Patiants", "FollowedPatiant")</li>
+    <br @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 2.ToString() ? "style=display:block" : "style=display:none") />
+    <li> @Html.ActionLink("רשימת מטופלות מלאה", "PatiantsList", "FullListPatients")</li>
+</ul>
+
+
 

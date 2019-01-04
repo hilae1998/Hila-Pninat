@@ -22,10 +22,11 @@ namespace BussinessLayer
             
             DataSet ds = dm.getLifeStyleNutritionist(Params);
             LifeStyle p = new LifeStyle();
-            //p.UpdateCode = ds.Tables[0].Rows[0].Field<int>( "UpdateCode", 0);            
+            //p.UpdateCode = ds.Tables[0].Rows[0].Field<int>( "UpdateCode", 0);  
+            //p.UpdateCode = BLCtrl.getFloat(ds.Tables[0].Rows[0], "UpdateCode", 0);
             p.UpdateCode =BLCtrl.getInt( ds.Tables[0].Rows[0],"UpdateCode",0);
-            p.Height = BLCtrl.getDouble(ds.Tables[0].Rows[0], "Height", 0);
-            p.Wieght = BLCtrl.getDouble(ds.Tables[0].Rows[0], "Wheight", 0);
+            p.Height = BLCtrl.getFloat(ds.Tables[0].Rows[0], "Height",0);
+            p.Wieght = BLCtrl.getFloat(ds.Tables[0].Rows[0], "Wheight", 0);
             p.BMI = BLCtrl.getInt(ds.Tables[0].Rows[0], "BMI", 0);
             p.BloodPressure = BLCtrl.getString(ds.Tables[0].Rows[0], "BloodPressure", "");
             p.pulse = BLCtrl.getInt(ds.Tables[0].Rows[0], "Pulse", 0);
@@ -38,7 +39,7 @@ namespace BussinessLayer
             p.Water = BLCtrl.getInt(ds.Tables[0].Rows[0], "Water", 0);
             p.Diet = BLCtrl.getBool(ds.Tables[0].Rows[0], "Diet", false);
             p.DietT = BLCtrl.getString(ds.Tables[0].Rows[0], "DietT", "");
-            p.SleepingHours = BLCtrl.getDouble(ds.Tables[0].Rows[0], "SleepingHours", 0);
+            p.SleepingHours = BLCtrl.getFloat(ds.Tables[0].Rows[0], "SleepingHours", 0);
             p.Activity = BLCtrl.getBool(ds.Tables[0].Rows[0], "Activity", false);
             return p;
         }

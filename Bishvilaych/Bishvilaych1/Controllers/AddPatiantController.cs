@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//אושרית אביוב
+using Bishvilaych1.Models;
 namespace Bishvilaych.Controllers
 {
     public class AddPatiantController : Controller
@@ -22,23 +22,30 @@ namespace Bishvilaych.Controllers
             BL_AddPatiants b = new BL_AddPatiants();
             int i = 0;
             i = b.CheckID(s.Id);
-            if (i == 20)
+            bool check = myStatic.IsValidId(s.Id);
+            if (i == 20)// אם המטופל לא קיים במערכת
             {
-                ModelState.Remove("Id");
+                if (check==false)
+                {
+                    s.Id = "";
+                    ModelState.AddModelError("Id", "תעודת זהות אינה תקינה");
+                }
                 if (ModelState.IsValid)
                 {
+                    ModelState.Remove("Id");
                     int result = b.Add_Patiants(s.Id, s.FirstName, s.LastName, s.Kupah);
                     ViewBag.message = "מטופל נוסף למערכת בהצלחה";
                     return View(new Patiants());
                 }
             }
-            else
+            else // קיים במערכת
             {
                 s.Id = "";
                 ModelState.AddModelError("Id", "מטופל קיים במערכת");
-            }                     
+            }
             return View(s);
         }
+
         [HttpGet]
         public ActionResult checkID(string ID)
         {
@@ -46,7 +53,7 @@ namespace Bishvilaych.Controllers
 
             int i;
             string messege;
-           
+
             i = b.CheckID(ID);
             if (i == 20)
             {

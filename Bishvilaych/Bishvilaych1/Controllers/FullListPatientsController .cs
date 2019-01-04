@@ -6,8 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//אורית אוחיון
-//31/5/18
 namespace Bishvilaych.Controllers
 {
     public class FullListPatientsController : Controller
@@ -24,8 +22,7 @@ namespace Bishvilaych.Controllers
         public ActionResult dossesion(string id)
         {
             Session["Patiant"] = id;
-            return View("~/Views/Patiants/Demography.cshtml");
-
+            return RedirectToAction("Demography", "Patiants");
         }
     }
 }

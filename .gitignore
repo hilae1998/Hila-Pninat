@@ -3,3 +3,15 @@
 ################################################################################
 
 /Bishvilaych/BussinessLayer/bin/Debug
+/Bishvilaych/BussinessLayer/obj/Debug
+/Bishvilaych/Bishvilaych1/obj/Debug
+/Bishvilaych/Bishvilaych1/obj/Release
+/Bishvilaych/BussinessLayer/obj/Release
+/Bishvilaych/DataAccessLayer/bin/Debug
+/Bishvilaych/DataAccessLayer/obj/Debug
+/Bishvilaych/DataAccessLayer/obj/Release
+/Bishvilaych/Entity/bin/Debug
+/Bishvilaych/Entity/obj/Debug
+/Bishvilaych/Entity/obj/Release
+/Bishvilaych/Bishvilaych1/bin
+/Bishvilaych/.vs

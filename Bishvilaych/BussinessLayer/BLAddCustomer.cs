@@ -28,6 +28,18 @@ namespace BussinessLayer
             int result = dm.Add_Customers(Params);
             return result;
         }
+        public int CheckCustomerID(string Id)
+        {
+            DAAddCustomer dm = new DAAddCustomer();
+
+            ListDictionary Params = new ListDictionary();
+            Params.Add("@id", BLCtrl.sendString(Id, ""));
+
+
+            int result = dm.CheckCustomerID(Params);
+
+            return result;
+        }
 
     }
 }

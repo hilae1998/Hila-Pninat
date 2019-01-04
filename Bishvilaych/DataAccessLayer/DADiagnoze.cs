@@ -100,7 +100,20 @@ namespace DataAccessLayer//Ma'ayan
         }
 
 
-        public int DeleteDiagnoze(ListDictionary Params) //קבלת רשימת פרמטרים
+        //public DataSet DeleteDiagnoze(ListDictionary Params) //קבלת רשימת פרמטרים
+        //{
+        //    DBCtrl db_ctrl = new DBCtrl();
+        //    if (!db_ctrl.isConnected())
+        //    {
+        //        db_ctrl.connectToDb(connStr);
+        //    }
+
+        //    string sp_name = "DeleteDiagnoze"; //שם הפרוצדורה
+
+        //    return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
+        //}
+
+        public int UpdateDiagnoze(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
             if (!db_ctrl.isConnected())
@@ -108,9 +121,10 @@ namespace DataAccessLayer//Ma'ayan
                 db_ctrl.connectToDb(connStr);
             }
 
-            string sp_name = "DeleteDiagnoze"; //שם הפרוצדורה
+            string sp_name = "Update_Diagnoze"; //שם הפרוצדורה
 
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
+
     }
 }

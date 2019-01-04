@@ -11,8 +11,6 @@ using System.Threading.Tasks;
 
 namespace BussinesLayer
 {
-    // לאה אמסלם
-    // 27/5/18
     public class BLCustomers
     {
         public List<Customers> getCustomers()

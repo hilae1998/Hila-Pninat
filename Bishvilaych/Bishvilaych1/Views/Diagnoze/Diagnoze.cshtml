@@ -1,5 +1,4 @@
-﻿@*Avishag*@
-@{
+﻿@{
     ViewBag.Title = "Diagnoze";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
@@ -15,25 +14,22 @@
 <body dir="rtl">
     <form id="form1" method="post" action="@Url.Action("Diagnoze","Diagnoze")">
         <center>
-            <div style="margin-top:150px">
+            @*<div style="margin-top:150px">*@
                 <h2>הוספת אבחון</h2>
                 <table>
-
                     <tr>
                         <td>אבחנה:</td>
                         <td>
-                            <input id="Text1" type="text" />
-                            <select name="DiagnozesKinds">
+                            <select name="Diagnoze">
                                 @{
                                     BussinessLayer.BL_AddDiagnozeAndHospitalization bd = new BussinessLayer.BL_AddDiagnozeAndHospitalization();
                                     List<DiagnozesKinds> ld = new List<DiagnozesKinds>();
                                     ld = bd.Draw_Diagnoze();
                                     foreach (var item in ld)
                                     {
-                                        <option value="@item.Diagnoze">@item.Diagnoze</option>
+                                        <option name="Diagnoze" value="@item.Diagnoze">@item.Diagnoze</option>
                                     }
                                 }
-
                             </select>
                         </td>
                     </tr>
@@ -41,39 +37,33 @@
                     <tr>
                         <td>סטאטוס:</td>
                         <td>
-
-                            <select name="Statuses">
+                            <select name="Status">
                                 @{
                                     BussinessLayer.BL_AddDiagnozeAndHospitalization bs = new BussinessLayer.BL_AddDiagnozeAndHospitalization();
                                     List<Statuses> ls = new List<Statuses>();
                                     ls = bs.Draw_Status();
                                     foreach (var item in ls)
                                     {
-                                        <option value="@item.Status">@item.Status</option>
-
+                                        <option name="Status" value="@item.Status">@item.Status</option>
                                     }
-
                                 }
                             </select>
-                            <input id="Text2" type="text" />
                         </td>
                     </tr>
-
                     <tr>
                         <td>תאריך התחלה:</td>
-                        <td><input id="Text3" type="text" /></td>
+                        <td><input id="Text3" type="date"  name="BeginDate" /></td>
                     </tr>
-
                     <tr>
                         <td>תאריך סיום:</td>
-                        <td><input id="Text4" type="text" /></td>
+                        <td><input id="Text4" type="date" name="EndDate"/></td>
                     </tr>
                 </table>
-            </div>
+            @*</div>*@
 
-            <div>
+            @*<div>*@
                 <input class="myButton" id="Submit1" type="submit" value="הוסף" />
-            </div>
+            @*</div>*@
 
         </center>
 

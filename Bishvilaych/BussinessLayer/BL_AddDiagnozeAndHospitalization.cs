@@ -67,7 +67,7 @@ namespace BussinessLayer
         return ls;
     }
 
-    public int Add_Diagnoze(string Diagnoze, string Status,DateTime BeginDate ,DateTime EndDate)
+    public int Add_Diagnoze(int Diagnoze, int Status,DateTime BeginDate ,DateTime EndDate)
         {
             DAL_AddDiagnozeAndHospitalization dm = new DAL_AddDiagnozeAndHospitalization();
 
@@ -75,22 +75,22 @@ namespace BussinessLayer
 
             Params.Add("@Diagnoze", BLCtrl.sendString(Diagnoze, ""));
             Params.Add("@Status", BLCtrl.sendString(Status, ""));
-            Params.Add("@BeginDate",BLCtrl.sendDateTime(BeginDate,new DateTime(01/01/2018)));
-            Params.Add("@EndDate",BLCtrl.sendDateTime(EndDate,new DateTime(01/01/2018)));          
+            Params.Add("@BeginDate",BLCtrl.sendDateTime(BeginDate, DateTime.Today));
+            Params.Add("@EndDate",BLCtrl.sendDateTime(EndDate, DateTime.Today));          
             int result = dm.Add_Diagnoze (Params);
 
             return result;
         }
 
-        public int Update_Diagnoze(string Diagnoze, string Status, DateTime BeginDate, DateTime EndDate)
+        public int Update_Diagnoze(int Diagnoze, int Status, DateTime BeginDate, DateTime EndDate)
         {
             DAL_AddDiagnozeAndHospitalization dm = new DAL_AddDiagnozeAndHospitalization();
 
             ListDictionary Params = new ListDictionary();
             Params.Add("@Diagnoze", BLCtrl.sendString(Diagnoze, ""));
             Params.Add("@Status", BLCtrl.sendString(Status, ""));
-            Params.Add("@BeginDate", BLCtrl.sendDateTime(BeginDate, new DateTime(01 / 01 / 2018)));
-            Params.Add("@EndDate", BLCtrl.sendDateTime(EndDate, new DateTime(01 / 01 / 2018)));
+            Params.Add("@BeginDate", BLCtrl.sendDateTime(BeginDate, DateTime.Today));
+            Params.Add("@EndDate", BLCtrl.sendDateTime(EndDate, DateTime.Today));
 
 
             int result = dm.Update_Diagnoze(Params);

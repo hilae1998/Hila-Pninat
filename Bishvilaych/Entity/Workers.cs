@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.ComponentModel.DataAnnotations;
 /// <summary>
 /// Summary description for Class1
 /// </summary>
@@ -20,8 +20,6 @@ public class Workers
     public string Phone2 { get; set; }
     public string Fax { get; set; }
     public string Email { get; set; }
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
     public DateTime BirthDate { get; set; }
-
-
-   
 }

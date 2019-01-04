@@ -3,7 +3,6 @@ using BussinessLayer;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-//Ayala Gozlan
 
 namespace Bishvilaych.Controllers
 {

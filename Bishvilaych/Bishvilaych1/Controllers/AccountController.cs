@@ -12,7 +12,7 @@ namespace Bishvilaych.Controllers
     public class AccountController : Controller
     {
         public ActionResult Login()
-       {
+        {
             return View();
         }
 
@@ -33,15 +33,18 @@ namespace Bishvilaych.Controllers
             {
                 //return RedirectToAction("Costomer", "CustomerController");
                 //return View();
+                Session["UserName"] = model.UserName;
+                Session["UserPasswerd"] = model.UserPasswerd;
+                if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+                    return View("Login");
                 return RedirectToAction("Home","Home");
 
             }
-            if (result == 0)
-            {
-                ViewBag.messege = "שם משתמש לא קיים";
-            }
             else
-                ViewBag.messege = "הסיסמא לא קיימת";
+            {
+                ViewBag.messege = "שם משתמש או סיסמא שגויים";
+            }
+           // return View();
             return View("Login");
         }
 

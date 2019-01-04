@@ -1,65 +1,122 @@
-﻿
-@*@model IEnumerable<Bishvilaych.Controllers.MyModel>*@
+﻿@*@model IEnumerable<Bishvilaych.Controllers.MyModel>*@
 
 @{
     ViewBag.Title = "LifeStyleNuztritionist";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
 @model LifeStyle
+<script>
+    function onLoad(){
+        var NotEat = '@Model.NotEat';
+        var Diet = '@Model.Diet';
+        if (NotEat == "True") {
+            document.getElementById('NotEatT').style.display = "inline-block";
+        }
+        if (Diet == "True") {
+            document.getElementById('DietT').style.display = "inline-block";
+        }
+    }
+    function onchangeAll(id, check)
+    {
+        switch (id)
+        {
+            case "NotEat":
+                {
+                    if (check == true) {
+                        document.getElementById('NotEatT').style.display = "inline-block";
+                        document.getElementById('NotEatT').value = "";
+                        document.getElementById('NotEatT').required = true;
+                    }
+                    else {
+                        document.getElementById('NotEatT').value = "";
+                        document.getElementById('NotEatT').style.display = "none";
+                        document.getElementById('NotEatT').required = false;
+                    }
+                    break;
+                }
+            case "Diet":
+                {
+                    if (check == true) {
+                        document.getElementById('DietT').style.display = "inline-block";
+                        document.getElementById('DietT').value = "";
+                        document.getElementById('DietT').required = true;
+                    }
+                    else {
+                        document.getElementById('DietT').value = "";
+                        document.getElementById('DietT').style.display = "none";
+                        document.getElementById('DietT').required = false;
+                    }
+                    break;
+                }
+        }
+    }
+</script>
 
 
-<h2>LifeStyleNutritionist</h2>
+<body dir="ltr" style="text-align:center" onload="onLoad()">
+    @using (Html.BeginForm())
+    {
+        <div>
+            <h2>LifeStyleNutritionist</h2>
+            <br />
+            <table>
+                <tr>
+                    <td style="margin-top:0%; margin-right:65%; padding:20px">
+                        <div>
+                            <label style="font-weight:bold">Vitals</label><br />
+                            <label>Height</label>
+                            <input type="text" name="Height" value="@Html.DisplayFor(model=>model.Height)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
+                            <label>Weight </label>
+                            <input type="text" name="Wieght" value="@Html.DisplayFor(model=>model.Wieght)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
+                            <label>BMI </label>
+                            <input type="text" name="BMI" value="@Html.DisplayFor(model=>model.BMI)"  pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד"/><br />
+                            <label>Blood Pressure</label>
+                            <input type="text" name="BloodPressure" value="@Html.DisplayFor(model=>model.BloodPressure)"  pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
+                            <label>Pulse </label>
+                            <input type="text" name="pulse" value="@Html.DisplayFor(model=>model.pulse)"  pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד"/>
+                        </div>
+                    </td>
 
-
-@using (Html.BeginForm())
-{
-    <div>
-        <label>Vitals</label><br />
-        <label>Height</label>
-        <input type="text" name="Height" value="@Html.DisplayFor(model=>model.Height)" /><br />
-        <label>Weight </label>
-        <input type="text" name="Wieght" value="@Html.DisplayFor(model=>model.Wieght)" /><br />
-        <label>BMI </label>
-        <input type="text" name="BMI" value="@Html.DisplayFor(model=>model.BMI)" /><br />
-        <label>Blood Pressure</label>
-        <input type="text" name="BloodPressure" value="@Html.DisplayFor(model=>model.BloodPressure)" /><br />
-        <label>Pulse </label>
-        <input type="text" name="pulse" value="@Html.DisplayFor(model=>model.pulse)" />
-        /
-        <input type="text" /><br />
-        <label>Nutrition</label><br />
-        <label>Does not eat certain food</label>
-        <input type="text" name="NotEat" value="@Html.DisplayFor(model=>model.NotEat)" />
-        <input type="text" name="NotEatT" value="@Html.DisplayFor(model=>model.NotEatT)" /><br />
-        <label>How many meals</label>
-        <input type="text" name="Meals" value="@Html.DisplayFor(model=>model.Meals)" /><br />
-        <label>Eat fruits daily</label>
-        <input type="text" name="Fruits" value="@Html.DisplayFor(model=>model.Fruits)" /><br />
-        <label>Eats vegtables daily</label>
-        <input type="text" name="Vegetables" value="@Html.DisplayFor(model=>model.Vegetables)" /><br />
-        <label>Eat dairy daily</label>
-        <input type="text" name="Dairy" value="@Html.DisplayFor(model=>model.Dairy)" /><br />
-        <label>How many cups of water a day</label>
-        <input type="text" name="Water" value="@Html.DisplayFor(model=>model.Water)" /><br />
-        <label>Following a particular diet</label>
-        
-  
-        <select name="Diet" >
-            <option selected="@( Html.DisplayFor(model=>model.Diet).ToString()=="true"?"selected" : "")">True</option>
-            <option selected="@(Html.DisplayFor(model=>model.Diet).ToString()=="false"?"selected" : "")">False</option>
-        </select>
-
-        <input type="text" name="Diet" value="" />
-        
-        <input type="text" name="DietT" value="@Html.DisplayFor(model=>model.DietT)" /><br />
-        <label>Hours of sleep per night</label>
-        <input type="text" name="SleepingHours" value="@Html.DisplayFor(model=>model.SleepingHours)" /><br />
-        <label>Regular physical activity</label>
-        <input type="text" name="Activity" value="@Html.DisplayFor(model=>model.Activity)" /><br />
-
-        <input id="btnSave" type="submit" value="שמור" />
-
-    </div>
-}
-
+                    <td style="margin-top:0%; margin-right:85%; padding:20px">
+                        <div>
+                            <label style="font-weight:bold">Nutrition</label><br />
+                            <label>Does not eat certain food</label>
+                            <input id="NotEat" name="NotEat" type="checkbox" value="true" @(Model.NotEat ? "checked=\"checked\"" : "") onclick="onchangeAll('NotEat', this.checked)" />
+                            <input type="text" name="NotEatT" id="NotEatT" style="display:none" value="@Html.DisplayFor(model=>model.NotEatT)" />
+                            <br />
+                            <label>How many meals</label>
+                            <input type="text" name="Meals" value="@Html.DisplayFor(model=>model.Meals)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
+                            <br />
+                            <label>Eat fruits daily</label>
+                            <input type="text" name="Fruits" value="@Html.DisplayFor(model=>model.Fruits)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
+                            <br />
+                            <label>Eats vegtables daily</label>
+                            <input type="text" name="Vegetables" value="@Html.DisplayFor(model=>model.Vegetables)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
+                            <br />
+                            <label>Eat dairy daily</label>
+                            <input id="Dairy" name="Dairy" type="checkbox" value="true" @(Model.Dairy ? "checked=\"checked\"" : "") />
+                            <br />
+                            <label>How many cups of water a day?</label>
+                            <input type="text" name="Water" value="@Html.DisplayFor(model=>model.Water)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
+                            <br />
+                            <label>Following a particular diet</label>
+                            <input id="Diet" name="Diet" type="checkbox" value="true" @(Model.Diet ? "checked=\"checked\"" : "") onclick="onchangeAll('Diet', this.checked)" />
+                            <input type="text" name="DietT" id="DietT" style="display:none" value="@Html.DisplayFor(model=>model.DietT)" />
+                            <br />
+                            <label>Hours of sleep per night</label>
+                            <input type="text" name="SleepingHours" value="@Html.DisplayFor(model=>model.SleepingHours)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד" />
+                            <br />
+                            <label>Regular physical activity</label>
+                            <input id="Activity" name="Activity" type="checkbox" value="true" @(Model.Activity ? "checked=\"checked\"" : "") />
+                            <br />
+                            <label style="font-size:initial; color:#762d49"> @ViewBag.status3</label>
+                            <br />
+                            <input id="btnSave" type="submit" value="שמור" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</body>
 

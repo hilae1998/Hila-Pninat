@@ -19,6 +19,8 @@ namespace Bishvilaych.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+            ViewBag.status2 = Session["status2"];
+            Session["status2"] = "";
             string id = Session["Patiant"].ToString(); //id - from Patiant controler
             BLPastGenicology BL = new BLPastGenicology();
             PastGenicology p = BL.getPastGenicology(id, DateTime.Today); //return the ditails of the patiant
@@ -39,14 +41,21 @@ namespace Bishvilaych.Controllers
                 pg.MenstrualSyptomsT, pg.MenopauseSyptoms, pg.MenopauseSyptomsT,
                 pg.Contraception, pg.ContraceptionT);// update the db with the new ditails
                 if (result == 0)
-                    ViewBag.err = "הנתונים נשמרו בהצלחה";
+                {
+                    Session["status2"] = "הנתונים נשמרו בהצלחה";                
+                    return RedirectToAction("PastGenicology", "PastGenicology", new { pg });
+                }
                 else
-                    ViewBag.err = "התרחשה שגיאה";
-                return View(pg);// return to the same view
+                {
+                    Session["status2"] = "התרחשה שגיאה";
+                    return RedirectToAction("PastGenicology", "PastGenicology", new { pg });
+                }
             }
             catch
             {
-                return View(pg);
+                Session["status2"] = "התרחשה שגיאה";
+                //return View(p.Id);
+                return RedirectToAction("PastGenicology", "PastGenicology", new { pg });
             }
         }
 

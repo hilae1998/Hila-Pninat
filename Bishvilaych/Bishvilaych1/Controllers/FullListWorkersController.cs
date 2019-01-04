@@ -2,23 +2,17 @@
 using BussinessLayer;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 namespace Bishvilaych.Controllers
 {
     //אורית אוחיון 
     //עשיתח חדש
-    public class FullListWorkers : Controller
+    public class FullListWorkersController : Controller
     {
-        //public ActionResult Login()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        [HttpGet]
+        [HttpGet] 
         public ActionResult WorkersList()
         {
             //check UserName and UserPassword, if right, go to Home page.
@@ -29,5 +23,10 @@ namespace Bishvilaych.Controllers
             return View(p);
         }
 
-    }
+        public ActionResult decision(string id)
+        {
+            Session["WorkerDetails"] = id;
+            return RedirectToAction("WorkerDetails", "WorkerDetails");
+        }
+    }  
 }

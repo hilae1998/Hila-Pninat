@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BussinessLayer;
-
+using Bishvilaych1.Models;
 
 namespace Bishvilaych1.Controllers
 {
@@ -16,50 +16,57 @@ namespace Bishvilaych1.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult AddCustomer(Customers c)
-        //{
-        //    BLAddCustomer bl = new BLAddCustomer();
-        //    int result = bl.Add_Customers(c.Id,c.FirstName,c.LastName,c.Phone,c.Phone2,c.City,c.Street);
-        //    return View(c);//המסך נסגר עם הודעה או מציג את הויו עם הנתונים
-        //}
-
         [HttpPost]
         public ActionResult AddCustomer(Customers c)
         {
             BLAddCustomer bl = new BLAddCustomer();
             int i = 0;
-        //    i = bl.CheckID(c.Id);
-            if (i != 20)
+            i = bl.CheckCustomerID(c.Id);
+            bool check = myStatic.IsValidId(c.Id);
+            if (i == 20)
             {
-
+                if (check == false)
+                {
+                    c.Id = "";
+                    ModelState.AddModelError("Id", "תעודת זהות אינה תקינה");
+                }
+                if (ModelState.IsValid)
+                {
+                    ModelState.Remove("Id");
+                    int result = bl.Add_Customers(c.Id, c.FirstName, c.LastName, c.Phone, c.Phone2, c.City, c.Street);
+                    ViewBag.message = "לקוח נוסף למערכת בהצלחה";
+                    return View(new Customers());
+                }
             }
             else
             {
-                int result = bl.Add_Customers(c.Id, c.FirstName, c.LastName, c.Phone, c.Phone2, c.City, c.Street);
+                c.Id = "";
+                ModelState.AddModelError("Id", "לקוח קיים במערכת");
             }
-            return View();
+            return View(c);
         }
+
         [HttpGet]
-        public ActionResult checkID(string ID)
+        public ActionResult checkCustomerID(string ID)
         {
-            BussinessLayer.BL_AddPatiants b = new BussinessLayer.BL_AddPatiants();
+            BLAddCustomer b = new BLAddCustomer();
 
             int i;
             string messege;
 
-            i = b.CheckID(ID);
+            i = b.CheckCustomerID(ID);
             if (i == 20)
             {
-                messege = "מטופל נכנס למערכת בהצלחה";
+                messege = "";
             }
             else
             {
-                messege = "מטופל קיים במערכת";
+                messege = "לקוח קיים במערכת";
             }
             return Json(messege, JsonRequestBehavior.AllowGet);
-
         }
+
+
         //[System.Web.Services.WebMethod]
         //public bool LegalId(string s)
         //{

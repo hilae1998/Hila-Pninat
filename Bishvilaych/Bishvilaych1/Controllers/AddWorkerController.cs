@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//אושרית אביוב
+using Bishvilaych1.Models;
 namespace Bishvilaych.Controllers
 {
     public class AddWorkerController : Controller
@@ -23,15 +23,28 @@ namespace Bishvilaych.Controllers
             BL_AddWorker b = new BL_AddWorker();
             int i = 0;
             i = b.CheckWorkerID(s.Id);
-            if (i!=20)
+            bool check = myStatic.IsValidId(s.Id);
+            if (i == 20)
             {
-
+                if (check == false)
+                {
+                    s.Id = "";
+                    ModelState.AddModelError("Id", "תעודת זהות אינה תקינה");
+                }
+                if (ModelState.IsValid)
+                {
+                    ModelState.Remove("Id");
+                    int result = b.Add_Worker(s.Id, s.FirstName, s.LastName);
+                    ViewBag.message = "עובד נוסף למערכת בהצלחה";
+                    return View(new Workers());
+                }
             }
             else
-            { 
-            int result = b.Add_Worker(s.Id, s.FirstName, s.LastName);
+            {
+                s.Id = "";
+                ModelState.AddModelError("Id", "עובד קיים במערכת");
             }
-            return View();
+            return View(s);
         }
         [HttpGet]
         public ActionResult checkWorkerID(string ID)

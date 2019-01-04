@@ -7,7 +7,7 @@
 @using BussinesLayer;
 
 
-@{ 
+@{
     BussinesLayer.BLWorkerDetails b = new BLWorkerDetails();
 
     List<Jobs> l2 = new List<Jobs>();
@@ -52,11 +52,11 @@
         }
 </style>
 
-    <script>
-    
+<script>
+
         $(document).ready(function(){
             $("#UserName1").on("blur", function () {
-               
+
                 $.ajax({
                     type: 'get',
                     url: "@Url.Action("checkusername")",
@@ -66,9 +66,9 @@
                     },
                     error:function(){}})
             })
-                    
+
                 $("#message").hide()
-           
+
             // When the user clicks on the password field, show the message box
             $("#Password1").focus( function () {
                 $("#message").show()
@@ -90,8 +90,6 @@
                     $("#letter").removeClass("valid");
                     $("#letter").addClass("invalid");
                 }
-            
-                
 
                 // Validate numbers
                 var numbers = /[0-9]/g;
@@ -111,13 +109,62 @@
                     $("#length").removeClass("valid");
                     $("#length").addClass("invalid");
                 }
-            
+
             })
-            
-            })
-        
-                
-    </script>
+
+    })
+
+    function dateValid(date)
+    {
+        var s = String(date);
+        var d = new Date(s);
+        var myYear = d.getFullYear();
+        var myMonth = d.getMonth() + 1;
+        var myDay = d.getDate();
+
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDay = today.getDate();
+        // if the user put invalid birthdate, which meens he put date that didn't come yet(he didn't burn yet)
+
+        if (todayYear - myYear <= 0) {
+            var ys = String(today.getFullYear() - 1);
+            var ms = String(today.getMonth() + 1);
+            var ds = String(today.getDate());
+            if (ds / 10 < 1)
+                ds = "0" + ds;
+            if (ms / 10 < 1)
+                ms = "0" + ms;
+            document.getElementById('BirthDate').value = ys + "-" + ms + "-" + ds;
+        }
+        else {
+            if (todayYear - myYear == 1) {
+                if (todayMonth < myMonth) {
+                    var ys = String(today.getFullYear() - 1);
+                    var ms = String(today.getMonth() + 1);
+                    var ds = String(today.getDate());
+                    if (ds / 10 < 1)
+                        ds = "0" + ds;
+                    if (ms / 10 < 1)
+                        ms = "0" + ms;
+                    document.getElementById('BirthDate').value = ys + "-" + ms + "-" + ds;
+                }
+                if (todayMonth == myMonth && todayDay < myDay) {
+                    var ys = String(today.getFullYear() - 1);
+                    var ms = String(today.getMonth() + 1);
+                    var ds = String(today.getDate());
+                    if (ds / 10 < 1)
+                        ds = "0" + ds;
+                    if (ms / 10 < 1)
+                        ms = "0" + ms;
+                    document.getElementById('BirthDate').value = ys + "-" + ms + "-" + ds;
+                }
+            }
+        }
+    }
+
+</script>
 
 
 
@@ -125,50 +172,52 @@
     <div>
         <select id="select1" name="Job">
             @{
-              
+
                 l2 = b.GetJob();
                 foreach (var item1 in l2)
                 {
-                    <option value="@item1.Code"  @(Model.Job==item1.Code ? "selected='selected'":"" )>@item1.Job</option>
+                    <option value="@item1.Code" @(Model.Job == item1.Code ? "selected='selected'" : "" )>@item1.Job</option>
                 }
             }
         </select>תפקיד<br />
         <select id="select2" name="Authorization">
-        @{
-            List<Authorizations> l = new List<Authorizations>();
-            l = b.GetAuthorizations();
-            if (l != null){ 
-            foreach (var item in l)
-            {
-                <option value="@item.Code" @(Model.Authorization==item.Code ? "selected='selected'":"" )>@item.Authorization</option>
-                }}
-        }
+            @{
+                List<Authorizations> l = new List<Authorizations>();
+                l = b.GetAuthorizations();
+                if (l != null)
+                {
+                    foreach (var item in l)
+                    {
+                        <option value="@item.Code" @(Model.Authorization == item.Code ? "selected='selected'" : "" )>@item.Authorization</option>
+                    }
+                }
+            }
         </select>הרשאה<br />
-        <input  name="FirstName"  type="text" style="width:150px" value="@Model.FirstName" />שם<br />
-        <input  name="LastName" type="text" style="width:150px" value="@Model.LastName" />משפחה<br />
-        <input  name="City" type="text" style="width:150px" value="@Model.City" />עיר<br />
-        <input  name="Street" type="text" style="width:150px" value="@Model.Street"/>כתובת<br />
-        <input  name="Phone" type="text" style="width:150px" value="@Model.Phone"/>טלפון<br />
-        <input  name="Phone2" type="text" style="width:150px"value="@Model.Phone2" />טלפון נוסף<br />
-        <input  name="Fax" type="text" style="width:150px" value="@Model.Fax"/>פקס<br />
-        <input  name="Email" type="text" style="width:150px" value="@Model.Email"/>אימייל<br />
-        <input  name="BirthDate" type="datetime" value="@Model.BirthDate" />תאריך לידה<br />
+        <input name="FirstName" type="text" style="width:150px" value="@Model.FirstName" required />שם<br />
+        <input name="LastName" type="text" style="width:150px" value="@Model.LastName" required />משפחה<br />
+        <input name="City" type="text" style="width:150px" value="@Model.City" required />עיר<br />
+        <input name="Street" type="text" style="width:150px" value="@Model.Street" required />כתובת<br />
+        <input name="Phone" type="text" style="width:150px" value="@Model.Phone" required />טלפון<br />
+        <input name="Phone2" type="text" style="width:150px" value="@Model.Phone2" />טלפון נוסף<br />
+        <input name="Fax" type="text" style="width:150px" value="@Model.Fax" />פקס<br />
+        <input name="Email" type="text" style="width:150px" value="@Model.Email" />אימייל<br />
+        <input name="BirthDate" ID="BirthDate" type="date" value="@Html.DisplayFor(model => model.BirthDate)" @*value="@Model.BirthDate"*@ onchange="dateValid(this.value)" required />תאריך לידה<br />  
     </div>
     <input id="Submit1" type="submit" value="עדכן" />
 </form>
 <div>
-   <form id=form2 action="@Url.Action("SetUserNameAndPassword","WorkerDetails")" method="post">
+    <form id=form2 action="@Url.Action("SetUserNameAndPassword","WorkerDetails")" method="post">
         <label>קביעת שם משתמש וסיסמא</label><br />
-        <input id="UserName1" name="username"  maxlength="10" type="text" required placeholder=" שם משתמש לא יותר מ10 תווים"/>שם משתמש<br />
-        <input id="Password1" title="לפחות אות אחת,לפחות ספרה אחת,לפחות 6 תווים" name="password" pattern="(?=.*\d)(?=.*[a-z-A-Z]).{6,10}" maxlength="10" type="password" required placeholder="סיסמא בת 6-10 תווים"/>סיסמא<br />
-         <input id="rd1"  type="submit" value="אישור"/><br />
-       <div id="message">
-           <h3>הסיסמא חייבת להכיל:</h3>
-           <p id="letter" class="invalid"> <b>לפחות אות אחת באנגלית</b> </p>
-           <p id="number" class="invalid"> <b>לפחות ספרה אחת </b></p>
-           <p id="length" class="invalid"> <b>לפחות 6 תווים</b></p>
-       </div><br />
-       <div id="user" style="width:100px;height:50px;color:red;"></div>
+        <input id="UserName1" name="username" maxlength="10" type="text" required placeholder=" שם משתמש לא יותר מ10 תווים" />שם משתמש<br />
+        <input id="Password1" title="לפחות אות אחת,לפחות ספרה אחת,לפחות 6 תווים" name="password" pattern="(?=.*\d)(?=.*[a-z-A-Z]).{6,10}" maxlength="10" type="password" required placeholder="סיסמא בת 6-10 תווים" />סיסמא<br />
+        <input id="rd1" type="submit" value="אישור" /><br />
+        <div id="message">
+            <h3>הסיסמא חייבת להכיל:</h3>
+            <p id="letter" class="invalid"> <b>לפחות אות אחת באנגלית</b> </p>
+            <p id="number" class="invalid"> <b>לפחות ספרה אחת </b></p>
+            <p id="length" class="invalid"> <b>לפחות 6 תווים</b></p>
+        </div><br />
+        <div id="user" style="width:100px;height:50px;color:red;"></div>
     </form>
 </div>
 

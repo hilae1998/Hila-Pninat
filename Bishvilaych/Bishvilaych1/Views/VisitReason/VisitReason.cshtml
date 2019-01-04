@@ -1,58 +1,373 @@
-﻿
+﻿@model Entity.VisitReason
 @{
     ViewBag.Title = "VisitReason";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
 
-<h2>VisitReason</h2>
+<script>
+    function onLoad()
+    {
+        document.getElementById('Text').value ='@Model.Text';
+        // check the Contraception field
+        var co = document.getElementById('Co'); // Contraception
+        var doo = document.getElementById('Do');
 
-@using (Html.BeginForm())
-{
-    <h2>@ViewBag.err</h2>
-    <div>
-        <label for="AgeOfMenarche" style="font-size:21px; font-weight:bold">General Wellness check-up  </label>
-        <input name="AgeOfMenarche" id="AgeOfMenarche" type="number" min="1" , max="120" value=@Html.DisplayFor(model => model.AgeOfMenarche) />
+        var GeneralCheck = '@Model.GeneralCheck';
+        var BreastExam = '@Model.BreastExam';
+        var Pap = '@Model.Pap';
+        var Diaphragm ='@Model.Diaphragm';
+        var OtherConcetraption = '@Model.OtherConcetraption';
+        var MenstrualCycle ='@Model.MenstrualCycle';
+        var Kallah = '@Model.Kallah';
+        var OtherReason = '@Model.OtherReason';
+
+        if (Diaphragm == "True") {
+            document.getElementById('Contraception').checked = true;
+            doo.style.display = "block";
+            document.getElementById('Text4').style.display = "inline-block";
+        }
+        else
+        {
+            if (OtherConcetraption == "True")
+            {
+                document.getElementById('Contraception').checked = true;
+                doo.style.display = "block";
+                document.getElementById('Text5').style.display = "inline-block";
+            }
+            else
+            {
+                if (GeneralCheck == "True")
+                        {
+                            document.getElementById('Text1').style.display = "inline-block";
+                        }
+                else if (BreastExam == "True")
+                        {
+                            document.getElementById('Text2').style.display = "inline-block";
+                        }
+                else if (Pap == "True")
+                        {
+                            document.getElementById('Text3').style.display = "inline-block";
+
+                        }
+                else if (MenstrualCycle == "True")
+                        {
+                            document.getElementById('Text6').style.display = "inline-block";
+                        }
+                else if (Kallah == "True")
+                        {
+                            document.getElementById('Text7').style.display = "inline-block";
+                        }
+                else if (OtherReason == "True")
+                        {
+                            document.getElementById('Text8').style.display = "inline-block";
+                            document.getElementById("Text8").required = true;
+                        }
+                }
+            }
+    }
+
+
+
+    function onchangeAll(id) {
+
+        switch (id) {
+            case "GeneralCheck":
+                {
+                    document.getElementById('Contraception').checked = false;
+                    document.getElementById('OtherReason').checked = false;
+                    document.getElementById('Kallah').checked = false;
+                    document.getElementById('MenstrualCycle').checked = false;
+                    document.getElementById('Pap').checked = false;
+                    document.getElementById('BreastExam').checked = false;
+                    document.getElementById('GeneralCheck').checked = true;
+                    document.getElementById('Text1').style.display = "inline-block";
+                    document.getElementById('Text2').style.display = "none";
+                    document.getElementById('Text3').style.display = "none";
+                    document.getElementById('Text4').style.display = "none";
+                    document.getElementById('Text5').style.display = "none";
+                    document.getElementById('Text6').style.display = "none";
+                    document.getElementById('Text7').style.display = "none";
+                    document.getElementById('Text8').style.display = "none";
+                    document.getElementById('Text8').required = false;
+                    document.getElementById('Text1').value = "";
+                    document.getElementById('Text2').value = "";
+                    document.getElementById('Text3').value = "";
+                    document.getElementById('Text4').value = "";
+                    document.getElementById('Text5').value = "";
+                    document.getElementById('Text6').value = "";
+                    document.getElementById('Text7').value = "";
+                    document.getElementById('Text8').value = "";
+                    document.getElementById('Diaphragm').checked = false;
+                    document.getElementById('OtherConcetraption').checked = false;
+                    document.getElementById('Do').style.display = "none";
+                    break;
+                }
+            case "BreastExam":
+                {
+                    document.getElementById('Contraception').checked = false;
+                    document.getElementById('OtherReason').checked = false;
+                    document.getElementById('Kallah').checked = false;
+                    document.getElementById('MenstrualCycle').checked = false;
+                    document.getElementById('Pap').checked = false;
+                    document.getElementById('BreastExam').checked = true;
+                    document.getElementById('GeneralCheck').checked = false;
+                    document.getElementById('Text1').style.display = "none";
+                    document.getElementById('Text2').style.display = "inline-block";
+                    document.getElementById('Text3').style.display = "none";
+                    document.getElementById('Text4').style.display = "none";
+                    document.getElementById('Text5').style.display = "none";
+                    document.getElementById('Text6').style.display = "none";
+                    document.getElementById('Text7').style.display = "none";
+                    document.getElementById('Text8').style.display = "none";
+                    document.getElementById('Text8').required = false;
+                    document.getElementById('Text1').value = "";
+                    document.getElementById('Text2').value = "";
+                    document.getElementById('Text3').value = "";
+                    document.getElementById('Text4').value = "";
+                    document.getElementById('Text5').value = "";
+                    document.getElementById('Text6').value = "";
+                    document.getElementById('Text7').value = "";
+                    document.getElementById('Text8').value = "";
+                    document.getElementById('Diaphragm').checked = false;
+                    document.getElementById('OtherConcetraption').checked = false;
+                    document.getElementById('Do').style.display = "none";
+                    break;
+                }
+            case "Pap":
+                {
+                    document.getElementById('Contraception').checked = false;
+                    document.getElementById('OtherReason').checked = false;
+                    document.getElementById('Kallah').checked = false;
+                    document.getElementById('MenstrualCycle').checked = false;
+                    document.getElementById('Pap').checked = true;
+                    document.getElementById('BreastExam').checked = false;
+                    document.getElementById('GeneralCheck').checked = false;
+                    document.getElementById('Text1').style.display = "none";
+                    document.getElementById('Text2').style.display = "none";
+                    document.getElementById('Text3').style.display = "inline-block";
+                    document.getElementById('Text4').style.display = "none";
+                    document.getElementById('Text5').style.display = "none";
+                    document.getElementById('Text6').style.display = "none";
+                    document.getElementById('Text7').style.display = "none";
+                    document.getElementById('Text8').style.display = "none";
+                    document.getElementById('Text8').required = false;
+                    document.getElementById('Text1').value = "";
+                    document.getElementById('Text2').value = "";
+                    document.getElementById('Text3').value = "";
+                    document.getElementById('Text4').value = "";
+                    document.getElementById('Text5').value = "";
+                    document.getElementById('Text6').value = "";
+                    document.getElementById('Text7').value = "";
+                    document.getElementById('Text8').value = "";
+                    document.getElementById('Diaphragm').checked = false;
+                    document.getElementById('OtherConcetraption').checked = false;
+                    document.getElementById('Do').style.display = "none";
+                    break;
+                }
+            case "Contraception":
+                {
+                    var doo = document.getElementById('Do');
+                    var Diaphragm = document.getElementById('Diaphragm');
+                    var OtherConcetraption = document.getElementById('OtherConcetraption');
+                    document.getElementById('Contraception').checked = true;
+                    document.getElementById('OtherReason').checked = false;
+                    document.getElementById('Kallah').checked = false;
+                    document.getElementById('MenstrualCycle').checked = false;
+                    document.getElementById('Pap').checked = false;
+                    document.getElementById('BreastExam').checked = false;
+                    document.getElementById('GeneralCheck').checked = false;
+                    document.getElementById('Text1').style.display = "none";
+                    document.getElementById('Text2').style.display = "none";
+                    document.getElementById('Text3').style.display = "none";
+                    document.getElementById('Text4').style.display = "inline-block";
+                    document.getElementById('Text5').style.display = "none";
+                    document.getElementById('Text6').style.display = "none";
+                    document.getElementById('Text7').style.display = "none";
+                    document.getElementById('Text8').style.display = "none";
+                    document.getElementById('Text1').value = "";
+                    document.getElementById('Text2').value = "";
+                    document.getElementById('Text3').value = "";
+                    document.getElementById('Text4').value = "";
+                    document.getElementById('Text5').value = "";
+                    document.getElementById('Text6').value = "";
+                    document.getElementById('Text7').value = "";
+                    document.getElementById('Text8').value = "";
+                    doo.style.display = "block";
+                    Diaphragm.checked = true;
+                    document.getElementById('OtherConcetraption').checked = false;
+                    break;
+                }
+            case "MenstrualCycle":
+                {
+                    document.getElementById('Contraception').checked = false;
+                    document.getElementById('OtherReason').checked = false;
+                    document.getElementById('Kallah').checked = false;
+                    document.getElementById('MenstrualCycle').checked = true;
+                    document.getElementById('Pap').checked = false;
+                    document.getElementById('BreastExam').checked = false;
+                    document.getElementById('GeneralCheck').checked = false;
+                    document.getElementById('Text1').style.display = "none";
+                    document.getElementById('Text2').style.display = "none";
+                    document.getElementById('Text3').style.display = "none";
+                    document.getElementById('Text4').style.display = "none";
+                    document.getElementById('Text5').style.display = "none";
+                    document.getElementById('Text6').style.display = "inline-block";
+                    document.getElementById('Text7').style.display = "none";
+                    document.getElementById('Text8').style.display = "none";
+                    document.getElementById('Text8').required = false;
+                    document.getElementById('Text1').value = "";
+                    document.getElementById('Text2').value = "";
+                    document.getElementById('Text3').value = "";
+                    document.getElementById('Text4').value = "";
+                    document.getElementById('Text5').value = "";
+                    document.getElementById('Text6').value = "";
+                    document.getElementById('Text7').value = "";
+                    document.getElementById('Text8').value = "";
+                    document.getElementById('Diaphragm').checked = false;
+                    document.getElementById('OtherConcetraption').checked = false;
+                    document.getElementById('Do').style.display = "none";
+                    break;
+                }
+
+
+            case "Kallah":
+                {
+                    document.getElementById('Contraception').checked = false;
+                    document.getElementById('OtherReason').checked = false;
+                    document.getElementById('Kallah').checked = true;
+                    document.getElementById('MenstrualCycle').checked = false;
+                    document.getElementById('Pap').checked = false;
+                    document.getElementById('BreastExam').checked = false;
+                    document.getElementById('GeneralCheck').checked = false;
+                    document.getElementById('Text1').style.display = "none";
+                    document.getElementById('Text2').style.display = "none";
+                    document.getElementById('Text3').style.display = "none";
+                    document.getElementById('Text4').style.display = "none";
+                    document.getElementById('Text5').style.display = "none";
+                    document.getElementById('Text6').style.display = "none";
+                    document.getElementById('Text7').style.display = "inline-block";
+                    document.getElementById('Text8').style.display = "none";
+                    document.getElementById('Text8').required = false;
+                    document.getElementById('Text1').value = "";
+                    document.getElementById('Text2').value = "";
+                    document.getElementById('Text3').value = "";
+                    document.getElementById('Text4').value = "";
+                    document.getElementById('Text5').value = "";
+                    document.getElementById('Text6').value = "";
+                    document.getElementById('Text7').value = "";
+                    document.getElementById('Text8').value = "";
+                    document.getElementById('Diaphragm').checked = false;
+                    document.getElementById('OtherConcetraption').checked = false;
+                    document.getElementById('Do').style.display = "none";
+                    break;
+                }
+            case "OtherReason":
+                {
+                    document.getElementById('Contraception').checked = false;
+                    document.getElementById('OtherReason').checked = true;
+                    document.getElementById('Kallah').checked = false;
+                    document.getElementById('MenstrualCycle').checked = false;
+                    document.getElementById('Pap').checked = false;
+                    document.getElementById('BreastExam').checked = false;
+                    document.getElementById('GeneralCheck').checked = false;
+                    document.getElementById('Text1').style.display = "none";
+                    document.getElementById('Text2').style.display = "none";
+                    document.getElementById('Text3').style.display = "none";
+                    document.getElementById('Text4').style.display = "none";
+                    document.getElementById('Text5').style.display = "none";
+                    document.getElementById('Text6').style.display = "none";
+                    document.getElementById('Text7').style.display = "none";
+                    document.getElementById('Text8').style.display = "inline-block";
+                    document.getElementById('Text8').required = true;
+                    document.getElementById('Text1').value = "";
+                    document.getElementById('Text2').value = "";
+                    document.getElementById('Text3').value = "";
+                    document.getElementById('Text4').value = "";
+                    document.getElementById('Text5').value = "";
+                    document.getElementById('Text6').value = "";
+                    document.getElementById('Text7').value = "";
+                    document.getElementById('Text8').value = "";
+                    document.getElementById('Diaphragm').checked = false;
+                    document.getElementById('OtherConcetraption').checked = false;
+                    document.getElementById('Do').style.display = "none";
+                    break;
+                }
+
+        }
+    }
+
+
+    function onchangeRadio(id) {
+        if (id == "Diaphragm") {
+            document.getElementById('Text4').value = "";
+            document.getElementById('Text5').value = "";
+            document.getElementById('OtherConcetraption').checked = false;
+            document.getElementById('Diaphragm').checked = true;
+            document.getElementById('Text4').style.display = "inline-block";
+            document.getElementById('Text5').style.display = "none";     
+        }
+        else {
+            document.getElementById('Text4').value = "";
+            document.getElementById('Text5').value = "";
+            document.getElementById('OtherConcetraption').checked = true;
+            document.getElementById('Diaphragm').checked = false;
+            document.getElementById('Text4').style.display = "none";
+            document.getElementById('Text5').style.display = "inline-block";
+        }
+    }
+    function saveText(id)
+    {
+        var text = document.getElementById(id).value;
+        document.getElementById('Text').value = text;
+    }
+
+</script>
+<h2>VisitReason</h2>
+<body style="direction:ltr; text-align:center" onload="onLoad()">
+    @using (Html.BeginForm())
+    {
+        <input id="GeneralCheck" name="GeneralCheck" type="radio" onchange="onchangeAll('GeneralCheck')" value="true" @(Model.GeneralCheck ? "checked=\"checked\"" : "") />
+        <label for="GeneralCheck" style="font-size:21px; font-weight:bold">General Wellness check-up</label>
+        <input id="Text1" type="text" value="@Html.DisplayFor(model => model.Text)" style="display:none" onblur="saveText('Text1')">
         <br />
+
+        <input id="BreastExam" name="BreastExam" type="radio" onchange="onchangeAll('BreastExam')" value="true" @(Model.BreastExam ? "checked=\"checked\"" : "") />
+        <label for="BreastExam" style="font-size:21px; font-weight:bold">Clinical breast exam</label>
+        <input id="Text2" type="text" value="@Html.DisplayFor(model => model.Text)" style="display:none" onblur="saveText('Text2')">
         <br />
+
+        <input id="Pap" name="Pap" type="radio" onchange="onchangeAll('Pap')" value="true" @(Model.Pap ? "checked=\"checked\"" : "") />
+        <label for="Pap" style="font-size:21px; font-weight:bold">Pap</label>
+        <input id="Text3" type="text" value="@Html.DisplayFor(model => model.Text)" style="display:none" onblur="saveText('Text3')">
         <br />
-        <label for="CycleRegular" style="font-size:21px; font-weight:bold">Are cycles regular?  </label> <select class="yesno" name="CycleRegular" id="CycleRegular" onload="Load2(CycleRegular)">
-            <option selected="selected">No</option>
-            <option>Yes</option>
-        </select>  <input name="CycleRegularT" id="CycleRegularT" type="text" value=@Html.DisplayFor(model => model.CycleRegularT)>
+
+        <input id="Contraception" name="Contraception" type="radio" onchange="onchangeAll('Contraception')" />
+        <label id="Co" for="Contraception" style="font-size:21px; font-weight:bold">Contraception</label>
+
+        <div id="Do" style="display:none">
+            <input id="Diaphragm" name="Diaphragm" type="radio" onchange="onchangeRadio('Diaphragm')" value="true" @(Model.Diaphragm ? "checked=\"checked\"" : "") />diaphragm fitting
+            <input id="Text4" type="text" value="@Html.DisplayFor(model => model.Text)" style="display:none" onblur="saveText('Text4')"><br />
+            <input id="OtherConcetraption" name="OtherConcetraption" onchange="onchangeRadio('OtherConcetraption')" type="radio" value="true" @(Model.OtherConcetraption ? "checked=\"checked\"" : "") />other
+            <input id="Text5" type="text" value="@Html.DisplayFor(model => model.Text)" style="display:none" onblur="saveText('Text5')"><br />
+        </div>
+
         <br />
+        <input id="MenstrualCycle" name="MenstrualCycle" type="radio" onchange="onchangeAll('MenstrualCycle')" value="true" @(Model.MenstrualCycle ? "checked=\"checked\"" : "") />
+        <label for="MenstrualCycle" style="font-size:21px; font-weight:bold">Issues with menstrual cycle</label>
+        <input id="Text6" type="text" value="@Html.DisplayFor(model => model.Text)" style="display:none" onblur="saveText('Text6')">
         <br />
+
+        <input id="Kallah" name="Kallah" type="radio" onchange="onchangeAll('Kallah')" value="true" @(Model.Kallah ? "checked=\"checked\"" : "") />
+        <label for="Kallah" style="font-size:21px; font-weight:bold">Kallah</label>
+        <input id="Text7" type="text" value="@Html.DisplayFor(model => model.Text)" style="display:none" onblur="saveText('Text7')">
         <br />
-        <label for="MenstrualSyptoms" style="font-size:17px">Any symptoms surrounding your menstrual cycle?  </label><select class="yesno" name="MenstrualSyptoms" id="MenstrualSyptoms" onload="Load3(MenstrualSyptoms)">
-            <option selected="selected">No</option>
-            <option>Yes</option>
-        </select>  <input name="MenstrualSyptomsT" id="MenstrualSyptomsT" type="text" value=@Html.DisplayFor(model => model.MenstrualSyptomsT)>
+
+        <input id="OtherReason" name="OtherReason" type="radio" onchange="onchangeAll('OtherReason')" value="true" @(Model.OtherReason ? "checked=\"checked\"" : "") />
+        <label for="OtherReason" style="font-size:21px; font-weight:bold">Other</label>
+        <input id="Text8" type="text" value="@Html.DisplayFor(model => model.Text)" style="display:none" onblur="saveText('Text8')">
+        <input id="Text" name="Text" type="text" hidden /><br />
+        <label style="font-size:initial; color:#762d49">@ViewBag.status1</label>
         <br />
-        <br />
-        <br />
-        <label for="MenopauseSyptoms" style="font-size:17px">Any symptoms surrounding menopause?  </label>
-        <select class="yesno" name="MenopauseSyptoms" id="MenopauseSyptoms" onload="Load4(MenopauseSyptoms)">
-            <option name="MenopauseSyptoms" selected="selected">No</option>
-            <option name="MenopauseSyptoms">Yes</option>
-        </select>  <input name="MenopauseSyptomsT" id="MenopauseSyptomsT" type="text" value=@Html.DisplayFor(model => model.MenopauseSyptomsT)>
-        <br />
-        <br />
-        <br />
-        <label for="Contraception" style="font-size:21px; font-weight:bold">Contraception hx  </label>  <select class="yesno" name="Contraception" id="Contraception" onchange="visible()" onload="Load5(Contraception)">
-            <option selected="selected">No</option>
-            <option>Yes</option>
-        </select>  <select name="ContraceptionT" id="ContraceptionT" onload="Load6(id)" @*style="display:none"*@>
-            <option>Cerazette</option>
-            <option>Diane-35</option>
-            <option>Diaphragm</option>
-            <option>Feminet</option>
-            <option>IUD</option>
-            <option>Mercilon</option>
-            <option>Microlite</option>
-            <option>NuvaRing</option>
-            <option>Other</option>
-        </select>
-        <br />
-        <br />
-        <br />
-        <input id="Button1" type="submit" value="שמור" style="font-weight:bolder" onclick="ok()">
-    </div>
+        <input id="submit" type="submit" value="עדכן">
+    }
+</body>

@@ -3,18 +3,18 @@ using System;
 
 public class PhysicalExam
 {
-    public int     UpdateCode { get; set; }
-    public bool    ApearsWell { get; set; }
-    public string  ApearsWellT { get; set; }
-    public bool    PupilsEqual { get; set; }
-    public string  PupilsEqualT { get; set; }
-    public bool    TmNormal { get; set; }
-    public string  TmNormalT { get; set; }
-    public bool    Oropharynx { get; set; }
-    public string   OropharynxT { get; set; }
-    public bool     Atraumatic { get; set; }
-    public string   AtraumaticT { get; set; }
-    public bool     HeentMucosa { get; set; }
+    public int UpdateCode { get; set; }
+    public bool ApearsWell { get; set; }
+    public string ApearsWellT { get; set; }
+    public bool PupilsEqual { get; set; }
+    public string PupilsEqualT { get; set; }
+    public bool TmNormal { get; set; }
+    public string TmNormalT { get; set; }
+    public bool Oropharynx { get; set; }
+    public string OropharynxT { get; set; }
+    public bool Atraumatic { get; set; }
+    public string AtraumaticT { get; set; }
+    public bool HeentMucosa { get; set; }
     public string HeentMucosaT { get; set; }
     public bool Supple { get; set; }
     public string SuppleT { get; set; }

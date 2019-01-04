@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    class DAVisitReason
+   public class DAVisitReason
     {
             private string connStr = null;
 
@@ -18,10 +18,10 @@ namespace DataAccessLayer
                 connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
 
-            public DataSet addOrUpdateVisitReason()
-            {
-                throw new NotImplementedException();
-            }
+            //public DataSet addOrUpdateVisitReason()
+            //{
+            //    throw new NotImplementedException();
+            //}
 
 
 

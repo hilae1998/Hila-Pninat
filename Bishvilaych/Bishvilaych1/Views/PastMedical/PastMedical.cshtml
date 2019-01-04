@@ -1,4 +1,4 @@
-﻿@*Ma'ayan*@
+﻿
 @using System.Collections.Generic;
 @using System.Web.Mvc;
 @using BussinesLayer;
@@ -7,98 +7,124 @@
     ViewBag.Title = "PastMedical";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
-                                                                         
 
-<h1 dir="rtl">אבחונים</h1>
+<script>
+    function onLoad()
+    {
+    }
+    function onclick(code)
+    {
 
-<table dir="rtl" style="width: 1000px; height: 150px">
-    <thead>
-        <tr>
-            <td><h2>קוד</h2></td>
-            <td><h2>סטאטוס</h2> </td>
-            <td><h2>אבחנה</h2> </td>
-            <td><h2>תאריך התחלה</h2> </td>
-            <td><h2>תאריך סיום</h2> </td>
-            <td><h2>נרשם על ידי</h2></td>
-        </tr>
-    </thead>
-    <tbody>
-           @foreach (Diagnozes item in Model.MyD)
-           {
-               if (Model.MyD!= null)
-               {
-                   var bd= item.BeginDate.ToShortDateString();
-                   var ed = item.EndDate.ToShortDateString();
-                   BLDiagnozes bld = new BLDiagnozes();
-                   string nd= bld.GetNameDiagnoze(item.Diagnoze).Single();
-                   string ns = bld.GetNameStatus(item.Diagnoze).Single();
-                   string nw = bld.GetNameWorker(item.Diagnoze).Single();
+    }
 
-                <tr>
-                    <td>@item.Code</td>
-                    <td>@ns</td>
-                    <td>@nd</td>
-                    <td>@bd</td>
-                    <td>@ed</td>
-                    <td>@nw</td>
-                </tr>
-               }
-           }               
-    </tbody>
+    function fDelete(codeRow)
+    {
+        $.ajax({
+            type: 'get',
+            url: "@Url.Action("DeleteRow")",
+            data: { codeRow: codeRow},
+            success: function (result) {
+                window.location.assign("~/Controllers/Patiants/Demography.cshtml");
+        },
 
-</table>               
-
-
-<li>@Html.ActionLink("מחק", "", "")</li>
-<li>@Html.ActionLink("ערוך", "", "")</li>
-<li>@Html.ActionLink("חדש", "Diagnoze", "Diagnoze")</li>
-
-
-<br />
-<br />
-<br />
-
-
-<h1 dir="rtl">אשפוזים</h1>
-
-<table dir="rtl" style="width: 1000px; height: 150px">
-    <thead>
-        <tr>
-            <td><h2>קוד</h2></td>
-            <td><h2>שנה</h2></td>
-            <td><h2>בית חולים</h2></td>
-            <td><h2>מחלקה</h2></td>
-            <td><h2>סיבה</h2></td>
-            <td><h2>נרשם על ידי</h2></td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Hospitalizations item in Model.MyH)
-        {
-            if (Model.MyH!=null)
-            {
-                
-               
-                <tr>
-                    <td>@item.Code</td>
-                    <td>@item.Year</td>
-                    <td>פרוצדורה ביהח</td>
-                    <td>@item.Department</td>
-                    <td>@item.Reason</td>
-                    <td>פרוצדורה עובדת</td>
-                </tr>
-            }
-
+        error: function () {
+            alert("error")
         }
-    </tbody>
-</table>
+        }) //end ajax function
+    }
+</script>
+<body onload="onLoad()">
+    <h1 dir="rtl" style="text-align:center">אבחונים</h1>
 
-<li>@Html.ActionLink("מחק", "", "")</li>
-<li>@Html.ActionLink("ערוך", "", "")</li>
-<li>@Html.ActionLink("חדש", "Hospitalization", "Hospitalization")</li>
+    <table dir="rtl" style="width: 100%; height: 150px" border="1">
+        <thead>
+            <tr on>
+                <td style="text-align:center; font-size:25px"><b>קוד</b></td>
+                <td style="text-align:center; font-size:25px"><b>סטאטוס</b></td>
+                <td style="text-align:center; font-size:25px"><b>אבחנה</b></td>
+                <td style="text-align:center; font-size:25px"><b>תאריך התחלה</b></td>
+                <td style="text-align:center; font-size:25px"><b>תאריך סיום</b></td>
+                <td style="text-align:center; font-size:25px"><b>נרשם על ידי</b></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Diagnozes item in Model.MyD)
+            {
+                if (Model.MyD != null)
+                {
+                    var bd = item.BeginDate.ToShortDateString();
+                    var ed = item.EndDate.ToShortDateString();
+                    BLDiagnozes bld = new BLDiagnozes();
+                    string nd = bld.GetNameDiagnoze(item.Diagnoze).Single();
+                    string ns = bld.GetNameStatus(item.Status).Single();
+                    string nw = bld.GetNameWorker(item.By).Single();
 
-<br />
-<br />
-<br />
+            <tr>
+                <td name="@item.Code">@item.Code</td>
+                <td name="@item.Code">@ns</td>
+                <td name="@item.Code">@nd</td>
+                <td name="@item.Code">@bd</td>
+                <td name="@item.Code">@ed</td>
+                <td name="@item.Code">@nw</td>
+                <td>
+                    @Html.ActionLink("ערוך", "Edit1", new { code = item.Code }) |
+                    @Html.ActionLink("מחק", "Delete1", new { code = item.Code })
+                </td>
+                <td>
+                    @Html.ActionLink("ערוך", "Edit", new { /* id = Model.PrimaryKey */ }) |
+                @Html.ActionLink("מחק", "", "", new { @id = "action2", @class = "btn btn-default", onclick = "fDelete('@item.Code')" })
+            </td>
+            </tr>
+                    }
+                    }
+                </tbody>
+    </table>
+    @*"javascript:return false;"*@
+    @*<button id="action1"  class = "btn btn-default" disabled="disabled" onclick="fEditable()">מחק</button>
+    <button id="action2" disabled="disabled" onclick="fDisabled('action2')">ערוך</button>
+    @*<lu>@Html.ActionLink("מחק", "", "", new {@id="action1", @class = "btn btn-default" , onclick = "fDisabled('action1')" })</lu>
+    <lu>@Html.ActionLink("ערוך", "", "", new { @id = "action2", @class = "btn btn-default", onclick = "fDisabled('action2')" })</lu>
+    <lu>@Html.ActionLink("חדש", "Diagnoze", "Diagnoze", null, new { @class = "btn btn-default" })</lu>*@
+
+    <br />
+    <br />
+    <br />
+
+    <h1 dir="rtl" style="text-align:center">אשפוזים</h1>
+    <table dir="rtl" style="width: 100%; height: 150px" border="1">
+        <thead>
+            <tr>
+                <td style="text-align:center; font-size:25px"><b>שנה</b></td>
+                <td style="text-align:center; font-size:25px"><b>בית חולים</b></td>
+                <td style="text-align:center; font-size:25px"><b>מחלקה</b></td>
+                <td style="text-align:center; font-size:25px"><b>סיבה</b></td>
+                <td style="text-align:center; font-size:25px"><b>נרשם על ידי</b></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Hospitalizations item in Model.MyH)
+            {
+                if (Model.MyH != null)
+                {
+                    <tr>
+                        <td name="@item.Code" contenteditable="true">@item.Year</td>
+                        <td name="@item.Code">פרוצדורה ביהח</td>
+                        <td name="@item.Code">@item.Department</td>
+                        <td name="@item.Code">@item.Reason</td>
+                        <td name="@item.Code">פרוצדורה עובדת</td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+    <b
+    <lu>@Html.ActionLink("מחק", "", "", new { @class = "btn btn-default" ,onclick = "javascript:return false;" })</lu>
+    <lu>@Html.ActionLink("ערוך", "", "", new { @class = "btn btn-default", onclick = "javascript:return false;" })</lu>
+    <lu>@Html.ActionLink("חדש", "Hospitalization", "Hospitalization", null, new { @class = "btn btn-default" })</lu>
 
 
+    <br />
+    <br />
+    <br />
+</body>

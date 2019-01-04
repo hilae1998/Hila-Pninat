@@ -3,12 +3,12 @@
     ViewBag.Title = "AddPatiant";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
-
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 
 @using DataAccessLayer;
 @using BussinesLayer;
 @using BussinessLayer;
-
 <style>
     .myButton {
         background-color: #dcdcdc;
@@ -36,39 +36,35 @@
             top: 1px;
         }
 </style>
+
 <script>
-
-
     $(document).ready(function () {
-
             function addErrorMessage(data) {
-                    var txt = "<div class='alert alert-danger'  role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" + data + "</div>";
+                var txt = "<div class='alert alert-danger'  role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" + data + "</div>";
             $("#idp1").html("")
                     $("#idp1").append(txt)
 
             window.setTimeout(function () {
-                //$(".alert").fadeTo(500, 0).slideUp(500, function () {
-                //    $(this).alert('close');
-                //    //$(".alert").alert('close');
-                //});
-                $(".alert").fadeTo(0, 600).slideUp(400, function () {
+                $(".alert").fadeTo(0, 600).slideUp(400, function ()
+                {
                     $(this).remove();
                         });
-            }, 4000);
+            }, 3000);
         }
-                function addSuccessMessage(data) {
-                    var txt = "<div class='alert alert-success'  role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" + data + "</div>";
-                    $("#idp1").html("")
-                    $("#idp1").append(txt)
+                //function addSuccessMessage(data) {
+                //    var txt = "<div class='alert alert-success'  role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='false'>&times;</span></button>" + data + "</div>";
+                //    $("#idp1").html("")
+                //    $("#idp1").append(txt)
 
-                    window.setTimeout(function () {
-                        $(".alert").fadeTo(0, 600).slideUp(400, function () {
-                            $(this).remove();
-                        });
-                    }, 4000);
-                }
+                //    window.setTimeout(function () {
+                //        $(".alert").fadeTo(0, 600).slideUp(400, function ()
+                //        {
+                //            $(this).remove();
+                //        });
+                //    }, 4000);
+                //}
     $("#Text1").on("blur", function () {
-        //
+
         $.ajax({
             type: 'get',
             url: "@Url.Action("checkID")",
@@ -85,33 +81,28 @@
 </script>
 
 <center>
-
     <form id="form1" method="post" action="@Url.Action("addPatiant","AddPatiant")">
         <div dir="rtl">
-            <fieldset style="margin-top:75px; height:470px; width:500px; box-shadow:150px;">
+            <fieldset style="margin-top:30px; height:470px; width:500px; box-shadow:150px;">
                 <div style="margin-top:90px">
                     <h1 style="font-family:Arial;font-size:50px">הוספת מטופלת</h1>
 
                     <div style="margin-right:0%; margin-left:55px">
                         <label style="font-size:25px;font-family:Arial">מספר זהות:</label>
-                        <input id="Text1" type="text" name="Id" maxlength="9" pattern="(?=.*\d)(?=.*[0-9]).{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" placeholder="הכנס/י תעודת זהות" required />
+                        <input id="Text1" type="text" name="Id" maxlength="9" pattern="[0-9]{9,9}" @*pattern="(?=.*\d)(?=.*[0-9]).{9,9}"*@ title="נא הקש ת.ז בעלת 9 ספרות" placeholder="הכנס/י תעודת זהות" required />
                         @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
                     </div>
-
-
                     <div style="margin-right:0%; margin-left:80px">
                         <label style="font-size:25px;font-family:Arial">שם פרטי:</label>
-                        <input id="Text2" type="text" name="FirstName" maxlength="20" placeholder="הכנס/י שם פרטי" required />
-                     
-                    </div>
+                        <input id="Text2" type="text" name="FirstName" maxlength="20" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י שם פרטי" required />
 
+                    </div>
                     <div style="margin-right:0%; margin-left:50px">
                         <label style="font-size:25px;font-family:Arial">שם משפחה:</label>
-                        <input id="Text3" type="text" name="LastName" maxlength="20" placeholder="הכנס/י שם משפחה" required />
-
+                        <input id="Text3" type="text" name="LastName" maxlength="20" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י שם משפחה" required />
                     </div>
 
-                    <div style="margin-right:0%; margin-left:150px">
+                    <div style="margin-right:0%; margin-left:135px">
                         <label style="font-size:25px;font-family:Arial">קופות חולים:</label>
                         @*<select id="select1">
                                 <option selected="selected">לאומית</option>
@@ -132,10 +123,14 @@
                             }
                         </select>
                     </div>
-                    <div id="idp1">
-                        @if (ViewBag.message != null && ViewBag.message != "")
-                        {
-                            <script type="text/javascript">
+                    <div style="margin-right:0%; margin-left:280px">
+                        <br><input class="myButton" id="Submit1" type="submit" value="הוסף" />
+                    </div>
+                </div><br /> <br />
+                <div id="idp1">
+                    @if (ViewBag.message != null && ViewBag.message != "")
+                    {
+                        <script type="text/javascript">
                                 window.onload = function () {
                                     var txt = "<div class='alert alert-success'  role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" + "@ViewBag.Message" + "</div>";
                                     $("#idp1").html("")
@@ -145,17 +140,12 @@
                                         $(".alert").fadeTo(0, 600).slideUp(400, function () {
                                             $(this).remove();
                                         });
-                                    }, 4000);
+                                    }, 3000);
                                 };
-                            </script>
-                        }
-                    </div>
-                    <div style="margin-right:0%; margin-left:280px">
-                        <br><input class="myButton" id="Submit1" type="submit" value="הוסף" />
-                    </div>
+                        </script>
+                    }
                 </div>
-            </fieldset>
+            </fieldset><br /><br /> <br />
         </div>
     </form>
 </center>
-

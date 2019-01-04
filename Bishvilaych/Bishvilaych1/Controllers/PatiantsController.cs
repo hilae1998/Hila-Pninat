@@ -6,8 +6,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-//לאה אמסלם
-//21/06/18
 namespace Bishvilaych.Controllers
 {
     public class PatiantsController : Controller
@@ -15,16 +13,23 @@ namespace Bishvilaych.Controllers
         [HttpGet]
         public ActionResult Patiants()
         {
-            //if (Session["Workers"] == null)
-            //{
-            //    return View("Login");
-            //}
+            if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
         [HttpPost]
         public ActionResult Patiants(string idpatiant)
         {
+            Session["IdPatiants"] = idpatiant;
             BLCheck_Patient b = new BLCheck_Patient();
+
+            if (idpatiant.Length > 9|| idpatiant=="")
+            {
+                ViewBag.error = "תעודת זהות לא חוקית";
+                return View();
+            }
             if (b.Check_Patient(idpatiant) == 0)
             {
                 Session["Patiant"] = idpatiant;
@@ -36,12 +41,15 @@ namespace Bishvilaych.Controllers
                 return View();
             }
         }
-
-
-        //Ayala Gozlan
         [HttpGet]
         public ActionResult Demography()
         {
+            if (Session["Patiant"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            ViewBag.status = Session["status"];
+            Session["status"] = "";
             BLPatiants blp = new BLPatiants();
             Patiants p = blp.getPatiantsById(Session["Patiant"].ToString());
             BLMaterialStatus blms = new BLMaterialStatus();
@@ -54,38 +62,35 @@ namespace Bishvilaych.Controllers
             M.MyK = k;
             return View(M);
         }
-
         [HttpPost]
-        public ActionResult Demography(Patiants p)
+        public ActionResult Demography(Patiants pat)
         {
             try
             {
+                pat.Id = pat.Id.TrimEnd('/');
                 BLPatiants bl = new BLPatiants();
-                int result = bl.UpdatePatiant(p.Id, p.FirstName, p.LastName, p.Doctor, p.reffered, p.Language, p.City, p.Street, p.Phone, p.Phone2, p.Fax, p.Email, p.BirthDate, p.ContactExam, p.ContactGinformation, p.FathersOrigin, p.MothersOrigin, p.Kupah, p.MaritalStatus, p.Children, p.G, p.T, p.P, p.A, p.L,p.FollowUp, p.Occupation, p.followedup);              
+                int result = bl.UpdatePatiant(pat.Id, pat.FirstName, pat.LastName, pat.Doctor, pat.reffered, pat.Language, pat.City, pat.Street, pat.Phone, pat.Phone2, pat.Fax, pat.Email, pat.BirthDate, pat.ContactExam, pat.ContactGinformation, pat.FathersOrigin, pat.MothersOrigin, pat.Kupah, pat.MaritalStatus, pat.Children, pat.G, pat.T, pat.P, pat.A, pat.L, pat.FollowUp, pat.Occupation, pat.followedup);
                 if (result == 0)
                 {
-                    ViewBag.err = "הנתונים נשמרו בהצלחה";
-                    return RedirectToAction("VisitReason");
+                    Session["status"] = "הנתונים נשמרו בהצלחה";
+                    // return RedirectToAction("VisitReason", "VisitReason");                 
+                    return RedirectToAction("Demography", "Patiants", new { pat.Id });
                 }
                 else
                 {
-                    ViewBag.err = "התרחשה שגיאה";
-                    return View(p.Id);
+                    Session["status"] = "התרחשה שגיאה";
+                    // return View(pat);
+                    //return View(p.Id);      
+                    return RedirectToAction("Demography", "Patiants", new { pat.Id });
                 }
             }
-           catch
+            catch
             {
-                return View(p.Id);
+                Session["status"] = "התרחשה שגיאה";
+                //return View(p.Id);
+                return RedirectToAction("Demography", "Patiants", new { pat.Id });
             }
         }
-
-        public ActionResult VisitReason()
-        {
-            //get visitReason and all prev updatings and sent to screenn
-            return View();
-        }
-
-        
     }
     public class MyModels
     {
