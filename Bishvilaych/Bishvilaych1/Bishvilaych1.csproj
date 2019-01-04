@@ -287,7 +287,6 @@
     <Content Include="Views\Stiker\Stiker.cshtml" />
     <Content Include="Views\Reciepts\Reciepts.cshtml" />
     <Content Include="ClassDiagram1.cd" />
-    <Content Include="Views\Visit_Summary\VisitSummary.cshtml" />
     <Content Include="Views\LifeStyleDr\LifeStyleDr.cshtml" />
     <Content Include="Views\PastMedical\Edit1.cshtml" />
     <Content Include="ScannedPatientsDocuments\311521421\מאמי" />
