@@ -11,6 +11,8 @@ namespace Bishvilaych.Controllers
 {
     public class VisitReasonController : Controller
     {
+        BLVisitSummery b = new BLVisitSummery();//מופע לשימוש הפונקצייה getUpdating
+        BLVisitReason p = new BLVisitReason();
         [HttpGet]
         public ActionResult VisitReason()
         {
@@ -54,5 +56,41 @@ namespace Bishvilaych.Controllers
             }
         }
 
+        public ActionResult getLastVisit()
+        {
+            List<MyVisitReasonDict> myl = new List<MyVisitReasonDict>();
+            myl = funcGetAjax();
+            return Json(myl, JsonRequestBehavior.AllowGet);
+        }
+        private List<MyVisitReasonDict> funcGetAjax()//פונקציה היוצרת לי כעין מילון אשר הקי שלו זה תאריך והוליו שלו זה בדיקה רפואית של אותו תאריך
+        {
+
+            List<DateTime> l2 = new List<DateTime>();
+            l2 = b.get_updating(Session["Patiant"].ToString());//מביא לי את רשימת התאריכים
+            VisitReason visitrReason;
+            List<MyVisitReasonDict> myl = new List<MyVisitReasonDict>();
+            MyVisitReasonDict myVisitReasonDict;
+            foreach (var item in l2)//ריצה על רשימת התאריכים
+            {
+                visitrReason = p.getVisitReason(item, Session["Patiant"].ToString());//מביא לי את בדיקה רפואית של תאריך מסוים
+                myVisitReasonDict = new MyVisitReasonDict();//הקצאת מחלקה               
+                DateTime t = new DateTime(item.Year, item.Month, item.Day);//תאריך בפורמט מסודר
+                myVisitReasonDict.date = t.ToShortDateString();
+                myVisitReasonDict.list = visitrReason;
+
+                myl.Add(myVisitReasonDict);
+            }
+            return myl;
+        }
     }
+    class MyVisitReasonDict
+    {
+
+        public string date { get; set; }
+        public VisitReason list { get; set; }
+
+    }
+
+
 }
+

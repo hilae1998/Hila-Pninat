@@ -12,6 +12,10 @@ namespace Bishvilaych.Controllers
         BLVisitSummery b = new BLVisitSummery();
         public ActionResult VisitSummary()
         {
+            if (Session["Patiant"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
         [HttpPost]
