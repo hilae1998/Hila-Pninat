@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
 
-@using DataAccessLayer;
 @using BussinesLayer;
 @model PhysicalExam
 <style>
@@ -238,7 +237,7 @@
 
 </script>
 <br /><br />
-<form id="MyForm" @*action="@Url.Action("UpdatePhyicalExam","PhyicalExam")" method="get"*@>
+<form id="MyForm">
     <div id="lastvisit">
         @{
             BLPhyicalExam blv = new BLPhyicalExam();

@@ -1,10 +1,127 @@
-﻿@model Entity.VisitReason
+﻿
 @{
     ViewBag.Title = "VisitReason";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
 
+@using BussinessLayer;
+@model Entity.VisitReason
 <script>
+    var dictionary = new Array();
+    $(document).ready(function () {
+        $.ajax({//שולף לי את כל סיבות הביקור,ומכניס לי לדיקשנרי
+            type: 'get',
+            url: "@Url.Action("getLastVisit")",
+            data: {},
+        success: function (result) {
+
+            $.each(result, function (i) {
+                var key = Object.keys(this)[0]//מביא לי את שם המפתח לדייט
+                var val = Object.keys(this)[1]//מביא לי את שם המפתח לרשימה
+
+                dictionary.push({
+                    date: this[key],//מביא לי את התאריך
+                    listRec: this[val],//מביא לי את הליסט
+
+
+                })
+            }) //end each function
+            ////document.getElementById("MyForm").reset();   //אפס את הטופס
+            ////שלוף את הנתונים של היום ומלא את הנתונים באלמנטים
+            //for (var key in dictionary[dictionary.length - 1].listRec) {
+            //    var theinput = document.getElementsByName(key)[0];
+            //    if (theinput != undefined) {
+            //        var type = theinput.type;
+            //        switch (type) {
+            //            case "text":
+            //                $(theinput).val(dictionary[dictionary.length - 1].listRec[key]);
+            //                break;
+            //            case "checkbox":
+            //                $(theinput).prop("checked", dictionary[dictionary.length - 1].listRec[key]);
+            //                break;
+            //            case "select-one":
+            //                $(theinput).val(dictionary[dictionary.length - 1].listRec[key]);
+            //                break;
+            //        }//end switch
+            //    }//end if
+            //};//end for
+
+        },
+
+        error: function () {
+            alert("error")
+        }
+    }) //end ajax function
+    $(".herf").click(function () {//כאשר בוחרים תאריך עדכן את הפקדים בהתאם למידע השייך לאותו תאריך
+        //$('#MyForm')[0].reset();//אפס את הטופס
+        if (this.title != $("#now").attr("title")) //אם נכנסתה לתאריך שעבר,הפוך את כפתור השליחה ללא זמין
+        {
+            $("#submit").addClass("disablebutton")
+            $("#submit").prop("disabled", true);
+        }
+        else {
+            $("#submit").prop("disabled", false);
+            $("#submit").removeClass("disablebutton")
+        }
+        for (var i = 0; i < dictionary.length; i++) {
+            if (this.title == dictionary[i].date) {//שלוף את הנתונים של התאריך הנבחר ומלא אותם בפקדים
+                for (var key in dictionary[i].listRec) {
+                    var theinput = document.getElementsByName(key)[0];
+                    if (theinput != undefined) {
+                        var type = theinput.type;
+                        switch (type) {
+                            case "text":
+                                $(theinput).val(dictionary[i].listRec[key]);
+                                break;
+                            case "radio":
+                                $(theinput).prop("checked", dictionary[i].listRec[key]);
+                                break;
+
+                        }//end switch
+                    }//end if
+                };//end for
+                //הצגת תיבות הטקסט במידה והצקבוקסים בחורים
+                if ($("#GeneralCheck").is(":checked")) {
+                    $("#Text1").css('display', 'inline-block');
+                    $("#Text1").val($("#Text").val());
+                }
+                if ($("#BreastExam").is(":checked")) {
+                    $("#Text2").css('display', 'inline-block');
+                    $("#Text2").val($("#Text").val());
+                }
+                if ($("#Pap").is(":checked")) {
+                    $("#Text3").css('display', 'inline-block');
+                    $("#Text3").val($("#Text").val());
+                }
+                if ($("#Diaphragm").is(":checked")) {
+                    $("#Do").css('display', 'inline-block');
+                    $("#Contraception").prop("checked", true);
+                    $("#Text4").css('display', 'inline-block');
+                    $("#Text4").val($("#Text").val());
+                }
+                if ($("#OtherConcetraption").is(":checked")) {
+                    $("#Do").css('display', 'inline-block');
+                    $("#Contraception").prop("checked", true);
+                    $("#Text5").css('display', 'inline-block');
+                    $("#Text5").val($("#Text").val());
+
+                }                  
+                if ($("#MenstrualCycle").is(":checked")) {
+                    $("#Text6").css('display', 'inline-block');
+                    $("#Text6").val($("#Text").val());
+                }
+                if ($("#Kallah").is(":checked")) {
+                    $("#Text7").css('display', 'inline-block');
+                    $("#Text7").val($("#Text").val());
+                }
+                if ($("#OtherReason").is(":checked")) {
+                    $("#Text8").css('display', 'inline-block');
+                    $("#Text8").val($("#Text").val());
+                }
+            }//end if
+        }//end for
+    });
+    });
     function onLoad()
     {
         document.getElementById('Text').value ='@Model.Text';
@@ -304,7 +421,7 @@
             document.getElementById('OtherConcetraption').checked = false;
             document.getElementById('Diaphragm').checked = true;
             document.getElementById('Text4').style.display = "inline-block";
-            document.getElementById('Text5').style.display = "none";     
+            document.getElementById('Text5').style.display = "none";
         }
         else {
             document.getElementById('Text4').value = "";
@@ -324,6 +441,28 @@
 </script>
 <h2>VisitReason</h2>
 <body style="direction:ltr; text-align:center" onload="onLoad()">
+    <div id="lastvisit">
+        @{
+            BLVisitSummery blv =new BLVisitSummery();
+            List<DateTime> l2 = new List<DateTime>();
+            l2 = blv.get_updating(Session["Patiant"].ToString());
+            foreach (var item in l2)
+            {
+
+                if (item.Date == DateTime.Today.Date)
+                {
+                    <a href="#" id="now" class="herf" title="@DateTime.Today.ToShortDateString()">היום</a><br />
+                }
+                else
+                {
+                    <a href="#" class="herf" title="@item.ToShortDateString()">@item.Day/@item.Month/@item.Year</a><br />
+                }
+
+            }
+
+
+        }
+    </div>
     @using (Html.BeginForm())
     {
         <input id="GeneralCheck" name="GeneralCheck" type="radio" onchange="onchangeAll('GeneralCheck')" value="true" @(Model.GeneralCheck ? "checked=\"checked\"" : "") />
