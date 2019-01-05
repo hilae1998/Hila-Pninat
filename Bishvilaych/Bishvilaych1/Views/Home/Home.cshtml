@@ -18,16 +18,6 @@
         @Html.ActionLink("כספי", "Reciepts", "Reciepts", new { @class = "homeBtn" })
     }
 </div>
-
-@*<div class="mainHome">
-        @if (ViewBag.auth == 1) //רופאה
-        {
-            @Html.ActionLink("מטופלות", "Patiants", "Patiants", new { @class = "homeBtn" })
-            @Html.ActionLink("פרויקטים בקהילה", "customers", "customersList", new { @class = "homeBtn" })
-            @Html.ActionLink("כספי", "Reciepts", "Reciepts", new { @class = "homeBtn" })
-        }
-    </div>*@
-
 <div class="mainHome">
     @if (Session["auth"].ToString() == 3.ToString() || Session["auth"].ToString() == 4.ToString() || Session["auth"].ToString() == 5.ToString()) //רופאה-אחות-תזונאית
     {

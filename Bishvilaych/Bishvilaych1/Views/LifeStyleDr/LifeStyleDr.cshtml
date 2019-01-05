@@ -208,6 +208,154 @@
         }
 
     }
+
+    function onchangeAll(id, check)
+    {
+        switch (id) {
+            case "Acohol":
+                {
+                    if (check == true) {
+                        document.getElementById('AcoholT').style.display = "inline-block";
+                        document.getElementById('AcoholT').value = "";
+                        document.getElementById('AcoholT').required = true;
+                    }
+                    else {
+                        document.getElementById('AcoholT').value = "";
+                        document.getElementById('AcoholT').style.display = "none";
+                        document.getElementById('AcoholT').required = false;
+                    }
+                    break;
+                }
+            case "PassiveSmoking":
+                {
+                    if (check == true) {
+                        document.getElementById('PassiveSmokingT').style.display = "inline-block";
+                        document.getElementById('PassiveSmokingT').value = "";
+                        document.getElementById('PassiveSmokingT').required = true;
+                    }
+                    else {
+                        document.getElementById('PassiveSmokingT').value = "";
+                        document.getElementById('PassiveSmokingT').style.display = "none";
+                        document.getElementById('PassiveSmokingT').required = false;
+                    }
+                    break;
+                }
+            case "Drugs":
+                {
+                    if (check == true) {
+                        document.getElementById('DrugsT').style.display = "inline-block";
+                        document.getElementById('DrugsT').value = "";
+                        document.getElementById('DrugsT').required = true;
+                    }
+                    else {
+                        document.getElementById('DrugsT').value = "";
+                        document.getElementById('DrugsT').style.display = "none";
+                        document.getElementById('DrugsT').required = false;
+                    }
+                    break;
+                }
+            case "PastDrugs":
+                {
+                    if (check == true) {
+                        document.getElementById('PastDrugsT').style.display = "inline-block";
+                        document.getElementById('PastDrugsT').value = "";
+                        document.getElementById('PastDrugsT').required = true;
+                    }
+                    else {
+                        document.getElementById('PastDrugsT').value = "";
+                        document.getElementById('PastDrugsT').style.display = "none";
+                        document.getElementById('PastDrugsT').required = false;
+                    }
+                    break;
+                }
+            case "Trauma":
+                {
+                    if (check == true) {
+                        document.getElementById('TraumaT').style.display = "inline-block";
+                        document.getElementById('TraumaT').value = "";
+                        document.getElementById('TraumaT').required = true;
+                    }
+                    else {
+                        document.getElementById('TraumaT').value = "";
+                        document.getElementById('TraumaT').style.display = "none";
+                        document.getElementById('TraumaT').required = false;
+                    }
+                    break;
+                }
+            case "DisordersEating":
+                {
+                    if (check == true) {
+                        document.getElementById('DisordersEatingT').style.display = "inline-block";
+                        document.getElementById('DisordersEatingT').value = "";
+                        document.getElementById('DisordersEatingT').required = true;
+                    }
+                    else {
+                        document.getElementById('DisordersEatingT').value = "";
+                        document.getElementById('DisordersEatingT').style.display = "none";
+                        document.getElementById('DisordersEatingT').required = false;
+                    }
+                    break;
+                }
+            case "PastDisordersEating":
+                {
+                    if (check == true) {
+                        document.getElementById('PastDisordersEatingT').style.display = "inline-block";
+                        document.getElementById('PastDisordersEatingT').value = "";
+                        document.getElementById('PastDisordersEatingT').required = true;
+                    }
+                    else {
+                        document.getElementById('PastDisordersEatingT').value = "";
+                        document.getElementById('PastDisordersEatingT').style.display = "none";
+                        document.getElementById('PastDisordersEatingT').required = false;
+                    }
+                    break;
+                }
+            case "Relation":
+                {
+                    if (check == true) {
+                        document.getElementById('RelationT').style.display = "inline-block";
+                        document.getElementById('RelationT').value = "";
+                        document.getElementById('RelationT').required = true;
+                    }
+                    else {
+                        document.getElementById('RelationT').value = "";
+                        document.getElementById('RelationT').style.display = "none";
+                        document.getElementById('RelationT').required = false;
+                    }
+                    break;
+                }
+            case "Ab":
+                {
+                    if (check == true) {
+                        document.getElementById('AbT').style.display = "inline-block";
+                        document.getElementById('AbT').value = "";
+                        document.getElementById('AbT').required = true;
+                    }
+                    else {
+                        document.getElementById('AbT').value = "";
+                        document.getElementById('AbT').style.display = "none";
+                        document.getElementById('AbT').required = false;
+                    }
+                    break;
+                } 
+            case "Mm":
+                {
+                    if (check == true) {
+                        document.getElementById('Do').style.display = "inline-block";
+                        document.getElementById('NotEatT').value = "";
+                        document.getElementById('NotEatT').required = true;
+                    }
+                    else {
+                        document.getElementById('NotEatT').value = "";
+                        document.getElementById('NotEatT').style.display = "none";
+                        document.getElementById('NotEatT').required = false;
+                    }
+                    break;
+                } 
+        }
+    }
+
+
     function onchangeRadio(id) {
         if (id == "Anxiety") {
             document.getElementById('Anxiety').checked = true;
@@ -231,28 +379,67 @@
             document.getElementById('OtherMentallssueT').style.display = "none";
         }
         if (id == "Bi_polar") {
-            document.getElementById('Text4').value = "";
-            document.getElementById('Text5').value = "";
-            document.getElementById('OtherConcetraption').checked = true;
-            document.getElementById('Diaphragm').checked = false;
-            document.getElementById('Text4').style.display = "none";
-            document.getElementById('Text5').style.display = "inline-block";
+            document.getElementById('Anxiety').checked = false;
+            document.getElementById('Bi_polar').checked = true;
+            document.getElementById('Depression').checked = false;
+            document.getElementById('OtherMentallssue').checked = false;
+
+            document.getElementById("AnxietyT").required = false;
+            document.getElementById("Bi_polarT").required = true;
+            document.getElementById("DepressionT").required = false;
+            document.getElementById("OtherMentallssueT").required = false;
+
+            document.getElementById('AnxietyT').value = "";
+            document.getElementById('Bi_polarT').value = "";
+            document.getElementById('DepressionT').value = "";
+            document.getElementById('OtherMentallssueT').value = "";
+
+            document.getElementById('AnxietyT').style.display = "none";
+            document.getElementById('Bi_polarT').style.display = "inline-block";
+            document.getElementById('DepressionT').style.display = "none";
+            document.getElementById('OtherMentallssueT').style.display = "none";
         }
         if (id == "Depression") {
-            document.getElementById('Text4').value = "";
-            document.getElementById('Text5').value = "";
-            document.getElementById('OtherConcetraption').checked = true;
-            document.getElementById('Diaphragm').checked = false;
-            document.getElementById('Text4').style.display = "none";
-            document.getElementById('Text5').style.display = "inline-block";
+            document.getElementById('Anxiety').checked = false;
+            document.getElementById('Bi_polar').checked = false;
+            document.getElementById('Depression').checked = true;
+            document.getElementById('OtherMentallssue').checked = false;
+
+            document.getElementById("AnxietyT").required = false;
+            document.getElementById("Bi_polarT").required = false;
+            document.getElementById("DepressionT").required = true;
+            document.getElementById("OtherMentallssueT").required = false;
+
+            document.getElementById('AnxietyT').value = "";
+            document.getElementById('Bi_polarT').value = "";
+            document.getElementById('DepressionT').value = "";
+            document.getElementById('OtherMentallssueT').value = "";
+
+            document.getElementById('AnxietyT').style.display = "none";
+            document.getElementById('Bi_polarT').style.display = "none";
+            document.getElementById('DepressionT').style.display = "inline-block";
+            document.getElementById('OtherMentallssueT').style.display = "none";
         }
         if (id == "OtherMentallssue") {
-            document.getElementById('Text4').value = "";
-            document.getElementById('Text5').value = "";
-            document.getElementById('OtherConcetraption').checked = true;
-            document.getElementById('Diaphragm').checked = false;
-            document.getElementById('Text4').style.display = "none";
-            document.getElementById('Text5').style.display = "inline-block";
+            document.getElementById('Anxiety').checked = false;
+            document.getElementById('Bi_polar').checked = false;
+            document.getElementById('Depression').checked = false;
+            document.getElementById('OtherMentallssue').checked = true;
+
+            document.getElementById("AnxietyT").required = false;
+            document.getElementById("Bi_polarT").required = false;
+            document.getElementById("DepressionT").required = false;
+            document.getElementById("OtherMentallssueT").required = true;
+
+            document.getElementById('AnxietyT').value = "";
+            document.getElementById('Bi_polarT').value = "";
+            document.getElementById('DepressionT').value = "";
+            document.getElementById('OtherMentallssueT').value = "";
+
+            document.getElementById('AnxietyT').style.display = "none";
+            document.getElementById('Bi_polarT').style.display = "none";
+            document.getElementById('DepressionT').style.display = "none";
+            document.getElementById('OtherMentallssueT').style.display = "inline-block";
         }
     }
 

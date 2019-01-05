@@ -31,21 +31,23 @@ namespace Bishvilaych.Controllers
             {
                 string id = Session["Patiant"].ToString();//id - from Patiant controler
                 BLDr_LigeStlye bl = new BLDr_LigeStlye();
-                int result = bl.AddOrUpdatelifestyle(id, DateTime.Today, pg);      // update the db with the new ditails
+                int result = bl.AddOrUpdatelifestyle(id, DateTime.Today, pg); // update the db with the new ditails
                 if (result == 0)
                 {
                     ViewBag.err = "הנתונים נשמרו בהצלחה";
+                    return RedirectToAction("LifeStyleDr", "LifeStyleDr", new { pg });
                 }
                 else
                 {
                     ViewBag.err = "התרחשה שגיאה";
+                    return RedirectToAction("LifeStyleDr", "LifeStyleDr", new { pg });
+                   
                 }
-                    return View(pg);// return to the same view
-                
             }
             catch
             {
-                return View(pg);
+                Session["status3"] = "התרחשה שגיאה";
+                return RedirectToAction("LifeStyleDr", "LifeStyleDr", new { pg });
             }
         }
 

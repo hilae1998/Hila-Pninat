@@ -52,7 +52,6 @@ namespace Bishvilaych.Controllers
             {
                 Session["status3"] = "התרחשה שגיאה";
                 return RedirectToAction("LifeStyleNutritionist", "LifeStyleNutritionist", new { ls });
-                //   return View(ls);
             }
         }
 
