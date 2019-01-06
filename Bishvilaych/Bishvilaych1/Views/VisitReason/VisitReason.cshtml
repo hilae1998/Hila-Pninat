@@ -52,7 +52,17 @@
             alert("error")
         }
     }) //end ajax function
-    $(".herf").click(function () {//כאשר בוחרים תאריך עדכן את הפקדים בהתאם למידע השייך לאותו תאריך
+        $(".herf").click(function () {//כאשר בוחרים תאריך עדכן את הפקדים בהתאם למידע השייך לאותו תאריך
+            $("#Text1").css('display', 'none');
+            $("#Text2").css('display', 'none');
+            $("#Text3").css('display', 'none');
+            $("#Text4").css('display', 'none');
+            $("#Text5").css('display', 'none');
+            $("#Text6").css('display', 'none');
+            $("#Text7").css('display', 'none');
+            $("#Text8").css('display', 'none');
+            $("#Do").css('display', 'none');
+            $("#Contraception").prop("checked", false);
         //$('#MyForm')[0].reset();//אפס את הטופס
         if (this.title != $("#now").attr("title")) //אם נכנסתה לתאריך שעבר,הפוך את כפתור השליחה ללא זמין
         {
@@ -84,39 +94,118 @@
                 if ($("#GeneralCheck").is(":checked")) {
                     $("#Text1").css('display', 'inline-block');
                     $("#Text1").val($("#Text").val());
+                    $("#Text2").css('display', 'none');
+                    $("#Text3").css('display', 'none');
+                    $("#Text4").css('display', 'none');
+                    $("#Text5").css('display', 'none');
+                    $("#Text6").css('display', 'none');
+                    $("#Text7").css('display', 'none');
+                    $("#Text8").css('display', 'none');
+                    $("#Do").css('display', 'none');
+                    $("#Contraception").prop("checked", false);
+
                 }
                 if ($("#BreastExam").is(":checked")) {
                     $("#Text2").css('display', 'inline-block');
                     $("#Text2").val($("#Text").val());
+                    $("#Text1").css('display', 'none');
+                    $("#Text3").css('display', 'none');
+                    $("#Text4").css('display', 'none');
+                    $("#Text5").css('display', 'none');
+                    $("#Text6").css('display', 'none');
+                    $("#Text7").css('display', 'none');
+                    $("#Text8").css('display', 'none');
+                    $("#Do").css('display', 'none');
+                    $("#Contraception").prop("checked", false);
+
                 }
                 if ($("#Pap").is(":checked")) {
                     $("#Text3").css('display', 'inline-block');
                     $("#Text3").val($("#Text").val());
+                    $("#Text2").css('display', 'none');
+                    $("#Text1").css('display', 'none');
+                    $("#Text4").css('display', 'none');
+                    $("#Text5").css('display', 'none');
+                    $("#Text6").css('display', 'none');
+                    $("#Text7").css('display', 'none');
+                    $("#Text8").css('display', 'none');
+                    $("#Do").css('display', 'none');
+                    $("#Contraception").prop("checked", false);
+
                 }
                 if ($("#Diaphragm").is(":checked")) {
                     $("#Do").css('display', 'inline-block');
+
                     $("#Contraception").prop("checked", true);
                     $("#Text4").css('display', 'inline-block');
                     $("#Text4").val($("#Text").val());
+                    $("#Text2").css('display', 'none');
+                    $("#Text3").css('display', 'none');
+                    $("#Text1").css('display', 'none');
+                    $("#Text5").css('display', 'none');
+                    $("#Text6").css('display', 'none');
+                    $("#Text7").css('display', 'none');
+                    $("#Text8").css('display', 'none');
+                  
+
                 }
                 if ($("#OtherConcetraption").is(":checked")) {
-                    $("#Do").css('display', 'inline-block');
+                    $("#Do").css('display', 'inline');
                     $("#Contraception").prop("checked", true);
                     $("#Text5").css('display', 'inline-block');
                     $("#Text5").val($("#Text").val());
+                    $("#Text2").css('display', 'none');
+                    $("#Text3").css('display', 'none');
+                    $("#Text4").css('display', 'none');
+                    $("#Text1").css('display', 'none');
+                    $("#Text6").css('display', 'none');
+                    $("#Text7").css('display', 'none');
+                    $("#Text8").css('display', 'none');
+                   
+
 
                 }                  
                 if ($("#MenstrualCycle").is(":checked")) {
                     $("#Text6").css('display', 'inline-block');
                     $("#Text6").val($("#Text").val());
+                    $("#Text2").css('display', 'none');
+                    $("#Text3").css('display', 'none');
+                    $("#Text4").css('display', 'none');
+                    $("#Text5").css('display', 'none');
+                    $("#Text1").css('display', 'none');
+                    $("#Text7").css('display', 'none');
+                    $("#Text8").css('display', 'none');
+                    $("#Do").css('display', 'none');
+                    $("#Contraception").prop("checked", false);
+
                 }
                 if ($("#Kallah").is(":checked")) {
                     $("#Text7").css('display', 'inline-block');
                     $("#Text7").val($("#Text").val());
+                    $("#Text2").css('display', 'none');
+                    $("#Text3").css('display', 'none');
+                    $("#Text4").css('display', 'none');
+                    $("#Text5").css('display', 'none');
+                    $("#Text6").css('display', 'none');
+                    $("#Text1").css('display', 'none');
+                    $("#Text8").css('display', 'none');
+                    $("#Do").css('display', 'none');
+                    $("#Contraception").prop("checked", false);
+
                 }
                 if ($("#OtherReason").is(":checked")) {
                     $("#Text8").css('display', 'inline-block');
                     $("#Text8").val($("#Text").val());
+                    $("#Text2").css('display', 'none');
+                    $("#Text3").css('display', 'none');
+                    $("#Text4").css('display', 'none');
+                    $("#Text5").css('display', 'none');
+                    $("#Text6").css('display', 'none');
+                    $("#Text7").css('display', 'none');
+                    $("#Text1").css('display', 'none');
+                    $("#Do").css('display', 'none');
+                    $("#Contraception").prop("checked", false);
+
                 }
             }//end if
         }//end for
