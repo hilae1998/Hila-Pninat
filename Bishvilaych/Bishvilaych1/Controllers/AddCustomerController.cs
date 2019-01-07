@@ -10,83 +10,80 @@ namespace Bishvilaych1.Controllers
 {
     public class AddCustomerController : Controller
     {
-        // GET: AddCustomer
         public ActionResult AddCustomer()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddCustomer(Customers c)
+        public ActionResult AddCustomer(Customers c)//הוספת לקוח
         {
-            BLAddCustomer bl = new BLAddCustomer();
-            int i = 0;
-            i = bl.CheckCustomerID(c.Id);
-            bool check = myStatic.IsValidId(c.Id);
-            if (i == 20)
+            try
             {
-                if (check == false)
+                BLAddCustomer bl = new BLAddCustomer();
+                int i = 0;
+                //בדיקת תקינות 
+                i = bl.CheckCustomerID(c.Id);
+                bool check = myStatic.IsValidId(c.Id);// שליחה לפונ' לבדיקת תקינות תעודת הזהות
+                if (i == 20)// אם הלקוח אינו קיים במערכת 
+                {
+                    if (check == false)// אם התעודת זהות איננה תקינה
+                    {
+                        c.Id = "";
+                        ModelState.AddModelError("Id", "תעודת זהות אינה תקינה");
+                    }
+                    if (ModelState.IsValid)
+                    {
+                        ModelState.Remove("Id");
+                        int result = bl.Add_Customers(c.Id, c.FirstName, c.LastName, c.Phone, c.Phone2, c.City, c.Street);
+                        ViewBag.message = "לקוח נוסף למערכת בהצלחה";
+                        return View(new Customers());
+                    }
+                }
+                else//אם הלקוח קיים במערכת
                 {
                     c.Id = "";
-                    ModelState.AddModelError("Id", "תעודת זהות אינה תקינה");
+                    ModelState.AddModelError("Id", "לקוח קיים במערכת");
                 }
-                if (ModelState.IsValid)
-                {
-                    ModelState.Remove("Id");
-                    int result = bl.Add_Customers(c.Id, c.FirstName, c.LastName, c.Phone, c.Phone2, c.City, c.Street);
-                    ViewBag.message = "לקוח נוסף למערכת בהצלחה";
-                    return View(new Customers());
-                }
+                return View(c);
             }
-            else
+            catch (Exception e)
             {
-                c.Id = "";
-                ModelState.AddModelError("Id", "לקוח קיים במערכת");
+                return View(c);
             }
-            return View(c);
+
         }
 
         [HttpGet]
-        public ActionResult checkCustomerID(string ID)
+        public ActionResult checkCustomerID(string ID)// שליחה לבדיקה אם לקוח קיים/לא קיים במערכת 
         {
-            BLAddCustomer b = new BLAddCustomer();
-
-            int i;
             string messege;
+            try
+            {
+                BLAddCustomer b = new BLAddCustomer();
 
-            i = b.CheckCustomerID(ID);
-            if (i == 20)
-            {
-                messege = "";
+                int i;
+
+
+                i = b.CheckCustomerID(ID);
+                if (i == 20)
+                {
+                    messege = "";
+                }
+                else
+                {
+                    messege = "לקוח קיים במערכת";
+                }
             }
-            else
+            catch (Exception e)
             {
-                messege = "לקוח קיים במערכת";
+
+                messege = "שגיאה:" + e;
             }
+
             return Json(messege, JsonRequestBehavior.AllowGet);
         }
 
 
-        //[System.Web.Services.WebMethod]
-        //public bool LegalId(string s)
-        //{
-        //    int x;
-        //    if (!int.TryParse(s, out x))
-        //        return false;
-        //    if (s.Length < 5 || s.Length > 9)
-        //        return false;
-        //    for (int i = s.Length; i < 9; i++)
-        //        s = "0" + s;
-        //    int sum = 0;
-        //    for (int i = 0; i < 9; i++)
-        //    {
-        //        int k = ((i % 2) + 1) * (Convert.ToInt32(s[i]) - '0');
-        //        if (k > 9)
-        //            k -= 9;
-        //        sum += k;
-
-        //    }
-        //    return sum % 10 == 0;
-        //}
     }
 }

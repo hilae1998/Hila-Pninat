@@ -15,55 +15,70 @@ namespace Bishvilaych.Controllers
         {
             return View();
         }
-
         [HttpPost]
-        public ActionResult addWorker(Workers s)
+        public ActionResult addWorker(Workers s)// הוספת עובד
         {
-            //check UserName and UserPassword, if right, go to Home page.
-            BL_AddWorker b = new BL_AddWorker();
-            int i = 0;
-            i = b.CheckWorkerID(s.Id);
-            bool check = myStatic.IsValidId(s.Id);
-            if (i == 20)
+            try
             {
-                if (check == false)
+                BL_AddWorker b = new BL_AddWorker();
+                int i = 0;
+                i = b.CheckWorkerID(s.Id);
+                bool check = myStatic.IsValidId(s.Id);// שליחה לפונ' לבדיקת תקינות תעודת הזהות
+                if (i == 20)// אם העובד אינו קיים במערכת 
+                {
+                    if (check == false)// אם התעודת זהות איננה תקינה
+                    {
+                        s.Id = "";
+                        ModelState.AddModelError("Id", "תעודת זהות אינה תקינה");
+                    }
+                    if (ModelState.IsValid)
+                    {
+                        ModelState.Remove("Id");
+                        int result = b.Add_Worker(s.Id, s.FirstName, s.LastName);
+                        ViewBag.message = "עובד נוסף למערכת בהצלחה";
+                        return View(new Workers());
+                    }
+                }
+                else //אם העובד קיים במערכת
                 {
                     s.Id = "";
-                    ModelState.AddModelError("Id", "תעודת זהות אינה תקינה");
+                    ModelState.AddModelError("Id", "עובד קיים במערכת");
                 }
-                if (ModelState.IsValid)
-                {
-                    ModelState.Remove("Id");
-                    int result = b.Add_Worker(s.Id, s.FirstName, s.LastName);
-                    ViewBag.message = "עובד נוסף למערכת בהצלחה";
-                    return View(new Workers());
-                }
+                return View(s);
             }
-            else
+            catch (Exception e)
             {
-                s.Id = "";
-                ModelState.AddModelError("Id", "עובד קיים במערכת");
+                return View(s);
+
             }
-            return View(s);
+
+
         }
         [HttpGet]
-        public ActionResult checkWorkerID(string ID)
+        public ActionResult checkWorkerID(string ID)// שליחה לבדיקה אם עובד קיים/לא קיים במערכת 
         {
-            BussinessLayer.BL_AddWorker b = new BussinessLayer.BL_AddWorker();
-
-            int i;
-            string messege;
-
-            i = b.CheckWorkerID(ID);
-            if (i == 20)
+            try
             {
-                messege = "";
+                BussinessLayer.BL_AddWorker b = new BussinessLayer.BL_AddWorker();
+                int i;
+                string messege;
+
+                i = b.CheckWorkerID(ID);
+                if (i == 20)
+                {
+                    messege = "";
+                }
+                else
+                {
+                    messege = "עובד קיים במערכת";
+                }
+                return Json(messege, JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception e)
             {
-                messege = "עובד קיים במערכת";
+                return Json(e, JsonRequestBehavior.AllowGet);
             }
-            return Json(messege, JsonRequestBehavior.AllowGet);
+
 
         }
     }

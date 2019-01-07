@@ -16,25 +16,35 @@ namespace Bishvilaych.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Workers model)
+        public ActionResult Login(Workers model)//כניסה למערכת עם שם משתמש וסיסמא
         {
             BL_Acount l = new BL_Acount();
-            int result = l.Cheak_Username(model.UserName, model.UserPasswerd);
-            if (result == 1)
+            try
             {
-                Session["UserName"] = model.UserName;
-                Session["UserPasswerd"] = model.UserPasswerd;
-                if (Session["UserName"] == null || Session["UserPasswerd"] == null)
-                    return View("Login");
-                return RedirectToAction("Home","Home");
+                //בדיקת תקינות שם משתמש וסיסמא
+                int result = l.Cheak_Username(model.UserName, model.UserPasswerd);
+                if (result == 1)
+                {
+                    Session["UserName"] = model.UserName;
+                    Session["UserPasswerd"] = model.UserPasswerd;
+                    if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+                        return View("Login");
+                    return RedirectToAction("Home", "Home");
 
+                }
+                else
+                {
+                    ViewBag.messege = "שם משתמש או סיסמא שגויים";
+                }
+                return View("Login");
             }
-            else
+            catch (Exception e)//זריקת שגיאה לצד שרת
             {
-                ViewBag.messege = "שם משתמש או סיסמא שגויים";
-            }
-           // return View();
-            return View("Login");
+
+                ViewBag.messege = "שגיאה"+e;
+                return View("Login");
+            }               
+            
         }
 
     }
