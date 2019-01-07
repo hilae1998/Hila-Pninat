@@ -1,12 +1,9 @@
-﻿
-
-@{
+﻿@{
     ViewBag.Title = "Customers_";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 
 }
 @model List<Customers>
-@*מסך 42*@
 @using Bishvilaych.Controllers
 
 <style>
@@ -14,9 +11,7 @@
         text-align: center;
         cursor:pointer;
     }
-
 </style>
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('#dataTable').DataTable({
@@ -38,8 +33,7 @@
                     "last": "אחרון"
                 }
             }
-        });
-       
+        });  
     });
 </script>
 @*בלחיצה כפולה תפתח טבלת לקוחה*@

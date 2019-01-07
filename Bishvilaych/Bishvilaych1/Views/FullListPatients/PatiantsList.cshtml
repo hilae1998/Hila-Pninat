@@ -5,24 +5,43 @@
 }
 @using Bishvilaych.Controllers
 @model List<Patiants>
-<h2 style="text-align:center">רשימת מטופלות מלאה</h2>
 @*בלחיצה כפולה תפתח טבלת לקוחה*@
 
 <style>
-    tr:hover {
+    td {
+        text-align: center;
         cursor: pointer;
-        background-color: #ccc;
     }
 </style>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            "language": {
+                "processing": "מעבד...",
+                "lengthMenu": "הצג _MENU_ פריטים",
+                "zeroRecords": "לא נמצאו רשומות מתאימות",
+                "emptyTable": "לא נמצאו רשומות מתאימות",
+                "info": "_START_ עד _END_ מתוך _TOTAL_ רשומות",
+                "infoEmpty": "0 עד 0 מתוך 0 רשומות",
+                "infoFiltered": "(מסונן מסך _MAX_  רשומות)",
+                "infoPostFix": "",
+                "search": "חיפוש:",
+                "url": "",
+                "paginate": {
+                    "first": "ראשון",
+                    "previous": "קודם",
+                    "next": "הבא",
+                    "last": "אחרון"
+                }
+            }
+        });
 
-<script>
-
+    });
 </script>
 
-
-<div style="width:100%;margin-left:10% ;margin-right:10%">
-    <table dir="rtl" style="width:70%;height:200px" border="1">
+<h2 style="text-align:center">רשימת מטופלות מלאה</h2>
+    <table class="table table-bordered table-hover" dir="ltr" id="dataTable">
         <thead>
             <tr>
                 <td style="text-align:center">מספר זהות</td>
@@ -44,4 +63,3 @@
             }
         </tbody>
     </table>
-    </div>

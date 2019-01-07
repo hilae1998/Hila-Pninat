@@ -64,49 +64,49 @@
                     <td style="margin-top:0%; margin-right:65%; padding:20px">
                         <div>
                             <label style="font-weight:bold">Vitals</label><br />
-                            <label>Height</label>
-                            <input type="text" name="Height" value="@Html.DisplayFor(model=>model.Height)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
-                            <label>Weight </label>
-                            <input type="text" name="Wieght" value="@Html.DisplayFor(model=>model.Wieght)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
-                            <label>BMI </label>
-                            <input type="text" name="BMI" value="@Html.DisplayFor(model=>model.BMI)"  pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד"/><br />
-                            <label>Blood Pressure</label>
-                            <input type="text" name="BloodPressure" value="@Html.DisplayFor(model=>model.BloodPressure)"  pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
-                            <label>Pulse </label>
-                            <input type="text" name="pulse" value="@Html.DisplayFor(model=>model.pulse)"  pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד"/>
+                            <label for="Height">Height</label>
+                            <input type="text" id="Height" name="Height" value="@Html.DisplayFor(model=>model.Height)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
+                            <label for="Wieght">Weight </label>
+                            <input type="text" id="Wieght" name="Wieght" value="@Html.DisplayFor(model=>model.Wieght)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
+                            <label for="BMI">BMI </label>
+                            <input type="text" id="BMI" name="BMI" value="@Html.DisplayFor(model=>model.BMI)"  pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד"/><br />
+                            <label for="BloodPressure">Blood Pressure</label>
+                            <input type="text" id="BloodPressure" name="BloodPressure" value="@Html.DisplayFor(model=>model.BloodPressure)"  pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
+                            <label for="pulse">Pulse </label>
+                            <input type="text" id="pulse" name="pulse" value="@Html.DisplayFor(model=>model.pulse)"  pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד"/>
                         </div>
                     </td>
 
                     <td style="margin-top:0%; margin-right:85%; padding:20px">
                         <div>
                             <label style="font-weight:bold">Nutrition</label><br />
-                            <label>Does not eat certain food</label>
+                            <label for="NotEat">Does not eat certain food</label>
                             <input id="NotEat" name="NotEat" type="checkbox" value="true" @(Model.NotEat ? "checked=\"checked\"" : "") onclick="onchangeAll('NotEat', this.checked)" />
                             <input type="text" name="NotEatT" id="NotEatT" style="display:none" value="@Html.DisplayFor(model=>model.NotEatT)" />
                             <br />
-                            <label>How many meals</label>
-                            <input type="text" name="Meals" value="@Html.DisplayFor(model=>model.Meals)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
+                            <label for="Meals">How many meals</label>
+                            <input type="text" id="Meals" name="Meals" value="@Html.DisplayFor(model=>model.Meals)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
                             <br />
-                            <label>Eat fruits daily</label>
-                            <input type="text" name="Fruits" value="@Html.DisplayFor(model=>model.Fruits)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
+                            <label for="Fruits">Eat fruits daily</label>
+                            <input type="text" id="Fruits" name="Fruits" value="@Html.DisplayFor(model=>model.Fruits)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
                             <br />
-                            <label>Eats vegtables daily</label>
-                            <input type="text" name="Vegetables" value="@Html.DisplayFor(model=>model.Vegetables)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
+                            <label for="Vegetables">Eats vegtables daily</label>
+                            <input type="text" id="Vegetables" name="Vegetables" value="@Html.DisplayFor(model=>model.Vegetables)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
                             <br />
-                            <label>Eat dairy daily</label>
+                            <label for="Dairy">Eat dairy daily</label>
                             <input id="Dairy" name="Dairy" type="checkbox" value="true" @(Model.Dairy ? "checked=\"checked\"" : "") />
                             <br />
-                            <label>How many cups of water a day?</label>
-                            <input type="text" name="Water" value="@Html.DisplayFor(model=>model.Water)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
+                            <label for="Water">How many cups of water a day?</label>
+                            <input type="text" id="Water" name="Water" value="@Html.DisplayFor(model=>model.Water)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
                             <br />
-                            <label>Following a particular diet</label>
+                            <label for="Diet">Following a particular diet</label>
                             <input id="Diet" name="Diet" type="checkbox" value="true" @(Model.Diet ? "checked=\"checked\"" : "") onclick="onchangeAll('Diet', this.checked)" />
                             <input type="text" name="DietT" id="DietT" style="display:none" value="@Html.DisplayFor(model=>model.DietT)" />
                             <br />
-                            <label>Hours of sleep per night</label>
-                            <input type="text" name="SleepingHours" value="@Html.DisplayFor(model=>model.SleepingHours)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד" />
+                            <label for="SleepingHours">Hours of sleep per night</label>
+                            <input type="text" id="SleepingHours" name="SleepingHours" value="@Html.DisplayFor(model=>model.SleepingHours)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד" />
                             <br />
-                            <label>Regular physical activity</label>
+                            <label for="Activity">Regular physical activity</label>
                             <input id="Activity" name="Activity" type="checkbox" value="true" @(Model.Activity ? "checked=\"checked\"" : "") />
                             <br />
                             <label style="font-size:initial; color:#762d49"> @ViewBag.status3</label>

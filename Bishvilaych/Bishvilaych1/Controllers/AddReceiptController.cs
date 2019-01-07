@@ -14,19 +14,15 @@ namespace Bishvilaych.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public ActionResult AddReceipt(receipt r)
         {
-           
             BLAddReceipt bl = new BLAddReceipt();
             int result = bl.AddOrUpdateReceipt(r.receiptDate, r.receiptNum, r.Sum, r.PayBy,
                 r.chequaNum, r.Bank, r.PaymentNum, r.Branch, r.BankAccount, r.CardsKind, r.CreditCard,
-                r.Validity, r.name, Session["Customers"].ToString());
-            
+                r.Validity, r.name, Session["Customers"].ToString());   
             return View();
         }
-
         public static bool IsNum(string s)
         {
             int x;

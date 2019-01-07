@@ -18,12 +18,12 @@ namespace Bishvilaych.Controllers
         [HttpPost]
         public ActionResult addPatiant(Patiants s)
         {
-            //check UserName and UserPassword, if right, go to Home page.
+            //check UserName and UserPassword, if right, go to Home page
             BL_AddPatiants b = new BL_AddPatiants();
             int i = 0;
             i = b.CheckID(s.Id);
             bool check = myStatic.IsValidId(s.Id);
-            if (i == 20)// אם המטופל לא קיים במערכת
+            if (i == 20)// if the patiant does not exist 
             {
                 if (check==false)
                 {
@@ -38,7 +38,7 @@ namespace Bishvilaych.Controllers
                     return View(new Patiants());
                 }
             }
-            else // קיים במערכת
+            else // if the patiant exist
             {
                 s.Id = "";
                 ModelState.AddModelError("Id", "מטופל קיים במערכת");

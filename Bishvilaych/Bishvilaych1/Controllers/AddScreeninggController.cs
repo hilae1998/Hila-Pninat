@@ -9,11 +9,6 @@ namespace Bishvilaych1.Controllers
 {
     public class AddScreeningController : Controller
     {
-        // GET: AddScreeningg
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
         public ActionResult addScreening()
         {
             return View();

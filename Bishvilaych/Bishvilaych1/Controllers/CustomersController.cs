@@ -12,10 +12,6 @@ namespace Bishvilaych.Controllers
         [HttpGet]
         public ActionResult Costomers()
         {
-            //if (Session["Workers"] == null)
-            //{
-            //    return View("Login");
-            //}
             if (Session["UserName"] == null || Session["UserPasswerd"] == null)
             {
                 return RedirectToAction("Login", "Account");

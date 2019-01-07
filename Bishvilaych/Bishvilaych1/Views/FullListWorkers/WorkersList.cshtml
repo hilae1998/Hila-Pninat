@@ -5,40 +5,89 @@
 }
 @using Bishvilaych.Controllers
 @model List<Workers>
-<h2 style="text-align:center">רשימת עובדות מלאה</h2>
-
 @*בלחיצה כפולה תפתח טבלת עובדות*@
 
 <style>
-    tr:hover {
+    td {
+        text-align: center;
         cursor: pointer;
-        background-color: #ccc;
     }
 </style>
-<script>
-</script>
-<div style="width:100%;margin-left:10% ;margin-right:10%">
-    <table dir="rtl" style="width:100%; height:200px" border="1">
-        <thead>
-            <tr>
-                <td style="text-align:center">מספר זהות</td>
-                <td style="text-align:center">שם מלא   </td>
-                <td style="text-align:center">תפקיד    </td>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                foreach (var item in Model)
-                {
-                    <tr onclick="location.href='@(Url.Action("decision", "FullListWorkers",new {Id=item.Id}))'">
-                        <td>@item.Id</td>
-                        <td>@item.FirstName  @item.LastName </td>
-                        <td>@item.Job</td>
-                    </tr>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            "language": {
+                "processing": "מעבד...",
+                "lengthMenu": "הצג _MENU_ פריטים",
+                "zeroRecords": "לא נמצאו רשומות מתאימות",
+                "emptyTable": "לא נמצאו רשומות מתאימות",
+                "info": "_START_ עד _END_ מתוך _TOTAL_ רשומות",
+                "infoEmpty": "0 עד 0 מתוך 0 רשומות",
+                "infoFiltered": "(מסונן מסך _MAX_  רשומות)",
+                "infoPostFix": "",
+                "search": "חיפוש:",
+                "url": "",
+                "paginate": {
+                    "first": "ראשון",
+                    "previous": "קודם",
+                    "next": "הבא",
+                    "last": "אחרון"
                 }
             }
-        </tbody>
-    </table>
-   </div>
+        });
+    });
+    function onload() {
+     @{
+         List<string> list = new List<string>();
+         foreach (var item1 in Model)
+         {
+             if (item1.Job == 1)
+             {
+                 list.Add("מנהלת");
+             }
+             if (item1.Job == 2)
+             {
+                 list.Add("מזכירה");
+             }
+             if (item1.Job == 3)
+             {
+                 list.Add("תזונאית");
+             }
+             if (item1.Job == 4)
+             {
+                 list.Add("רופאה");
+             }
+             if (item1.Job == 5)
+             {
+                 list.Add("אחות");
+             }
+         }
+    }
+    }
+</script>
+<h2 style="text-align:center">רשימת עובדות מלאה</h2>
+<table class="table table-bordered table-hover" dir="ltr" id="dataTable">
+    <thead>
+        <tr>
+            <td style="text-align:center">מספר זהות</td>
+            <td style="text-align:center">שם מלא   </td>
+            <td style="text-align:center">תפקיד    </td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            foreach (var item in Model)
+            {
+                <tr onclick="location.href='@(Url.Action("decision", "FullListWorkers", new { Id = item.Id }))'">
+                    <td>@item.Id</td>
+                    <td>@item.FirstName  @item.LastName </td>
+                    <td>@list[i]</td>
+                </tr>
+                i++;
+            }
+        }
+    </tbody>
+</table>
 
 

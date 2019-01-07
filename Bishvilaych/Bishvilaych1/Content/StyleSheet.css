@@ -18,7 +18,7 @@ html{
 header .logo{
     top:15px;
    
-    width: 11%;
+    width: 6%;
 }
 hr {
     background-color: #810040;
@@ -50,20 +50,53 @@ footer {
     background-color: #810040;
     margin: 1em 1em 1em 1em;
     width: 10em;
-    /*height: 7em;*/
+    /* height: 7em; */
     border-radius: 10px 10px;
-    float: right;
+    width: 180px;
+    height: 150px;
     color: white;
     text-decoration: none !important;
     font-size: large;
     padding: 3em 0px 3em 0px;
+    min-width: 150px !important;
+    display: inline-block;
 }
 
-.mainHome {
-    text-align: center;
-    padding: 10em 10em 0em 10em;
-    font-family:Arial;
-   
-}
+    .homeBtn:hover, .homeBtn:active, .homeBtn:focus {
+        background-color: #aaaaaa57;
+        color: #810040;
+        font-weight: bold;
+        box-shadow: -1px -2px 6px 4px #bea4a4;
+    }
+
+    .mainHome {
+        text-align: center;
+        padding: 10em 10em 0em 10em;
+        font-family: Arial;
+        direction:rtl;
+    }
 .mainHome :hover {
             opacity: 0.8;}
+
+.btnOk {
+
+    height: 35px;
+    width: 80px;
+    border-radius: 15px;
+    border-style: solid;
+    color: #810042;
+    border-color: #810040;
+    border-width: thin;
+}
+
+    .btnOk:hover, .btnOk:active, .btnOk:focus {
+        height: 35px;
+        width: 80px;
+        border-radius: 15px;
+        border-style: solid;
+        color: white;
+        border-color: #810040;
+        border-width: thin;
+        background-color:#810040;
+        font-weight:bold;
+    }

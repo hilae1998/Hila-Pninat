@@ -64,17 +64,7 @@ namespace BussinessLayer
             }
 
             return pgl;
-
-
-
-
-
-
-
-
         }
-
-
         public LifeStyle Get_LifeStyle(DateTime date, string id)
         {
             DADr_LifeStyle dm = new DADr_LifeStyle();//הקצאת המחלקה 

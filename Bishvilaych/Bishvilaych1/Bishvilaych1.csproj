@@ -180,6 +180,9 @@
     <Content Include="scripts\datatables.min.css" />
     <Content Include="scripts\datatables.min.js" />
     <Content Include="scripts\jquery-3.3.1.min.js" />
+    <Content Include="style\bootstrap-select.min.css" />
+    <Content Include="style\bootstrap-select.min.js" />
+    <Content Include="style\Layout.css" />
     <Content Include="Views\AddPatiant1\AddPatiant.aspx" />
     <Content Include="Views\ReciepitsListOfCustomers\ReciepitsListOfCustomers.cshtml" />
     <Content Include="Views\ScreeningsKinds\ScreeningsKings.aspx" />
