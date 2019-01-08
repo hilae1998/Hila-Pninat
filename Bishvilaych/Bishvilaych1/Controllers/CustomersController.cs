@@ -21,23 +21,32 @@ namespace Bishvilaych.Controllers
         [HttpPost]
         public ActionResult Costomers(string idCustomer)
         {
-            BLCheck_Customers b = new BLCheck_Customers();
-            if (idCustomer.Length > 9 || idCustomer == "")
+            Session.Timeout += 10;//session הגדלת ה
+            try
             {
-                ViewBag.error = "תעודת זהות לא חוקית";
+                BLCheck_Customers b = new BLCheck_Customers();
+                if (idCustomer.Length > 9 || idCustomer == "")// תעודת זהות אינה תקינה
+                {
+                    ViewBag.error = "תעודת זהות לא חוקית";
+                    return View();
+                }
+
+                if (b.Check_Customers(idCustomer) == 0)// כשמכניסים תעודת זהות של לקוח קיים
+                {
+                    Session["Customers"] = idCustomer;
+                    return RedirectToAction("ReciepitsListOfCustomers", "ReciepitsListOfCustomers");
+                }
+                else // תעודת זהות של לקוחה שאינה קיימת
+                {
+                    ViewBag.error = "תעודת זהות לא קיימת";
+                    return View();
+                }
+            }
+            catch (Exception)
+            {
                 return View();
             }
 
-            if (b.Check_Customers(idCustomer) == 0)
-            {
-                Session["Customers"] = idCustomer;
-                return RedirectToAction("ReciepitsListOfCustomers", "ReciepitsListOfCustomers");
-            }
-            else
-            {
-                 ViewBag.error = "תעודת זהות לא קיימת";
-                return View();
-            }
         }
     }
 }

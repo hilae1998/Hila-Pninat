@@ -9,7 +9,7 @@ namespace Bishvilaych1.Controllers
 {
     public class AddImmusationController : Controller
     {
-
+        //חיסונים
         public ActionResult AddImmusations()
         {
             return View();

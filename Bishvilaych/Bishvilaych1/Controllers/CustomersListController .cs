@@ -1,7 +1,7 @@
 ﻿using BussinesLayer;
 using System;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,9 +12,16 @@ namespace Bishvilaych.Controllers
         [HttpGet]
         public ActionResult Customers_()
         {
-            BLCustomers bc = new BLCustomers();
-            List<Customers> result = bc.getCustomers();
-            return View(result);
+            try
+            {
+                BLCustomers bc = new BLCustomers();
+                List<Customers> result = bc.getCustomers();
+                return View(result);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
         }
         public ActionResult decision(string id)
         {

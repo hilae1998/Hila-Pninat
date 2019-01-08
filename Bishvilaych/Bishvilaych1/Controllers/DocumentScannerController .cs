@@ -16,45 +16,50 @@ namespace Bishvilaych.Controllers
         }
 
         [HttpPost]
+        // סריקת מסמכי מטופל
         public ActionResult DocumentScanner2(string newname)
         {
-            HttpPostedFileBase file = Request.Files["FileUpload"];
-            string newfilename = Request.Form["NewNameFile"];
-            string message = "";
-            if (newfilename == "" || newfilename == null)// החזר הודעה ללקוח אם שם המסמך התקבל ריק או חסר ערך
+            try
             {
-                message = "נא לתת שם לקובץ";
-                return Json(message, JsonRequestBehavior.AllowGet);
-            }
-            //בדיקה האם קיימת תקייה אישית ללקוח במידה ולא, יצירת תקייה מתאימה
-            var IsFolderPath = System.IO.File.Exists(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
-            if (!IsFolderPath)
-                Directory.CreateDirectory(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
-            var absolutePath = Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString() + "/" + newfilename + "." + file.FileName.Split('.')[1]);
-            bool IsExist = System.IO.File.Exists(absolutePath);//
-            if (file.ContentLength > 0)
-            {
-                if (IsExist) //אם קיים מסמך בעל שם זהה
+                HttpPostedFileBase file = Request.Files["FileUpload"];
+                string newfilename = Request.Form["NewNameFile"];
+                string message = "";
+                if (newfilename == "" || newfilename == null)// החזר הודעה ללקוח אם שם המסמך התקבל ריק או חסר ערך
                 {
-                    message = "קיים מסמך בעל שם זהה,נסה שם אחר";
+                    message = "נא לתת שם לקובץ";
                     return Json(message, JsonRequestBehavior.AllowGet);
                 }
-                else
-                {//העתק לתיקיית הלקוח את המסמך עם שם החדש
-                    var fileName = Path.GetFileName(file.FileName);
-                    file.SaveAs(absolutePath);
-                    message = "המסמך נסרק בהצלחה";
+                //בדיקה האם קיימת תקייה אישית ללקוח במידה ולא, יצירת תקייה מתאימה
+                var IsFolderPath = System.IO.File.Exists(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
+                if (!IsFolderPath)
+                    Directory.CreateDirectory(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
+                var absolutePath = Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString() + "/" + newfilename + "." + file.FileName.Split('.')[1]);
+                bool IsExist = System.IO.File.Exists(absolutePath);//
+                if (file.ContentLength > 0)
+                {
+                    if (IsExist) //אם קיים מסמך בעל שם זהה
+                    {
+                        message = "קיים מסמך בעל שם זהה,נסה שם אחר";
+                        return Json(message, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {//העתק לתיקיית הלקוח את המסמך עם שם החדש
+                        var fileName = Path.GetFileName(file.FileName);
+                        file.SaveAs(absolutePath);
+                        message = "המסמך נסרק בהצלחה";
+                    }
                 }
+                return Json(message, JsonRequestBehavior.AllowGet);
             }
-           
-            return Json(message, JsonRequestBehavior.AllowGet);
+            catch (Exception e)
+            {
+                return Json(e, JsonRequestBehavior.AllowGet);
+            }
+    
         }
         public void ShowFileInNewTab(string path,string type)
         {
-
-            System.Diagnostics.Process.Start(path);
-           
-           
+            System.Diagnostics.Process.Start(path);           
         }
 
     }
