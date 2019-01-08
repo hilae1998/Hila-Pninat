@@ -110,7 +110,7 @@ namespace BussinessLayer
             {
                 f = dr.Field<string>(itemName);
             }
-            catch
+            catch(Exception e)
             {
                 return defaultItem;
             }

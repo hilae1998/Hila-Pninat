@@ -24,11 +24,7 @@ namespace Bishvilaych.Controllers
             LifeStyle p = BL.Get_LifeStyle(DateTime.Today, id); //return the ditails of the patiant
             return View(p); //send the object to the view
         }
-        //pasivesmoking
-        //DrugsT
-        //    PastrDrugsT
-        //    Pastdisordereating
-        //    PastdisordereatingT
+
         //    Bi
         //    BiT
 

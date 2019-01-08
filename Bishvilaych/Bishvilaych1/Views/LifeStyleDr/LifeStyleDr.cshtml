@@ -29,25 +29,25 @@
         //The radio buton insade the div
         if (Anxiety == "True") {
             document.getElementById('Mm').checked = true;
-            document.getElementById('Do').style.display = "inline-block";
+            document.getElementById('Do').style.display = "block";
             document.getElementById('AnxietyT').style.display = "inline-block";
             document.getElementById("AnxietyT").required = true;
         }
         if (Bi_polar == "True") {
             document.getElementById('Mm').checked = true;
-            document.getElementById('Do').style.display = "inline-block";
+            document.getElementById('Do').style.display = "block";
             document.getElementById('Bi_polarT').style.display = "inline-block";
             document.getElementById("Bi_polarT").required = true;
         }
         if (Depression == "True") {
             document.getElementById('Mm').checked = true;
-            document.getElementById('Do').style.display = "inline-block";
+            document.getElementById('Do').style.display = "block";
             document.getElementById('DepressionT').style.display = "inline-block";
             document.getElementById("DepressionT").required = true;
         }
         if (OtherMentallssue == "True") {
             document.getElementById('Mm').checked = true;
-            document.getElementById('Do').style.display = "inline-block";
+            document.getElementById('Do').style.display = "block";
             document.getElementById('OtherMentallssueT').style.display = "inline-block";
             document.getElementById("OtherMentallssueT").required = true;
         }
@@ -222,7 +222,7 @@
             case "Mm":
                 {
                     if (check == true) {
-                        document.getElementById('Do').style.display = "inline-block";
+                        document.getElementById('Do').style.display = "block";
                         document.getElementById('Anxiety').checked = true;
                         document.getElementById('Bi_polar').checked = false;
                         document.getElementById('Depression').checked = false;
@@ -389,7 +389,7 @@
         <br />
         <label for="Trauma">Exposure to trauma</label>
         <input id="Trauma" name="Trauma" type="checkbox" value="true" @(Model.Trauma ? "checked=\"checked\"" : "") onclick="onchangeAll('Trauma', this.checked)" />
-        <input type="text" id="TraumaT" name="TraumaT" style="display:none" @Html.DisplayFor(model => model.TraumaT)>
+        <input type="text" id="TraumaT" name="TraumaT" style="display:none"value=" @Html.DisplayFor(model => model.TraumaT)">
         <br />
         <center><b>Eating Disorders</b></center>
         <label for="DisordersEating">presently</label>

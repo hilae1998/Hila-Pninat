@@ -3,14 +3,12 @@ using BussinessLayer;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-//Ortal 
 namespace Bishvilaych.Controllers
 {
     public class PhyicalExamController : Controller
     {
         BLVisitSummery b = new BLVisitSummery();
         BLPhyicalExam p = new BLPhyicalExam();
-        //כשנכנס נפתח דף של היום הנוכחי חדש או מלא
         public ActionResult PhyicalExam()
         {
             if (Session["Patiant"] == null)
@@ -85,8 +83,6 @@ namespace Bishvilaych.Controllers
 
             public string date { get; set; }
             public PhysicalExam list { get; set; }
-            //public int Kegels { get; set; }
-            //public int PelvicMucosa { get; set; }
 
         }
 
