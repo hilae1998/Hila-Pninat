@@ -5,18 +5,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-// פנינת פרנסה
+
 namespace Bishvilaych.Controllers
 {
     public class DocumentScannerController : Controller
     {
         public ActionResult DocumentScanner()
         {
+            //בדיקה האם קיימת תקייה אישית ללקוח במידה ולא, יצירת תקייה מתאימה
+            var IsFolderPath = System.IO.File.Exists(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
+            if (!IsFolderPath)
+                Directory.CreateDirectory(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
             return View();
         }
 
         [HttpPost]
-        public ActionResult DocumentScanner2(string newname)
+        public ActionResult DocumentScanner2(string newname)//העלאת מסמכים
         {
             HttpPostedFileBase file = Request.Files["FileUpload"];
             string newfilename = Request.Form["NewNameFile"];
@@ -26,10 +30,7 @@ namespace Bishvilaych.Controllers
                 message = "נא לתת שם לקובץ";
                 return Json(message, JsonRequestBehavior.AllowGet);
             }
-            //בדיקה האם קיימת תקייה אישית ללקוח במידה ולא, יצירת תקייה מתאימה
-            var IsFolderPath = System.IO.File.Exists(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
-            if (!IsFolderPath)
-                Directory.CreateDirectory(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
+           
             var absolutePath = Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString() + "/" + newfilename + "." + file.FileName.Split('.')[1]);
             bool IsExist = System.IO.File.Exists(absolutePath);//
             if (file.ContentLength > 0)
@@ -49,29 +50,9 @@ namespace Bishvilaych.Controllers
            
             return Json(message, JsonRequestBehavior.AllowGet);
         }
-        public void ShowFileInNewTab(string path,string type)
-        {
-
-            System.Diagnostics.Process.Start(path);
-           
-           
-        }
+       
 
     }
 }
-    public class Exstension
-    {
-        public Dictionary<string, string> DictExst = new Dictionary<string, string>();
-        public Exstension()
-        {
-            DictExst["png"] = "~/Images/FormatIcons/png.png";
-            DictExst["jpeg"] ="~/Images/FormatIcons/jpg.png";
-            DictExst["jpg"] ="~/Images/FormatIcons/jpg.png";
-            DictExst["docx"] ="~/Images/FormatIcons/png.png";
-            DictExst["xls"] ="~/Images/FormatIcons/xls.png";
-            DictExst["xlsx"] ="~/Images/FormatIcons/xls.png";
-            DictExst["txt"] = "~/Images/FormatIcons/txt.png";
-        }
-
-    }
+    
 
