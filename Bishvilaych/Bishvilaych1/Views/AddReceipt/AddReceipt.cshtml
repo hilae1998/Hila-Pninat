@@ -88,20 +88,20 @@
 
                 <div class="form-group col-xs-4">
 
-                    <label class="control-label">תאריך:</label>
-                    <input type="date" name="receiptDate" class="form-control " />
+                    <label for="receiptDate" class="control-label">תאריך:</label>
+                    <input type="date" id="receiptDate" name="receiptDate" class="form-control " />
 
                 </div>
                 <div class="form-group ">
                     <div class="col-xs-3">
-                        <label class="control-label">סכום:</label>
-                        <input type="text" name="Sum" class="form-control" required pattern="[+-]?([0-9]*[.])?[0-9]+" />
+                        <label for="Sum" class="control-label">סכום:</label>
+                        <input type="text" id="Sum" name="Sum" class="form-control" required pattern="[+-]?([0-9]*[.])?[0-9]+" />
                     </div>
                 </div>
                 <div class="form-group ">
                     <div class="col-xs-4">
-                        <label class="control-label">אופן התשלום: </label>
-                        <select name="PayBy" onchange="selectPay(this)" class="PayBy form-control">
+                        <label for="PayBy" class="control-label">אופן התשלום: </label>
+                        <select name="PayBy" id="PayBy" onchange="selectPay(this)" class="PayBy form-control">
                             @{
                                 List<PayBy> p = new List<PayBy>();
 
@@ -116,14 +116,14 @@
                 <div name="chequa" class="chequa disp form-group">
                     <div class="col-xs-4">
 
-                        <label id="chequaNum1" name="chequaNum1">שיק מספר: </label>
+                        <label for="chequaNum" id="chequaNum1" name="chequaNum1">שיק מספר: </label>
                         <input id="chequaNum" name="chequaNum" type="text" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
 
                     </div>
                 </div>
                 <div class="bankait disp form-group ">
                     <div class="col-xs-5">
-                        <label id="BankAccount1" name="BankAccount1">בנק: </label>
+                        <label for="BankAccount" id="BankAccount1" name="BankAccount1">בנק: </label>
                         <select id="BankAccount" name="BankAccount" class="form-control">
                             @{
                                 List<Banks> b = new List<Banks>();
@@ -139,21 +139,21 @@
 
                     <div class="col-xs-2">
 
-                        <label class="control-label">סניף: </label>
-                        <input type="text" name="Branch" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
+                        <label for="Branch" class="control-label">סניף: </label>
+                        <input type="text" id="Branch" name="Branch" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
 
                     </div>
                     <div class="col-xs-3">
 
-                        <label class="control-label">מספר חשבון:  </label>
-                        <input type="text" name="PaymentNum" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
+                        <label for="PaymentNum" class="control-label">מספר חשבון:  </label>
+                        <input type="text" id="PaymentNum" name="PaymentNum" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
 
                     </div>
                 </div>
                 <div name="Card" class="Card disp">
                     <div class="form-group col-xs-4">
 
-                        <label class="control-label">סוג כרטיס: </label>
+                        <label for="CardsKind" class="control-label">סוג כרטיס: </label>
                         <select id="CardsKind" class="form-control">
                             <option>a</option>
                             <option>b</option>
@@ -163,20 +163,20 @@
                     </div>
                     <div class="form-group">
                         <div class="col-xs-4">
-                            <label class="control-label">מספר כרטיס: </label>
-                            <input type="text" name="CreditCard" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
+                            <label for="CreditCard" class="control-label">מספר כרטיס: </label>
+                            <input type="text" id="CreditCard" name="CreditCard" pattern="^(0|[1-9][0-9]*)$" class="form-control" />
                         </div>
                     </div>
                     <div class="form-group col-xs-4">
 
-                        <label class="control-label">בתוקף: </label>
-                        <input type="text" name="Validity" class="form-control" />
+                        <label for="Validity" class="control-label">בתוקף: </label>
+                        <input type="text" id="Validity" name="Validity" class="form-control" />
 
                     </div>
                     <div class="form-group">
                         <div class="col-xs-4">
-                            <label class="control-label">שם בעל הכרטיס: </label>
-                            <input type="text" name="name" class="form-control" />
+                            <label for="name" class="control-label">שם בעל הכרטיס: </label>
+                            <input type="text" id="name" name="name" class="form-control" />
                         </div>
                     </div>
                 </div>

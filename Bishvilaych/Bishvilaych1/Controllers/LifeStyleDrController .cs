@@ -12,17 +12,21 @@ namespace Bishvilaych.Controllers
         LifeStyle b = new LifeStyle();
         public ActionResult LifeStyleDr()
         {
+            Session.Timeout += 20;
             if (Session["Patiant"] == null)
             {
                 return RedirectToAction("Login", "Account");
             }
+            ViewBag.status4 = Session["status4"];
+            Session["status4"] = "";
             string id = Session["Patiant"].ToString(); //id - from Patiant controler
             BLDr_LigeStlye BL = new BLDr_LigeStlye();
             LifeStyle p = BL.Get_LifeStyle(DateTime.Today, id); //return the ditails of the patiant
             return View(p); //send the object to the view
         }
 
-
+        //    Bi
+        //    BiT
 
         [HttpPost]
         public ActionResult LifeStyleDr(LifeStyle pg)
@@ -34,19 +38,18 @@ namespace Bishvilaych.Controllers
                 int result = bl.AddOrUpdatelifestyle(id, DateTime.Today, pg); // update the db with the new ditails
                 if (result == 0)
                 {
-                    ViewBag.err = "הנתונים נשמרו בהצלחה";
+                    Session["status4"] = "הנתונים נשמרו בהצלחה";
                     return RedirectToAction("LifeStyleDr", "LifeStyleDr", new { pg });
                 }
                 else
                 {
-                    ViewBag.err = "התרחשה שגיאה";
+                    Session["status4"] = "התרחשה שגיאה";
                     return RedirectToAction("LifeStyleDr", "LifeStyleDr", new { pg });
-                   
                 }
             }
             catch
             {
-                Session["status3"] = "התרחשה שגיאה";
+                Session["status4"] = "התרחשה שגיאה";
                 return RedirectToAction("LifeStyleDr", "LifeStyleDr", new { pg });
             }
         }
@@ -71,10 +74,10 @@ namespace Bishvilaych.Controllers
             {
                 a = new aaa();
                 a.date = item.UpdateDate.ToShortDateString();
-                LifeStyle d= (LifeStyle)AllDataofLife.FirstOrDefault(x => x.UpdateCode == item.Code);
+                LifeStyle d = (LifeStyle)AllDataofLife.FirstOrDefault(x => x.UpdateCode == item.Code);
                 a.mylife = d;
                 lll.Add(a);
-               // AllDataofLifeAndDates.Add(item.UpdateDate.ToString(), AllDataofLife.Where(x => x.UpdateCode == item.Code).Single());
+                // AllDataofLifeAndDates.Add(item.UpdateDate.ToString(), AllDataofLife.Where(x => x.UpdateCode == item.Code).Single());
             }
 
             // מחזיר אוסף דיקשינרי של אוסף תאריכים ואוסף של פאסטגניקולוגי של מטופל ספציפי
@@ -89,11 +92,12 @@ namespace Bishvilaych.Controllers
         }
     }
 
-        }
+}
 
 
 
-    
 
- 
+
+
+
 

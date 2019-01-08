@@ -1,44 +1,50 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+                /**/
+
+                Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
 <!DOCTYPE html>
 <style>
     #lastvisit {
-        border: 2px solid #52172e;
+        border: 2px solid #d8d4d6;
         padding: 10px 10px 2px 10px;
-        width: 130px;
+        width: 150px;
         color: #52172e;
         overflow: scroll;
         text-align: center;
         margin-left: 89%;
         position: fixed;
         background-color: #ffffff;
-         overflow-x: visible;
-         
+        overflow-x: visible;
+        min-height: 156px;
+        max-height: 350px;
+        overflow-y: auto;
     }
 
         #lastvisit a {
             color: #52172e;
             font-size: 20px;
         }
-     .disablebutton{
- opacity: 0.8;
+
+    .disablebutton {
+        opacity: 0.8;
     }
+
     ul {
         top: 0px;
         list-style-type: none;
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background-color: rgba(129, 0, 64, 0.88);
-        border: 2px solid #52172e;
+        background-color: rgba(129, 0, 64, 0.34);
         font-family: Calibri;
         font-size: 15px;
     }
 
     li {
-        float: left;
+        float: right;
+        padding-right: 20px;
     }
 
         li a {
@@ -46,8 +52,16 @@
             color: #fff;
             text-align: right;
             padding: 15px 5.2px 15px 5.5px;
-            text-decoration: none;
-            border-right: solid 1px #fff;
+            text-decoration: none !important;
+            min-width: 70px;
+        }
+
+
+        }
+
+        li a:hover 
+        {
+         font-weight:bold;
         }
 
             li a:hover {
@@ -69,8 +83,8 @@
     }*/
 
     .modal-dialog {
-        text-align:center;
-        font-size:30px;
+        text-align: center;
+        font-size: 30px;
         right: auto;
         left: 0% !important;
     }
@@ -87,25 +101,25 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-  <div class="sticky" >
-      <ul id="menu" dir="rtl">
-          <li>@Html.ActionLink("הנפקת מדבקות", "Stiker", "Stiker")</li>
-          <li @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:block" : "style = display:none" )>@Html.ActionLink("הנפקת קבלות", "reciepitsListOfPatiants", "ReciepitsListOfPatiants")</li>
-          <li>@Html.ActionLink("סריקת מסמכים", "DocumentScanner", "DocumentScanner")</li>
-          <li @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 4.ToString() ? "style= display:block" : "style = display:none" )>@Html.ActionLink("סיכום ביקור", "VisitSummary", "VisitSummary")</li>
-          <li @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 4.ToString() ? "style= display:block" : "style = display:none" )>@Html.ActionLink("בדיקות עזר וחיסונים", "ScreeningKings", "ScreeningKings")</li>
-          <li @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 4.ToString() ? "style= display:block" : "style = display:none" )>@Html.ActionLink("בדיקה רפואית", "PhyicalExam", "PhyicalExam")</li>
-          <li @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 4.ToString() ? "style= display:block" : "style = display:none" )>@Html.ActionLink("אורח חיים רופאה", "LifeStyleDr", "LifeStyleDr")</li>
+    <div class="sticky">
+        <ul id="menu" dir="ltr">
+            <li onclick = "javascript:return false;">@Html.ActionLink("הנפקת מדבקות", "Stiker", "Stiker")</li>
+            <li @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:block" : "style = display:none" )>@Html.ActionLink("הנפקת קבלות", "reciepitsListOfPatiants", "ReciepitsListOfPatiants")</li>
+            <li>@Html.ActionLink("סריקת מסמכים", "DocumentScanner", "DocumentScanner")</li>
+            <li @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 4.ToString() ? "style= display:block" : "style = display:none" )>@Html.ActionLink("סיכום ביקור", "VisitSummary", "VisitSummary")</li>
+            <li onclick = "javascript:return false;" @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 4.ToString() ? "style= display:block" : "style = display:none" )>@Html.ActionLink("בדיקות עזר וחיסונים", "ScreeningKings", "ScreeningKings")</li>
+            <li @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 4.ToString() ? "style= display:block" : "style = display:none" )>@Html.ActionLink("בדיקה רפואית", "PhyicalExam", "PhyicalExam")</li>
+            <li @(Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 4.ToString() ? "style= display:block" : "style = display:none" )>@Html.ActionLink("אורח חיים רופאה", "LifeStyleDr", "LifeStyleDr")</li>
 
-          <li @(Session["auth"].ToString() == 5.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:none" : "style= display:block" )>@Html.ActionLink("אורח חיים תזונאית", "LifeStyleNutritionist", "LifeStyleNutritionist")</li>
-          <li @(Session["auth"].ToString() == 5.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:none" : "style= display:block" )>@Html.ActionLink("הסטוריה גניקולוגית", "PastGenicology", "PastGenicology")</li>
-          <li @(Session["auth"].ToString() == 5.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:none" : "style= display:block" )>@Html.ActionLink("תרופות ורגישויות", "MedicinesSensitive", "MedicinesSensitive")</li>
-          <li @(Session["auth"].ToString() == 5.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:none" : "style= display:block" )>@Html.ActionLink("עבר רפואי", "PastMedical", "PastMedical")</li>
-          <li @(Session["auth"].ToString() == 5.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:none" : "style= display:block" )>@Html.ActionLink("סיבת הביקור", "VisitReason", "VisitReason")</li>
-          <li>@Html.ActionLink("פרטים דמוגרפיים", "Demography", "Patiants")</li>
-      </ul>
-  </div>
-   
+            <li @(Session["auth"].ToString() == 5.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:none" : "style= display:block" )>@Html.ActionLink("אורח חיים תזונאית", "LifeStyleNutritionist", "LifeStyleNutritionist")</li>
+            <li @(Session["auth"].ToString() == 5.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:none" : "style= display:block" )>@Html.ActionLink("הסטוריה גניקולוגית", "PastGenicology", "PastGenicology")</li>
+            <li onclick = "javascript:return false;" @(Session["auth"].ToString() == 5.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:none" : "style= display:block" )>@Html.ActionLink("תרופות ורגישויות", "MedicinesSensitive", "MedicinesSensitive")</li>
+            <li onclick = "javascript:return false;" @(Session["auth"].ToString() == 5.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:none" : "style= display:block" )>@Html.ActionLink("עבר רפואי", "PastMedical", "PastMedical")</li>
+            <li @(Session["auth"].ToString() == 5.ToString() || Session["auth"].ToString() == 2.ToString() ? "style= display:none" : "style= display:block" )>@Html.ActionLink("סיבת הביקור", "VisitReason", "VisitReason")</li>
+            <li>@Html.ActionLink("פרטים דמוגרפיים", "Demography", "Patiants")</li>
+        </ul>
+    </div>
+
     <div>
         @RenderBody()
     </div>

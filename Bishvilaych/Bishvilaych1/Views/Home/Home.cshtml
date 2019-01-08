@@ -4,23 +4,28 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<div class="mainHome">
 
-    @if (Session["auth"] == null)
-    {
-        Response.Redirect("~/Account/Login");
-    }
-    @if (Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 2.ToString()) //מנהלת, מזכירה
-    {
+
+@if (Session["auth"] == null)
+{
+    Response.Redirect("~/Account/Login");
+}
+@if (Session["auth"].ToString() == 1.ToString() || Session["auth"].ToString() == 2.ToString()) //מנהלת, מזכירה
+{
+    <div class="mainHome">
         @Html.ActionLink("מטופלות", "Patiants", "Patiants", new { @class = "homeBtn" })
         @Html.ActionLink("עובדות", "Workers", "Workers", new { @class = "homeBtn" })
         @Html.ActionLink("פרויקטים בקהילה", "Costomers", "Customers", new { @class = "homeBtn" })
         @Html.ActionLink("כספי", "Reciepts", "Reciepts", new { @class = "homeBtn" })
-    }
-</div>
-<div class="mainHome">
-    @if (Session["auth"].ToString() == 3.ToString() || Session["auth"].ToString() == 4.ToString() || Session["auth"].ToString() == 5.ToString()) //רופאה-אחות-תזונאית
-    {
+    </div>
+}
+
+
+
+@if (Session["auth"].ToString() == 3.ToString() || Session["auth"].ToString() == 4.ToString() || Session["auth"].ToString() == 5.ToString()) //רופאה-אחות-תזונאית
+{
+    <div class="mainHome">
         @Html.ActionLink("מטופלות", "Patiants", "Patiants", new { @class = "homeBtn" })
-    }
-</div>
+    </div>
+        }
+  

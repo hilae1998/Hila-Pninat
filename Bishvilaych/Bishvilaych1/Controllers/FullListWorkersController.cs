@@ -8,8 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 namespace Bishvilaych.Controllers
 {
-    //אורית אוחיון 
-    //עשיתח חדש
     public class FullListWorkersController : Controller
     {
         [HttpGet] 

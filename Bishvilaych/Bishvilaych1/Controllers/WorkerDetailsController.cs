@@ -8,7 +8,7 @@ using BussinesLayer;
 
 
 namespace Bishvilaych.Controllers
-{//hila elgrabli
+{
     public class WorkerDetailsController : Controller
     {
       

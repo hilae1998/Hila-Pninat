@@ -14,19 +14,24 @@ namespace Bishvilaych.Controllers
         {
             return View();
         }
-
         [HttpPost]
-        public ActionResult AddReceipt(receipt r)
+        public ActionResult AddReceipt(receipt r)//הוספת קבלה חדשה
         {
-           
-            BLAddReceipt bl = new BLAddReceipt();
-            int result = bl.AddOrUpdateReceipt(r.receiptDate, r.receiptNum, r.Sum, r.PayBy,
-                r.chequaNum, r.Bank, r.PaymentNum, r.Branch, r.BankAccount, r.CardsKind, r.CreditCard,
-                r.Validity, r.name, Session["Customers"].ToString());
-            
-            return View();
-        }
+            try
+            {
+                BLAddReceipt bl = new BLAddReceipt();
+                int result = bl.AddOrUpdateReceipt(r.receiptDate, r.receiptNum, r.Sum, r.PayBy,
+                    r.chequaNum, r.Bank, r.PaymentNum, r.Branch, r.BankAccount, r.CardsKind, r.CreditCard,
+                    r.Validity, r.name, Session["Customers"].ToString());
+                return View(r);
+            }
+            catch (Exception e)
+            {
+                return View(r);
+            }
 
+          
+        }
         public static bool IsNum(string s)
         {
             int x;

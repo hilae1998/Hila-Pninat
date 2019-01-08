@@ -14,56 +14,69 @@ namespace Bishvilaych.Controllers
         {
             return View();
         }
-
         [HttpPost]
-        public ActionResult addPatiant(Patiants s)
+        public ActionResult addPatiant(Patiants s) //הוספת מטופל      
         {
-            //check UserName and UserPassword, if right, go to Home page.
-            BL_AddPatiants b = new BL_AddPatiants();
-            int i = 0;
-            i = b.CheckID(s.Id);
-            bool check = myStatic.IsValidId(s.Id);
-            if (i == 20)// אם המטופל לא קיים במערכת
+            try
             {
-                if (check==false)
+                BL_AddPatiants b = new BL_AddPatiants();
+                int i = 0;
+                i = b.CheckID(s.Id);
+                bool check = myStatic.IsValidId(s.Id);// שליחה לפונ' לבדיקת תקינות תעודת הזהות
+                if (i == 20)// אם המטופל אינו קיים במערכת 
+                {
+                    if (check == false)// אם התעודת זהות איננה תקינה
+                    {
+                        s.Id = "";
+                        ModelState.AddModelError("Id", "תעודת זהות אינה תקינה");
+                    }
+                    if (ModelState.IsValid)
+                    {
+                        ModelState.Remove("Id");
+                        int result = b.Add_Patiants(s.Id, s.FirstName, s.LastName, s.Kupah);
+                        ViewBag.message = "מטופל נוסף למערכת בהצלחה";
+                        return View(new Patiants());
+                    }
+                }
+                else //אם המטופל קיים במערכת
                 {
                     s.Id = "";
-                    ModelState.AddModelError("Id", "תעודת זהות אינה תקינה");
+                    ModelState.AddModelError("Id", "מטופל קיים במערכת");
                 }
-                if (ModelState.IsValid)
-                {
-                    ModelState.Remove("Id");
-                    int result = b.Add_Patiants(s.Id, s.FirstName, s.LastName, s.Kupah);
-                    ViewBag.message = "מטופל נוסף למערכת בהצלחה";
-                    return View(new Patiants());
-                }
+                return View(s);
             }
-            else // קיים במערכת
+            catch (Exception e)
             {
-                s.Id = "";
-                ModelState.AddModelError("Id", "מטופל קיים במערכת");
+                return View(s);
             }
-            return View(s);
+           
         }
 
         [HttpGet]
-        public ActionResult checkID(string ID)
+        public ActionResult checkID(string ID)// שליחה לבדיקה אם מטופל קיים/לא קיים במערכת 
         {
-            BL_AddPatiants b = new BL_AddPatiants();
-
-            int i;
-            string messege;
-
-            i = b.CheckID(ID);
-            if (i == 20)
+            try
             {
-                messege = "";
+                BL_AddPatiants b = new BL_AddPatiants();
+
+                int i;
+                string messege;
+
+                i = b.CheckID(ID);
+                if (i == 20)
+                {
+                    messege = "";
+                }
+                else
+                {
+                    messege = "מטופל קיים במערכת";
+                }
+                return Json(messege, JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception e)
             {
-                messege = "מטופל קיים במערכת";
+                return Json(e, JsonRequestBehavior.AllowGet);
             }
-            return Json(messege, JsonRequestBehavior.AllowGet);
 
         }
     }

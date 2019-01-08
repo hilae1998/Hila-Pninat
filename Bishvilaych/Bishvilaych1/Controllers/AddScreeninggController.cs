@@ -9,27 +9,26 @@ namespace Bishvilaych1.Controllers
 {
     public class AddScreeningController : Controller
     {
-        // GET: AddScreeningg
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-        public ActionResult addScreening()
+        public ActionResult addScreening()//מסך הוספת בדיקת עזר
         {
             return View();
         }
         [HttpPost]
         public ActionResult addScreening(Screenings s)
         {
-            //check UserName and UserPassword, if right, go to Home page.
             BL_AddScreening b = new BL_AddScreening();
-
-            int result = b.Screening(Session["patient"].ToString(), s.Screening, s.SDate, s.Year, s.Text);
+            try
+            {
+                int result = b.Screening(Session["patient"].ToString(), s.Screening, s.SDate, s.Year, s.Text);
+            }
+            catch (Exception e)
+            {
+            }
+          
             return View();
         }
         public ActionResult UpdateScreening(Screenings s)
         {
-            //check UserName and UserPassword, if right, go to Home page.
             BL_AddScreening b = new BL_AddScreening();
             int result = b.Screening(Session["patient"].ToString(), s.immunization, s.SDate, s.Year, s.Text);
             return View();

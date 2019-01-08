@@ -51,18 +51,6 @@
                         });
             }, 3000);
         }
-                //function addSuccessMessage(data) {
-                //    var txt = "<div class='alert alert-success'  role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='false'>&times;</span></button>" + data + "</div>";
-                //    $("#idp1").html("")
-                //    $("#idp1").append(txt)
-
-                //    window.setTimeout(function () {
-                //        $(".alert").fadeTo(0, 600).slideUp(400, function ()
-                //        {
-                //            $(this).remove();
-                //        });
-                //    }, 4000);
-                //}
     $("#Text1").on("blur", function () {
 
         $.ajax({
@@ -81,6 +69,33 @@
 </script>
 
 <center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <form id="form1" method="post" action="@Url.Action("addPatiant","AddPatiant")">
         <div dir="rtl">
             <fieldset style="margin-top:30px; height:470px; width:500px; box-shadow:150px;">
@@ -88,30 +103,24 @@
                     <h1 style="font-family:Arial;font-size:50px">הוספת מטופלת</h1>
 
                     <div style="margin-right:0%; margin-left:55px">
-                        <label style="font-size:25px;font-family:Arial">מספר זהות:</label>
+                        <label for="Text1" style="font-size:25px;font-family:Arial">מספר זהות:</label>
                         <input id="Text1" type="text" name="Id" maxlength="9" pattern="[0-9]{9,9}" @*pattern="(?=.*\d)(?=.*[0-9]).{9,9}"*@ title="נא הקש ת.ז בעלת 9 ספרות" placeholder="הכנס/י תעודת זהות" required />
                         @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
                     </div>
                     <div style="margin-right:0%; margin-left:80px">
-                        <label style="font-size:25px;font-family:Arial">שם פרטי:</label>
+                        <label for="Text2" style="font-size:25px;font-family:Arial">שם פרטי:</label>
                         <input id="Text2" type="text" name="FirstName" maxlength="20" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י שם פרטי" required />
 
                     </div>
                     <div style="margin-right:0%; margin-left:50px">
-                        <label style="font-size:25px;font-family:Arial">שם משפחה:</label>
+                        <label for="Text3" style="font-size:25px;font-family:Arial">שם משפחה:</label>
                         <input id="Text3" type="text" name="LastName" maxlength="20" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י שם משפחה" required />
                     </div>
 
                     <div style="margin-right:0%; margin-left:135px">
-                        <label style="font-size:25px;font-family:Arial">קופות חולים:</label>
-                        @*<select id="select1">
-                                <option selected="selected">לאומית</option>
-                                <option>כללית</option>
-                                <option>מאוחדת</option>
-                                <option>מכבי</option>
-                            </select>*@
+                        <label for="Kupah" style="font-size:25px;font-family:Arial">קופות חולים:</label>
 
-                        <select name="Kupah" style="font-size:15px">
+                        <select id="Kupah" class="selectpicker" name="Kupah" style="font-size:15px">
                             @{
                                 BussinessLayer.BL_AddPatiants blv = new BussinessLayer.BL_AddPatiants();
                                 List<Kupot> l = new List<Kupot>();

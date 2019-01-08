@@ -75,34 +75,34 @@
                         <h1 style="font-family:Arial;font-size:50px">הוספת לקוחה</h1>
 
                         <div style="margin-right:0%; margin-left:55px">
-                            <label style="font-size:25px;font-family:Arial">מספר זהות:</label>
+                            <label for="Text1" style="font-size:25px;font-family:Arial">מספר זהות:</label>
                             <input id="Text1" type="text" maxlength="9" pattern="[0-9]{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" name="Id" placeholder="הכנס/י תעודת זהות" required />
                             @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
                         </div>
 
                         <div style="margin-right:0%; margin-left:80px">
-                            <label style="font-size:25px;font-family:Arial">שם פרטי:</label>
+                            <label for="Text2" style="font-size:25px;font-family:Arial">שם פרטי:</label>
                             <input id="Text2" type="text" maxlength="20" name="FirstName" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י שם פרטי" required />
                         </div>
                         <div style="margin-right:0%; margin-left:50px">
-                            <label style="font-size:25px;font-family:Arial">שם משפחה:</label>
+                            <label for="Text3" style="font-size:25px;font-family:Arial">שם משפחה:</label>
                             <input id="Text3" type="text" name="LastName" maxlength="20"pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י שם משפחה" required />
                         </div>
                         <div style="margin-right:0%; margin-left:110px">
-                            <label style="font-size:25px;font-family:Arial">טלפון:</label>
+                            <label for="Text4" style="font-size:25px;font-family:Arial">טלפון:</label>
                             <input id="Text4" type="text" name="Phone" maxlength="15" pattern="[0-9]{7,15}" title="נא הקש/י מספר בעל 7 ספרות ומעלה" placeholder="הכנס/י מספר טלפון" required />
                         </div>
                         <div style="margin-right:0%; margin-left:60px">
-                            <label style="font-size:25px;font-family:Arial">טלפון נוסף:</label>
+                            <label for="Text5" style="font-size:25px;font-family:Arial">טלפון נוסף:</label>
                             <input id="Text5" type="text" name="Phone2" maxlength="15" pattern="[0-9]{7,15}" title="נא הקש/י מספר בעל 7 ספרות ומעלה" placeholder="הכנס/י מספר טלפון"/>
                         </div>
 
                         <div style="margin-right:0%; margin-left:113px">
-                            <label style="font-size:25px;font-family:Arial">רחוב:</label>
+                            <label for="Text6" style="font-size:25px;font-family:Arial">רחוב:</label>
                             <input id="Text6" type="text" name="Street" maxlength="40" pattern="[א-ת0-9]+[א-ת0-9 /\]+" title="אותיות בעברית ומספרים בלבד" placeholder="הכנס/י רחוב" required />
                         </div>
                         <div style="margin-right:0%; margin-left:125px">
-                            <label style="font-size:25px;font-family:Arial">עיר:</label>
+                            <label for="Text7" style="font-size:25px;font-family:Arial">עיר:</label>
                             <input id="Text7" type="text" name="City" maxlength="20" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י עיר" required />
                         </div>
                         

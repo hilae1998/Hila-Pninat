@@ -51,6 +51,7 @@
     .imgcontainer {
         text-align: center;
         margin: 24px 0 12px 0;
+        margin-top:100px;
     }
 
     img.avatar {
@@ -68,9 +69,7 @@
         float: right;
         padding-top: 16px;
     }
-    form{
-          margin-top:10%;
-    }
+  
 
     /* Change styles for span and cancel button on extra small screens */
 </style>
@@ -81,17 +80,15 @@
 
     <div class="container" dir="rtl" style="margin-right:37%">
         <label for="uname"><b>שם משתמש</b></label><br />
-        <input type="text" style="width:40%;" placeholder="הכנס/י שם משתמש" name="UserName" required><br />
+        <input type="text" style="width:40%;" placeholder="הכנס/י שם משתמש" id="uname" name="UserName" required><br />
 
         <label for="psw"><b>סיסמא</b></label><br />
-        <input type="password" style="width:40%;" placeholder="הכנס/י סיסמא" name="UserPasswerd" required><br /><br />
+        <input type="password" style="width:40%;" placeholder="הכנס/י סיסמא" id="psw" name="UserPasswerd" required><br /><br />
 
         <button type="submit" style="width:30%;margin-right:5%">הכנס/י</button>
         <div style="color:red">@ViewBag.messege</div>
     </div>
 
 </form>
-<footer>
-    AF Systems 053-313-2599
-</footer> 
+
 

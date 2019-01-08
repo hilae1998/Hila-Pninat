@@ -6,7 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-// Avital Eltov
 namespace BussinessLayer
 {
    public class BLDr_LigeStlye
@@ -64,17 +63,7 @@ namespace BussinessLayer
             }
 
             return pgl;
-
-
-
-
-
-
-
-
         }
-
-
         public LifeStyle Get_LifeStyle(DateTime date, string id)
         {
             DADr_LifeStyle dm = new DADr_LifeStyle();//הקצאת המחלקה 
@@ -102,8 +91,8 @@ namespace BussinessLayer
             ls.PastDisordersEatingT = BLCtrl.getString(ds.Tables[0].Rows[0],"PastDisordersEatingT","");
             ls.Anxiety = BLCtrl.getBool(ds.Tables[0].Rows[0],"Anxiety",false);
             ls.AnxietyT = BLCtrl.getString(ds.Tables[0].Rows[0],"AnxietyT","");
-            ls.Bi_polar = BLCtrl.getBool(ds.Tables[0].Rows[0],"DisordersEatingT",false);
-            ls.Bi_polarT = BLCtrl.getString(ds.Tables[0].Rows[0],"Bi_polarT","");
+            ls.Bi_polar = BLCtrl.getBool(ds.Tables[0].Rows[0], "Bi-polar", false);
+            ls.Bi_polarT = BLCtrl.getString(ds.Tables[0].Rows[0], "Bi-polarT", "");
             ls.Depression = BLCtrl.getBool(ds.Tables[0].Rows[0],"Depression",false);
             ls.DepressionT = BLCtrl.getString(ds.Tables[0].Rows[0],"DepressionT","");
             ls.OtherMentallssue = BLCtrl.getBool(ds.Tables[0].Rows[0],"OtherMentalIssue",false);
