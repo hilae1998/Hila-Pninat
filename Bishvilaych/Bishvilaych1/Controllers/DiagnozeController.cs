@@ -18,14 +18,22 @@ namespace Bishvilaych.Controllers
         [HttpPost]
         public ActionResult Diagnoze(Diagnozes d)
         {
-            BL_AddDiagnozeAndHospitalization b = new BL_AddDiagnozeAndHospitalization();
-            d.By = Convert.ToInt32(Session["auth"]);
-            BLPatiants p = new BLPatiants();
-            d.PatiantCode = p.getPatiantsById(Convert.ToString(Session["IdPatiants"])).Code;
-            int result = b.Add_Diagnoze(d.Diagnoze, d.Status, d.BeginDate, d.EndDate);
+            try
+            {
+                BL_AddDiagnozeAndHospitalization b = new BL_AddDiagnozeAndHospitalization();
+                d.By = Convert.ToInt32(Session["auth"]);
+                BLPatiants p = new BLPatiants();
+                d.PatiantCode = p.getPatiantsById(Convert.ToString(Session["IdPatiants"])).Code;
+                int result = b.Add_Diagnoze(d.Diagnoze, d.Status, d.BeginDate, d.EndDate);
 
-            return RedirectToAction("PastMedical", "PastMedical");
-            //Add_Diagnoze להוסיף אבחון למסד נתונים
+                return RedirectToAction("PastMedical", "PastMedical");
+                //Add_Diagnoze להוסיף אבחון למסד נתונים
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("PastMedical", "PastMedical");
+            }
+
         }
 
 

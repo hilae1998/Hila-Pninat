@@ -1,5 +1,5 @@
 ﻿using System;
-/*moriyaBonan*/
+// מחלקת סוגי אשפוזים
 public class Hospitals
 {
     public int Code { get; set; }

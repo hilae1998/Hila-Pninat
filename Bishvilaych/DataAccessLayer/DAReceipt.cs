@@ -7,13 +7,10 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Collections.Specialized;
 
-//Ayala Gozlan
-
 namespace DataAccessLayer
 {
     public class DAReceipt
     {
-
         private string connStr = null;
 
         public DAReceipt()
@@ -21,10 +18,6 @@ namespace DataAccessLayer
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
-
-
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet getReceipt(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -41,7 +34,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
 

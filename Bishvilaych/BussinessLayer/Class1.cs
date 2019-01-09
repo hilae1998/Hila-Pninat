@@ -19,6 +19,5 @@ namespace BussinessLayer
 
             return new List<int>();
         }
-        
     }
 }

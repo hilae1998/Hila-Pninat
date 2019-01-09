@@ -1,8 +1,5 @@
 ﻿using System;
-
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+// מחלקת סוגי בדיקות עזר
 public class ScreeningsKinds
 {
    public int Code { get; set; }

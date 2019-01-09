@@ -1,6 +1,5 @@
-﻿//Ortal
-using System;
-
+﻿using System;
+// מחלקת בדיקה רפואית
 public class PhysicalExam
 {
     public int UpdateCode { get; set; }

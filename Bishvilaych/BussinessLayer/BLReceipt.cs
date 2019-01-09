@@ -12,12 +12,11 @@ namespace BussinesLayer
 {
     public class BLReceipt
     {
-        //Ayala Gozlan
         public List<receipt> getReceipt(string code)
         {
             DAReceipt da = new DAReceipt();
             ListDictionary Params = new ListDictionary();
-            Params.Add("@code", code );
+            Params.Add("@code", code);
             DataSet ds = da.getReceipt(Params);
             List<receipt> lr = new List<receipt>();
             receipt r;
@@ -41,8 +40,6 @@ namespace BussinesLayer
                 lr.Add(r);
             }
             return lr;
-
         }
-
     }
 }

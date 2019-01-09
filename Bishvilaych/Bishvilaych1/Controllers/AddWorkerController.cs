@@ -20,6 +20,7 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                Session.Timeout += 10;//session הגדלת ה
                 BL_AddWorker b = new BL_AddWorker();
                 int i = 0;
                 i = b.CheckWorkerID(s.Id);

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer//Ma'ayan
+namespace DataAccessLayer
 {
      public class DAHospitalizations
     {
@@ -25,7 +25,6 @@ namespace DataAccessLayer//Ma'ayan
             {
                 db_ctrl.connectToDb(connStr);
             }
-
             string sp_name = "GetAllHspitalization"; //שם הפרוצדורה
             DataSet retDataDs = new DataSet(); //הכנת הטבלה אליה יכנסו הנתונים
             string retError;
@@ -34,7 +33,6 @@ namespace DataAccessLayer//Ma'ayan
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
 
@@ -74,12 +72,8 @@ namespace DataAccessLayer//Ma'ayan
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
-
-
-
 
         public int DeleteHospitalizations(ListDictionary Params) //קבלת רשימת פרמטרים
         {

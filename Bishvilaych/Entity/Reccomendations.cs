@@ -1,8 +1,5 @@
 ﻿using System;
-
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+// מחלקת המלצות
 public class  Reccomendations
 {
     public int UpdateCode { get; set; }

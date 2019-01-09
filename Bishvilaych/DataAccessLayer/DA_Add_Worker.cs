@@ -13,8 +13,6 @@ namespace DataAccessLayer
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
-        //insert, update...
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public int Add_Worker(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();

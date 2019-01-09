@@ -5,17 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//Avishag
 namespace Bishvilaych.Controllers
 {
     public class SensitivesController : Controller
     {
+        // כניסה ללשונית תרופות ורגישויות
         public ActionResult Sensitive()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost]// הוספת תרופות ורגישויות
        public ActionResult addSensitivities(Sensitivities s)
         { 
        

@@ -1,5 +1,5 @@
 ﻿using System;
-// פנינת פרנסה ולבנה מלכי
+// מחלקת סוגי תפקידים
 public class Jobs
 {
     public int Code { get; set; }

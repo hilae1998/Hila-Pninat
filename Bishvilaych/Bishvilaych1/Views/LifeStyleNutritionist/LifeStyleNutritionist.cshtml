@@ -4,56 +4,143 @@
     ViewBag.Title = "LifeStyleNuztritionist";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
+@using BussinessLayer;
 @model LifeStyle
 <script>
-    function onLoad(){
-        var NotEat = '@Model.NotEat';
-        var Diet = '@Model.Diet';
-        if (NotEat == "True") {
-            document.getElementById('NotEatT').style.display = "inline-block";
-        }
-        if (Diet == "True") {
-            document.getElementById('DietT').style.display = "inline-block";
-        }
-    }
-    function onchangeAll(id, check)
-    {
-        switch (id)
-        {
-            case "NotEat":
-                {
-                    if (check == true) {
-                        document.getElementById('NotEatT').style.display = "inline-block";
-                        document.getElementById('NotEatT').value = "";
-                        document.getElementById('NotEatT').required = true;
+    var dictionary = new Array();
+    $(document).ready(function () {
+        $.ajax({//שולף לי את כל סיבות הביקור,ומכניס לי לדיקשנרי
+            type: 'get',
+            url: "@Url.Action("getLastVisit")",
+            data: {},
+            success: function (result) {
+
+                $.each(result, function (i) {
+                    var key = Object.keys(this)[0]//מביא לי את שם המפתח לדייט
+                    var val = Object.keys(this)[1]//מביא לי את שם המפתח לרשימה
+
+                    dictionary.push({
+                        date: this[key],//מביא לי את התאריך
+                        listRec: this[val],//מביא לי את הליסט
+
+
+                    })
+                })
+            },
+            error: function () {
+                alert("error")
+            }
+        }) //end ajax function
+        $(".herf").click(function () {//כאשר בוחרים תאריך עדכן את הפקדים בהתאם למידע השייך לאותו תאריך
+            $("#NotEatT").css('display', 'none');
+            $("#DietT").css('display', 'none');
+            $("#Contraception").prop("checked", false);
+            if (this.title != $("#now").attr("title")) //אם נכנסתה לתאריך שעבר,הפוך את כפתור השליחה ללא זמין
+            {
+                $("#btnSave").addClass("disablebutton")
+                $("#btnSave").prop("disabled", true);
+            }
+            else {
+                $("#btnSave").prop("disabled", false);
+                $("#btnSave").removeClass("disablebutton")
+            }
+            for (var i = 0; i < dictionary.length; i++) {
+                if (this.title == dictionary[i].date) {//שלוף את הנתונים של התאריך הנבחר ומלא אותם בפקדים
+                    for (var key in dictionary[i].listRec) {
+                        var theinput = document.getElementsByName(key)[0];
+                        if (theinput != undefined) {
+                            var type = theinput.type;
+                            switch (type) {
+                                case "text":
+                                    $(theinput).val(dictionary[i].listRec[key]);
+                                    break;
+                                case "checkbox":
+                                    $(theinput).prop("checked", dictionary[i].listRec[key]);
+                                    break;
+
+                            }//end switch
+                        }//end if
+                    };//end for
+                    //הצגת תיבות הטקסט במידה והצקבוקסים בחורים
+
+                    if ($("#Diet").is(":checked")) {
+                        $("#DietT").css('display', 'inline-block');
+                       // $("#DietT").val($("#Text").val());
                     }
-                    else {
-                        document.getElementById('NotEatT').value = "";
-                        document.getElementById('NotEatT').style.display = "none";
-                        document.getElementById('NotEatT').required = false;
+                    if ($("#NotEat").is(":checked")) {
+                        $("#NotEatT").css('display', 'inline-block');
+                     //   $("#NotEatT").val($("#Text").val());
                     }
-                    break;
                 }
-            case "Diet":
-                {
-                    if (check == true) {
-                        document.getElementById('DietT').style.display = "inline-block";
-                        document.getElementById('DietT').value = "";
-                        document.getElementById('DietT').required = true;
-                    }
-                    else {
-                        document.getElementById('DietT').value = "";
-                        document.getElementById('DietT').style.display = "none";
-                        document.getElementById('DietT').required = false;
-                    }
-                    break;
-                }
+            }//end if
+        });//end for
+    });
+
+        function onLoad() {
+            var NotEat = '@Model.NotEat';
+            var Diet = '@Model.Diet';
+            if (NotEat == "True") {
+                document.getElementById('NotEatT').style.display = "inline-block";
+            }
+            if (Diet == "True") {
+                document.getElementById('DietT').style.display = "inline-block";
+            }
         }
-    }
+        function onchangeAll(id, check) {
+            switch (id) {
+                case "NotEat":
+                    {
+                        if (check == true) {
+                            document.getElementById('NotEatT').style.display = "inline-block";
+                            document.getElementById('NotEatT').value = "";
+                            document.getElementById('NotEatT').required = true;
+                        }
+                        else {
+                            document.getElementById('NotEatT').value = "";
+                            document.getElementById('NotEatT').style.display = "none";
+                            document.getElementById('NotEatT').required = false;
+                        }
+                        break;
+                    }
+                case "Diet":
+                    {
+                        if (check == true) {
+                            document.getElementById('DietT').style.display = "inline-block";
+                            document.getElementById('DietT').value = "";
+                            document.getElementById('DietT').required = true;
+                        }
+                        else {
+                            document.getElementById('DietT').value = "";
+                            document.getElementById('DietT').style.display = "none";
+                            document.getElementById('DietT').required = false;
+                        }
+                        break;
+                    }
+            }
+        }
+        
 </script>
 
-
 <body dir="ltr" style="text-align:center" onload="onLoad()">
+    <div id="lastvisit">
+        @{
+            BLVisitSummery blv = new BLVisitSummery();
+            List<DateTime> l2 = new List<DateTime>();
+            l2 = blv.get_updating(Session["Patiant"].ToString());
+            foreach (var item in l2)
+            {
+
+                if (item.Date == DateTime.Today.Date)
+                {
+                    <a href="#" id="now" class="herf" title="@DateTime.Today.ToShortDateString()">היום</a><br />
+                }
+                else
+                {
+                    <a href="#" class="herf" title="@item.ToShortDateString()">@item.Day/@item.Month/@item.Year</a><br />
+                }
+            }
+        }
+    </div>
     @using (Html.BeginForm())
     {
         <div>
@@ -65,15 +152,15 @@
                         <div>
                             <label style="font-weight:bold">Vitals</label><br />
                             <label for="Height">Height</label>
-                            <input type="text" id="Height" name="Height" value="@Html.DisplayFor(model=>model.Height)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
+                            <input type="text" id="Height" name="Height" value="@Html.DisplayFor(model=>model.Height)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד" /><br />
                             <label for="Wieght">Weight </label>
-                            <input type="text" id="Wieght" name="Wieght" value="@Html.DisplayFor(model=>model.Wieght)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
+                            <input type="text" id="Wieght" name="Wieght" value="@Html.DisplayFor(model=>model.Wieght)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד" /><br />
                             <label for="BMI">BMI </label>
-                            <input type="text" id="BMI" name="BMI" value="@Html.DisplayFor(model=>model.BMI)"  pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד"/><br />
+                            <input type="text" id="BMI" name="BMI" value="@Html.DisplayFor(model=>model.BMI)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" /><br />
                             <label for="BloodPressure">Blood Pressure</label>
-                            <input type="text" id="BloodPressure" name="BloodPressure" value="@Html.DisplayFor(model=>model.BloodPressure)"  pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד"/><br />
+                            <input type="text" id="BloodPressure" name="BloodPressure" value="@Html.DisplayFor(model=>model.BloodPressure)" pattern="[0-9' '.]{0,50}" title="שדה זה מכיל מספרים בלבד" /><br />
                             <label for="pulse">Pulse </label>
-                            <input type="text" id="pulse" name="pulse" value="@Html.DisplayFor(model=>model.pulse)"  pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד"/>
+                            <input type="text" id="pulse" name="pulse" value="@Html.DisplayFor(model=>model.pulse)" pattern="[0-9' ']{0,50}" title="שדה זה מכיל מספרים שלמים בלבד" />
                         </div>
                     </td>
 

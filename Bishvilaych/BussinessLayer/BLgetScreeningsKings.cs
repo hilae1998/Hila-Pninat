@@ -1,5 +1,4 @@
-﻿//אפרת בן עזרא
-namespace BussinesLayer
+﻿namespace BussinesLayer
 {
     class BLgetScreeningsKings
     {

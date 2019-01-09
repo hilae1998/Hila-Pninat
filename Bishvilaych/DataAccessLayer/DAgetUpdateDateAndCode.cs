@@ -22,7 +22,7 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
-        //select
+
         public DataSet getUpdateDateAndCode(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -39,7 +39,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
     }

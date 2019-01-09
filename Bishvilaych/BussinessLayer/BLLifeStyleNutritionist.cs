@@ -88,29 +88,26 @@ namespace BussinessLayer
         {
             DALifeStyleNutritionist dm = new DALifeStyleNutritionist();
             ListDictionary Params = new ListDictionary();
-            Params.Add("@height", BLCtrl.sendFloat(height,0));
-            Params.Add("@weight", BLCtrl.sendFloat(weight,0));
-            Params.Add("@bmi", BLCtrl.sendInt(bmi,0));
-            Params.Add("@blood", BLCtrl.sendString(blood,""));
-            Params.Add("@pulse", BLCtrl.sendInt(pulse,0));
+            Params.Add("@height", BLCtrl.sendFloat(height, 0));
+            Params.Add("@weight", BLCtrl.sendFloat(weight, 0));
+            Params.Add("@bmi", BLCtrl.sendInt(bmi, 0));
+            Params.Add("@blood", BLCtrl.sendString(blood, ""));
+            Params.Add("@pulse", BLCtrl.sendInt(pulse, 0));
             Params.Add("@noteat", BLCtrl.sendBool(noteat, false));
-            Params.Add("@noteatt", BLCtrl.sendString(noteatt,""));
-            Params.Add("@meals", BLCtrl.sendInt(meals,0));
-            Params.Add("@fruits", BLCtrl.sendInt(fruits,0));
-            Params.Add("@vegetables", BLCtrl.sendInt(vegetables,0));
+            Params.Add("@noteatt", BLCtrl.sendString(noteatt, ""));
+            Params.Add("@meals", BLCtrl.sendInt(meals, 0));
+            Params.Add("@fruits", BLCtrl.sendInt(fruits, 0));
+            Params.Add("@vegetables", BLCtrl.sendInt(vegetables, 0));
             Params.Add("@dairy", BLCtrl.sendBool(dairy, false));
-            Params.Add("@water", BLCtrl.sendInt(water,0));
+            Params.Add("@water", BLCtrl.sendInt(water, 0));
             Params.Add("@diet", BLCtrl.sendBool(diet, false));
-            Params.Add("@diett", BLCtrl.sendString(diett,""));
-            Params.Add("@sleeping", BLCtrl.sendFloat(sleeping,0));
+            Params.Add("@diett", BLCtrl.sendString(diett, ""));
+            Params.Add("@sleeping", BLCtrl.sendFloat(sleeping, 0));
             Params.Add("@activity ", BLCtrl.sendBool(activity, false));
-            Params.Add("@dt", BLCtrl.sendDateTime(dt,DateTime.Today));
-            Params.Add("@id", BLCtrl.sendString(id,""));
+            Params.Add("@dt", BLCtrl.sendDateTime(dt, DateTime.Today));
+            Params.Add("@id", BLCtrl.sendString(id, ""));
             int result = dm.addOrUpdateLifeStyleNutritionist(Params);
             return result;
         }
-
-
-
     }
 }

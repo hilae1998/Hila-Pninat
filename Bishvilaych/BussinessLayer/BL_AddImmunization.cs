@@ -6,8 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//אורית אוחיון 
-//הוספת חיסון
 namespace BussinessLayer
 {
    public class BL_AddImmunization
@@ -43,6 +41,5 @@ namespace BussinessLayer
             }
             return l;
         }
-
     }
 }

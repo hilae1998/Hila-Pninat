@@ -6,9 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
-//Avishag
 namespace BussinessLayer
 {
   public  class BL_AddDiagnozeAndHospitalization

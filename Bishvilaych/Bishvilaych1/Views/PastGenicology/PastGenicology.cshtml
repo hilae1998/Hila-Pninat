@@ -1,4 +1,5 @@
-﻿@model PastGenicology
+﻿@using BussinessLayer;
+@model PastGenicology
 @{
     ViewBag.Title = "PastGenicology";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
@@ -18,7 +19,114 @@
 </style>
 
 <script>
-    function onLoad() {
+    var dictionary = new Array();
+    $(document).ready(function () {
+        $.ajax({//שולף לי את כל סיבות הביקור,ומכניס לי לדיקשנרי
+            type: 'get',
+            url: "@Url.Action("getLastVisit")",
+            data: {},
+        success: function (result) {
+
+            $.each(result, function (i) {
+                var key = Object.keys(this)[0]//מביא לי את שם המפתח לדייט
+                var val = Object.keys(this)[1]//מביא לי את שם המפתח לרשימה
+
+                dictionary.push({
+                    date: this[key],//מביא לי את התאריך
+                    listRec: this[val],//מביא לי את הליסט
+
+
+                })
+            })
+            },
+            error: function () {
+                alert("error")
+            }
+        })
+        $(".herf").click(function () {//כאשר בוחרים תאריך עדכן את הפקדים בהתאם למידע השייך לאותו תאריך
+            $("#CycleRegularT").css('display', 'none');
+            $("#MenopauseSyptomsT").css('display', 'none');
+            $("#MenstrualSyptomsT").css('display', 'none');
+            $("#ContraceptionT").val("Cerazette");
+           //$("#ContraceptionT").css('display', 'none');
+          
+            //$('#MyForm')[0].reset();//אפס את הטופס
+            if (this.title != $("#now").attr("title")) //אם נכנסתה לתאריך שעבר,הפוך את כפתור השליחה ללא זמין
+            {
+                $("#ButtonSumbit").addClass("disablebutton")
+                $("#ButtonSumbit").prop("disabled", true);
+            }
+            else {
+                $("#ButtonSumbit").prop("disabled", false);
+                $("#ButtonSumbit").removeClass("disablebutton")
+            }
+            for (var i = 0; i < dictionary.length; i++) {
+                if (this.title == dictionary[i].date) {//שלוף את הנתונים של התאריך הנבחר ומלא אותם בפקדים
+                    for (var key in dictionary[i].listRec) {
+                        var theinput = document.getElementsByName(key)[0];
+                        if ($(theinput).is("select")) {
+                            $(theinput).val(dictionary[i].listRec[key]);
+                            $(theinput).change();
+                        
+                        }
+                        if (theinput != undefined) {
+                            var type = theinput.type;
+                            switch (type) {
+                                case "text":
+                                    $(theinput).val(dictionary[i].listRec[key]);
+                                    break;
+                                case "checkbox":
+                                    $(theinput).prop("checked", dictionary[i].listRec[key]);
+                                    break;
+                                case "number":
+                                    $(theinput).val(dictionary[i].listRec[key]);
+                                case "select":
+                                    {
+                                        $(theinput).val(dictionary[i].listRec[key]);
+                                        $(theinput).change();
+                                        //$(theinput).selectedIndex(3);
+                                        //alert((theinput).selectedIndex(3));
+                                        break;
+                                    }
+                                default:
+                                    {
+                                      
+                                        break;
+                                    }
+                            }
+                        
+                            
+                            //end switch
+                            //if ($(theinput).val(dictionary[i].listRec[key]) == "Cerazette")
+                            //    $(theinput).
+                        }//end if
+                    };//end for
+                    //הצגת תיבות הטקסט במידה והצקבוקסים בחורים
+                    if ($("#CycleRegular").is(":checked")) {
+                        $("#CycleRegularT").css('display', 'inline-block');
+                       // $("#CycleRegularT").val($("#Text").val());
+                    }
+                    if ($("#MenstrualSyptoms").is(":checked")) {
+                        $("#MenstrualSyptomsT").css('display', 'inline-block');
+                    //    $("#MenstrualSyptomsT").val($("#Text").val());
+                    }
+                    if ($("#Contraception").is(":checked")) {
+                        $("#ContraceptionT").css('display', 'inline-block');
+                  //      $("#ContraceptionT").val($("#Text").val());
+                    }
+                    if ($("#MenopauseSyptoms").is(":checked")) {
+                        $("#MenopauseSyptomsT").css('display', 'inline-block');
+                        //$("#MenopauseSyptomsT").val($("#Text").val());
+                    }
+                }//end if
+            }//end for
+        });
+    });
+
+
+
+    function onLoad()
+    {
         var CycleRegular = '@Model.CycleRegular';
         var MenstrualSyptoms = '@Model.MenstrualSyptoms';
         var MenopauseSyptoms = '@Model.MenopauseSyptoms';
@@ -37,7 +145,7 @@
         if (Contraception == "True")
         {
             document.getElementById('ContraceptionT').style.display = "inline-block";
-        }       
+        }
     }
 
     function onChangeDisplay(id,check) {
@@ -48,7 +156,7 @@
                     if (check == true) {
                         document.getElementById('CycleRegularT').style.display = "inline-block";
                         document.getElementById('CycleRegularT').value = "";
-                       
+
                     }
                     else
                     {
@@ -62,7 +170,7 @@
                     if (check == true) {
                         document.getElementById('MenstrualSyptomsT').style.display = "inline-block";
                         document.getElementById('MenstrualSyptomsT').value = "";
-                       
+
                     }
                     else {
                         document.getElementById('MenstrualSyptomsT').value = "";
@@ -75,7 +183,7 @@
                     if (check == true) {
                         document.getElementById('MenopauseSyptomsT').style.display = "inline-block";
                         document.getElementById('MenopauseSyptomsT').value = "";
-                      
+
                     }
                     else {
                         document.getElementById('MenopauseSyptomsT').value = "";
@@ -96,8 +204,8 @@
                         //document.getElementById('ContraceptionT0').value = true;
                         //document.getElementById('ContraceptionT0').checked = "checked";
                         document.getElementById('ContraceptionT').style.display = "none";
-                    
-                        
+
+
                     }
                     break;
                 }
@@ -105,6 +213,26 @@
     }
 </script>
 <body style="direction:ltr; text-align:center" onload="onLoad()">
+    <div id="lastvisit">
+        @{
+            BLVisitSummery blv = new BLVisitSummery();
+            List<DateTime> l2 = new List<DateTime>();
+            l2 = blv.get_updating(Session["Patiant"].ToString());
+            foreach (var item in l2)
+            {
+
+                if (item.Date == DateTime.Today.Date)
+                {
+                    <a href="#" id="now" class="herf" title="@DateTime.Today.ToShortDateString()">היום</a><br />
+                }
+                else
+                {
+                    <a href="#" class="herf" title="@item.ToShortDateString()">@item.Day/@item.Month/@item.Year</a><br />
+                }
+
+            }
+        }
+    </div>
     @using (Html.BeginForm())
     {
         <h2>@ViewBag.err</h2>
@@ -130,15 +258,15 @@
         <label class="text" for="Contraception">Contraception hx:</label>
         <input class="checkbox" id="Contraception" name="Contraception" type="checkbox" onchange="onChangeDisplay('Contraception',this.checked)" value="true" @(Model.Contraception ? "checked=\"checked\"" : "") />
         <select name="ContraceptionT" style="display:none" id="ContraceptionT">
-            <option name="ContraceptionT0" id="ContraceptionT0" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Cerazette") ? "selected" : "" )>Cerazette</option>
-            <option name="ContraceptionT1" id="ContraceptionT1" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Diane-35") ? "selected" : "" )>Diane-35</option>
-            <option name="ContraceptionT2" id="ContraceptionT2" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Diaphragm") ? "selected" : "" )>Diaphragm</option>
-            <option name="ContraceptionT3" id="ContraceptionT3" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Feminet") ? "selected" : "" )>Feminet</option>
-            <option name="ContraceptionT4" id="ContraceptionT4" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "IUD") ? "selected" : "" )>IUD</option>
-            <option name="ContraceptionT5" id="ContraceptionT5" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Mercilon") ? "selected" : "" )>Mercilon</option>
-            <option name="ContraceptionT6" id="ContraceptionT6" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Microlite") ? "selected" : "" )>Microlite</option>
-            <option name="ContraceptionT7" id="ContraceptionT7" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "NuvaRing") ? "selected" : "" )>NuvaRing</option>
-            <option name="ContraceptionT8" id="ContraceptionT8" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Other") ? "selected" : "" )>Other</option>
+            <option value="Cerazette" name="ContraceptionT0" id="ContraceptionT0" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Cerazette") ? "selected" : "" )>Cerazette</option>
+            <option value="Diane-35" name="ContraceptionT1" id="ContraceptionT1" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Diane-35") ? "selected" : "" )>Diane-35</option>
+            <option value="Diaphragm" name="ContraceptionT2" id="ContraceptionT2" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Diaphragm") ? "selected" : "" )>Diaphragm</option>
+            <option value="Feminet" name="ContraceptionT3" id="ContraceptionT3" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Feminet") ? "selected" : "" )>Feminet</option>
+            <option value="IUD" name="ContraceptionT4" id="ContraceptionT4" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "IUD") ? "selected" : "" )>IUD</option>
+            <option value="Mercilon" name="ContraceptionT5" id="ContraceptionT5" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Mercilon") ? "selected" : "" )>Mercilon</option>
+            <option value="Microlite" name="ContraceptionT6" id="ContraceptionT6" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Microlite") ? "selected" : "" )>Microlite</option>
+            <option value="NuvaRing" name="ContraceptionT7" id="ContraceptionT7" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "NuvaRing") ? "selected" : "" )>NuvaRing</option>
+            <option value="Other" name="ContraceptionT8" id="ContraceptionT8" @((@Html.DisplayFor(model => model.ContraceptionT).ToString() == "Other") ? "selected" : "" )>Other</option>
         </select>
         <br />
         <br />

@@ -7,8 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 
-//Ayala Gozlan
-
 namespace DataAccessLayer
 {
     public class DAGetCustomersById
@@ -20,15 +18,6 @@ namespace DataAccessLayer
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
-        //public Patiants getPatiantsById()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-
-        //Ayala Gozlan
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet getCustomersById(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -45,7 +34,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
     }

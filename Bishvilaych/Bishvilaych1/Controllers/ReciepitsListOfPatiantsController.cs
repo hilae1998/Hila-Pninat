@@ -1,25 +1,31 @@
 ﻿using BussinesLayer;
 using BussinessLayer;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-
-//Ayala Gozlan
 
 namespace Bishvilaych.Controllers
 {
     public class ReciepitsListOfPatiantsController : Controller
     {
-        //[HttpGet]
-        public ActionResult ReciepitsListOfPatiants()
+        public ActionResult ReciepitsListOfPatiants()// כניסה לקבלות של מטופל
         {
-            BLReceipt bl = new BLReceipt();
-            List<receipt> result = bl.getReceipt(Session["Patiants"].ToString());
-            BLPatiants blc = new BLPatiants();
-            Patiants p = blc.getPatiantsById(Session["Patiants"].ToString());
-            MyPatiantsRecepitModels model = new MyPatiantsRecepitModels();
-            model.recepit = result;
-            model.MyP = p;
-            return View(model);
+            try
+            {
+                Session.Timeout += 10;
+                BLReceipt bl = new BLReceipt();
+                List<receipt> result = bl.getReceipt(Session["Patiants"].ToString());// שליפת הקבלות מהמסד
+                BLPatiants blc = new BLPatiants();
+                Patiants p = blc.getPatiantsById(Session["Patiants"].ToString());
+                MyPatiantsRecepitModels model = new MyPatiantsRecepitModels();
+                model.recepit = result;
+                model.MyP = p;
+                return View(model);
+            }
+            catch(Exception e)
+            {
+                return View();
+            }
         }
     }
     public class MyPatiantsRecepitModels

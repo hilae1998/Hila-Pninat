@@ -16,7 +16,6 @@ namespace DataAccessLayer
         {
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
-
         public int Cheak_Username(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -24,10 +23,8 @@ namespace DataAccessLayer
             {
                 db_ctrl.connectToDb(connStr);
             }
-
             
             string sp_name = "Cheak_Username"; //שם הפרוצדורה
-
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
 
@@ -47,9 +44,7 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
-       
     }
 }

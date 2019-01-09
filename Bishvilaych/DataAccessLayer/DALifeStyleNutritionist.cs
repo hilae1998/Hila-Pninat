@@ -8,8 +8,6 @@ using System.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 
-//Tamar Dahan
-
 namespace DataAccessLayer
 {
    public class DALifeStyleNutritionist
@@ -20,9 +18,7 @@ namespace DataAccessLayer
         {
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
-
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
+        
         public DataSet getLifeStyleNutritionist(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -63,8 +59,6 @@ namespace DataAccessLayer
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
 
-        //insert, update...
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public int addOrUpdateLifeStyleNutritionist(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();

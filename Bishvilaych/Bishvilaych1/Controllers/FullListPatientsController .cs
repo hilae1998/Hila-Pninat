@@ -10,15 +10,23 @@ namespace Bishvilaych.Controllers
 {
     public class FullListPatientsController : Controller
     {
-        [HttpGet]
+        [HttpGet]//שליפת רשימת המטופלות העמותה
         public ActionResult PatiantsList()
         {
-            BLPatientList b = new BLPatientList();
+            try
+            {
+                Session.Timeout += 5;//session הגדלת ה
+                BLPatientList b = new BLPatientList();
+                List<Patiants> p = b.getPatiants();
+                return View(p);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
 
-            List<Patiants> p = b.getPatiants();
-
-            return View(p);
         }
+        //בלחיצה על מטופל מרשימת המטופלות
         public ActionResult dossesion(string id)
         {
             Session["Patiant"] = id;

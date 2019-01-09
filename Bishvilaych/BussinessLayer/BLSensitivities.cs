@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinesLayer //Ma'ayan
+namespace BussinesLayer 
 {
     public class BLSensitivities
     {
@@ -38,7 +38,6 @@ namespace BussinesLayer //Ma'ayan
 
             return MyS;
         }
-
 
         public List<string> GetNameWorker(string Num)
         {

@@ -6,8 +6,6 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using System.Collections.Specialized;
-//using DBLayer;
-//אורית אוחיון
 
 namespace DataAccessLayer
 {
@@ -20,10 +18,6 @@ namespace DataAccessLayer
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
-
-
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet getPatiants(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -40,7 +34,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
 

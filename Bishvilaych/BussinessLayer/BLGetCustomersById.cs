@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using DataAccessLayer;
 using System.Data;
 
-//Ayala Gozlan
-
 namespace BussinessLayer
 {
     public class BLGetCustomersById

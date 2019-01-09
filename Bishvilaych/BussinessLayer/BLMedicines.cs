@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinesLayer//Ma'ayan
+namespace BussinesLayer
 {
     public class BLMedicines
     {
@@ -38,7 +38,6 @@ namespace BussinesLayer//Ma'ayan
                 M.PatiantCode = BLCtrl.getString(item, "PatiantCode", "");
                 MyM.Add(M);
             }
-
             return MyM;
         }
 
@@ -91,6 +90,5 @@ namespace BussinesLayer//Ma'ayan
             int result = DAM.DeleteMedicines(Params);
             return result;
         }
-
     }
 }

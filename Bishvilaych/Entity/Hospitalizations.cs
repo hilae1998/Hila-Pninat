@@ -1,9 +1,6 @@
 ﻿using System;
-/*moriyaBonan*/
-
-
+// מחלקת אשפוזים
 public class Hospitalizations
-
 { 
      public int Code { get; set; }
      public int Year { get; set; }

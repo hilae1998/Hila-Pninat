@@ -6,8 +6,6 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using System.Collections.Specialized;
-//using DBLayer;
-
 
 namespace DataAccessLayer
 {
@@ -19,11 +17,6 @@ namespace DataAccessLayer
         {
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
-
-
-
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet getWorkers(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();

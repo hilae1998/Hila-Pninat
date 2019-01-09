@@ -6,11 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//אפרת בן עזרא
 namespace DataAccessLayer
 {
-
-
     public class DAgetreceipt
     {
         private string connStr = null;
@@ -19,8 +16,6 @@ namespace DataAccessLayer
         {
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet Draw_Kupah(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();

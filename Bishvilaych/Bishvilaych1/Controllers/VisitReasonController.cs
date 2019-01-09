@@ -9,41 +9,49 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bishvilaych.Controllers
 {
-    public class VisitReasonController : Controller
+    public class VisitReasonController : Controller 
     {
         BLVisitSummery b = new BLVisitSummery();//מופע לשימוש הפונקצייה getUpdating
         BLVisitReason p = new BLVisitReason();
-        [HttpGet]
+
+        [HttpGet]//כניסה ללשונית סיבת ביקור
         public ActionResult VisitReason()
         {
-            if (Session["Patiant"] == null)
+            try
             {
-                return RedirectToAction("Login", "Account");
+                Session.Timeout += 10;
+                if (Session["Patiant"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                ViewBag.status1 = Session["status1"];
+                Session["status1"] = "";
+                string id = Session["Patiant"].ToString();
+                BLVisitReason bl = new BLVisitReason();
+                VisitReason v = bl.getVisitReason(DateTime.Today, id);// שליפת נתוני המטופלת מהמסד
+                return View(v);
             }
-            ViewBag.status1 = Session["status1"];
-            Session["status1"] = "";
-            string id = Session["Patiant"].ToString(); //id - from Patiant controller
-            BLVisitReason bl = new BLVisitReason();
-            VisitReason v = bl.getVisitReason(DateTime.Today, id);
-            return View(v);
+            catch(Exception e)
+            {
+                return View();
+            }
         }
-        [HttpPost]
+        [HttpPost]// עדכון הנתונים במסד
         public ActionResult VisitReason(VisitReason vr)
         {
             try
             {
-                string id = Session["Patiant"].ToString();//id - from Patiant controler
+                string id = Session["Patiant"].ToString();
                 BLVisitReason bl = new BLVisitReason();
                 int result = bl.AddOrUpdateVisitReason(id, DateTime.Today,
                 vr.GeneralCheck, vr.BreastExam, vr.Pap, vr.Diaphragm, vr.OtherConcetraption,
-                vr.MenstrualCycle, vr.Kallah, vr.OtherReason, vr.Text);// update the db with the new ditails
-                if (result == 0)
+                vr.MenstrualCycle, vr.Kallah, vr.OtherReason, vr.Text);
+                if (result == 0)// שמירת הנתונים צלחה
                 {
                     Session["status1"] = "הנתונים נשמרו בהצלחה";
-                    //return RedirectToAction("PastMedical", "PastMedical");
                     return RedirectToAction("VisitReason", "VisitReason"/*, new { vr }*/);
                 }
-                else
+                else// כשל בשמירת הנתונים
                 {
                     Session["status1"] = " התרחשה שגיאה";
                     return RedirectToAction("VisitReason", "VisitReason"/*, new { vr }*/);
@@ -56,7 +64,7 @@ namespace Bishvilaych.Controllers
             }
         }
 
-        public ActionResult getLastVisit()
+        public ActionResult getLastVisit()// פונ' לשליפת נתונים לאוסף ההסטוריה הרפואית
         {
             List<MyVisitReasonDict> myl = new List<MyVisitReasonDict>();
             myl = funcGetAjax();
@@ -83,14 +91,12 @@ namespace Bishvilaych.Controllers
             return myl;
         }
     }
-    class MyVisitReasonDict
+    class MyVisitReasonDict // מודל ליצירת אוסף ההסטוריה הרפואית 
     {
 
         public string date { get; set; }
         public VisitReason list { get; set; }
 
     }
-
-
 }
 

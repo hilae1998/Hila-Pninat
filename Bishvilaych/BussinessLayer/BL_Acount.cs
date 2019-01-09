@@ -1,13 +1,9 @@
-﻿
-
-using BussinessLayer;
+﻿using BussinessLayer;
 using DataAccessLayer;
 using System.Collections.Specialized;
 using System.Data;
-
 namespace BussinesLayer
-
-{
+{ 
     public class BL_Acount
     {
         public int Cheak_Username( string username1 , string password1)
@@ -28,13 +24,12 @@ namespace BussinesLayer
             ListDictionary Params = new ListDictionary();
             DataSet ds = dm.Get_Authorization(Params);
 
-            int returnn=0;
+            int returnn = 0;
             foreach (DataRow item in ds.Tables[0].Rows)
             {
-               returnn = BLCtrl.getInt(item, "WokerAuthorization", 0);
+                returnn = BLCtrl.getInt(item, "WokerAuthorization", 0);
             }
             return returnn;
         }
-
     }
 }

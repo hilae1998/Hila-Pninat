@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    // לאה אמסלם
-    // 27/5/18
     public class DACustomers
     {
         private string connStr = null;
@@ -25,10 +23,6 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-
-
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet getCustomers(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -48,6 +42,5 @@ namespace DataAccessLayer
 
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
-
     }
 }

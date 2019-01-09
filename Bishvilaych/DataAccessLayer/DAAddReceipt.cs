@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Tamar Dahan
-
 namespace DataAccessLayer
 {
    public class DAAddReceipt
@@ -33,9 +31,6 @@ namespace DataAccessLayer
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //execute the sp
         }
 
-
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet getAllBanks(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -43,7 +38,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.connectToDb(connStr);
             }
-
             string sp_name = "getAllBanks"; //שם הפרוצדורה
             DataSet retDataDs = new DataSet(); //הכנת הטבלה אליה יכנסו הנתונים
             string retError;
@@ -52,7 +46,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
     }

@@ -6,8 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-// לאה אמסלם
-// 10/07/18 --- 16/07/18
 namespace BussinessLayer
 {
     public class BLKupah

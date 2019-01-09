@@ -10,7 +10,8 @@ namespace Bishvilaych.Controllers
     public class VisitSummaryController : Controller
     {
         BLVisitSummery b = new BLVisitSummery();
-        public ActionResult VisitSummary()
+
+        public ActionResult VisitSummary() // כיניסה ללשונית סיכום ביקור 
         {
             if (Session["Patiant"] == null)
             {

@@ -25,29 +25,8 @@
 
 
                 })
-            }) //end each function
-            ////document.getElementById("MyForm").reset();   //אפס את הטופס
-            ////שלוף את הנתונים של היום ומלא את הנתונים באלמנטים
-            //for (var key in dictionary[dictionary.length - 1].listRec) {
-            //    var theinput = document.getElementsByName(key)[0];
-            //    if (theinput != undefined) {
-            //        var type = theinput.type;
-            //        switch (type) {
-            //            case "text":
-            //                $(theinput).val(dictionary[dictionary.length - 1].listRec[key]);
-            //                break;
-            //            case "checkbox":
-            //                $(theinput).prop("checked", dictionary[dictionary.length - 1].listRec[key]);
-            //                break;
-            //            case "select-one":
-            //                $(theinput).val(dictionary[dictionary.length - 1].listRec[key]);
-            //                break;
-            //        }//end switch
-            //    }//end if
-            //};//end for
-
+            }) 
         },
-
         error: function () {
             alert("error")
         }
@@ -134,7 +113,7 @@
 
                 }
                 if ($("#Diaphragm").is(":checked")) {
-                    $("#Do").css('display', 'inline-block');
+                    $("#Do").css('display', 'inline');
 
                     $("#Contraception").prop("checked", true);
                     $("#Text4").css('display', 'inline-block');
@@ -205,7 +184,6 @@
                     $("#Text1").css('display', 'none');
                     $("#Do").css('display', 'none');
                     $("#Contraception").prop("checked", false);
-
                 }
             }//end if
         }//end for
@@ -546,10 +524,7 @@
                 {
                     <a href="#" class="herf" title="@item.ToShortDateString()">@item.Day/@item.Month/@item.Year</a><br />
                 }
-
             }
-
-
         }
     </div>
     @using (Html.BeginForm())

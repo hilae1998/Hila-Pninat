@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
-// פנינת פרנסה
 namespace Bishvilaych.Controllers
 {
     public class DocumentScannerController : Controller
@@ -14,13 +12,12 @@ namespace Bishvilaych.Controllers
         {
             return View();
         }
-
-        [HttpPost]
-        // סריקת מסמכי מטופל
+        [HttpPost]// סריקת מסמכי מטופל
         public ActionResult DocumentScanner2(string newname)
         {
             try
             {
+                Session.Timeout += 5;//session הגדלת ה
                 HttpPostedFileBase file = Request.Files["FileUpload"];
                 string newfilename = Request.Form["NewNameFile"];
                 string message = "";
@@ -34,7 +31,7 @@ namespace Bishvilaych.Controllers
                 if (!IsFolderPath)
                     Directory.CreateDirectory(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
                 var absolutePath = Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString() + "/" + newfilename + "." + file.FileName.Split('.')[1]);
-                bool IsExist = System.IO.File.Exists(absolutePath);//
+                bool IsExist = System.IO.File.Exists(absolutePath);
                 if (file.ContentLength > 0)
                 {
                     if (IsExist) //אם קיים מסמך בעל שם זהה

@@ -5,8 +5,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-// לאה אמסלם
-// 21/06/18
 
 namespace BussinessLayer
 {

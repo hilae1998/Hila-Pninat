@@ -1,8 +1,6 @@
 ﻿using System;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+// מחלקת מעקבים
 public class FollowsUp
 {
     public int Code { get; set; }

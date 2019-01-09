@@ -1,10 +1,7 @@
 ﻿using System;
-
-
 public class LifeStyle
 {
-
-    //life style nutrition
+    //אורח חיים תזונאית
     public int UpdateCode { get; set; }
     public float Height { get; set; }
     public float Wieght { get; set; }
@@ -23,7 +20,7 @@ public class LifeStyle
     public float SleepingHours { get; set; } 
     public bool Activity { get; set; }
 
-    //life style doctor
+    //אורח חיים רופאה
     public bool Acohol { get; set; }
     public string AcoholT { get; set; }
     public bool Smoking { get; set; }

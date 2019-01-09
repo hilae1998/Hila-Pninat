@@ -1,11 +1,7 @@
 ﻿using System;
-
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+// מחלקת סיכום ביקור
 public class Summary
 {
- 
     public bool Mentioned { get; set; }
     public int FollowUp { get; set; }
 }

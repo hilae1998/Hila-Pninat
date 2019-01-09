@@ -24,10 +24,6 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-
-
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet getUsers(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -47,9 +43,6 @@ namespace DataAccessLayer
 
              return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
-
-        //insert, update...
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public int addUser(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();

@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Tamar Dahan
-
 namespace DataAccessLayer
 {
    public class DAAddCustomer
@@ -18,7 +16,6 @@ namespace DataAccessLayer
         {
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
-
         public int Add_Customers(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -40,7 +37,6 @@ namespace DataAccessLayer
             }
 
             string sp_name = "CheckCustomerID"; //שם הפרוצדורה
-
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
     }

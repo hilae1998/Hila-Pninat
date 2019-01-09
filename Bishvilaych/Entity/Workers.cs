@@ -1,9 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-/// <summary>
-/// Summary description for Class1
-/// </summary>
-/// orit ochayon
+// מחלקת עובד
 public class Workers
 {
     public int Code { get; set; }

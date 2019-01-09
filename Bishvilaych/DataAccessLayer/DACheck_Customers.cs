@@ -6,8 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-// לאה אמסלם
-// 21/06/18
+
 namespace DataAccessLayer
 {
     public class DACheck_Customers
@@ -24,10 +23,6 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-
-
-        //insert, update...
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public int Check_Customers(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();

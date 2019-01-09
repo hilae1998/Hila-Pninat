@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
-//Avishag
 namespace Bishvilaych.Controllers
 {
     public class HospitalizationController : Controller
@@ -19,12 +17,20 @@ namespace Bishvilaych.Controllers
         [HttpPost]
         public ActionResult addHospitalization(Hospitalizations h)
         {
+            try
+            {
+                BL_AddDiagnozeAndHospitalization b = new BL_AddDiagnozeAndHospitalization();
 
-            BL_AddDiagnozeAndHospitalization b = new  BL_AddDiagnozeAndHospitalization();
+                int result = b.Add_Hospitalization(h.Year, h.Hospital, h.Department, h.Reason);
 
-            int result = b.Add_Hospitalization (h.Year, h.Hospital, h.Department, h.Reason);
+                return RedirectToAction("PastMedical", "PastMedical");
 
-            return RedirectToAction("PastMedical", "PastMedical"); 
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("PastMedical", "PastMedical");
+            }
+
         }
         [HttpGet]
         public ActionResult updateHospitalization()
@@ -33,11 +39,17 @@ namespace Bishvilaych.Controllers
         }
         public ActionResult updateHospitalization(Hospitalizations h)
         {
+            try
+            {
+                BL_AddDiagnozeAndHospitalization b = new BL_AddDiagnozeAndHospitalization();
+                int result = b.Update_Hospitalization(h.Year, h.Hospital, h.Department, h.Reason);
+                return RedirectToAction("PastMedical", "PastMedical");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("PastMedical", "PastMedical");
+            }
 
-            BL_AddDiagnozeAndHospitalization b = new BL_AddDiagnozeAndHospitalization();
-            int result = b.Update_Hospitalization(h.Year, h.Hospital, h.Department, h.Reason);
-            //return View(h);
-            return RedirectToAction("PastMedical", "PastMedical");
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-// Pninat and Levana
+//מחלקת היסטוריה גניקולוגית
 public class PastGenicology
 {
     public int UpdateCode { get; set; }

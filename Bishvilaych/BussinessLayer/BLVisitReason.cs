@@ -30,7 +30,6 @@ namespace BussinessLayer
             Params.Add("@Text", BLCtrl.sendString(Text, ""));
             int result = dm.addOrUpdateVisitReason(Params);
             return result;
-
         }
 
         public VisitReason getVisitReason( DateTime date, string id)

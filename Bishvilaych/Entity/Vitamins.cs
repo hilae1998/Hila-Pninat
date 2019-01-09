@@ -1,6 +1,5 @@
 ﻿using System;
-
-// פנינת פרנסה ולבנה מלכי
+// מחלקת ויטמין
 public class Vitamins
 {
     public int Code { get; set; }

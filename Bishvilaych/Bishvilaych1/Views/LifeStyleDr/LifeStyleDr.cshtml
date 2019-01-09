@@ -5,8 +5,172 @@
 @using System.Collections.Generic;
 @using System.Web.Mvc;
 @using BussinesLayer;
+@using BussinessLayer;
 @model LifeStyle
 <script>
+
+     var dictionary = new Array();
+    $(document).ready(function () {
+        $.ajax({//שולף לי את כל סיבות הביקור,ומכניס לי לדיקשנרי
+            type: 'get',
+            url: "@Url.Action("getLastVisit")",
+            data: {},
+        success: function (result) {
+
+            $.each(result, function (i) {
+                var key = Object.keys(this)[0]//מביא לי את שם המפתח לדייט
+                var val = Object.keys(this)[1]//מביא לי את שם המפתח לרשימה
+
+                dictionary.push({
+                    date: this[key],//מביא לי את התאריך
+                    listRec: this[val],//מביא לי את הליסט
+
+
+                })
+            }) 
+        },
+        error: function () {
+            alert("error")
+        }
+    }) //end ajax function
+        $(".herf").click(function () {//כאשר בוחרים תאריך עדכן את הפקדים בהתאם למידע השייך לאותו תאריך
+            $("#AbT").css('display', 'none');
+            $("#RelationT").css('display', 'none');
+            $("#OtherMentallssueT").css('display', 'none');
+            $("#DepressionT").css('display', 'none');
+            $("#Bi_polarT").css('display', 'none');
+            $("#AnxietyT").css('display', 'none');
+            $("#PastDisordersEatingT").css('display', 'none');
+            $("#DisordersEatingT").css('display', 'none');
+            $("#TraumaT").css('display', 'none');
+            $("#PastDrugsT").css('display', 'none');
+            $("#PastDisordersEatingT").css('display', 'none');
+            $("#PassiveSmokingT").css('display', 'none');
+            $("#DrugsT").css('display', 'none');
+            $("#DrugsT").prop("checked", false);
+
+        //$('#MyForm')[0].reset();//אפס את הטופס
+        if (this.title != $("#now").attr("title")) //אם נכנסתה לתאריך שעבר,הפוך את כפתור השליחה ללא זמין
+        {
+            $("#ButtonSumbit").addClass("disablebutton")
+            $("#ButtonSumbit").prop("disabled", true);
+        }
+        else {
+            $("#ButtonSumbit").prop("disabled", false);
+            $("#ButtonSumbit").removeClass("disablebutton")
+        }
+        for (var i = 0; i < dictionary.length; i++) {
+            if (this.title == dictionary[i].date) {//שלוף את הנתונים של התאריך הנבחר ומלא אותם בפקדים
+                for (var key in dictionary[i].listRec) {
+                    var theinput = document.getElementsByName(key)[0];
+                    if (theinput != undefined) {
+                        var type = theinput.type;
+                        switch (type) {
+                            case "text":
+                                $(theinput).val(dictionary[i].listRec[key]);
+                                break;
+                            case "radio":
+                                $(theinput).prop("checked", dictionary[i].listRec[key]);
+                                break;
+                            case "checkbox":
+                                $(theinput).prop("checked", dictionary[i].listRec[key]);
+                                break;
+
+                        }//end switch
+                    }//end if
+                };//end for
+                //הצגת תיבות הטקסט במידה והצקבוקסים בחורים
+                if ($("#Acohol").is(":checked")) {
+                    $("#AcoholT").css('display', 'inline-block');
+                   // $("#AcoholT").val($("#Text").val());
+                }
+                if ($("#Relation").is(":checked")) {
+                    $("#RelationT").css('display', 'inline-block');
+                    //$("#RelationT").val($("#Text").val());
+                }
+                if ($("#Ab").is(":checked")) {
+                    $("#AbT").css('display', 'inline-block');
+                 //   $("#AbT").val($("#Text").val());
+                }
+                if ($("#OtherMentallssue").is(":checked")) {
+                    $("#Do").css('display', 'inline');
+                    $("#Mm").prop("checked", true);
+                    $("#OtherMentallssue").prop("checked", true);
+                    $("#OtherMentallssueT").css('display', 'inline-block');
+                //    $("#OtherMentallssueT").val($("#Text").val());
+
+                    $("#AnxietyT").css('display', 'none');
+                    $("#Bi_polarT").css('display', 'none');
+                    $("#DepressionT").css('display', 'none');
+                }
+                if ($("#Depression").is(":checked")) {
+                    $("#Do").css('display', 'inline');
+                    $("#Mm").prop("checked", true);
+                    $("#Depression").prop("checked", true);
+                    $("#DepressionT").css('display', 'inline-block');
+                 //   $("#DepressionT").val($("#Text").val());
+
+                    $("#AnxietyT").css('display', 'none');
+                    $("#Bi_polarT").css('display', 'none');
+                    $("#OtherMentallssueT").css('display', 'none');
+                }                  
+                if ($("#Bi_polar").is(":checked")) {
+                    $("#Do").css('display', 'inline');
+                    $("#Mm").prop("checked", true);
+                    $("#Bi_polar").prop("checked", true);
+                    $("#Bi_polarT").css('display', 'inline-block');
+                 //   $("#Bi_polarT").val($("#Text").val());
+
+                    $("#AnxietyT").css('display', 'none');
+                    $("#DepressionT").css('display', 'none');
+                    $("#OtherMentallssueT").css('display', 'none');
+
+                }
+                if ($("#Anxiety").is(":checked")) {
+                    $("#Do").css('display', 'inline');
+                    $("#Mm").prop("checked", true);
+                    $("#Anxiety").prop("checked", true);
+                    $("#AnxietyT").css('display', 'inline-block');
+                //    $("#AnxietyT").val($("#Text").val());
+
+                    $("#Bi_polarT").css('display', 'none');
+                    $("#DepressionT").css('display', 'none');
+                    $("#OtherMentallssueT").css('display', 'none');
+
+                }
+                if ($("#PastDisordersEating").is(":checked")) {
+                    $("#PastDisordersEatingT").css('display', 'inline-block');
+                //    $("#PastDisordersEatingT").val($("#Text").val());
+
+                }
+                if ($("#DisordersEating").is(":checked")) {
+                    $("#DisordersEatingT").css('display', 'inline-block');
+                //    $("#DisordersEatingT").val($("#Text").val());
+
+                }
+                if ($("#Trauma").is(":checked")) {
+                    $("#TraumaT").css('display', 'inline-block');
+                //    $("#TraumaT").val($("#Text").val());
+                }
+                if ($("#PastDrugs").is(":checked")) {
+                    $("#PastDrugsT").css('display', 'inline-block');
+                  //  $("#PastDrugsT").val($("#Text").val());
+                }
+                if ($("#PassiveSmoking").is(":checked")) {
+                    $("#PassiveSmokingT").css('display', 'inline-block');
+                  //  $("#PassiveSmokingT").val($("#Text").val());
+                }
+                if ($("#Drugs").is(":checked")) {
+                    $("#DrugsT").css('display', 'inline-block');
+                   // $("#DrugsT").val($("#Text").val());
+                }
+            }//end if
+        }//end for
+    });
+    });
+
+
+
     function onLoad()
     {
         console.log = @Session.Timeout;
@@ -93,7 +257,7 @@
 
     function onchangeAll(id, check) {
         switch (id) {
-            case "Acohol": PastDisordersEating 
+            case "Acohol": PastDisordersEating
                 {
                     if (check == true) {
                         document.getElementById('AcoholT').style.display = "inline-block";
@@ -359,6 +523,29 @@
     }
 </script>
 <body dir="ltr" style="text-align:center" onload="onLoad()">
+    <div id="lastvisit">
+        @{
+            BLVisitSummery blv = new BLVisitSummery();
+            List<DateTime> l2 = new List<DateTime>();
+            l2 = blv.get_updating(Session["Patiant"].ToString());
+            foreach (var item in l2)
+            {
+
+                if (item.Date == DateTime.Today.Date)
+                {
+                    <a href="#" id="now" class="herf" title="@DateTime.Today.ToShortDateString()">היום</a><br />
+                }
+                else
+                {
+                    <a href="#" class="herf" title="@item.ToShortDateString()">@item.Day/@item.Month/@item.Year</a><br />
+                }
+
+            }
+
+
+        }
+    </div>
+
     @using (Html.BeginForm())
     {
         <h2>LifeStyleDr</h2>
@@ -389,7 +576,7 @@
         <br />
         <label for="Trauma">Exposure to trauma</label>
         <input id="Trauma" name="Trauma" type="checkbox" value="true" @(Model.Trauma ? "checked=\"checked\"" : "") onclick="onchangeAll('Trauma', this.checked)" />
-        <input type="text" id="TraumaT" name="TraumaT" style="display:none"value=" @Html.DisplayFor(model => model.TraumaT)">
+        <input type="text" id="TraumaT" name="TraumaT" style="display:none" value=" @Html.DisplayFor(model => model.TraumaT)">
         <br />
         <center><b>Eating Disorders</b></center>
         <label for="DisordersEating">presently</label>

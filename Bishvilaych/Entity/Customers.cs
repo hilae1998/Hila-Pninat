@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+// מחלקת לקוח
 public class Customers
 {
     public int Code { get; set; }

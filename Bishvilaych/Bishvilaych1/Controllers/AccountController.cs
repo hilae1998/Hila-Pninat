@@ -14,8 +14,6 @@ namespace Bishvilaych.Controllers
         {
             return View();
         }
-
-
         [HttpPost]
         public ActionResult Login(Workers model)// הזדהות ע"י שם משתמש וסיסמא
         {

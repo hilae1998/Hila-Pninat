@@ -19,6 +19,7 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                Session.Timeout += 5;//session הגדלת ה
                 BLAddReceipt bl = new BLAddReceipt();
                 int result = bl.AddOrUpdateReceipt(r.receiptDate, r.receiptNum, r.Sum, r.PayBy,
                     r.chequaNum, r.Bank, r.PaymentNum, r.Branch, r.BankAccount, r.CardsKind, r.CreditCard,

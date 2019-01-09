@@ -19,6 +19,7 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                Session.Timeout += 10;//session הגדלת ה
                 BL_AddPatiants b = new BL_AddPatiants();
                 int i = 0;
                 i = b.CheckID(s.Id);

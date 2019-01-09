@@ -12,8 +12,6 @@ namespace DataAccessLayer
       public class DADr_LifeStyle
     {
         private string connStr = null;
-
-     
         public DADr_LifeStyle()
         {
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -24,8 +22,6 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet Get_LifeStyle(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -65,9 +61,6 @@ namespace DataAccessLayer
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
 
-
-        //insert, update...
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public int AddOrUpdatelifestyle(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -80,7 +73,6 @@ namespace DataAccessLayer
 
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
-
     }
 }
 

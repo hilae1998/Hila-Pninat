@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+// מחלקת אבחונים
 public class Diagnozes
 {
     public int Code { get; set; }

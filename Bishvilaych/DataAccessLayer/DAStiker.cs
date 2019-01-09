@@ -10,7 +10,6 @@ namespace DataAccessLayer
     class DAStiker
     {
         private string connStr = null;
-
         public int Get_Stiker(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -20,7 +19,6 @@ namespace DataAccessLayer
             }
 
             string sp_name = "Get_Stiker"; //שם הפרוצדורה
-
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
     }
