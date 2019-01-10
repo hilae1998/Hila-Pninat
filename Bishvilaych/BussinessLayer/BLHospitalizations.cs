@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinesLayer//Ma'ayan
+namespace BussinesLayer
 {
     public class BLHospitalizations
     {
@@ -66,10 +66,8 @@ namespace BussinesLayer//Ma'ayan
             DAHospitalizations DAH = new DAHospitalizations();
             ListDictionary Params = new ListDictionary();
             Params.Add("@Code", Code);
-
             int result = DAH.DeleteHospitalizations(Params);
             return result;
         }
-
     }
 }

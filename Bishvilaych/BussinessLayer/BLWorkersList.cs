@@ -6,7 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//אורית אוחיון
 namespace BussinessLayer
 {
    public class BLWorkersList
@@ -16,7 +15,6 @@ namespace BussinessLayer
             WorkersList dm = new WorkersList();
 
             ListDictionary Params = new ListDictionary();
-            // Params.Add("@dt", dt);
 
             DataSet ds = dm.getWorkers(Params);
             List<Workers> l = new List<Workers>();
@@ -24,9 +22,6 @@ namespace BussinessLayer
             foreach (DataRow item in ds.Tables[0].Rows)
             {
                 w = new Workers();
-                //w.FirstName = item.Field<string>("FirstName");
-                //w.LastName = item.Field<string>("LastName");
-                //w.Job = item.Field<int>("Job");
                 w.Id = BLCtrl.getString(item, "Id", " ");
                 w.FirstName = BLCtrl.getString(item, "FirstName", " ");
                 w.LastName = BLCtrl.getString(item, "LastName", " ");
@@ -34,7 +29,6 @@ namespace BussinessLayer
                 l.Add(w);
 
             }
-
             return l;
         }
     }

@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Data;
 
-namespace DataAccessLayer//Ma'ayan
+namespace DataAccessLayer
 {
     public class DASensitivities
     {
@@ -12,7 +12,6 @@ namespace DataAccessLayer//Ma'ayan
         {
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
-
         public DataSet GetAllSensitivities(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -92,8 +91,6 @@ namespace DataAccessLayer//Ma'ayan
 
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
-
-
 
         public int DeleteSensitivities(ListDictionary Params) //קבלת רשימת פרמטרים
         {

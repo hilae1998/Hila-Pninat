@@ -42,8 +42,6 @@ namespace BussinesLayer
                 lr.Add(r);
             }
             return lr;
-
         }
-
     }
 }

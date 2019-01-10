@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
@@ -10,10 +9,8 @@ using DataAccessLayer;
 
 namespace BussinessLayer
 {
-    public class BLVisitSummery//created by hila elgrabli
+    public class BLVisitSummery
     {
-
-        
         public int UpdateReccomendations(DateTime date1, string id1, int code1, string rec1)
         {
             VisitSummary dm = new VisitSummary();
@@ -74,9 +71,6 @@ namespace BussinessLayer
             }
 
             return l;
-
-
-
         }
 
         public Summary getSummary( DateTime date1 ,string id1 )
@@ -86,34 +80,21 @@ namespace BussinessLayer
             Summary s = new Summary();
 
             Params.Add("@date", BLCtrl.sendDateTime(date1, new DateTime()));
-            Params.Add("@id", BLCtrl.sendString(id1, ""));
-           
+            Params.Add("@id", BLCtrl.sendString(id1, ""));        
             DataSet ds = dm.getSummary(Params);
-        
             s.Mentioned = BLCtrl.getBool( ds.Tables[0].Rows[0],"Mentioned",false);
             s.FollowUp = BLCtrl.getInt(ds.Tables[0].Rows[0], "FollowUp", 0);
-        
-        
-
-
-
             return s;
-
-
-
         }
         public List<Reccomendations>getReccomendations(DateTime date1, string id1)
         {
             VisitSummary dm = new VisitSummary();
             ListDictionary Params = new ListDictionary();
             Reccomendations s;
-
             Params.Add("@date", BLCtrl.sendDateTime(date1, new DateTime()));
             Params.Add("@id", BLCtrl.sendString(id1, ""));
-
             DataSet ds = dm.getReccomendations(Params);
             List<Reccomendations> l = new List<Reccomendations>();
-
             foreach (DataRow item in ds.Tables[0].Rows)
             {
                 s = new Reccomendations();
@@ -122,16 +103,7 @@ namespace BussinessLayer
                 s.Reccomendation = BLCtrl.getString(item, "Reccomendation", "");
                 l.Add(s);
             }
-
-           
-
-
-
-
             return l;
-
-
-
         }
 
         public List<DateTime> get_updating(string id1)
@@ -139,24 +111,18 @@ namespace BussinessLayer
         
             VisitSummary dm = new VisitSummary();
             ListDictionary Params = new ListDictionary();
-            Params.Add("@id", id1);
-           
+            Params.Add("@id", id1);       
             DataSet ds = dm.get_Updating(Params);
             List<DateTime> l = new List<DateTime>();
-            DateTime f;
-         
+            DateTime f;       
             foreach (DataRow item in ds.Tables[0].Rows)
             {
                 f = new DateTime();
                 f = item.Field<DateTime>("UpdateDate");
                 l.Add(f);
             }
-
             return l;
-
-
-
-        }//האם צריך להתמש פה בערך ברירת מחדל על ידי הפונקציה send
+        }
     }
 }
 

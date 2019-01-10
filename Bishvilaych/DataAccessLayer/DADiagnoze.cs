@@ -7,12 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer//Ma'ayan
+namespace DataAccessLayer
 {
     public class DADiagnoze
     {
         private string connStr=null;
-
         public DADiagnoze()
         {
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -78,7 +77,6 @@ namespace DataAccessLayer//Ma'ayan
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
 
-
         public DataSet GetNameWorker(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -99,20 +97,6 @@ namespace DataAccessLayer//Ma'ayan
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
 
-
-        //public DataSet DeleteDiagnoze(ListDictionary Params) //קבלת רשימת פרמטרים
-        //{
-        //    DBCtrl db_ctrl = new DBCtrl();
-        //    if (!db_ctrl.isConnected())
-        //    {
-        //        db_ctrl.connectToDb(connStr);
-        //    }
-
-        //    string sp_name = "DeleteDiagnoze"; //שם הפרוצדורה
-
-        //    return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
-        //}
-
         public int UpdateDiagnoze(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -125,6 +109,5 @@ namespace DataAccessLayer//Ma'ayan
 
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
-
     }
 }

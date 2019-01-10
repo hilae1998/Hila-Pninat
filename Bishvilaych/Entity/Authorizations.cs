@@ -1,5 +1,5 @@
 ﻿using System;
-// פנינת פרנסה ולבנה מלכי
+// מחלקת הרשאות
 public class Authorizations
 {
     public int Code { get; set; }

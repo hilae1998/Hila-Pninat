@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//אפרת בן עזרא
+
 namespace BussinesLayer
 {
     class BLgetReceipt
@@ -37,6 +37,5 @@ namespace BussinesLayer
         //    R.PaymentNum = re.Tables[0].Rows[0].Field<int>("PaymentNum");
         //    return R;
         //}
-
     }
 }

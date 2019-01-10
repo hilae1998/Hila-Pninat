@@ -1,6 +1,6 @@
 ﻿using System;
-
-public class DiagnozesKinds//hila elgrali
+// מחלקת סוגי אבחונים
+public class DiagnozesKinds
 {
     public int Code { get; set; }
     public string Diagnoze { get; set; }

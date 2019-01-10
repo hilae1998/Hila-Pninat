@@ -6,7 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//אורית אוחיון
 namespace DataAccessLayer
 {
     public class DA_AddImmunization
@@ -18,8 +17,6 @@ namespace DataAccessLayer
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
-        //insert, update...
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public int AddImmunization(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();

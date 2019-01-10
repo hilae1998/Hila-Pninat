@@ -12,19 +12,13 @@ using System.IO;
 
 namespace DataAccessLayer
 {
-  public  class VisitSummary//created by hila elgrabli 
+    public class VisitSummary
     {
-
         private string connStr = null;
-
         public VisitSummary()
         {
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
-
-
-
-        
         public DataSet getFollowUp(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -51,7 +45,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.connectToDb(connStr);
             }
-
             string sp_name = "getReccomendations"; //שם הפרוצדורה
             DataSet retDataDs = new DataSet(); //הכנת הטבלה אליה יכנסו הנתונים
             string retError;
@@ -63,7 +56,6 @@ namespace DataAccessLayer
 
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
-
         public DataSet getSummary(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -71,7 +63,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.connectToDb(connStr);
             }
-
             string sp_name = "getSummary"; //שם הפרוצדורה
             DataSet retDataDs = new DataSet(); //הכנת הטבלה אליה יכנסו הנתונים
             string retError;
@@ -80,7 +71,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
         public DataSet get_Updating(ListDictionary Params) //קבלת רשימת פרמטרים
@@ -99,10 +89,10 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-        
+
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
-       
+
         public int addOrUpdateReccomendations(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -140,7 +130,5 @@ namespace DataAccessLayer
 
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
-
-
     }
 }

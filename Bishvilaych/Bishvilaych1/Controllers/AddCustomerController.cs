@@ -20,6 +20,7 @@ namespace Bishvilaych1.Controllers
         {
             try
             {
+                Session.Timeout += 10;//session הגדלת ה
                 BLAddCustomer bl = new BLAddCustomer();
                 int i = 0;
                 //בדיקת תקינות 
@@ -63,8 +64,6 @@ namespace Bishvilaych1.Controllers
                 BLAddCustomer b = new BLAddCustomer();
 
                 int i;
-
-
                 i = b.CheckCustomerID(ID);
                 if (i == 20)
                 {
@@ -77,10 +76,8 @@ namespace Bishvilaych1.Controllers
             }
             catch (Exception e)
             {
-
                 messege = "שגיאה:" + e;
             }
-
             return Json(messege, JsonRequestBehavior.AllowGet);
         }
 

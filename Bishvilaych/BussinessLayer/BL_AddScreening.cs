@@ -6,8 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//אורית אוחיון 
-//הוספת בדיקת עזר 
+
 namespace BussinessLayer
 {
     public class BL_AddScreening

@@ -6,7 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-// Pninat Parnasa
 namespace DataAccessLayer
 {
     public class DAPastGenicology
@@ -22,7 +21,6 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
-        //select
         public DataSet getPastGenicology(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -42,6 +40,7 @@ namespace DataAccessLayer
 
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
+
         public DataSet getPastGeniclogiById(ListDictionary Params)
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -60,7 +59,7 @@ namespace DataAccessLayer
             }
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
-        //insert, update...
+
         public int addOrUpdatePastGenicology(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();

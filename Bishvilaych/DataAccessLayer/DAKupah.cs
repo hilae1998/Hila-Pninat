@@ -6,8 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-// לאה אמסלם
-// 10/07/18--17/07/18
+
 namespace DataAccessLayer
 {
     public class DAKupah
@@ -18,8 +17,7 @@ namespace DataAccessLayer
         {
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
+      
         public DataSet Kupah(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -27,7 +25,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.connectToDb(connStr);
             }
-
             string sp_name = "Kupah"; //שם הפרוצדורה
             DataSet retDataDs = new DataSet(); //הכנת הטבלה אליה יכנסו הנתונים
             string retError;
@@ -36,7 +33,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
     }

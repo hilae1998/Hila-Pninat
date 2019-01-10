@@ -17,16 +17,6 @@ namespace DataAccessLayer
             {
                 connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
-
-            //public DataSet addOrUpdateVisitReason()
-            //{
-            //    throw new NotImplementedException();
-            //}
-
-
-
-            //select
-            //לשנות את שם הפונקציה ואת שם הפרוצדורה
             public DataSet getVisitReason(ListDictionary Params) //קבלת רשימת פרמטרים
             {
                 DBCtrl db_ctrl = new DBCtrl();
@@ -47,8 +37,6 @@ namespace DataAccessLayer
                 return retDataDs; //החזרת הטבלה המלאה בנתונים
             }
 
-            //insert, update...
-            //לשנות את שם הפונקציה ואת שם הפרוצדורה
             public int addOrUpdateVisitReason(ListDictionary Params) //קבלת רשימת פרמטרים
             {
                 DBCtrl db_ctrl = new DBCtrl();
@@ -60,7 +48,6 @@ namespace DataAccessLayer
                 string sp_name = "addOrUpdateVisitReason"; //שם הפרוצדורה
 
                 return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
-
         }
     }
 }

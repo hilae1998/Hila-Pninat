@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+// מחלקת מטופל
 public class Patiants
 {
     public int Code { get; set; }
@@ -20,7 +18,6 @@ public class Patiants
     public string Fax { get; set; }
     public string Email { get; set; }
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")] //This template for the date type in Patiant page
-   // [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
     public DateTime BirthDate { get; set; }
     public string ContactExam { get; set; }
     public string ContactGinformation { get; set; }

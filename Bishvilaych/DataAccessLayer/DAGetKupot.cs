@@ -6,8 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 
-
-//Ayala Gozlan
 namespace DataAccessLayer
 {
     public class DAGetKupot
@@ -19,8 +17,6 @@ namespace DataAccessLayer
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet getKupot() //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -37,7 +33,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
     }

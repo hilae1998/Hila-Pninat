@@ -13,7 +13,6 @@ namespace BussinessLayer
     {
         public List<Updatings> getUpdateDateAndcode(string id)
         {
-
             DAgetUpdateDateAndCode da = new DAgetUpdateDateAndCode();
             ListDictionary Params = new ListDictionary();
             Params.Add("@id", id);
@@ -29,9 +28,6 @@ namespace BussinessLayer
                 l.Add(f);
             }
             return l;
-
-
-
         }
     }
 }

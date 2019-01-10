@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
-//אוירץ אוחיון
 namespace DataAccessLayer
 {
     public class DA_AddScreening
@@ -14,8 +13,6 @@ namespace DataAccessLayer
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
-        //insert, update...
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public int AddScreening(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -41,7 +38,7 @@ namespace DataAccessLayer
 
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
-        //getScreningList
+
         public DataSet DrawScreningList(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();

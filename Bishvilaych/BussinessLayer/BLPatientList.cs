@@ -6,7 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//אורית אוחיון
 namespace BussinessLayer
 {
     public class BLPatientList
@@ -25,9 +24,6 @@ namespace BussinessLayer
             {
                // f.FollowUp = BLCtrl.getString(item, "FollowUp", "");
                 p = new Patiants();
-                // p.Id = item.Field<string>("Id");
-                //p.FirstName = item.Field<string>("FirstName");
-                //p.Doctor = item.Field<string>("Doctor");
                 p.Id = BLCtrl.getString(item, "Id", " ");
                 p.FirstName = BLCtrl.getString(item, "FirstName", " ");
                 p.LastName = BLCtrl.getString(item, "LastName", " ");
@@ -35,9 +31,7 @@ namespace BussinessLayer
                 l.Add(p);
 
             }
-
             return l;
-
         }
     }
 }

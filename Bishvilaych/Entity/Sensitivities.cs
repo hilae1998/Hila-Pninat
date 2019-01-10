@@ -1,8 +1,5 @@
 ﻿using System;
-
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+// מחלקת רגישויות
 public class Sensitivities
 {
     public int Code { get; set; }

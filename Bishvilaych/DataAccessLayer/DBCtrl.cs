@@ -53,11 +53,7 @@ namespace DataAccessLayer
             {
                 return false;
                 throw e;
-                //logger        
-
-            }
-
-            
+            }   
         }
 
         internal static bool GetDataSetOut(object connStr, string sp_name, ListDictionary @params, ref DataSet retDataDs, out string retError)

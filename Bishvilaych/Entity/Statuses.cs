@@ -1,6 +1,6 @@
 ﻿using System;
-
-public class Statuses//hila elgrabli
+// מחלקת סטטוס
+public class Statuses
 {
     public int Code { get; set; }
     public string Status { get; set; }

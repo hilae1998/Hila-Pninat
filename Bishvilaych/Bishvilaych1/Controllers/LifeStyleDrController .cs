@@ -9,90 +9,97 @@ namespace Bishvilaych.Controllers
 {
     public class LifeStyleDrController : Controller
     {
+        Dictionary<int, string> d1 = new Dictionary<int, string>();
+        BLVisitSummery b1 = new BLVisitSummery();//מופע לשימוש הפונקצייה getUpdating
+        BLDr_LigeStlye p = new BLDr_LigeStlye();
         LifeStyle b = new LifeStyle();
-        public ActionResult LifeStyleDr()
+        public ActionResult LifeStyleDr()//כניסה ללשונית אורח חיים רופאה של מטופלת
         {
-            Session.Timeout += 20;
-            if (Session["Patiant"] == null)
+            try
             {
-                return RedirectToAction("Login", "Account");
+                if (d1 == null)
+                    d1.Clear();
+                Session.Timeout += 10;
+                if (Session["Patiant"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                ViewBag.status4 = Session["status4"];
+                Session["status4"] = "";
+                string id = Session["Patiant"].ToString(); 
+                BLDr_LigeStlye BL = new BLDr_LigeStlye();
+                LifeStyle p = BL.Get_LifeStyle(DateTime.Today, id);//שליפת נתוני המטופלת מהמסד
+                return View(p); 
             }
-            ViewBag.status4 = Session["status4"];
-            Session["status4"] = "";
-            string id = Session["Patiant"].ToString(); //id - from Patiant controler
-            BLDr_LigeStlye BL = new BLDr_LigeStlye();
-            LifeStyle p = BL.Get_LifeStyle(DateTime.Today, id); //return the ditails of the patiant
-            return View(p); //send the object to the view
+            catch (Exception)
+            {
+                return View();
+            }
         }
 
-        //    Bi
-        //    BiT
-
-        [HttpPost]
+        [HttpPost]// עדכון הנתונים במסד
         public ActionResult LifeStyleDr(LifeStyle pg)
         {
             try
             {
-                string id = Session["Patiant"].ToString();//id - from Patiant controler
+                string id = Session["Patiant"].ToString();
                 BLDr_LigeStlye bl = new BLDr_LigeStlye();
-                int result = bl.AddOrUpdatelifestyle(id, DateTime.Today, pg); // update the db with the new ditails
-                if (result == 0)
+                int result = bl.AddOrUpdatelifestyle(id, DateTime.Today, pg);
+                if (result == 0)// שמירת הנתונים צלחה
                 {
                     Session["status4"] = "הנתונים נשמרו בהצלחה";
                     return RedirectToAction("LifeStyleDr", "LifeStyleDr", new { pg });
                 }
-                else
+                else// כשל בשמירת הנתונים
                 {
                     Session["status4"] = "התרחשה שגיאה";
-                    return RedirectToAction("LifeStyleDr", "LifeStyleDr", new { pg });
+                    return RedirectToAction("LifeStyleDr", "LifeStyleDr", new { pg }); 
                 }
             }
             catch
             {
                 Session["status4"] = "התרחשה שגיאה";
                 return RedirectToAction("LifeStyleDr", "LifeStyleDr", new { pg });
+
             }
         }
 
-        [HttpGet]
-        public ActionResult getLastVisit()
+
+        public ActionResult getLastVisit()// פונ' לשליפת נתונים לאוסף ההסטוריה הרפואית
         {
-            BLUpdateDateAndCode blu = new BLUpdateDateAndCode();
-            BLDr_LigeStlye blp = new BLDr_LigeStlye();
-            // אוסף של כל פאסטגניקולוגי של מטופל ספציפי
-            List<LifeStyle> AllDataofLife = blp.Get_LifeStyleById(Session["Patiant"].ToString());
-            //  אוסף של כל התאריכים וקודי התאריכים של מטופל ספציפי 
-            List<Updatings> Allupdate = blu.getUpdateDateAndcode(Session["Patiant"].ToString());
-            var an = DateTime.Today;
-            ViewBag.now = an.ToString();
-
-
-            // אוסף של כל הפאסטים והתאריכים של כל אחד של כל מטופל 
-            List<aaa> lll = new List<aaa>();
-            aaa a;
-            foreach (var item in Allupdate)
+            List<MyLifeStyleDr> myl = new List<MyLifeStyleDr>();
+            myl = funcGetAjax();
+            return Json(myl, JsonRequestBehavior.AllowGet);
+        }
+        private List<MyLifeStyleDr> funcGetAjax()//פונקציה היוצרת לי כעין מילון אשר הקי שלו זה תאריך והוליו שלו זה בדיקה רפואית של אותו תאריך
+        {
+            List<DateTime> l2 = new List<DateTime>();
+            l2 = b1.get_updating(Session["Patiant"].ToString());//מביא לי את רשימת התאריכים
+            LifeStyle lifeStyle;
+            List<MyLifeStyleDr> myl = new List<MyLifeStyleDr>();
+            MyLifeStyleDr myLifeStyleDr;
+            foreach (var item in l2)//ריצה על רשימת התאריכים
             {
-                a = new aaa();
-                a.date = item.UpdateDate.ToShortDateString();
-                LifeStyle d = (LifeStyle)AllDataofLife.FirstOrDefault(x => x.UpdateCode == item.Code);
-                a.mylife = d;
-                lll.Add(a);
-                // AllDataofLifeAndDates.Add(item.UpdateDate.ToString(), AllDataofLife.Where(x => x.UpdateCode == item.Code).Single());
+                lifeStyle = p.Get_LifeStyle(item, Session["Patiant"].ToString());//מביא לי את בדיקה רפואית של תאריך מסוים
+                myLifeStyleDr = new MyLifeStyleDr();//הקצאת מחלקה               
+                DateTime t = new DateTime(item.Year, item.Month, item.Day);//תאריך בפורמט מסודר
+                myLifeStyleDr.date = t.ToShortDateString();
+                myLifeStyleDr.list = lifeStyle;
+
+                myl.Add(myLifeStyleDr);
             }
-
-            // מחזיר אוסף דיקשינרי של אוסף תאריכים ואוסף של פאסטגניקולוגי של מטופל ספציפי
-            return Json(lll, JsonRequestBehavior.AllowGet);
-
-        }
-
-        class aaa
-        {
-            public string date { get; set; }
-            public LifeStyle mylife { get; set; }
+            return myl;
         }
     }
+    class MyLifeStyleDr// מודל ליצירת אוסף ההסטוריה הרפואית 
+    {
 
+        public string date { get; set; }
+        public LifeStyle list { get; set; }
+
+    }
 }
+
 
 
 

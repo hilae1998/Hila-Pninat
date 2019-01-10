@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
-//craet BLPhyicalExam by ortal alon
 namespace BussinesLayer
 {
     public class BLPhyicalExam
@@ -295,8 +294,6 @@ namespace BussinesLayer
             }
 
             return l;
-
-
 
         }
     }

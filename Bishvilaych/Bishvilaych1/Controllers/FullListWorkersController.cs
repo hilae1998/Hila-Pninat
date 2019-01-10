@@ -10,17 +10,22 @@ namespace Bishvilaych.Controllers
 {
     public class FullListWorkersController : Controller
     {
-        [HttpGet] 
+        [HttpGet] // שליפת רשימת לקוחות העמותה
         public ActionResult WorkersList()
         {
-            //check UserName and UserPassword, if right, go to Home page.
-            BLWorkersList b = new BLWorkersList();
-
-            List<Workers> p = b.getWorkers();
-
-            return View(p);
+            try
+            {
+                Session.Timeout += 5;//session הגדלת ה
+                BLWorkersList b = new BLWorkersList();
+                List<Workers> p = b.getWorkers();
+                return View(p);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
         }
-
+        // בלחיצה על עובד מרשימת העובדות
         public ActionResult decision(string id)
         {
             Session["WorkerDetails"] = id;

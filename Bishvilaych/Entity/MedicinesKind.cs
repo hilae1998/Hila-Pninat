@@ -1,5 +1,5 @@
 ﻿using System;
-// פנינת פרנסה ולבנה מלכי
+// מחלקת סוגי תרופות
 public class MedicinesKind
 {
     public int Code { get; set; }

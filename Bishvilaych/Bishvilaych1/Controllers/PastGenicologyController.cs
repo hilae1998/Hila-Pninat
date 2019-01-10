@@ -5,47 +5,54 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
-//Pninat Parnasa
+
 namespace Bishvilaych.Controllers
 {
-
     public class PastGenicologyController : Controller
     {
-        // when open the page
-        //get the page of today empty or full
+        BLVisitSummery b = new BLVisitSummery();//מופע לשימוש הפונקצייה getUpdating
+        BLPastGenicology p = new BLPastGenicology();
+
+        // כניסה ללשונית הסטוריה גניקולגית
         public ActionResult PastGenicology()
         {
-            if (Session["Patiant"] == null)
+            try
             {
-                return RedirectToAction("Login", "Account");
+                Session.Timeout += 10;
+                if (Session["Patiant"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                ViewBag.status2 = Session["status2"];
+                Session["status2"] = "";
+                string id = Session["Patiant"].ToString(); 
+                BLPastGenicology BL = new BLPastGenicology();
+                PastGenicology p = BL.getPastGenicology(id, DateTime.Today); // שליפת נתוני המטופלת מהמסד
+                return View(p); 
             }
-            ViewBag.status2 = Session["status2"];
-            Session["status2"] = "";
-            string id = Session["Patiant"].ToString(); //id - from Patiant controler
-            BLPastGenicology BL = new BLPastGenicology();
-            PastGenicology p = BL.getPastGenicology(id, DateTime.Today); //return the ditails of the patiant
-            return View(p); //send the object to the view
+            catch(Exception e)
+            {
+                return View();
+            }
         }
 
-        // came here when make change in the page of today
-        // save the changes in the db 
-        [HttpPost]
+        [HttpPost]// עדכון הנתונים במסד
         public ActionResult PastGenicology(PastGenicology pg)
         {
             try
             {
-                string id = Session["Patiant"].ToString();//id - from Patiant controler
+                string id = Session["Patiant"].ToString();
                 BLPastGenicology bl = new BLPastGenicology();
                 int result = bl.addOrUpdatePastGenicology(id, DateTime.Today,
                 pg.AgeOfMenarche, pg.CycleRegular, pg.CycleRegularT, pg.MenstrualSyptoms,
                 pg.MenstrualSyptomsT, pg.MenopauseSyptoms, pg.MenopauseSyptomsT,
-                pg.Contraception, pg.ContraceptionT);// update the db with the new ditails
-                if (result == 0)
+                pg.Contraception, pg.ContraceptionT);
+                if (result == 0)// שמירת הנתונים צלחה
                 {
                     Session["status2"] = "הנתונים נשמרו בהצלחה";                
                     return RedirectToAction("PastGenicology", "PastGenicology", new { pg });
                 }
-                else
+                else// כשל בשמירת הנתונים
                 {
                     Session["status2"] = "התרחשה שגיאה";
                     return RedirectToAction("PastGenicology", "PastGenicology", new { pg });
@@ -54,46 +61,40 @@ namespace Bishvilaych.Controllers
             catch
             {
                 Session["status2"] = "התרחשה שגיאה";
-                //return View(p.Id);
                 return RedirectToAction("PastGenicology", "PastGenicology", new { pg });
             }
         }
 
-        public ActionResult Dates()
+        public ActionResult getLastVisit()// פונ' לשליפת נתונים לאוסף ההסטוריה הרפואית
         {
-            BLUpdateDateAndCode blu = new BLUpdateDateAndCode();
-            BLPastGenicology blp = new BLPastGenicology();
-            // אוסף של כל פאסטגניקולוגי של מטופל ספציפי
-            List<PastGenicology> Allpast = blp.getPastGeniclogiById(Session["Patiant"].ToString());
-            //  אוסף של כל התאריכים וקודי התאריכים של מטופל ספציפי 
-            List<Updatings> Allupdate = blu.getUpdateDateAndcode(Session["Patiant"].ToString());
+            List<MyPastGeniDict> myl = new List<MyPastGeniDict>();
+            myl = funcGetAjax();
+            return Json(myl, JsonRequestBehavior.AllowGet);
+        }
+        private List<MyPastGeniDict> funcGetAjax()//פונקציה היוצרת לי כעין מילון אשר הקי שלו זה תאריך והוליו שלו זה בדיקה רפואית של אותו תאריך
+        {
 
-            // אוסף של כל הפאסטים והתאריכים של כל אחד של כל מטופל 
-            //Dictionary<DateTime, PastGenicology> AllPastAndDates = new Dictionary<DateTime, PastGenicology>();
-            //foreach (var item in Allupdate)
-            //{
-            //    AllPastAndDates.Add(item.UpdateDate, Allpast.Where(x => x.UpdateCode == item.Code).Single());
-            //}
-
-            // אוסף של כל הפאסטים והתאריכים של כל אחד של כל מטופל 
-            List <MyDict> AllPastAndDates = new List<MyDict>();
-            MyDict one;
-            foreach (var item in Allupdate)
+            List<DateTime> l2 = new List<DateTime>();
+            l2 = b.get_updating(Session["Patiant"].ToString());//מביא לי את רשימת התאריכים
+            PastGenicology pastGenicology;
+            List<MyPastGeniDict> myl = new List<MyPastGeniDict>();
+            MyPastGeniDict myPastGeniDict;
+            foreach (var item in l2)//ריצה על רשימת התאריכים
             {
-                one = new MyDict();
-                one.date = item.UpdateDate.ToShortDateString();
-                PastGenicology p = (PastGenicology)Allpast.FirstOrDefault(x => x.UpdateCode == item.Code);
-                one.pastGenicology = p;
-                AllPastAndDates.Add(one);
+                pastGenicology = p.getPastGenicology(Session["Patiant"].ToString(), item);//מביא לי את בדיקה רפואית של תאריך מסוים
+                myPastGeniDict = new MyPastGeniDict();//הקצאת מחלקה               
+                DateTime t = new DateTime(item.Year, item.Month, item.Day);//תאריך בפורמט מסודר
+                myPastGeniDict.date = t.ToShortDateString();
+                myPastGeniDict.list = pastGenicology;
+                myl.Add(myPastGeniDict);
             }
+            return myl;
+        }
+    }
+    class MyPastGeniDict // מודל ליצירת אוסף ההסטוריה הרפואית 
+    {
+        public string date { get; set; }
+        public PastGenicology list { get; set; }
 
-            // מחזיר אוסף דיקשינרי של אוסף תאריכים ואוסף של פאסטגניקולוגי של מטופל ספציפי
-            return Json(AllPastAndDates, JsonRequestBehavior.AllowGet);
-        }
-        class MyDict
-        {
-            public string date { get; set; }
-            public PastGenicology pastGenicology { get; set; }
-        }
     }
 }

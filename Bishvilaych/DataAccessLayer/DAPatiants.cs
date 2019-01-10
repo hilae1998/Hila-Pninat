@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-   
     public class DAPatiants
     {
         private string connStr = null;
@@ -19,15 +18,6 @@ namespace DataAccessLayer
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
-        //public Patiants getPatiantsById()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-
-        //Ayala Gozlan
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet getPatiantsById(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -48,8 +38,6 @@ namespace DataAccessLayer
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
 
-        //insert, update...
-        //
         public int UpdatePatiant(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
@@ -62,9 +50,6 @@ namespace DataAccessLayer
 
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
-
-
-
 
         public int CheckPatiants1(ListDictionary Params) //קבלת רשימת פרמטרים
         {

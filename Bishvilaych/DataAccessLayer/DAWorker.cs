@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    //moriyabonan
     public class DAWorker
     {
         private string connStr = null;

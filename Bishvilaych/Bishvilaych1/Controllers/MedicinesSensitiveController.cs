@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using BussinesLayer;
 
-namespace Bishvilaych.Controllers//Maayan
+namespace Bishvilaych.Controllers
 {
     public class MedicinesSensitiveController:Controller
     {
@@ -17,7 +17,6 @@ namespace Bishvilaych.Controllers//Maayan
             MyMedicinesSensitive mms = new MyMedicinesSensitive();
             mms.MyM = m;
             mms.MyS = s;
-
             return View(mms);
         }
     }

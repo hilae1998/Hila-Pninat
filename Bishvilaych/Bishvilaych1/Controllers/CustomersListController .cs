@@ -9,11 +9,13 @@ namespace Bishvilaych.Controllers
 {
     public class CustomersListController : Controller
     {
-        [HttpGet]
+        
+        [HttpGet]// שליפת רשימת לקוחות העמותה
         public ActionResult Customers_()
         {
             try
             {
+                Session.Timeout += 5;//session הגדלת ה
                 BLCustomers bc = new BLCustomers();
                 List<Customers> result = bc.getCustomers();
                 return View(result);
@@ -23,10 +25,11 @@ namespace Bishvilaych.Controllers
                 return View();
             }
         }
+        // בלחיצה על לקוח מרשימת הלקוחות
         public ActionResult decision(string id)
         {
             Session["WorkerDetails"] = id;
-            return RedirectToAction("ReciepitsListOfCustomers", "ReciepitsListOfCustomers");
+            return RedirectToAction("ReciepitsListOfCustomers", "ReciepitsListOfCustomers");// הפניה לפרטי לקוח שעליו לחצו
         }
 
     }

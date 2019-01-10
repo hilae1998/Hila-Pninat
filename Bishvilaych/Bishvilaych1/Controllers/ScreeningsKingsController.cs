@@ -10,7 +10,6 @@ namespace Bishvilaych.Controllers
     {
         public ActionResult ScreeningsKings()
         {
-
             return View();
         }
     }

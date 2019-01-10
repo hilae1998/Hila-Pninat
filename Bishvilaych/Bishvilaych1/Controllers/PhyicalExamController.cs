@@ -3,25 +3,34 @@ using BussinessLayer;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+
 namespace Bishvilaych.Controllers
 {
     public class PhyicalExamController : Controller
     {
         BLVisitSummery b = new BLVisitSummery();
         BLPhyicalExam p = new BLPhyicalExam();
-        public ActionResult PhyicalExam()
+        public ActionResult PhyicalExam() // כניסה ללשונית בדיקה רפואית של מטופלת
         {
-            if (Session["Patiant"] == null)
+            try
             {
-                return RedirectToAction("Login", "Account");
+                Session.Timeout += 10;
+                if (Session["Patiant"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                string id = Session["Patiant"].ToString();
+                BLPhyicalExam b = new BLPhyicalExam();
+                PhysicalExam p = b.GetPhyicalExam(DateTime.Today, id);// שליפת נתוני המטופלת מהמסד
+                return View(p);
             }
-            string id = Session["Patiant"].ToString();
-            BLPhyicalExam b = new BLPhyicalExam();
-            PhysicalExam p = b.GetPhyicalExam(DateTime.Today, id);
-            return View(p);
+            catch (Exception)
+            {
+                return View();
+            }
         }
 
-        [HttpPost]
+        [HttpPost]// עדכון הנתונים במסד
         public ActionResult SavevPhyicalExam(PhysicalExam p)
         {
             try
@@ -40,18 +49,19 @@ namespace Bishvilaych.Controllers
                 p.EXTRash, p.EXTRashT, p.Varicosities, p.VaricositiesT, p.Pppx4, p.Pppx4T, p.PedalEdema, p.PedalEdemaT,
                 p.Toes, p.ToesT, p.Pattelar, p.PattelarT, p.Gait, p.GaitT, p.Speech, p.SpeechT,
                 p.Female, p.FemaleT, p.PelvicMucosa, p.Kegels, p.Cervix, p.VaginalWalls, p.VaginalWallsT, p.Pap, p.PapT);
-                if (result == 0)
+                if (result == 0)// שמירת הנתונים צלחה
                     return Json("הנתונים נשמרו בהצלחה", JsonRequestBehavior.AllowGet);
-                else
+                else// כשל בשמירת הנתונים
                     return Json("התרחשה שגיאה", JsonRequestBehavior.AllowGet);
-                
+
             }
-            catch /*Exception e*/
+            catch 
             {
                 return View(p);
             }
         }
-        public ActionResult getLastVisit()
+
+        public ActionResult getLastVisit()// פונ' לשליפת נתונים לאוסף ההסטוריה הרפואית
         {
             List<MyODict> myl = new List<MyODict>();
             myl = funcGetAjax();
@@ -72,19 +82,15 @@ namespace Bishvilaych.Controllers
                 DateTime t = new DateTime(item.Year, item.Month, item.Day);//תאריך בפורמט מסודר
                 j.date = t.ToShortDateString();
                 j.list = s;
-               
+
                 myl.Add(j);
             }
             return myl;
         }
-  }  
-         class MyODict
-        {
-
-            public string date { get; set; }
-            public PhysicalExam list { get; set; }
-
-        }
-
-    
+    }
+    class MyODict // מודל ליצירת אוסף ההסטוריה הרפואית 
+    {
+        public string date { get; set; }
+        public PhysicalExam list { get; set; }
+    }
 }

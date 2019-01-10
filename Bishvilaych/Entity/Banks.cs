@@ -1,10 +1,7 @@
 ﻿using System;
-
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+// מחלקת פרטי בנק
 public class Banks
-{//Oshrit Abayov
+{
     public int BankNum { get; set; }
     public string BankName { get; set; }
 }

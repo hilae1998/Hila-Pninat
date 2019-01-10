@@ -11,8 +11,6 @@ namespace BussinessLayer
    public class BLDr_LigeStlye
     {
 
-
-
         public List<LifeStyle> Get_LifeStyleById(string id)
         {
             DADr_LifeStyle dm = new DADr_LifeStyle();//הקצאת המחלקה 

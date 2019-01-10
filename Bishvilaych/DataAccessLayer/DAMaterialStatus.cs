@@ -9,9 +9,6 @@ using System.Configuration;
 
 namespace DataAccessLayer
 {  
-    
-    //Ayala Gozlan
-
     public class DAMaterialStatus
     {
         private string connStr = null;
@@ -21,8 +18,6 @@ namespace DataAccessLayer
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
-        //select
-        //לשנות את שם הפונקציה ואת שם הפרוצדורה
         public DataSet getMaterialStatus() //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();

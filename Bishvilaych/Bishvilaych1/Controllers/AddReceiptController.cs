@@ -23,6 +23,7 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                Session.Timeout += 5;//session הגדלת ה
 
                 List<receipt> receiptList = new List<receipt>();
                 receipt r = null;

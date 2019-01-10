@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 using DataAccessLayer;
 using System.Data;
 using BussinessLayer;
-
-//Ayala Gozlan
-
 namespace BussinessLayer
 {
     public class BLGetKupot
@@ -29,7 +26,6 @@ namespace BussinessLayer
                 lk.Add(k);
             }
             return lk;
-
         }
     }
 }

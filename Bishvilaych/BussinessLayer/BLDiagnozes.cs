@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BussinessLayer;
 
-namespace BussinesLayer//Ma'ayan
+namespace BussinesLayer
 {
     public class BLDiagnozes
     {

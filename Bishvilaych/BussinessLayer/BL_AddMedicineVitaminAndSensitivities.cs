@@ -7,9 +7,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
-//Avishag
 namespace BussinessLayer
 {
     public class BL_AddMedicineVitaminAndSensitivities
@@ -211,7 +208,6 @@ namespace BussinessLayer
             Params.Add("@Desided", BLCtrl.sendString("Desided", ""));
 
             int result = dm.Update_Sensitivities(Params);
-
             return result;
         }
     }

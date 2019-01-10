@@ -1,8 +1,5 @@
 ﻿using System;
-
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+// מחלקת סוגי רגישויות
 public class SensitivitiesKinds
 {
    public int Code { get; set; }

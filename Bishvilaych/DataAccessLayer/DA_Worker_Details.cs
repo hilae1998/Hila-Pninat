@@ -9,25 +9,22 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-   public class DA_Worker_Details//created by hila elgrabli
+   public class DA_Worker_Details
     {
         private string connStr = null;
-
         public DA_Worker_Details()
         {
             connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
-        
-         public int CheckUserName(ListDictionary Params) //קבלת רשימת פרמטרים
+
+        public int CheckUserName(ListDictionary Params) //קבלת רשימת פרמטרים
         {
             DBCtrl db_ctrl = new DBCtrl();
             if (!db_ctrl.isConnected())
             {
                 db_ctrl.connectToDb(connStr);
             }
-
             string sp_name = "CheckUserName"; //שם הפרוצדורה
-
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
         public int UpdateWorker(ListDictionary Params) //קבלת רשימת פרמטרים
@@ -39,7 +36,6 @@ namespace DataAccessLayer
             }
 
             string sp_name = "UpdateWorker"; //שם הפרוצדורה
-
             return db_ctrl.ExecuteNonQueryFunction(connStr, sp_name, ref Params); //החזרת תוצאה
         }
 
@@ -63,7 +59,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.connectToDb(connStr);
             }
-
             string sp_name = "GetWorker"; //שם הפרוצדורה
             DataSet retDataDs = new DataSet(); //הכנת הטבלה אליה יכנסו הנתונים
             string retError;
@@ -72,7 +67,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
 
@@ -83,7 +77,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.connectToDb(connStr);
             }
-
             string sp_name = "GetJob"; //שם הפרוצדורה
             DataSet retDataDs = new DataSet(); //הכנת הטבלה אליה יכנסו הנתונים
             string retError;
@@ -103,7 +96,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.connectToDb(connStr);
             }
-
             string sp_name = "GetAuthorizations"; //שם הפרוצדורה
             DataSet retDataDs = new DataSet(); //הכנת הטבלה אליה יכנסו הנתונים
             string retError;
@@ -112,7 +104,6 @@ namespace DataAccessLayer
             {
                 db_ctrl.closeConnDB();
             }
-
             return retDataDs; //החזרת הטבלה המלאה בנתונים
         }
     }

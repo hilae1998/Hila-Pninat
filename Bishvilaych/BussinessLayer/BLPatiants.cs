@@ -9,7 +9,6 @@ using System.Data;
 
 namespace BussinessLayer
 {
-    //Ayala Gozlan
     public class BLPatiants
     {
         public int UpdatePatiant(string id, string fname, string lname, string doctor, string reffered, string language, string city, string street, string phon, string phon2, string fax, string email, DateTime birthdate, string contactexam, string contactginformation, string father, string mother, int kupa, int maritalstatus, int children, int g, int t, int p, int a, int l, bool followup, string occapation, bool followedup)
@@ -89,7 +88,6 @@ namespace BussinessLayer
             p.T = BLCtrl.getInt(ds.Tables[0].Rows[0], "T", 0);
 
             return p;
-
         }
     }
 }

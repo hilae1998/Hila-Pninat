@@ -10,7 +10,7 @@ namespace Bishvilaych.Controllers
     public class CustomersController : Controller
     {
         [HttpGet]
-        public ActionResult Costomers()
+        public ActionResult Costomers()// כניסה לדף ראשי-לקוחות
         {
             if (Session["UserName"] == null || Session["UserPasswerd"] == null)
             {
@@ -18,12 +18,12 @@ namespace Bishvilaych.Controllers
             }
             return View();
         }
-        [HttpPost]
+        [HttpPost] // כניסה לפרטי לקוח
         public ActionResult Costomers(string idCustomer)
         {
-            Session.Timeout += 10;//session הגדלת ה
             try
             {
+                Session.Timeout += 10;//session הגדלת ה
                 BLCheck_Customers b = new BLCheck_Customers();
                 if (idCustomer.Length > 9 || idCustomer == "")// תעודת זהות אינה תקינה
                 {
@@ -36,7 +36,7 @@ namespace Bishvilaych.Controllers
                     Session["Customers"] = idCustomer;
                     return RedirectToAction("ReciepitsListOfCustomers", "ReciepitsListOfCustomers");
                 }
-                else // תעודת זהות של לקוחה שאינה קיימת
+                else // תעודת זהות של לקוח שאינו קיים
                 {
                     ViewBag.error = "תעודת זהות לא קיימת";
                     return View();
