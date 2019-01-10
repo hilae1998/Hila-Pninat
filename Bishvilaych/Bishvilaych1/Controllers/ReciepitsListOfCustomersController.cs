@@ -8,33 +8,33 @@ namespace Bishvilaych.Controllers
 {
     public class ReciepitsListOfCustomersController : Controller
     {
-        [HttpGet]
-        public ActionResult ReciepitsListOfCustomers(string id="")
+        [HttpGet] 
+        public ActionResult ReciepitsListOfCustomers(string id = "")
         {
             BLReceipt bl = new BLReceipt();
-             BLGetCustomersById blc = new BLGetCustomersById();
+            BLGetCustomersById blc = new BLGetCustomersById();
             MyCustomersRecepitModels model = new MyCustomersRecepitModels();
-            if (id != "")
-            {              
-                List<receipt> result = bl.getReceipt(id);
-                Customers c = blc.getCustomersById(id);                
+            if (id != "" && id!=null)//תעודת זהות לא ריקה
+            {
+                List<receipt> result = bl.getReceipt(id,"c");
+                Customers c = blc.getCustomersById(id);
                 model.recepit = result;
-                model.MyC = c;               
+                model.MyC = c;
             }
-            else { 
+            else
+            {
 
-            //List<receipt> result = bl.getReceipt(Session["Customers"].ToString());
-            List<receipt> result = bl.getReceipt("123456789");          
-            //Customers c = blc.getCustomersById(Session["Customers"].ToString());
-            Customers c = blc.getCustomersById("123456789");           
-            model.recepit = result;
-            model.MyC = c;
+                List<receipt> result = bl.getReceipt(Session["Customers"].ToString(), "c");
+                Customers c = blc.getCustomersById(Session["Customers"].ToString());
+
+                model.recepit = result;
+                model.MyC = c;
             }
             return View(model);
-            
+
         }
     }
- 
+
     public class MyCustomersRecepitModels
     {
         public List<receipt> recepit { get; set; }

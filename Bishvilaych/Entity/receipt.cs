@@ -7,6 +7,7 @@ public class receipt
 {//Oshrit Abayov
     public int Code { get; set; }
     public int receiptNum { get; set; }
+    public string For { get; set; }
     public DateTime receiptDate { get; set; }
     public double Sum { get; set; }
     public int PayBy { get; set; }

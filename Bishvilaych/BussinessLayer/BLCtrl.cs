@@ -77,7 +77,7 @@ namespace BussinessLayer
             {
                 f = dr.Field<double>(itemName);
             }
-            catch(Exception ex)
+            catch
             {
                 return defaultItem;
             }
@@ -97,11 +97,25 @@ namespace BussinessLayer
             {
                 return defaultItem;
             }
-            //if (f != null)
-            //    return f;
+            if (f != null)
+                return f;
             return defaultItem;
         }
-
+        public static decimal getDecimal(DataRow dr, string itemName, decimal defaultItem)
+        {
+            decimal f;
+            try
+            {
+                f = dr.Field<decimal>(itemName);
+            }
+            catch
+            {
+                return defaultItem;
+            }
+            if (f != null)
+                return f;
+            return defaultItem;
+        }
 
         public static string getString(DataRow dr, string itemName, string defaultItem)
         {
@@ -110,7 +124,7 @@ namespace BussinessLayer
             {
                 f = dr.Field<string>(itemName);
             }
-            catch(Exception e)
+            catch
             {
                 return defaultItem;
             }

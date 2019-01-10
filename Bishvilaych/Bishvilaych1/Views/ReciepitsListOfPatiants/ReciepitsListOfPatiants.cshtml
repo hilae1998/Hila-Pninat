@@ -1,5 +1,5 @@
 ﻿
-@*Ayala Gozlan*@
+@*מסך 41 קבלות למטופלת*@
 @*לא לשכוח ליצור קישור לדף 33*@
 
     @{
@@ -35,7 +35,7 @@
                         foreach (var item in Model.recepit)
                         {
                             <tr>
-                                <td>@item.receiptDate</td>
+                                <td>@item.receiptDate.ToShortDateString()</td>
                                 <td>@item.receiptNum</td>
                                 <td>@item.Sum</td>
                                 <td>@Html.ActionLink("קישור לקבלה", "", "")</td>
@@ -46,6 +46,7 @@
             </table>
 
         <p><a href="JavaScript:newPopup();">חדש</a></p>
+        <p>@TempData["messege"]</p>
     </form>
 
 <script type="text/javascript">
@@ -54,7 +55,6 @@
     {
 
 	popupWindow = window.open(
-		'/AddReceipt/AddReceipt', 'popUpWindow', 'height=600,width=600,left=650,top=150,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+		'/AddReceipt/AddPatiantReceipt', 'popUpWindow', 'height=600,width=800,left=650,top=150,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
 }
 </script>
-<p><a href="JavaScript:newPopup('/javascript/examples/sample_popup.cfm');">Open a popup window</a></p>
