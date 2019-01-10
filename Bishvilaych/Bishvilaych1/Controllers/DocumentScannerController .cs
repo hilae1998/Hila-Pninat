@@ -10,6 +10,10 @@ namespace Bishvilaych.Controllers
     {
         public ActionResult DocumentScanner()
         {
+            //בדיקה האם קיימת תקייה אישית ללקוח במידה ולא, יצירת תקייה מתאימה
+            var IsFolderPath = System.IO.File.Exists(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
+            if (!IsFolderPath)
+                Directory.CreateDirectory(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
             return View();
         }
         [HttpPost]// סריקת מסמכי מטופל
@@ -54,26 +58,9 @@ namespace Bishvilaych.Controllers
             }
     
         }
-        public void ShowFileInNewTab(string path,string type)
-        {
-            System.Diagnostics.Process.Start(path);           
-        }
+       
 
     }
 }
-    public class Exstension
-    {
-        public Dictionary<string, string> DictExst = new Dictionary<string, string>();
-        public Exstension()
-        {
-            DictExst["png"] = "~/Images/FormatIcons/png.png";
-            DictExst["jpeg"] ="~/Images/FormatIcons/jpg.png";
-            DictExst["jpg"] ="~/Images/FormatIcons/jpg.png";
-            DictExst["docx"] ="~/Images/FormatIcons/png.png";
-            DictExst["xls"] ="~/Images/FormatIcons/xls.png";
-            DictExst["xlsx"] ="~/Images/FormatIcons/xls.png";
-            DictExst["txt"] = "~/Images/FormatIcons/txt.png";
-        }
-
-    }
+    
 
