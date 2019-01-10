@@ -60,6 +60,7 @@ namespace Bishvilaych.Controllers
                         return View();
                     }
                 }
+                //סגירת חלונית הוספת קבלה,רענון דף רשימת קבלות כדי לראות את הקבלה שנוספה
                 TempData["messege"] = "קבלה נוספה בהצלחה";
                 return Content(@"<body>
                        <script type='text/javascript'>
@@ -111,15 +112,21 @@ namespace Bishvilaych.Controllers
                 {
                     int result = bl.AddCustomerReceipt(item.receiptDate, item.Sum, item.PayBy,
                     item.chequaNum, item.Bank, item.PaymentNum, item.Branch, item.BankAccount, item.CardsKind, item.CreditCard,
-                    item.Validity, item.name, item.receiptNum, Session["Patiant"].ToString());
+                    item.Validity, item.name, item.receiptNum, Session["Customers"].ToString());
                     if (result != 0)
                     {
                         ViewBag.messege = "משהו השתבש";
                         return View();
                     }
                 }
-                ViewBag.messege = "קבלה נוספה בהצלחה";
-                return RedirectToAction("ReciepitsListOfCustomers", "ReciepitsListOfCustomers");
+                //סגירת חלונית הוספת קבלה,רענון דף רשימת קבלות כדי לראות את הקבלה שנוספה
+                TempData["messege"] = "קבלה נוספה בהצלחה";
+                return Content(@"<body>
+                       <script type='text/javascript'>
+                         window.opener.location.reload();
+                         window.close();
+                       </script>
+                     </body>");
             }
             catch (Exception e)
             {

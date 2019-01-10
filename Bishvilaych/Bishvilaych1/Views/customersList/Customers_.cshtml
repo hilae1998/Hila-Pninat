@@ -5,11 +5,10 @@
 }
 @model List<Customers>
 @using Bishvilaych.Controllers
-
 <style>
     td {
         text-align: center;
-        cursor:pointer;
+        cursor: pointer;
     }
 </style>
 <script type="text/javascript">
@@ -33,7 +32,7 @@
                     "last": "אחרון"
                 }
             }
-        });  
+        });
     });
 </script>
 @*בלחיצה כפולה תפתח טבלת לקוחה*@
@@ -55,7 +54,7 @@
             {
                 if (item.Id != "")
                 {
-                    <tr ondblclick="location.href = '@(Url.Action("ReciepitsListOfCustomers", "ReciepitsListOfCustomers", new { Id = item.Id }))'">
+                    <tr onclick="location.href='@(Url.Action("decision", "CustomersList", new { Id = item.Id }))'">
                         <td>@item.Street</td>
                         <td>@item.City</td>
                         <td>@item.Phone2</td>

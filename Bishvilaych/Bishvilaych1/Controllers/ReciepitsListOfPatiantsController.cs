@@ -18,7 +18,7 @@ namespace Bishvilaych.Controllers
                 BLReceipt bl = new BLReceipt();
                 List<receipt> NewReceiptList = new List<receipt>();//קבלות ממוינות 
                 List<receipt> result = bl.getReceipt(Session["Patiant"].ToString(), "p");
-                if (result != null && result.Count > 2)//מיון תוצאות
+                if (result != null && result.Count > 1)//מיון תוצאות
                 {
 
                     var GroupResult = result.GroupBy(gro => new { gro.receiptNum }).Select(xx => new { xx.Key.receiptNum }).ToList();
@@ -36,6 +36,11 @@ namespace Bishvilaych.Controllers
                     }
 
                 }
+                else
+                {
+                    if(result != null && result.Count!=0)
+                    NewReceiptList.Add(result.FirstOrDefault());
+                }
                 BLPatiants blc = new BLPatiants();
                 Patiants p = blc.getPatiantsById(Session["Patiant"].ToString());
                 MyPatiantsRecepitModels model = new MyPatiantsRecepitModels();
@@ -45,7 +50,7 @@ namespace Bishvilaych.Controllers
             }
             catch
             {
-                MyPatiantsRecepitModels model = new MyPatiantsRecepitModels();
+                MyPatiantsRecepitModels model = new MyPatiantsRecepitModels();             
                 return View(model);
             }
         }

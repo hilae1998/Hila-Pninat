@@ -6,7 +6,6 @@
 @using Bishvilaych.Controllers
 @model List<Workers>
 @*בלחיצה כפולה תפתח טבלת עובדות*@
-
 <style>
     td {
         text-align: center;
@@ -36,34 +35,8 @@
             }
         });
     });
-    function onload() {
-     @{
-         List<string> list = new List<string>();
-         foreach (var item1 in Model)
-         {
-             if (item1.Job == 1)
-             {
-                 list.Add("מנהלת");
-             }
-             if (item1.Job == 2)
-             {
-                 list.Add("מזכירה");
-             }
-             if (item1.Job == 3)
-             {
-                 list.Add("תזונאית");
-             }
-             if (item1.Job == 4)
-             {
-                 list.Add("רופאה");
-             }
-             if (item1.Job == 5)
-             {
-                 list.Add("אחות");
-             }
-         }
-    }
-    }
+   
+
 </script>
 <h2 style="text-align:center">רשימת עובדות מלאה</h2>
 <table class="table table-bordered table-hover" dir="ltr" id="dataTable">
@@ -76,18 +49,38 @@
     </thead>
     <tbody>
         @{
-            int i = 0;
             foreach (var item in Model)
             {
                 <tr onclick="location.href='@(Url.Action("decision", "FullListWorkers", new { Id = item.Id }))'">
                     <td>@item.Id</td>
                     <td>@item.FirstName  @item.LastName </td>
-                    <td>@list[i]</td>
+                    @{
+                        switch (item.Job)
+                        {
+                            case 0:
+                                <td>לא מוגדר</td>
+                                break;
+                            case 1:
+                                <td>מנהלת</td>
+                                break;
+                            case 2:
+                                <td> מזכירה</td>
+                                break;
+                            case 3:
+                                <td>תזונאית</td>
+                                break;
+                            case 4:
+                                <td>רופאה</td>
+                                break;
+                            case 5:
+                                <td>אחות</td>
+                                break;
+                        }
+
+
+                    }
                 </tr>
-                i++;
-            }
+                        }
         }
     </tbody>
 </table>
-
-

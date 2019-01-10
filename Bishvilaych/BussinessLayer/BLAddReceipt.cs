@@ -49,9 +49,16 @@ namespace BussinessLayer
             ListDictionary Params = new ListDictionary();
             Params.Add("@ReceiptDate", BLCtrl.sendDateTime(receiptDate, new DateTime()));
             Params.Add("@Sum", BLCtrl.sendDouble(sum, 0));
-            Params.Add("@PayBy", BLCtrl.sendInt(payBy, 0));
+            if (payBy != 0)
+                Params.Add("@PayBy", payBy);
+            else
+                Params.Add("@PayBy", DBNull.Value);
+        
             Params.Add("@chequaNum", BLCtrl.sendString(chequaNum, ""));
-            Params.Add("@Bank", BLCtrl.sendInt(bank, 0));
+            if (bank != 0)
+                Params.Add("@Bank", payBy);
+            else
+                Params.Add("@Bank", DBNull.Value);
             Params.Add("@Brunch", BLCtrl.sendString(runch, ""));
             Params.Add("@BankAccount", BLCtrl.sendString(bankAccount, ""));
             Params.Add("@CardsKind", BLCtrl.sendString(cardsKind, ""));
