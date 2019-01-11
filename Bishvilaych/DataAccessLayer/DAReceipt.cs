@@ -44,7 +44,7 @@ namespace DataAccessLayer
                 db_ctrl.connectToDb(connStr);
             }
 
-            string sp_name = "getAllReceipt"; //שם הפרוצדורה
+            string sp_name = "GetAllReceipts"; //שם הפרוצדורה
             DataSet retDataDs = new DataSet(); //הכנת הטבלה אליה יכנסו הנתונים
             string retError;
 

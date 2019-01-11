@@ -9,42 +9,50 @@
     }
 </style>
 
-
 <script>
-
-    $(document).ready(function(){
-        var CurrentPageNumber=1;
-        Lazyload(CurrentPageNumber);
-
-        $(window).scroll(function(){// אם הגלילה הגיעה לתחתית הדף טען עוד נתונים
-            if($(window).scrollTop()==$(document).height()- $(window).height())
-                CurrentPageNumber+=1;
-                Lazyload(CurrentPageNumber);
-            })
-        function Lazyload(currentPage) {
-            $.ajax({
-                url:@Url.Action("GetTheData", "Reciepts"),
-                method:'POST',
-                data:{PageNumber:currentPage,PageSize:5},
-                dataType:'json',
-                success:function(result){
-                    var table=$("#thedatatab");
-                    $(result).each(function(index,receipt){
-                        table.append('<tr><td>'+receipt.receiptDate+'</td><td>'+receipt.receiptNum+'</td><td>'+receipt.FinalSum+'</td></tr>');
+    /*
+    //$(window).scroll(function(){// אם הגלילה הגיעה לתחתית הדף טען עוד נתונים
+    //    if($(window).scrollTop()==$(document).height()- $(window).height())
+    //        CurrentPageNumber+=1;
+    //    Lazyload(CurrentPageNumber);
+    //    })
+    */
+    function Lazyload(currentPage) {//טעינה עצלה באמצעות קריאה לשרת שמריץ פרוצדורה שמייבאת נתונים בהתאם לפרמטרים
+        $.ajax({
+            url: '@Url.Action("GetTheData", "Reciepts")',
+            method: 'POST',
+            data: { PageNumber: currentPage, PageSize: 5 },
+            dataType: 'json',
+            success: function (result) {
+                if (result == "")//כאשר נגמרו הרשומות הסתראת כפתור טען עוד
+                    $("#getbutton").hide()
+                else {//הוספת שורות לטבלה
+                    var table = $("#thedatatab");
+                    $(result).each(function (index, receipt) {
+                        table.append('<tr><td>' + receipt.receiptDate + '</td><td>' + receipt.receiptNum + '</td><td>' + receipt.FinalSum + '</td></tr>');
                     })
                 }
-            })
-        }
-    })
+            },
+            error: function () {
+                $("#getbutton").hide()
+            }
+        })
+    }
+    $(document).ready(function () {//מיד בטעינת הדף לראשונה שלוף נתונים
+        var CurrentPageNumber = 1;
+        Lazyload(CurrentPageNumber);
+
+        $("#getbutton").click( function() {//בלחיצה על כפתור טען עוד
+            CurrentPageNumber += 1;
+            Lazyload(CurrentPageNumber);
+        })
+    });
+
+
 
 </script>
-
-<input class="btn btn-secondary" type="button" value="Show TheResults" id="theBtnSearch" />
-
-
-
 <div class="DataTableClass" id="TheHeaderStyle" style="width: 100%">
-    <table id="thedatatab'" class="display table table-striped table-bordered">
+    <table id="thedatatab" class="display table table-striped table-bordered" dir="rtl">
         <thead>
             <tr>
                 <th>תאריך</th>
@@ -54,41 +62,5 @@
         </thead>
         <tbody></tbody>
     </table>
+    <input type="button" id="getbutton" value="עוד" />
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h1>קבלות</h1>
-<table id="tbl" class="table table-hover" style="width:70%">
-    <thead>
-        <tr>
-            <td>תאריך</td>
-            <td>מספר קבלה</td>
-            <td>סכום</td>
-            <td></td>
-
-        </tr>
-    </thead>
-    <tbody>
-       
-    </tbody>
-</table>
-

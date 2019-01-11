@@ -15,18 +15,21 @@ namespace Bishvilaych1.Controllers
 
             return View();
         }
-
-        public JsonResult GetTheData(int PageNumber,int PageSize)//Lazy Load
+        [HttpPost]
+        public ActionResult GetTheData(int PageNumber,int PageSize)//Lazy Load
         {
             try
             {
                 BLReceipt bl = new BLReceipt();
                 var result = bl.getAllReceipt(PageNumber, PageSize);
-                return Json(result);
+                if(result.Count!=0)
+                    return Json(result,JsonRequestBehavior.AllowGet);
+                else//נגמרו הרשומות
+                    return Json("", JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch(Exception e)
             {
-                return Json("");
+                return Json("", JsonRequestBehavior.AllowGet);
             }
 
 }
