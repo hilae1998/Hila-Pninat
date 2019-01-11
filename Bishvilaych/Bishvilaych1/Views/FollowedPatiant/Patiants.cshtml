@@ -7,6 +7,9 @@
 @using BussinessLayer
 @model  List<Patiants>
 <style>
+    footer {
+        position: absolute !important;
+    }
     td {
         text-align: center;
         cursor: pointer;
@@ -64,7 +67,7 @@
                     <td>@item.Phone</td>
                     <td>@(item.FirstName + "  " + item.LastName) </td>
                     <td>@item.Id</td>
-                    <td @(item.followedup == true ? "checked=checked" : "")><input id="Checkbox1" type="checkbox" disabled="disabled" /></td>
+                    <td @(item.followedup == true ? "checked=checked" : "")><input id="Checkbox1" type="checkbox" disabled="disabled" class="custom-control-input"/></td>
                     @*<td>@item.followedup </td>*@
                     @*<input id="FollowUp" name="FollowUp" type="checkbox" value="true" @(Model.MyP.FollowUp ? "checked=\"checked\"" : "") />*@
                 </tr>

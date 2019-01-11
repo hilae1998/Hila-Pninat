@@ -3,19 +3,36 @@
     ViewBag.Title = "Workers";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
-<ul dir="rtl" style="list-style-type:none">
-    <li>
-        @Html.ActionLink("הוספת עובדת", "addWorker", "AddWorker")
-    </li>
-    <br />
-    <li>
-        <form action="@Url.Action("Workers", "Workers") " method="post">
-            <text>תעודת זהות עובדת:</text>  <input type="text" name="idWorkers" id="idWorkers" />
-            <input type="submit" value="הכנס" /><label style="color:red;font-size:initial">@ViewBag.error</label>
-        </form>
-    </li>
-    <br />
-    <li> @Html.ActionLink("רשימת עובדות", "WorkersList", "FullListWorkers")</li>
-</ul>
+<style>
+    footer {
+        position: absolute !important;
+    }
+</style>
+<div style="width:62%;margin-top:9%">
+    <ul dir="rtl" style="list-style-type:none">
+
+        @*<li>  @Html.ActionLink("הוספת עובדת", "addWorker", "AddWorker")</li>
+
+            <li> @Html.ActionLink("רשימת עובדות", "WorkersList", "FullListWorkers")</li>*@
+
+        <li>
+            <span class="glyphicon glyphicon-plus"></span>
+            <button class="btnOkAdd" style="width:200px!important;font-size:x-large;" onclick="location.href='@Url.Action("addWorker","AddWorker")'">הוספת עובדת</button>
+        </li>
+        <br />
+        <li>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            <button class="btnOkAdd" style="width:200px!important;font-size:x-large;" onclick="location.href='@Url.Action("WorkersList","FullListWorkers")'">רשימת עובדות</button>
+        </li>
+        <br />
+        <li>
+            <form action="@Url.Action("Workers", "Workers") " method="post">
+                <input size="29" style="height:40px;" type="text" name="idWorkers" id="idWorkers" placeholder="   הכנס/י תעודת זהות של עובדת   " />&nbsp;&nbsp;&nbsp;
+                <input class="btnOk" type="submit" value="כנס" style="width:110px!important;" /><br /><br /><label style="color:red;font-size:initial">@ViewBag.error</label>
+            </form>
+        </li>
+    </ul>
+</div>
+
 
 

@@ -15,6 +15,10 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
                 Session.Timeout += 5;//session הגדלת ה
                 BLWorkersList b = new BLWorkersList();
                 List<Workers> p = b.getWorkers();

@@ -9,7 +9,6 @@ namespace Bishvilaych.Controllers
 {
     public class LifeStyleDrController : Controller
     {
-        Dictionary<int, string> d1 = new Dictionary<int, string>();
         BLVisitSummery b1 = new BLVisitSummery();//מופע לשימוש הפונקצייה getUpdating
         BLDr_LigeStlye p = new BLDr_LigeStlye();
         LifeStyle b = new LifeStyle();
@@ -17,9 +16,11 @@ namespace Bishvilaych.Controllers
         {
             try
             {
-                if (d1 == null)
-                    d1.Clear();
-                Session.Timeout += 10;
+
+                if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
                 if (Session["Patiant"] == null)
                 {
                     return RedirectToAction("Login", "Account");
@@ -42,6 +43,7 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                Session.Timeout += 10;
                 string id = Session["Patiant"].ToString();
                 BLDr_LigeStlye bl = new BLDr_LigeStlye();
                 int result = bl.AddOrUpdatelifestyle(id, DateTime.Today, pg);

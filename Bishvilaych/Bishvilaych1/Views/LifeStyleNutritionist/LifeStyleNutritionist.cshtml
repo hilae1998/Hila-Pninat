@@ -4,6 +4,18 @@
     ViewBag.Title = "LifeStyleNuztritionist";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
+<style>
+    footer {
+        position: absolute !important;
+    }
+    .logo {
+        margin-top:187px !important;
+    }
+
+    .return {
+        margin-top: 227px !important;
+    }
+</style>
 @using BussinessLayer;
 @model LifeStyle
 <script>
@@ -118,7 +130,7 @@
                     }
             }
         }
-        
+
 </script>
 
 <body dir="ltr" style="text-align:center" onload="onLoad()">
@@ -144,8 +156,6 @@
     @using (Html.BeginForm())
     {
         <div>
-            <h2>LifeStyleNutritionist</h2>
-            <br />
             <table>
                 <tr>
                     <td style="margin-top:0%; margin-right:65%; padding:20px">
@@ -198,7 +208,7 @@
                             <br />
                             <label style="font-size:initial; color:#762d49"> @ViewBag.status3</label>
                             <br />
-                            <input id="btnSave" type="submit" value="שמור" />
+                            <input id="btnSave" class="btnOk" type="submit" value="שמור" />
                         </div>
                     </td>
                 </tr>

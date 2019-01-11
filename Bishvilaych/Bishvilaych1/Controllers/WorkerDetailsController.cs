@@ -11,30 +11,40 @@ namespace Bishvilaych.Controllers
 {
     public class WorkerDetailsController : Controller
     {
-      
         public ActionResult WorkerDetails()// כניסה לפרטי עובד
         {
+            if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             BLWorkerDetails b = new BLWorkerDetails();
             Workers w = b.GetWorker(Session["WorkerDetails"].ToString());
             return View(w);
         }
         [HttpPost]// עדכון שם משתמש וסיסמת העובד
-        public ActionResult SetUserNameAndPassword( string username, string password)
+        public ActionResult SetUserNameAndPassword(string username, string password)
         {
-            BLWorkerDetails b = new BLWorkerDetails();
-            int result = b.UpdateUserNameAndPassword(Session["WorkerDetails"].ToString(), username, password);
-            if (result == 0)
+            try
             {
-                ViewBag.validation = "נקבע בהצלחה";
-                return RedirectToAction("WorkerDetails");
-            }
+                Session.Timeout += 10;//session הגדלת ה
+                BLWorkerDetails b = new BLWorkerDetails();
+                int result = b.UpdateUserNameAndPassword(Session["WorkerDetails"].ToString(), username, password);
+                if (result == 0)
+                {
+                    ViewBag.validation = "נקבע בהצלחה";
+                    return RedirectToAction("WorkerDetails");
+                }
+                else
+                {
+                    ViewBag.validation = "שגיאה";
 
-            else
+                }
+                return View("WorkerDetails");
+            }
+            catch (Exception)
             {
-                ViewBag.validation = "שגיאה";
-
+                return View();
             }
-            return View("WorkerDetails");
         }
         [HttpGet]
         public ActionResult checkusername(string value)
@@ -54,7 +64,7 @@ namespace Bishvilaych.Controllers
                 messege = "שם משתמש קיים במערכת,נסה שם אחר";
             }
             return Json(messege, JsonRequestBehavior.AllowGet);
-            
+
         }
         [HttpPost]
         public ActionResult updateWorker(Workers w)// עדכון שאר פרטי העובד

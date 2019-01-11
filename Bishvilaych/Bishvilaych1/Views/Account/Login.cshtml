@@ -1,22 +1,32 @@
 ﻿@{
     ViewBag.Title = "Login";
-    
-}
 
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 
 <style>
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px white inset !important;
+    }
+
     footer {
-    margin-top: 19%;
-    padding-bottom: 0px;
-    background-color: #810040;
-    color: white;
-    text-align: center;
-}
+        margin-top: 19%;
+        padding-bottom: 0px;
+        background-color: #810040;
+        color: white;
+        text-align: center;
+    }
+
     body {
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    
+
 
     input[type=text], input[type=password] {
         width: 100%;
@@ -29,7 +39,6 @@
 
     button {
         background-color: rgba(129, 0, 64, 0.88);
-        
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
@@ -51,25 +60,26 @@
     .imgcontainer {
         text-align: center;
         margin: 24px 0 12px 0;
-        margin-top:100px;
+        margin-top: 100px;
     }
 
     img.avatar {
-      
         width: 20%;
         border-radius: 50%;
     }
 
     .container {
         padding: 16px;
-        top:20%;
+        top: 20%;
     }
 
     span.psw {
         float: right;
         padding-top: 16px;
     }
-  
+    .glyphicon {
+        font-size: x-large;
+    }
 
     /* Change styles for span and cancel button on extra small screens */
 </style>
@@ -79,10 +89,13 @@
     </div>
 
     <div class="container" dir="rtl" style="margin-right:37%">
-        <label for="uname"><b>שם משתמש</b></label><br />
+        @*<label for="uname"><b>שם משתמש</b></label><br />*@
+        <span class="glyphicon glyphicon-user"></span>
         <input type="text" style="width:40%;" placeholder="הכנס/י שם משתמש" id="uname" name="UserName" required><br />
 
-        <label for="psw"><b>סיסמא</b></label><br />
+
+        @*<label for="psw"><b>סיסמא</b></label><br />*@
+        <span class="glyphicon glyphicon-lock"></span>
         <input type="password" style="width:40%;" placeholder="הכנס/י סיסמא" id="psw" name="UserPasswerd" required><br /><br />
 
         <button type="submit" style="width:30%;margin-right:5%">הכנס/י</button>

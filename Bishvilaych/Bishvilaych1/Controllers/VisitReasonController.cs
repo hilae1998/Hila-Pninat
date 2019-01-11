@@ -19,7 +19,10 @@ namespace Bishvilaych.Controllers
         {
             try
             {
-                Session.Timeout += 10;
+                if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
                 if (Session["Patiant"] == null)
                 {
                     return RedirectToAction("Login", "Account");
@@ -31,7 +34,7 @@ namespace Bishvilaych.Controllers
                 VisitReason v = bl.getVisitReason(DateTime.Today, id);// שליפת נתוני המטופלת מהמסד
                 return View(v);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View();
             }
@@ -41,6 +44,7 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                Session.Timeout += 10;
                 string id = Session["Patiant"].ToString();
                 BLVisitReason bl = new BLVisitReason();
                 int result = bl.AddOrUpdateVisitReason(id, DateTime.Today,

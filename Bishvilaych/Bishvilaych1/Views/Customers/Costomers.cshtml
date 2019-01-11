@@ -2,19 +2,29 @@
     ViewBag.Title = "Costomers";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
-<ul dir="rtl" style="list-style-type:none">
-    <li>
-        @Html.ActionLink("הוספת לקוחה", "AddCustomer", "AddCustomer")
-    </li>
-    <br />
-    <li>
-        <form action="@Url.Action("Costomers", "Customers") " method="post">
-            <text>קבלות ללקוחה:</text><input size="25" type="text" name="idCustomer" id="idCustomer" placeholder="הכנס/י תעודת זהות של לקוחה"/>
-            <input type="submit" value="הכנס" /><label style="color:red;font-size:initial">@ViewBag.error</label>
-        </form>
-    </li>
-    <br />
-    <li> @Html.ActionLink("רשימת לקוחות", "Customers_", "CustomersList")</li>
-</ul>
+<style>
+    footer {
+        position: absolute !important;
+    }
+</style>
 
-
+<div style="width:62%;margin-top:9%">
+    <ul dir="rtl" style="list-style-type:none">
+        <li>
+            <span class="glyphicon glyphicon-plus"></span>
+            <button class="btnOkAdd" style="width:200px!important;font-size:x-large;" onclick="location.href='@Url.Action("AddCustomer","AddCustomer")'">הוספת לקוחה</button>
+        </li>
+        <br />
+        <li>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            <button class="btnOkAdd" style="width:200px!important;font-size:x-large;" onclick="location.href='@Url.Action("Customers_","CustomersList")'">רשימת לקוחות</button>
+        </li>
+        <br />
+        <li>
+            <form action="@Url.Action("Costomers", "Customers") " method="post">
+                <input size="29" style="height:40px;" type="text" name="idCustomer" id="idCustomer" placeholder="   הכנס/י תעודת זהות של לקוחה   " />&nbsp;&nbsp;&nbsp;
+                <input class="btnOk" type="submit" value="הצג קבלות" style="width:110px!important;" /><br /><br /><label style="color:red;font-size:initial">@ViewBag.error</label>
+            </form>
+        </li>
+    </ul>
+</div>

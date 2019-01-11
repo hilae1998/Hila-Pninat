@@ -11,6 +11,9 @@
 @using BussinessLayer;
 
 <style>
+    footer {
+        position: absolute !important;
+    }
     .myButton {
         background-color: #dcdcdc;
         -moz-border-radius: 7px;
@@ -88,7 +91,7 @@
 
 <center>
     <form id="form1" method="post" action=@Url.Action("addWorker","AddWorker")>
-        <div dir="rtl">
+        <div dir="rtl" class="container, form-horizontal">
             <fieldset style="margin-top:30px; height:390px; width:500px; box-shadow:150px;">
                 <div style="margin-top:90px">
                     <h1 style="font-family:Arial;font-size:50px">הוספת עובדת</h1>
@@ -110,7 +113,7 @@
                     </div>
 
                     <div style="margin-right:0%; margin-left:280px">
-                        <br /><br /><input class="myButton" id="Submit1" type="submit" value="הוסף" />
+                        <br /><br /><input class="btnOkAdd" id="Submit1" type="submit" value="הוסף" />
                     </div>
 
                 </div>

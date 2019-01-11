@@ -12,6 +12,10 @@ namespace Bishvilaych1.Controllers
     {
         public ActionResult AddCustomer()
         {
+            if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
 

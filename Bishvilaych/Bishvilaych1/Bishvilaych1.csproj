@@ -286,6 +286,8 @@
     <Content Include="Views\LifeStyleDr\LifeStyleDr.cshtml" />
     <Content Include="Views\PastMedical\Edit1.cshtml" />
     <Content Include="ScannedPatientsDocuments\311521421\מאמי" />
+    <Content Include="fonts\Arial Bold.ttf" />
+    <Content Include="fonts\HeeboMedium.ttf" />
     <Content Include="Views\AddReceipt\AddCustomerReceipt.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -3,7 +3,12 @@
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
-
+<style>
+    footer {
+        position: absolute !important;
+    }
+</style>
+   
 
 
 @if (Session["auth"] == null)
@@ -27,5 +32,5 @@
     <div class="mainHome">
         @Html.ActionLink("מטופלות", "Patiants", "Patiants", new { @class = "homeBtn" })
     </div>
-        }
-  
+}
+

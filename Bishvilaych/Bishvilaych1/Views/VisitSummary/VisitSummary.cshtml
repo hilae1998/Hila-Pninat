@@ -10,7 +10,15 @@
 @using BussinesLayer;
 @model  Reccomendations
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<style>
+    .logo {
+        margin-top: -90px !important;
+    }
 
+    .return {
+        margin-top: -60px !important;
+    }
+</style>
 <script>
     var dictionary = new Array();
     $(document).ready(function () {
@@ -266,11 +274,11 @@
         width: 10%;
     }
 
-    #lastvisit > a {
+    /*#lastvisit > a {
         font-size:24px;
     }
     #lastvisit {
-    }
+    }*/
     
 </style>
 
@@ -397,7 +405,7 @@
     &nbsp; &nbsp; &nbsp; <input id="i3_1_1" name="311" class="block1" type="checkbox" value="1000 IU daily, which is equivalent to 5 drops of 200 IU or 35 drops once  a week" />  1000 IU daily, which is equivalent to 5<br /> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; drops of 200 IU or 35 drops once  a week<br />
     &nbsp; &nbsp; &nbsp; <input id="i3_1_2" name="312" class="block1" type="checkbox" value="2000 IU daily, which is either 5 drops of 400 IU or 35 drops once a week" />  2000 IU daily, which is either 5 drops of 400 <br /> &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; IU or 35 drops once a week<br />
     &nbsp; &nbsp; &nbsp; <input id="i3_1_3" name="313" class="block1" type="checkbox" />  Other&nbsp;<input name="r313" class="block1" id="Text1" type="text" style="width:150px" /><br />
-    <input id="i3_2" name="32" type="checkbox" value="Take folic acid every day" /> Take folic acid every day<br />
+   <div style="text-align:center"> <input id="i3_2" name="32" type="checkbox" value="Take folic acid every day" /> Take folic acid every day<br />
     &nbsp; &nbsp;&nbsp; <input id="i3_2_1" name="321" class="block2" type="checkbox" value="400 mcg" /> 400 mcg<br />
     &nbsp; &nbsp; &nbsp;<input id="i3_2_2" name="322" class="block2" type="checkbox" /> Other&nbsp;<input name="r322" class="block2" id="Text1" type="text" style="width:150px" /><br />
     <input id="i3_3" type="checkbox" name="33" />Take vitamin b12&nbsp;<input id="Text1" name="r33" type="text" style="width:150px" /><br />
@@ -431,7 +439,7 @@
     <input id="Button1" type="button" value="הדפס תיק רפואי" />*@
     <input id="ButtonSubmit" type="button"  data-toggle="modal" @*data-target="#myModal"*@ value="סיום תיק רפואי" />
 
-
+    </div>
 
 
 

@@ -1,4 +1,4 @@
-﻿@*Ortall *@
+﻿
 @{
     ViewBag.Title = "PhyicalExam";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
@@ -23,7 +23,7 @@
         float: left;
     }*/
 
-    #lastvisit {
+    /*#lastvisit {
         border: 2px solid #52172e;
         padding: 10px 10px 2px 10px;
         width: 130px;
@@ -33,12 +33,12 @@
         margin-left: 89%;
         position: fixed;
         background-color: #ffffff;
-    }
+    }*/
 
-        #lastvisit a {
+        /*#lastvisit a {
             color: #52172e;
             font-size: 20px;
-        }
+        }*/
 
     /*li a {
         display: inline-block;
@@ -53,6 +53,12 @@
             background-color: #cbacb8;
             color: white;
         }*/
+    .logo {
+        margin-top: -90px !important;
+    }
+    .return {
+        margin-top: -60px !important;
+    }
 </style>
 <script>
     var dictionary = new Array();
@@ -542,7 +548,7 @@
             </select>
         </div>
         <br />
-        <input id="ButtonSubmit" type="button" value="שמור" />
+        <input id="ButtonSubmit" class="btnOk" type="button" value="שמור" />
 
         <br />
         <br />
@@ -554,7 +560,6 @@
 </form>
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -565,10 +570,9 @@
                 <p class="p_text"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">סגירה</button>
+                <button type="button" class="btnOk" data-dismiss="modal">סגירה</button>
             </div>
         </div>
 
     </div>
 </div>
-}

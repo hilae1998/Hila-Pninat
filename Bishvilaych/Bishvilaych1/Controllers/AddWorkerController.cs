@@ -13,6 +13,10 @@ namespace Bishvilaych.Controllers
     {
         public ActionResult addWorker()
         {
+            if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
         [HttpPost]

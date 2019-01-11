@@ -16,7 +16,10 @@ namespace Bishvilaych.Controllers
         {
             try
             {
-                Session.Timeout += 10;
+                if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
                 if (Session["Patiant"] == null)
                 {
                     return RedirectToAction("Login", "Account");
@@ -39,6 +42,7 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                Session.Timeout += 10;
                 BLLifeStyleNutritionist lsn = new BLLifeStyleNutritionist();
                 int result = lsn.addOrUpdateLifeStyleNutritionist(ls.Height, ls.Wieght, ls.BMI,
                     ls.BloodPressure, ls.pulse, ls.NotEat, ls.NotEatT, ls.Meals, ls.Fruits, ls.Vegetables,

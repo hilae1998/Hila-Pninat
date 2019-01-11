@@ -2,6 +2,20 @@
     ViewBag.Title = "LifeStyleDr";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
+<style>
+    footer {
+        position: absolute !important;
+    }
+
+    .logo {
+        margin-top: -43px !important;
+    }
+
+    .return {
+        margin-top: -5px !important;
+    }
+</style>
+
 @using System.Collections.Generic;
 @using System.Web.Mvc;
 @using BussinesLayer;
@@ -27,7 +41,7 @@
 
 
                 })
-            }) 
+            })
         },
         error: function () {
             alert("error")
@@ -113,7 +127,7 @@
                     $("#AnxietyT").css('display', 'none');
                     $("#Bi_polarT").css('display', 'none');
                     $("#OtherMentallssueT").css('display', 'none');
-                }                  
+                }
                 if ($("#Bi_polar").is(":checked")) {
                     $("#Do").css('display', 'inline');
                     $("#Mm").prop("checked", true);
@@ -548,7 +562,6 @@
 
     @using (Html.BeginForm())
     {
-        <h2>LifeStyleDr</h2>
         <center><b>Alcohol hx</b></center>
         <label for="Acohol">Did you ever drink a lot of alcohol in the past?</label>
         <input id="Acohol" name="Acohol" type="checkbox" value="true" @(Model.Acohol ? "checked=\"checked\"" : "") onclick="onchangeAll('Acohol', this.checked)" />
@@ -614,7 +627,7 @@
         <br />
         <label style="font-size:initial; color:#762d49"> @ViewBag.status4</label>
         <br />
-        <input id="ButtonSumbit" type="submit" value="שמור" style="font-weight:bolder" />
+        <input id="ButtonSumbit" type="submit" value="שמור" class="btnOk" />
     }
 </body>
 

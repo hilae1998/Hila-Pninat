@@ -12,6 +12,10 @@ namespace Bishvilaych.Controllers
     {
         public ActionResult addPatiant()
         {
+            if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
         [HttpPost]

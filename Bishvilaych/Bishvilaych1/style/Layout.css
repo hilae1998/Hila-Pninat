@@ -1,13 +1,128 @@
 ﻿body {
-
+    font-family: 'heebo' !important;
 }
+
+a {
+    font-family: 'heebo' !important;
+}
+
 
 footer {
-    bottom:0px;
-    position:absolute;
-    width:100%
+    bottom: 0px;
+   /*/ position: absolute;*/
+    width: 100%
 }
 
-body,html {
-    height:100%
+body, html {
+    height: 100%
 }
+
+@font-face {
+    font-family: heebo;
+    src: url(/fonts/HeeboMedium.ttf);
+}
+
+.myButton {
+    background-color: #dcdcdc !important;
+    -moz-border-radius: 7px !important;
+    -webkit-border-radius: 7px !important;
+    border-radius: 7px !important;
+    border: 1px solid #dcdcdc !important;
+    display: inline-block !important;
+    cursor: pointer !important;
+    color: #777777 !important;
+    font-family: Arial !important;
+    font-size: 17px !important;
+    font-weight: bold !important;
+    padding: 6px 14px !important;
+    text-decoration: none !important;
+    text-shadow: 0px 0px 0px #ffffff !important;
+}
+
+    .myButton:hover {
+        background-color: transparent !important;
+    }
+
+    .myButton:active {
+        position: relative !important;
+        top: 1px !important;
+    }
+.return {
+    border: 2px solid #810040;
+    background-color: #810040;
+    margin: 5em 5em 0em 0em;
+    width: 10em;
+    /* height: 7em; */
+    border-radius: 10px 10px;
+    width: 150px;
+    height: 50px;
+    color: white;
+    text-decoration: none !important;
+    font-size: medium;
+    /*padding: 3em 0px 3em 0px;*/
+    min-width: 150px !important;
+    display: inline-block;
+}
+
+    .return:hover, .return:active, .return:focus {
+        background-color: #aaaaaa57;
+        color: #810040;
+        font-weight: bold;
+        box-shadow: -1px -2px 6px 4px #bea4a4;
+    }
+
+.btnOk {
+    border: 2px solid #810040;
+    background-color: #810040;
+    /*margin: 5em 5em 0em 0em;*/
+    width: 10em;
+    /* height: 7em; */
+    border-radius: 10px 10px;
+    width: 60px;
+    height: 30px;
+    color: white;
+    text-decoration: none !important;
+    font-size: medium;
+    /*padding: 3em 0px 3em 0px;*/
+    min-width: 60px !important;
+    display: inline-block;
+}
+
+    .btnOk:hover, .btnOk:active, .btnOk:focus {
+        height: 30px;
+        width: 50px;
+        background-color: #aaaaaa57;
+        color: #810040;
+        font-weight: bold;
+        box-shadow: -1px -2px 6px 4px #bea4a4;
+    }
+.btnOkAdd {
+    background-color: #810040 !important;
+    -moz-border-radius: 7px !important;
+    -webkit-border-radius: 7px !important;
+    border-radius: 7px !important;
+    border: 1px solid #dcdcdc !important;
+    display: inline-block !important;
+    cursor: pointer !important;
+    color: white !important;
+    font-family: Arial !important;
+    font-size: 17px !important;
+    font-weight: bold !important;
+    padding: 6px 14px !important;
+    text-decoration: none !important;
+    text-shadow: 0px 0px 0px #ffffff !important;
+}
+    .btnOkAdd:hover, .btnOkAdd:active, .btnOkAdd:focus {
+        height: 38px;
+        width: 70px;
+        background-color: #aaaaaa57;
+        color: #810040;
+        font-weight: bold;
+        box-shadow: -1px -2px 6px 4px #bea4a4;
+    }
+
+
+
+
+
+

@@ -15,6 +15,15 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                if (Session["Patiant"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                Session.Timeout += 10;
                 BLReceipt bl = new BLReceipt();
                 List<receipt> NewReceiptList = new List<receipt>();//קבלות ממוינות 
                 List<receipt> result = bl.getReceipt(Session["Patiant"].ToString(), "p");

@@ -11,8 +11,12 @@ namespace Bishvilaych.Controllers
     {
         BLVisitSummery b = new BLVisitSummery();
 
-        public ActionResult VisitSummary() // כיניסה ללשונית סיכום ביקור 
+        public ActionResult VisitSummary() // כניסה ללשונית סיכום ביקור 
         {
+            if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (Session["Patiant"] == null)
             {
                 return RedirectToAction("Login", "Account");
@@ -22,28 +26,37 @@ namespace Bishvilaych.Controllers
         [HttpPost]
         public ActionResult SavevisitSummary(Reccomendations[] a, Summary[] b)//עדכון/הוספת סיכום הביקור
         {
-            int result, result2;
-            BussinessLayer.BLVisitSummery blv2 = new BussinessLayer.BLVisitSummery();
-            if (a != null && b != null) {
-                foreach (var item in a)
+            try
+            {
+                Session.Timeout += 10;//session הגדלת ה
+                int result, result2;
+                BussinessLayer.BLVisitSummery blv2 = new BussinessLayer.BLVisitSummery();
+                if (a != null && b != null)
                 {
-                    result = blv2.UpdateReccomendations(DateTime.Today, Session["Patiant"].ToString(), item.Code, item.Reccomendation);
-                    if (result == -1)
+                    foreach (var item in a)
                     {
-                        return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
+                        result = blv2.UpdateReccomendations(DateTime.Today, Session["Patiant"].ToString(), item.Code, item.Reccomendation);
+                        if (result == -1)
+                        {
+                            return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
+                        }
                     }
-                }
-                foreach (var item in b)
-                {
-                    result2 = blv2.UpdateSummary(DateTime.Today, Session["Patiant"].ToString(), item.Mentioned, item.FollowUp);
-                    if (result2 == -1)
+                    foreach (var item in b)
                     {
-                        return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
+                        result2 = blv2.UpdateSummary(DateTime.Today, Session["Patiant"].ToString(), item.Mentioned, item.FollowUp);
+                        if (result2 == -1)
+                        {
+                            return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
+                        }
                     }
+                    return Json("הפעולה בוצעה בהצלחה", JsonRequestBehavior.AllowGet);
                 }
-                return Json("הפעולה בוצעה בהצלחה", JsonRequestBehavior.AllowGet);
+                return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
             }
-            return Json("הפעולה נכשלה", JsonRequestBehavior.AllowGet);
+            catch(Exception E)
+            {
+                return Json(E+"הפעולה נכשלה", JsonRequestBehavior.AllowGet);
+            }
         }
     
 
@@ -76,17 +89,12 @@ namespace Bishvilaych.Controllers
             }
             return myl;
         }
-
-    
  }
-    class MyDict
+    class MyDict  // מודל ליצירת אוסף ההסטוריה הרפואית 
     {
-       
         public string date{ get; set; }
         public List<Reccomendations> list { get; set; }
         public int followUp { get; set; }
         public int mentioned { get; set; }
-
-   
     }
 }
