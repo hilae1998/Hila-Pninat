@@ -1,8 +1,4 @@
-﻿@*@{
-                    /**/
-
-                    Layout = "~/Views/Shared/_LayoutPage.cshtml";
-    }*@
+﻿
 
 <!DOCTYPE html>
 <style>
@@ -40,8 +36,8 @@
         background-color: rgb(134, 17, 75);
         font-family: Calibri;
         font-size: 13px;
-        height:70px;
-        padding-top:10px;
+        height: 70px;
+        padding-top: 10px;
     }
 
     li {
@@ -59,9 +55,6 @@
             font-weight: 900;
         }
 
-            /*li a:hover {
-                font-weight: bold;
-            }*/
 
             li a:hover {
                 background-color: #cbacb8;
@@ -100,15 +93,6 @@
         margin-top: 190px;
         margin-left: 5px !important;
     }
-    /*.return {
-        /*width: 6% !important;
-        float: left;
-        margin-bottom: 0px !important;
-        padding-bottom: 0px !important;
-    }*/
-    /*.div{
-        position:absolute !important;
-    }*/
 </style>
 
 
@@ -154,12 +138,13 @@
     <div>
         @RenderBody()
     </div>
-    <div dir="ltr" class="div">
+    <div dir="ltr" class="divL" >
         <a href="@Url.Action("Login","Account")"> <img alt="לוגו" src="~/Images/logo 3d ivrit.jpg" class="logo" /></a>
         <button style="float:right;margin-top:230px;margin-right:10px" class="return" onclick="location.href='@Url.Action("Home","Home")'">חזרה לתפריט ראשי</button>
     </div>
     <footer>
-        AF Systems 053-313-2599
+        Hila & Pninat Systems
     </footer>
+
 </body>
 </html>
