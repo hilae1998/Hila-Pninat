@@ -1,59 +1,62 @@
-﻿
-@*מסך 41 קבלות למטופלת*@
+﻿@*מסך 41 קבלות למטופלת*@
 
-    @{
-        ViewBag.Title = "ReciepitsListOfPatiants";
-        Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
+@{
+    ViewBag.Title = "ReciepitsListOfPatiants";
+    Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
+}
+<style>
+    footer {
+        position: absolute !important;
     }
+</style>
 
-    @model Bishvilaych.Controllers.MyPatiantsRecepitModels
-    <form id="form1" dir="rtl">
+@model Bishvilaych.Controllers.MyPatiantsRecepitModels
+<form id="form1" dir="rtl">
 
 
-        <h2>מטופלת</h2>
-        <label>:מספר זהות</label>
-        <label>@Html.DisplayFor(model => model.MyP.Id)</label>
+    <h2>מטופלת</h2>
+    <label>:מספר זהות</label>
+    <label>@Html.DisplayFor(model => model.MyP.Id)</label>
 
-        <label>:שם מלא</label>
-        <label>@Html.DisplayFor(model => model.MyP.FirstName)</label>
-        <label>@Html.DisplayFor(model => model.MyP.LastName)</label>
+    <label>:שם מלא</label>
+    <label>@Html.DisplayFor(model => model.MyP.FirstName)</label>
+    <label>@Html.DisplayFor(model => model.MyP.LastName)</label>
 
-            <h1>קבלות</h1>
-            <table id="tbl" class="table table-hover" style="width:70%">
-                <thead>
+    <h1>קבלות</h1>
+    <table id="tbl" class="table table-hover" style="width:70%">
+        <thead>
+            <tr>
+                <td>תאריך</td>
+                <td>מספר קבלה</td>
+                <td>סכום</td>
+                <td></td>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model.recepit)
+                {
                     <tr>
-                        <td>תאריך</td>
-                        <td>מספר קבלה</td>
-                        <td>סכום</td>
-                        <td></td>
-
+                        <td>@item.receiptDate.ToShortDateString()</td>
+                        <td>@item.receiptNum</td>
+                        <td>@item.Sum</td>
+                        <td>@Html.ActionLink("קישור לקבלה", "", "")</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @{
-                        foreach (var item in Model.recepit)
-                        {
-                            <tr>
-                                <td>@item.receiptDate.ToShortDateString()</td>
-                                <td>@item.receiptNum</td>
-                                <td>@item.Sum</td>
-                                <td>@Html.ActionLink("קישור לקבלה", "", "")</td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
+                }
+            }
+        </tbody>
+    </table>
 
-        <p><a href="JavaScript:newPopup();">חדש</a></p>
-        <p>@TempData["messege"]</p>
-    </form>
+    <p><a href="JavaScript:newPopup();">חדש</a></p>
+    <p>@TempData["messege"]</p>
+</form>
 
 <script type="text/javascript">
-// Popup window code
-    function newPopup()
-    {
+    // Popup window code
+    function newPopup() {
 
-	popupWindow = window.open(
-		'/AddReceipt/AddPatiantReceipt', 'popUpWindow', 'height=600,width=800,left=650,top=150,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
-}
+        popupWindow = window.open(
+            '/AddReceipt/AddPatiantReceipt', 'popUpWindow', 'height=600,width=800,left=650,top=150,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+    }
 </script>

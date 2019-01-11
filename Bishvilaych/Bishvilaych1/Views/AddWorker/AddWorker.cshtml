@@ -92,28 +92,28 @@
 <center>
     <form id="form1" method="post" action=@Url.Action("addWorker","AddWorker")>
         <div dir="rtl" class="container, form-horizontal">
-            <fieldset style="margin-top:30px; height:390px; width:500px; box-shadow:150px;">
-                <div style="margin-top:90px">
-                    <h1 style="font-family:Arial;font-size:50px">הוספת עובדת</h1>
+            <fieldset style="margin-top:-20px; height:390px; width:500px; box-shadow:150px;">
+                <div style="margin-top:90px;margin-left:-70px"">
+                    <h1 style="font-family:Arial;font-size:50px;margin-left:62px;color:#810040;">הוספת עובדת</h1>
 
                     <div style="margin-right:0%; margin-left:55px">
                         <label for="Text1" style="font-size:25px;font-family:Arial">מספר זהות:</label>
-                        <input id="Text1" type="text" name="Id" maxlength="9" pattern="[0-9]{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" placeholder="הכנס/י תעודת זהות" required />
+                        <input size="22" style="height:32px;" id="Text1" type="text" name="Id" maxlength="9" pattern="[0-9]{9,9}" title="נא הקש ת.ז בעלת 9 ספרות" placeholder="       הכנס/י תעודת זהות    " required />
                         @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
                     </div>
 
                     <div style="margin-right:0%; margin-left:80px">
                         <label for="Text2" style="font-size:25px;font-family:Arial">שם פרטי:</label>
-                        <input id="Text2" type="text" maxlength="20" name="FirstName" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י שם פרטי" required />
+                        <input size="22" style="height:32px;"  id="Text2" type="text" maxlength="20" name="FirstName" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="       הכנס/י שם פרטי    " required />
                     </div>
 
                     <div style="margin-right:0%; margin-left:50px">
                         <label for="Text3" style="font-size:25px;font-family:Arial">שם משפחה:</label>
-                        <input id="Text3" type="text" name="LastName" maxlength="20" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="הכנס/י שם משפחה" required />
+                        <input size="22" style="height:32px;"  id="Text3" type="text" name="LastName" maxlength="20" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="       הכנס/י שם משפחה    " required />
                     </div>
 
                     <div style="margin-right:0%; margin-left:280px">
-                        <br /><br /><input class="btnOkAdd" id="Submit1" type="submit" value="הוסף" />
+                        <br /><input class="btnOkAdd" id="Submit1" type="submit" value="הוסף" />
                     </div>
 
                 </div>

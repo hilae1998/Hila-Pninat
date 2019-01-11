@@ -18,10 +18,6 @@ namespace Bishvilaych.Controllers
                 {
                     return RedirectToAction("Login", "Account");
                 }
-                //if (Session["Patiant"] == null)
-                //{
-                //    return RedirectToAction("Login", "Account");
-                //}
                 Session.Timeout += 10;
                 BLReceipt bl = new BLReceipt();
                 List<receipt> NewReceiptList = new List<receipt>();//קבלות ממוינות 
