@@ -56,9 +56,9 @@ namespace BussinesLayer
             {
                 r = new FinalReceipt();
                
-                r.receiptDate =BLCtrl.getDateTime(item, "receiptDate", new DateTime(1000,1,1));
+                r.receiptDate =BLCtrl.getDateTime(item, "receiptDate", new DateTime(1000,1,1)).ToShortDateString();
                 r.receiptNum = BLCtrl.getInt(item, "receiptNum", 0);
-                r.FinalSum = (double)BLCtrl.getDecimal(item, "Sum", 0M);
+                r.FinalSum = (double)BLCtrl.getDecimal(item, "FinalSum", 0M);
                 r.RowNumber = BLCtrl.getInt(item, "RowNumber", 1);
                 lr.Add(r);
             }
@@ -68,7 +68,7 @@ namespace BussinesLayer
         public class FinalReceipt
         {
             public int receiptNum { get; set; }
-            public DateTime receiptDate { get; set; }
+            public string receiptDate { get; set; }
             public double FinalSum { get; set; }
             public long RowNumber { get; set; }
         }
