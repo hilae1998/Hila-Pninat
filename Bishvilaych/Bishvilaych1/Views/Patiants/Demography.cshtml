@@ -4,6 +4,12 @@
     ViewBag.Title = "Demography";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
+<style>
+    footer{
+        position:absolute !important;
+    }
+
+</style>
 <script>
 
     function f1() {
@@ -105,7 +111,7 @@
     @using (Html.BeginForm())
     {
         <div>
-            <h2>Demography</h2>
+       
             <br />
             <table>
                 <tr>
@@ -233,7 +239,7 @@
                             </select><br />
                             <label style="font-size:initial; color:#762d49">@ViewBag.status</label>
                             <br />
-                            <input type="submit" value="עדכן">
+                            <input class="btnOk" type="submit" value="עדכן">
                         </div>
                     </td>
                 </tr>

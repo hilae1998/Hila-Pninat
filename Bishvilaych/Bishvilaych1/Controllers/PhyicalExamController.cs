@@ -14,7 +14,10 @@ namespace Bishvilaych.Controllers
         {
             try
             {
-                Session.Timeout += 10;
+                if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
                 if (Session["Patiant"] == null)
                 {
                     return RedirectToAction("Login", "Account");
@@ -35,6 +38,7 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                Session.Timeout += 10;
                 BLPhyicalExam bl = new BLPhyicalExam();
                 int result = bl.AddOrUpdatePhysicalExam1(DateTime.Today, Session["Patiant"].ToString(),
                 p.ApearsWell, p.ApearsWellT, p.PupilsEqual, p.PupilsEqualT, p.TmNormal, p.TmNormalT, p.Oropharynx,

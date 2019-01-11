@@ -5,6 +5,18 @@
 }
 
 <h2>DocumentScanner</h2>
+<style>
+    footer {
+        position: absolute !important;
+    }
+    .logo {
+        margin-top: 351px !important;
+    }
+    .return {
+        margin-top: 390px !important;
+    }  
+
+</style>
 <script>
     $(document).ready(function () {
         $('#myModal').on('hidden.bs.modal', function () {//כשסוגרים את המודל רענן את הדף בכדיי לטעון מסמכים שנוספו
@@ -40,8 +52,6 @@
             var newname = $("#Text1").val()
             formData.append("FileUpload", file);
             formData.append("NewNameFile", newname);
-
-
         }
 
         $.ajax({
@@ -65,12 +75,12 @@
 </script>
 <div>
 
-    <input id="File1" type="file" name="file" accept=".png,.jpg,.jpeg,.pdf"/>
+    <input id="File1" type="file" name="file" accept=".png,.jpg,.jpeg,.pdf" />
     <input id="Text1" name="newfilename" type="text" placeholder="שם מסמך" />
-    <input type="button" onclick="upload()" value="העלה" />
+    <input type="button" onclick="upload()" class="btnOk" value="העלה" />
 
     <center>
-        <table id="Table" class="table table-bordered table-hover"style="width:30%" dir="rtl"  >
+        <table id="Table" class="table table-bordered table-hover" style="width:30%" dir="rtl">
             <thead>
                 <tr style="background-color:darkgrey">
                     <td>תאריך</td>
@@ -110,8 +120,8 @@
                                     }
                                 </td>
                             </tr>
-                         }
-                   }
+                        }
+                    }
                 }
             </tbody>
         </table>
@@ -123,14 +133,14 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close ,btnOk" data-dismiss="modal">&times;</button>
 
                 </div>
                 <div class="modal-body">
                     <p class="p_text"></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">סגירה</button>
+                    <button type="button" class="btnOk" data-dismiss="modal">סגירה</button>
                 </div>
             </div>
 

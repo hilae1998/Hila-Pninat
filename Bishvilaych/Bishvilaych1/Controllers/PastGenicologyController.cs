@@ -18,7 +18,10 @@ namespace Bishvilaych.Controllers
         {
             try
             {
-                Session.Timeout += 10;
+                if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
                 if (Session["Patiant"] == null)
                 {
                     return RedirectToAction("Login", "Account");
@@ -41,6 +44,7 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                Session.Timeout += 10;
                 string id = Session["Patiant"].ToString();
                 BLPastGenicology bl = new BLPastGenicology();
                 int result = bl.addOrUpdatePastGenicology(id, DateTime.Today,

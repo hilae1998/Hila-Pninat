@@ -34,7 +34,7 @@ namespace Bishvilaych.Controllers
                 if (b.Check_Customers(idCustomer) == 0)// כשמכניסים תעודת זהות של לקוח קיים
                 {
                     Session["Customers"] = idCustomer;
-                    return RedirectToAction("ReciepitsListOfCustomers", "ReciepitsListOfCustomers");
+                    return RedirectToAction("ReciepitsListOfCustomers", "ReciepitsListOfCustomers",new { id= idCustomer });
                 }
                 else // תעודת זהות של לקוח שאינו קיים
                 {

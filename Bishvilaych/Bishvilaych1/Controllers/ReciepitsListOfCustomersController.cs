@@ -14,6 +14,14 @@ namespace Bishvilaych.Controllers
         {
             try
             {
+                if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                //if (Session["Patiant"] == null)
+                //{
+                //    return RedirectToAction("Login", "Account");
+                //}
                 Session.Timeout += 10;
                 BLReceipt bl = new BLReceipt();
                 BLGetCustomersById blc = new BLGetCustomersById();
@@ -38,7 +46,7 @@ namespace Bishvilaych.Controllers
             }
             catch(Exception e)
             {
-                return View();
+                return RedirectToAction("Costomers", "Customers");
             }
         }
     }

@@ -4,9 +4,10 @@
     ViewBag.Title = "PastGenicology";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
-<h2>PastGenicology</h2>
 <style>
-
+    footer {
+        position: absolute !important;
+    }
     .checkbox {
         display: inline-block;
         height: 18px;
@@ -15,6 +16,13 @@
 
     .text {
         font-size: 20px;
+    }
+    .logo {
+        margin-top: 237px !important;
+    }
+
+    .return {
+        margin-top: 277px !important;
     }
 </style>
 
@@ -235,7 +243,6 @@
     </div>
     @using (Html.BeginForm())
     {
-        <h2>@ViewBag.err</h2>
         <label class="text" for="AgeOfMenarche">Age of Menarche:</label>
         <input name="AgeOfMenarche" id="AgeOfMenarche" height="18" width="18" type="number" min="1" , max="120" value=@Html.DisplayFor(model => model.AgeOfMenarche) />
         <br />
@@ -271,6 +278,6 @@
         <br />
         <br />
         <label style="font-size:initial; color:#762d49">@ViewBag.status2</label><br />
-        <input id="ButtonSumbit" type="submit" value="שמור">
+        <input id="ButtonSumbit" class="btnOk" type="submit" value="שמור">
     }
 </body>

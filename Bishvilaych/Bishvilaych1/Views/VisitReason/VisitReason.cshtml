@@ -3,7 +3,12 @@
     ViewBag.Title = "VisitReason";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
+<style>
+    footer {
+        position: absolute !important;
+    }
 
+</style>
 @using BussinessLayer;
 @model Entity.VisitReason
 <script>
@@ -25,7 +30,7 @@
 
 
                 })
-            }) 
+            })
         },
         error: function () {
             alert("error")
@@ -125,7 +130,7 @@
                     $("#Text6").css('display', 'none');
                     $("#Text7").css('display', 'none');
                     $("#Text8").css('display', 'none');
-                  
+
 
                 }
                 if ($("#OtherConcetraption").is(":checked")) {
@@ -140,10 +145,10 @@
                     $("#Text6").css('display', 'none');
                     $("#Text7").css('display', 'none');
                     $("#Text8").css('display', 'none');
-                   
 
 
-                }                  
+
+                }
                 if ($("#MenstrualCycle").is(":checked")) {
                     $("#Text6").css('display', 'inline-block');
                     $("#Text6").val($("#Text").val());
@@ -506,11 +511,10 @@
     }
 
 </script>
-<h2>VisitReason</h2>
 <body style="direction:ltr; text-align:center" onload="onLoad()">
     <div id="lastvisit">
         @{
-            BLVisitSummery blv =new BLVisitSummery();
+            BLVisitSummery blv = new BLVisitSummery();
             List<DateTime> l2 = new List<DateTime>();
             l2 = blv.get_updating(Session["Patiant"].ToString());
             foreach (var item in l2)
@@ -527,6 +531,7 @@
             }
         }
     </div>
+    
     @using (Html.BeginForm())
     {
         <input id="GeneralCheck" name="GeneralCheck" type="radio" onchange="onchangeAll('GeneralCheck')" value="true" @(Model.GeneralCheck ? "checked=\"checked\"" : "") />
@@ -571,6 +576,6 @@
         <input id="Text" name="Text" type="text" hidden /><br />
         <label style="font-size:initial; color:#762d49">@ViewBag.status1</label>
         <br />
-        <input id="submit" type="submit" value="עדכן">
+        <input id="submit" class="btnOk" type="submit" value="עדכן">
     }
 </body>

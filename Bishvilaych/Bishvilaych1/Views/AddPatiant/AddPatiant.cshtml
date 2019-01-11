@@ -10,6 +10,9 @@
 @using BussinesLayer;
 @using BussinessLayer;
 <style>
+    footer {
+        position: absolute !important;
+    }
     .myButton {
         background-color: #dcdcdc;
         -moz-border-radius: 7px;
@@ -70,7 +73,7 @@
 
 <center>
     <form id="form1" method="post" action="@Url.Action("addPatiant","AddPatiant")">
-        <div dir="rtl">
+        <div dir="rtl"  class="container, form-horizontal">
             <fieldset style="margin-top:30px; height:470px; width:500px; box-shadow:150px;">
                 <div style="margin-top:90px">
                     <h1 style="font-family:Arial;font-size:50px">הוספת מטופלת</h1>
@@ -93,7 +96,7 @@
                     <div style="margin-right:0%; margin-left:135px">
                         <label for="Kupah" style="font-size:25px;font-family:Arial">קופות חולים:</label>
 
-                        <select id="Kupah" class="selectpicker" name="Kupah" style="font-size:15px">
+                        <select id="Kupah" class="selectpicker" multiple data-action-box="true" name="Kupah" style="font-size:15px">
                             @{
                                 BussinessLayer.BL_AddPatiants blv = new BussinessLayer.BL_AddPatiants();
                                 List<Kupot> l = new List<Kupot>();
@@ -106,7 +109,7 @@
                         </select>
                     </div>
                     <div style="margin-right:0%; margin-left:280px">
-                        <br><input class="myButton" id="Submit1" type="submit" value="הוסף" />
+                        <br><input class="btnOkAdd" id="Submit1" type="submit" value="הוסף" />
                     </div>
                 </div><br /> <br />
                 <div id="idp1">

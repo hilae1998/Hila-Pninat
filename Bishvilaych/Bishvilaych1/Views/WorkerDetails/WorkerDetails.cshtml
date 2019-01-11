@@ -16,7 +16,11 @@
 @model Workers
 
 <style>
+
     /* Add a green text color and a checkmark when the requirements are right */
+    footer {
+        position: absolute !important;
+    }
     .valid {
         color: green;
     }
@@ -210,7 +214,7 @@
 <div id="ResetPassword" hidden>
    <form id=form2 action="@Url.Action("SetUserNameAndPassword","WorkerDetails")" method="post">
         <label>קביעת שם משתמש וסיסמא</label><br />
-        <input onblur="check()" id="UserName1" name="username"  maxlength="10" type="text" required placeholder="שם משתמש לא יותר מ10 תווים"/>שם משתמש<br />
+        <input onblur="check()" id="UserName1" name="username"  maxlength="10" type="text" required placeholder="שם משתמש לא יותר מ 10 תווים"/>שם משתמש<br />
         <input id="Password1" title="לפחות אות אחת,לפחות ספרה אחת,לפחות 6 תווים" name="password" pattern="(?=.*\d)(?=.*[a-z-A-Z]).{6,10}" maxlength="10" type="password" required placeholder="סיסמא בת 6-10 תווים"/>סיסמא<br />
         <input id="rd1"  type="submit" value="אישור"/><br />
        <div id="message">

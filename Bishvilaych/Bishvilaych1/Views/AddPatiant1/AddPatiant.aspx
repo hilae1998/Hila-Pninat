@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Views/Shared/Site.Master" CodeBehind="AddPatiant.aspx.cs" Inherits="Bishvilaych.Views.AddPatiant" %>
 
 <!DOCTYPE html>
-//אושרית אביוב1
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head runat="server">
     <title></title>

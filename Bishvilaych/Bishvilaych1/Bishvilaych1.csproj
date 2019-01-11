@@ -183,7 +183,6 @@
     <Content Include="style\bootstrap-select.min.css" />
     <Content Include="style\bootstrap-select.min.js" />
     <Content Include="style\Layout.css" />
-    <Content Include="Views\AddPatiant1\AddPatiant.aspx" />
     <Content Include="Views\ReciepitsListOfCustomers\ReciepitsListOfCustomers.cshtml" />
     <Content Include="Views\ScreeningsKinds\ScreeningsKings.aspx" />
     <Content Include="Views\Stiker\Sticker\Stiker.aspx" />
@@ -232,13 +231,6 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\AddPatiant1\AddPatiant.aspx.cs">
-      <DependentUpon>AddPatiant.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\AddPatiant1\AddPatiant.aspx.designer.cs">
-      <DependentUpon>AddPatiant.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -294,6 +286,8 @@
     <Content Include="Views\LifeStyleDr\LifeStyleDr.cshtml" />
     <Content Include="Views\PastMedical\Edit1.cshtml" />
     <Content Include="ScannedPatientsDocuments\311521421\מאמי" />
+    <Content Include="fonts\Arial Bold.ttf" />
+    <Content Include="fonts\HeeboMedium.ttf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
