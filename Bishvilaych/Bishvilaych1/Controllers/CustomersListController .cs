@@ -32,7 +32,7 @@ namespace Bishvilaych.Controllers
         // בלחיצה על לקוח מרשימת הלקוחות
         public ActionResult decision(string id)
         {
-            Session["WorkerDetails"] = id;
+            Session["Customers"] = id;
             return RedirectToAction("ReciepitsListOfCustomers", "ReciepitsListOfCustomers");// הפניה לפרטי לקוח שעליו לחצו
         }
 

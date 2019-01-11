@@ -270,7 +270,7 @@
     <Content Include="Views\Sensitives\Sensitive.cshtml" />
     <Content Include="Views\ReciepitsListOfPatiants\ReciepitsListOfPatiants.cshtml" />
     <Content Include="Views\AddCustomer\AddCustomer.cshtml" />
-    <Content Include="Views\AddReceipt\AddReceipt.cshtml" />
+    <Content Include="Views\AddReceipt\AddPatiantReceipt.cshtml" />
     <Content Include="Views\PastGenicology\PastGenicology.cshtml" />
     <Content Include="Views\Hospitalization\UpdateHospitalization.cshtml" />
     <Content Include="Views\MedicineVitamin\UpdateMedicineVitamin.cshtml" />
@@ -288,6 +288,7 @@
     <Content Include="ScannedPatientsDocuments\311521421\מאמי" />
     <Content Include="fonts\Arial Bold.ttf" />
     <Content Include="fonts\HeeboMedium.ttf" />
+    <Content Include="Views\AddReceipt\AddCustomerReceipt.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -298,6 +299,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Reciepts\123456789\" />
+    <Folder Include="Reciepts\ALL\" />
     <Folder Include="Views\AddLSNutritionist\" />
   </ItemGroup>
   <ItemGroup>

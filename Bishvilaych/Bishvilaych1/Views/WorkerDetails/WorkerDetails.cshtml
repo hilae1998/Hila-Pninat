@@ -59,12 +59,12 @@
     <script>
         function check() {
             $("#UserName1").on("blur", function () {
-
                 $.ajax({
                     type: 'get',
                     url: "@Url.Action("checkusername")",
                     data: { value: $("#UserName1").val() },
-                success: function (data) {
+                    success: function (data) {
+                        $("#user").html("")
                     $("#user").append(data)
                 },
                 error:function(){}})
@@ -72,12 +72,10 @@
         }
         $(document).ready(function(){       
                 $("#message").hide()
-
             // When the user clicks on the password field, show the message box
             $("#Password1").focus( function () {
                 $("#message").show()
             })
-
             // When the user clicks outside of the password field, hide the message box
             $("#Password1").on("blur",  function () {
                 $("#message").hide()
@@ -167,7 +165,9 @@
             }
         }
     }
-
+    function showResetPassword() {
+        $("#ResetPassword").show()
+    }
 </script>
 
 

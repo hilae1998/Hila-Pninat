@@ -12,11 +12,13 @@ namespace BussinesLayer
 {
     public class BLReceipt
     {
-        public List<receipt> getReceipt(string code)
+        
+        public List<receipt> getReceipt(string code,string target)
         {
             DAReceipt da = new DAReceipt();
             ListDictionary Params = new ListDictionary();
-            Params.Add("@code", code);
+            Params.Add("@code", code );
+            Params.Add("@target", target);
             DataSet ds = da.getReceipt(Params);
             List<receipt> lr = new List<receipt>();
             receipt r;
@@ -35,7 +37,7 @@ namespace BussinesLayer
                 r.PaymentNum = BLCtrl.getInt(item, "PaymentNum", 0);
                 r.receiptDate = BLCtrl.getDateTime(item, "receiptDate", DateTime.Today);
                 r.receiptNum = BLCtrl.getInt(item, "receiptNum", 0);
-                r.Sum = BLCtrl.getDouble(item, "Sum", 0);
+                r.Sum = (double)BLCtrl.getDecimal(item, "Sum", 0M);
                 r.Validity = BLCtrl.getString(item, "Validity", "");
                 lr.Add(r);
             }
