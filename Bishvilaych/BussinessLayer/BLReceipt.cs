@@ -43,5 +43,34 @@ namespace BussinesLayer
             }
             return lr;
         }
+        public List<FinalReceipt> getAllReceipt(int PageNumber, int PageSize)
+        {
+            DAReceipt da = new DAReceipt();
+            ListDictionary Params = new ListDictionary();
+            Params.Add("@PageNumber", PageNumber);
+            Params.Add("@PageSize", PageSize);
+            DataSet ds = da.getAllReceipt(Params);
+            List<FinalReceipt> lr = new List<FinalReceipt>();
+            FinalReceipt r;
+            foreach (DataRow item in ds.Tables[0].Rows)
+            {
+                r = new FinalReceipt();
+               
+                r.receiptDate =BLCtrl.getDateTime(item, "receiptDate", new DateTime(1000,1,1));
+                r.receiptNum = BLCtrl.getInt(item, "receiptNum", 0);
+                r.FinalSum = (double)BLCtrl.getDecimal(item, "Sum", 0M);
+                r.RowNumber = BLCtrl.getInt(item, "RowNumber", 1);
+                lr.Add(r);
+            }
+            return lr;
+        }
+
+        public class FinalReceipt
+        {
+            public int receiptNum { get; set; }
+            public DateTime receiptDate { get; set; }
+            public double FinalSum { get; set; }
+            public long RowNumber { get; set; }
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace Bishvilaych.Controllers
         // בלחיצה על כפתור כספי
         public ActionResult Reciepts()
         {
-            return View("~/Views/Reciepts/Reciepts.cshtml");
+            return RedirectToAction("Reciepts", "Reciepts");
         }
     }
 }

@@ -183,7 +183,6 @@
     <Content Include="style\bootstrap-select.min.css" />
     <Content Include="style\bootstrap-select.min.js" />
     <Content Include="style\Layout.css" />
-    <Content Include="Views\AddPatiant1\AddPatiant.aspx" />
     <Content Include="Views\ReciepitsListOfCustomers\ReciepitsListOfCustomers.cshtml" />
     <Content Include="Views\ScreeningsKinds\ScreeningsKings.aspx" />
     <Content Include="Views\Stiker\Sticker\Stiker.aspx" />
@@ -217,6 +216,7 @@
     <Compile Include="Controllers\PhyicalExamController.cs" />
     <Compile Include="Controllers\ReciepitsListOfPatiantsController.cs" />
     <Compile Include="Controllers\ReciepitsListOfCustomersController.cs" />
+    <Compile Include="Controllers\RecieptsController.cs" />
     <Compile Include="Controllers\ScreeningsKingsController.cs" />
     <Compile Include="Controllers\SensitivesController.cs" />
     <Compile Include="Controllers\StikerController.cs" />
@@ -232,13 +232,6 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\AddPatiant1\AddPatiant.aspx.cs">
-      <DependentUpon>AddPatiant.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\AddPatiant1\AddPatiant.aspx.designer.cs">
-      <DependentUpon>AddPatiant.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -286,7 +279,6 @@
     <Content Include="Views\Sensitives\UpdateSensitives.cshtml" />
     <Content Include="Views\VisitReason\VisitReason.cshtml" />
     <Content Include="Views\DocumentScanner\DocumentScanner.cshtml" />
-    <Content Include="Views\Acount\Acount.cshtml" />
     <Content Include="Views\Sensitive\Sensitive.cshtml" />
     <Content Include="Views\Stiker\Stiker.cshtml" />
     <Content Include="Views\Reciepts\Reciepts.cshtml" />
