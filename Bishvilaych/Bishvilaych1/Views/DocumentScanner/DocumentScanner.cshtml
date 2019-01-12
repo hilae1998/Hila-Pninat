@@ -4,44 +4,29 @@
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
 
-<h2>DocumentScanner</h2>
 <style>
     footer {
         position: absolute !important;
     }
+
     .logo {
         margin-top: 351px !important;
     }
+
     .return {
         margin-top: 390px !important;
-    }  
+    }
 
+    body {
+        direction: rtl;
+    }
 </style>
 <script>
     $(document).ready(function () {
         $('#myModal').on('hidden.bs.modal', function () {//כשסוגרים את המודל רענן את הדף בכדיי לטעון מסמכים שנוספו
             window.location.reload();
         });
-        //$('#Table').DataTable({
-        //    "language": {
-        //        "processing": "מעבד...",
-        //        "lengthMenu": "הצג _MENU_ פריטים",
-        //        "zeroRecords": "לא נמצאו רשומות מתאימות",
-        //        "emptyTable": "לא נמצאו רשומות מתאימות",
-        //        "info": "_START_ עד _END_ מתוך _TOTAL_ רשומות",
-        //        "infoEmpty": "0 מתוך 0 רשומות",
-        //        "infoFiltered": "(מסונן מסך _MAX_  רשומות)",
-        //        "infoPostFix": "",
-        //        "search": "חיפוש:",
-        //        "url": "",
-        //        "paginate": {
-        //            "first": "ראשון",
-        //            "previous": "קודם",
-        //            "next": "הבא",
-        //            "last": "אחרון"
-        //        }
-        //    }
-        //});
+
     })
     function upload() {//סריקת מסמכים
         var formData = new FormData();
@@ -73,68 +58,64 @@
     }
 
 </script>
-<div>
+<div dir="rtl">
+    <h2>סריקת מסמכים </h2>
+    <input id="File1" class="FileInput" type="file" name="file" accept=".png,.jpg,.jpeg,.pdf" />
+    <div class="col-xs-4" dir="rtl">
+        <input id="Text1" name="newfilename" type="text" placeholder="שם מסמך" />
+        <input type="button" onclick="upload()" style="float:left" value="סריקה" />
+    </div>
 
-    <input id="File1" type="file" name="file" accept=".png,.jpg,.jpeg,.pdf" />
-    <input id="Text1" name="newfilename" type="text" placeholder="שם מסמך" />
-    <input type="button" onclick="upload()" class="btnOk" value="העלה" />
-
-    <center>
-        <table id="Table" class="table table-bordered table-hover" style="width:30%" dir="rtl">
-            <thead>
-                <tr style="background-color:darkgrey">
-                    <td>תאריך</td>
-                    <td>שם המסמך</td>
-                    <td>הצגת מסמך</td>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    var files = Directory.GetFiles(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString() + "/"));
-                    if (files != null)
+    <table id="Table" class="table table-bordered table-hover form-group" dir="rtl">
+        <thead>
+            <tr>
+                <td>תאריך</td>
+                <td>שם המסמך</td>
+                <td>הצגת מסמך</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var files = Directory.GetFiles(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString() + "/"));
+                if (files != null)
+                {
+                    FileInfo fInfo;
+                    foreach (var x in files)
                     {
-                        FileInfo fInfo;
-                        foreach (var x in files)
-                        {
-                            fInfo = new FileInfo(x);
-                            var creation = fInfo.CreationTime;
-                            var fileName = Path.GetFileName(x);
-                            string ext = Path.GetExtension(x);
-                            <tr>
-                                <td>@fInfo.CreationTime.ToShortDateString() </td>
-                                <td>@fileName.Split('.')[0]</td>
-                                <td>
-
-                                    @{
-                                        switch (ext)
-                                        {
-                                            case ".png":<a target="_blank" href="@Url.Content("~/ScannedPatientsDocuments/"+Session["Patiant"].ToString()+"/"+fileName)"><img src="~/Images/FormatIcons/png.png" /></a>
-                                                break;
-                                            case ".jpeg":<a target="_blank" href="@Url.Content("~/ScannedPatientsDocuments/"+Session["Patiant"].ToString()+"/"+fileName)"><img src="~/Images/FormatIcons/jpg.png" /></a>
-                                                break;
-                                            case ".pdf":<a target="_blank" href="@Url.Content("~/ScannedPatientsDocuments/"+Session["Patiant"].ToString()+"/"+fileName)"><img src="~/Images/FormatIcons/pdf.png" /></a>
-                                                break;
-                                            case ".jpg":<a target="_blank" href="@Url.Content("~/ScannedPatientsDocuments/"+Session["Patiant"].ToString()+"/"+fileName)"><img src="~/Images/FormatIcons/jpg.png" /></a>
-                                                break;
+                        fInfo = new FileInfo(x);
+                        var creation = fInfo.CreationTime;
+                        var fileName = Path.GetFileName(x);
+                        string ext = Path.GetExtension(x);
+                        <tr>
+                            <td>@fInfo.CreationTime.ToShortDateString() </td>
+                            <td>@fileName.Split('.')[0]</td>
+                            <td>
+                                @{
+                                    switch (ext)
+                                    {
+                                        case ".png":<a target="_blank" href="@Url.Content("~/ScannedPatientsDocuments/"+Session["Patiant"].ToString()+"/"+fileName)"><img src="~/Images/FormatIcons/png.png" /></a>
+                                            break;
+                                        case ".jpeg":<a target="_blank" href="@Url.Content("~/ScannedPatientsDocuments/"+Session["Patiant"].ToString()+"/"+fileName)"><img src="~/Images/FormatIcons/jpg.png" /></a>
+                                            break;
+                                        case ".pdf":<a target="_blank" href="@Url.Content("~/ScannedPatientsDocuments/"+Session["Patiant"].ToString()+"/"+fileName)"><img src="~/Images/FormatIcons/pdf.png" /></a>
+                                            break;
+                                        case ".jpg":<a target="_blank" href="@Url.Content("~/ScannedPatientsDocuments/"+Session["Patiant"].ToString()+"/"+fileName)"><img src="~/Images/FormatIcons/jpg.png" /></a>
+                                            break;
+                                    }
+                                }
+                            </td>
+                        </tr>
                                         }
                                     }
-                                </td>
-                            </tr>
-                        }
-                    }
-                }
-            </tbody>
-        </table>
-    </center>
-
+            }
+        </tbody>
+    </table>
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close ,btnOk" data-dismiss="modal">&times;</button>
-
                 </div>
                 <div class="modal-body">
                     <p class="p_text"></p>
@@ -143,7 +124,6 @@
                     <button type="button" class="btnOk" data-dismiss="modal">סגירה</button>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

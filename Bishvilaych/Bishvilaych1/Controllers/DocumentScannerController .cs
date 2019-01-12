@@ -10,6 +10,7 @@ namespace Bishvilaych.Controllers
     {
         public ActionResult DocumentScanner()
         {
+            Session.Timeout += 5;//session הגדלת ה
             //בדיקה האם קיימת תקייה אישית ללקוח במידה ולא, יצירת תקייה מתאימה
             var IsFolderPath = System.IO.File.Exists(Server.MapPath("~/ScannedPatientsDocuments/" + Session["Patiant"].ToString()));
             if (!IsFolderPath)
@@ -19,6 +20,14 @@ namespace Bishvilaych.Controllers
         [HttpPost]// סריקת מסמכי מטופל
         public ActionResult DocumentScanner2(string newname)
         {
+            if (Session["UserName"] == null || Session["UserPasswerd"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            if (Session["Patiant"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             try
             {
                 Session.Timeout += 5;//session הגדלת ה

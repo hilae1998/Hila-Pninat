@@ -4,79 +4,69 @@
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
 
-
-
 @using DataAccessLayer;
 @using BussinesLayer;
 @model  Reccomendations
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<style>
-    .logo {
-        margin-top: -90px !important;
-    }
-
-    .return {
-        margin-top: -60px !important;
-    }
-</style>
 <script>
     var dictionary = new Array();
     $(document).ready(function () {
+        $("input[type=text]").addClass()
         $.ajax({
             type: 'get',
             url: "@Url.Action("getLastVisit")",
-            data:{},
+            data: {},
             success: function (result) {//בטעינת הדף,נשלפים כל סיכומי הביקור ומוכנסים לאובייקט
-                    $.each(result, function (i) {
-                        var key= Object.keys(this)[0]//מביא לי את שם המפתח לתאריך
-                        var val= Object.keys(this)[1]//מביא לי את שם המפתח לרשימה
-                        var follo = Object.keys(this)[2]//מביא לי את שם המפתח לפולו
-                        var mention = Object.keys(this)[3]//מביא לי את שם המפתח למנשין
-                        dictionary.push({
-                            date: this[key],//מביא לי את התאריך
-                            listRec:this[val],//מביא לי את הליסט
-                            FollowUp: this[follo],//מביא לי את הפולו
-                            Mentioned: this[mention]//מביא לי את המנשין
-                        })
-                    }) //end each function
-                    document.getElementById("MyForm").reset();   //אפס את הטופס 
-                    var list;
-                    list = dictionary[dictionary.length - 1].listRec//שלוף את הנתונים של היום-במידה וקיימים לתוך רשימה
-                    for (var i = 0; i < list.length; i++) {//מלא את הטופס בנתונים של היום
-                        $("input[name = '" + list[i].Code + "']").prop("checked",true)
-                        $("input[name = 'r" + list[i].Code + "']").prop("value",list[i].Reccomendation)
+                $.each(result, function (i) {
+                    var key = Object.keys(this)[0]//מביא לי את שם המפתח לתאריך
+                    var val = Object.keys(this)[1]//מביא לי את שם המפתח לרשימה
+                    var follo = Object.keys(this)[2]//מביא לי את שם המפתח לפולו
+                    var mention = Object.keys(this)[3]//מביא לי את שם המפתח למנשין
+                    dictionary.push({
+                        date: this[key],//מביא לי את התאריך
+                        listRec: this[val],//מביא לי את הליסט
+                        FollowUp: this[follo],//מביא לי את הפולו
+                        Mentioned: this[mention]//מביא לי את המנשין
+                    })
+                }) //end each function
+                document.getElementById("MyForm").reset();   //אפס את הטופס
+                var list;
+                list = dictionary[dictionary.length - 1].listRec//שלוף את הנתונים של היום-במידה וקיימים לתוך רשימה
+                for (var i = 0; i < list.length; i++) {//מלא את הטופס בנתונים של היום
+                    $("input[name = '" + list[i].Code + "']").prop("checked", true)
+                    $("input[name = 'r" + list[i].Code + "']").prop("value", list[i].Reccomendation)
+                }
+                $("#yesno").prop("selectedIndex", dictionary[dictionary.length - 1].Mentioned)//עדכון פקדי סלקט למידע הרצוי
+                switch (dictionary[dictionary.length - 1].FollowUp) {
+                    case 1: {
+                        $("#Follo").val("To return to clinic for pap test");
+                        break;
                     }
-                    $("#yesno").prop("selectedIndex", dictionary[dictionary.length - 1].Mentioned)//עדכון פקדי סלקט למידע הרצוי
-                    switch (dictionary[dictionary.length - 1].FollowUp) {
-                        case 1: {
-                            $("#Follo").val("To return to clinic for pap test");
-                            break;
-                        }
-                        case 2: {
-                            $("#Follo").val("Will be in touch with patient when results of pap(and labs) are available and if she doesn't hear from us in 6 weeks to get in touch with us")
-                            break;
-                        }
-                        case 3: {
-                            $("#Follo").val("Will be in touch with patient when labs are available and if she doesn't hear from us in 6 weeks to get in touch with us")
-                            break;
-                        }
+                    case 2: {
+                        $("#Follo").val("Will be in touch with patient when results of pap(and labs) are available and if she doesn't hear from us in 6 weeks to get in touch with us")
+                        break;
                     }
-                 //בדוק שוב אם יש פקדים שצריכים להסיר להם את החסימה
-                    enable_cb("block1", "#i3_1")
-                    enable_cb("block2", "#i3_2")
-                    enable_cb("obtain", "#i3_8")
-                    enable_cb("Check", "#i3_9")
-                    enable_cb("Referral", "#i3_10")
+                    case 3: {
+                        $("#Follo").val("Will be in touch with patient when labs are available and if she doesn't hear from us in 6 weeks to get in touch with us")
+                        break;
+                    }
+                }
+                //בדוק שוב אם יש פקדים שצריכים להסיר להם את החסימה
+                enable_cb("block1", "#i3_1")
+                enable_cb("block2", "#i3_2")
+                enable_cb("obtain", "#i3_8")
+                enable_cb("Check", "#i3_9")
+                enable_cb("Referral", "#i3_10")
 
-        },
+            },
 
-        error: function () {
-            alert("error")
-        }
+            error: function () {
+                alert("error")
+            }
         }) //end ajax function
 
         $(".herf").click(function () {//כאשר בוחרים תאריך עדכן את הפקדים בהתאם למידע השייך לאותו תאריך
-            var list, ment,foll;
+            var list, ment, foll;
             document.getElementById("MyForm").reset();//אפס את הטופס
             if (this.title != $("#now").attr("title")) //אם נכנסתה לתאריך שעבר,הפוך את כפתור השליחה ללא זמין
             {
@@ -87,16 +77,16 @@
                 $("#ButtonSubmit").prop("disabled", false);
                 $("#ButtonSubmit").removeClass("disablebutton")
             }
-            for (var i = 0; i < dictionary. length; i++) {
-               if(this.title==dictionary[i].date){//שלוף את הנתונים של התאריך הנבחר
-                   list = dictionary[i].listRec
-                   ment = dictionary[i].Mentioned
-                   foll = dictionary[i].FollowUp
-               }
+            for (var i = 0; i < dictionary.length; i++) {
+                if (this.title == dictionary[i].date) {//שלוף את הנתונים של התאריך הנבחר
+                    list = dictionary[i].listRec
+                    ment = dictionary[i].Mentioned
+                    foll = dictionary[i].FollowUp
+                }
             }
             for (var i = 0; i < list.length; i++) {//מלא את פקדי הטופס לפי הנתונים שנשלחו
-                $("input[name = '" + list[i].Code + "']").prop("checked",true)
-                $("input[name = 'r" + list[i].Code + "']").prop("value",list[i].Reccomendation)
+                $("input[name = '" + list[i].Code + "']").prop("checked", true)
+                $("input[name = 'r" + list[i].Code + "']").prop("value", list[i].Reccomendation)
             }
             $("#yesno").prop("selectedIndex", ment)
             switch (foll) {
@@ -114,11 +104,11 @@
                 }
             }
             //בדוק שוב אם יש פקדים שצריכים להסיר להם את החסימה
-                enable_cb("block1", "#i3_1")
-                enable_cb("block2", "#i3_2")
-                enable_cb("obtain", "#i3_8")
-                enable_cb("Check", "#i3_9")
-                enable_cb("Referral", "#i3_10")
+            enable_cb("block1", "#i3_1")
+            enable_cb("block2", "#i3_2")
+            enable_cb("obtain", "#i3_8")
+            enable_cb("Check", "#i3_9")
+            enable_cb("Referral", "#i3_10")
         })
 
         //חסימת  כל הפקדים בעלי הקלאס
@@ -173,7 +163,7 @@
             var dict = new Array();
 
             $(":checkbox").each(function () {
-                if ($(this).prop("checked")== true) {
+                if ($(this).prop("checked") == true) {
 
                     var key = this.name
                     if ($("input[name = 'r" + key + "']").length) {
@@ -182,7 +172,7 @@
                             Reccomendation: $("input[name = 'r" + key + "']").prop("value"),
                         });
                     }
-                    else{
+                    else {
                         dict.push({
                             Code: key,
                             Reccomendation: $(this).prop("value"),
@@ -199,41 +189,41 @@
                     break;
                 }
                 case "Will be in touch with patient when results of pap(and labs) are available and if she doesn't hear from us in 6 weeks to get in touch with us": {
-                    follo=2
+                    follo = 2
                     break;
                 }
                 case "Will be in touch with patient when labs are available and if she doesn't hear from us in 6 weeks to get in touch with us": {
-                    follo=3
+                    follo = 3
                     break;
                 }
             }
             dict2.push({//מילוי אובייקט בנתוני הסלקט
-                Mentioned:  $("#yesno").prop("selectedIndex")==1?false:true,
+                Mentioned: $("#yesno").prop("selectedIndex") == 1 ? false : true,
                 FollowUp: follo
 
             })
 
-        $.ajax({//שמירת הנתונים
-            type: 'POST',
-            url: "@Url.Action("SavevisitSummary")",
-            traditional: true,
-            dataType: 'text',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ 'a': dict, 'b': dict2 }),
+            $.ajax({//שמירת הנתונים
+                type: 'POST',
+                url: "@Url.Action("SavevisitSummary")",
+                traditional: true,
+                dataType: 'text',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ 'a': dict, 'b': dict2 }),
 
-            success: function (result) {
-                $(".p_text").html(result)              
-                $('#myModal').modal('show');
-               
+                success: function (result) {
+                    $(".p_text").html(result)
+                    $('#myModal').modal('show');
 
-            },
-            error:function(){
-                $(".p_text").html(result)
-                $('#myModal').modal('show');
-            }
-        })
 
-     })//end function click
+                },
+                error: function () {
+                    $(".p_text").html(result)
+                    $('#myModal').modal('show');
+                }
+            })
+
+        })//end function click
         $('#myModal').on('hidden.bs.modal', function () {
             window.location.reload();
         });
@@ -241,7 +231,13 @@
 
 </script>
 <style>
-  
+    .logo {
+        margin-top: -40px !important;
+    }
+
+    .return {
+        margin-top: -40px !important;
+    }
 
     #helth {
         width: 50%;
@@ -254,16 +250,29 @@
     .divs {
         float: left;
         font-size: 15px;
-        margin-left: 10%;
+        margin-left: 5%;
+        font-size: 20px;
+        font-family: Calibri;
+    }
+   
+    h3 {
+        margin-left: 5%;
+        color: #52172e;
+        font-family: Calibri;
     }
 
-    h3 {
-        margin-left: 35%;
-        color: #52172e;
+    .disablebutton {
+        opacity: 0.8;
     }
-    .disablebutton{
- opacity: 0.8;
+
+    #nextGroup {
+        width: auto;
+        height: auto;
+        font-family: Calibri;
+        font-size: 20px;
+        margin-left: 5%;
     }
+
     input[type=button] {
         background-color: rgba(129, 0, 64, 0.88);
         color: white;
@@ -271,25 +280,36 @@
         margin: 8px 0;
         border: none;
         cursor: pointer;
-        width: 10%;
+        /*width: 10%;*/
+    }
+   #nextGroup input[type=text]{
+    width: 150px !important;
+    height: 30px !important;
+    margin-top: 5px !important;
+    }
+   #rec
+   input[type=text]{
+    width: 80px !important;
+    height: 30px !important;
+    margin-top: 5px !important;
+    }
+    body {
+        display: flex;
+        flex-direction: column;
     }
 
-    /*#lastvisit > a {
-        font-size:24px;
+    #Content {
+        flex: 1 0 auto;
     }
-    #lastvisit {
-    }*/
-    
+
+    footer,.divL {
+        flex-shrink: 0;
+    }
 </style>
-
-
-
-
-<br /><br />
-
-<form id="MyForm">
-    <div id="lastvisit">
-        @{
+<div id="Content">
+    <form id="MyForm" class="form-horizontal">
+        <div id="lastvisit">
+            @{
             BussinessLayer.BLVisitSummery blv = new BussinessLayer.BLVisitSummery();
             List<DateTime> l2 = new List<DateTime>();
             l2 = blv.get_updating(Session["Patiant"].ToString());
@@ -298,168 +318,159 @@
 
                 if (item.Date == DateTime.Today.Date)
                 {
-                    <a href="#" id="now" class="herf" title="@DateTime.Today.ToShortDateString()">היום</a><br />
+            <a href="#" id="now" class="herf" title="@DateTime.Today.ToShortDateString()">היום</a><br />
                 }
                 else
                 {
-                    <a href="#" class="herf" title="@item.ToShortDateString()">@item.Day/@item.Month/@item.Year</a><br />
+            <a href="#" class="herf" title="@item.ToShortDateString()">@item.Day/@item.Month/@item.Year</a><br />
                 }
 
             }
 
 
-        }
-    </div>
-    <div id="gg"></div>
-    <div id="helth">
-        <span style="font-size:larger;font-family:Calibri"><b>Health Care Maintenance:</b></span> <br />
-        diet, regular physical activity, calcium and vitamin D requirements,
-        routine eye, skin and dental exams discussed with patient.
-        Breast self exam instructed.<br />
-        Appropriate screening for age discussed with patient.
-        <select id="yesno" name="Mentioned">
-            <option>Yes</option>
-            <option>No</option>
-        </select>
-        <br />
-        <br />
-        <label>
-            <b>follow up:</b>
-        </label>
-        <select id="Follo" name="FollowUp" style="width:80%">
-            @{
+            }
+        </div>
+        <h3><b>Health Care Maintenance:</b></h3><br />
+        <div id="helth">
+            Diet, regular physical activity, calcium and vitamin D requirements,
+            routine eye, skin and dental exams discussed with patient.
+            Breast self exam instructed.<br />
+            Appropriate screening for age discussed with patient.
+            <select id="yesno" name="Mentioned">
+                <option>Yes</option>
+                <option>No</option>
+            </select><br /><br />
+            <label>
+                <b>follow up:</b>
+            </label>
+            <select id="Follo" name="FollowUp" style="width:80%">
+                @{
 
                 List<FollowsUp> l = new List<FollowsUp>();
                 l = blv.getFollowUp();
                 foreach (var item in l)
                 {
-                    <option >@item.FollowUp</option>
+                <option>@item.FollowUp</option>
                 }
-            }
-        </select>
-    </div><br /><br /><br /><br /><br />
-
-    <br />
-
-    <h3>RECOMMENDATION</h3><br />
-
-    <div id="i1" class="divs">
-        <input id="i1_1" name="11" type="checkbox" value="Glucose" /> Glucose<br />
-        <input id="i1_2" name="12" type="checkbox" value="Lipid profile" /> Lipid profile<br />
-        <input id="i1_3" name="13" type="checkbox" value="Liver function" /> Liver function<br />
-        <input id="i1_4" name="14" type="checkbox" value="Renal profile" /> Renal profile<br />
-        <input id="i1_5" name="15" type="checkbox" value="Tsh" /> Tsh<br />
-        <input id="i1_6" name="16" type="checkbox" value="Vitamin b12" /> Vitamin b12<br />
-        <input id="i1_7" name="17" type="checkbox" value="Folic acid" /> Folic acid<br />
-        <input id="i1_8" name="18" type="checkbox" value="Vitamin d" /> Vitamin d<br />
-        <input id="i1_9" name="19" type="checkbox" value="Magnesium" /> Magnesium<br />
-        <input id="i1_10" name="110" type="checkbox" value="Iron" />Iron<br />
-        <input id="i1_11" name="111" type="checkbox" value="Occult blood" /> Occult blood<br />
-
-
-    </div>
-    <div class="divs">
-        <input id="i1_12" name="112" type="checkbox" value="Ferritin" />  Ferritin  <br />
-        <input id="i1_13" name="113" type="checkbox" value="Cbc" />  Cbc       <br />
-        <input id="i1_14" name="114" type="checkbox" value="Sodium " />  Sodium    <br />
-        <input id="i1_15" name="115" type="checkbox" value="Potassium" />  Potassium <br />
-        <input id="i1_16" name="116" type="checkbox" value="Bun" />  Bun       <br />
-        <input id="i1_17" name="117" type="checkbox" value="Hgba1c" />  Hgba1c    <br />
-        <input id="i1_18" name="118" type="checkbox" value="urinalysis" />  urinalysis<br />
-        <input id="i1_19" name="119" type="checkbox" /><input name="r119" id="tText1" type="text" style="width:40px" /><br />
-        <input id="i1_20" name="120" type="checkbox" /><input name="r120" id="Text1" type="text" style="width:40px" /><br />
-        <input id="i1_21" name="121" type="checkbox" /><input name="r121" id="Text1" type="text" style="width:40px" /><br />
-    </div>
-    <div id="i2" class="divs">
-        <input id="i2_1" name="21" type="checkbox" value="bmd" /> bmd<br />
-        <input id="i2_2" name="22" type="checkbox" value="Bone scan" /> Bone scan<br />
-        <input id="i2_3" name="23" type="checkbox" value="Breast us" /> Breast us<br />
-        <input id="i2_4" name="24" type="checkbox" value="cbe" /> cbe<br />
-        <input id="i2_5" name="25" type="checkbox" value="colonoscopy" /> colonoscopy<br />
-        <input id="i2_6" name="26" type="checkbox" /> Ct&nbsp;<input name="r26" id="Text1" type="text" style="width:40px" /><br />
-        <input id="i2_7" name="27" type="checkbox" value="doppler" />  doppler<br />
-        <input id="i2_8" name="28" type="checkbox" value="ecc" />  ecc<br />
-        <input id="i2_9" name="29" type="checkbox" value="echo" />  echo<br />
-        <input id="i2_10" name="210" type="checkbox" value="eeg" /> eeg<br />
-        <input id="i2_11" name="211" type="checkbox" value="emg" /> emg<br />
-
-    </div>
-    <div class="divs">
-        <input id="i2_12" name="212" type="checkbox" value="gastroscopy" /> gastroscopy<br />
-        <input id="i2_13" name="213" type="checkbox" value="nolter" /> nolter<br />
-        <input id="i2_14" name="214" type="checkbox" value="mammography" /> mammography<br />
-        <input id="i2_15" name="215" type="checkbox" /> mri&nbsp;<input name="r215" id="Text1" type="text" style="width:40px" /><br />
-        <input id="i2_16" name="216" type="checkbox" value="pap" /> pap<br />
-        <input id="i2_17" name="217" type="checkbox" value="sigmoidoscopy" /> sigmoidoscopy<br />
-        <input id="i2_18" name="218" type="checkbox" value="Pelvic us" /> Pelvic us<br />
-        <input id="i2_19" name="219" type="checkbox" /> X-ray&nbsp;<input name="r219" id="Text1" type="text" style="width:40px" /><br />
-        <input id="i2_20" name="220" type="checkbox" /> us&nbsp;<input name="r220" id="Text1" type="text" style="width:40px" /><br />
-        <input id="i2_21" name="221" type="checkbox" />  <input id="Text1" name="r221" type="text" style="width:40px" /><br />
-        <input id="i2_22" name="222" type="checkbox" /> <input id="Text1" name="r222" type="text" style="width:40px" /><br />
-
-
-    </div><br />
-
-   <br />
-    <input id="i3_1" name="31" type="checkbox" value="Take vitamin d3" />  Take vitamin d3<br />
-    &nbsp; &nbsp; &nbsp; <input id="i3_1_1" name="311" class="block1" type="checkbox" value="1000 IU daily, which is equivalent to 5 drops of 200 IU or 35 drops once  a week" />  1000 IU daily, which is equivalent to 5<br /> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; drops of 200 IU or 35 drops once  a week<br />
-    &nbsp; &nbsp; &nbsp; <input id="i3_1_2" name="312" class="block1" type="checkbox" value="2000 IU daily, which is either 5 drops of 400 IU or 35 drops once a week" />  2000 IU daily, which is either 5 drops of 400 <br /> &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; IU or 35 drops once a week<br />
-    &nbsp; &nbsp; &nbsp; <input id="i3_1_3" name="313" class="block1" type="checkbox" />  Other&nbsp;<input name="r313" class="block1" id="Text1" type="text" style="width:150px" /><br />
-   <div style="text-align:center"> <input id="i3_2" name="32" type="checkbox" value="Take folic acid every day" /> Take folic acid every day<br />
-    &nbsp; &nbsp;&nbsp; <input id="i3_2_1" name="321" class="block2" type="checkbox" value="400 mcg" /> 400 mcg<br />
-    &nbsp; &nbsp; &nbsp;<input id="i3_2_2" name="322" class="block2" type="checkbox" /> Other&nbsp;<input name="r322" class="block2" id="Text1" type="text" style="width:150px" /><br />
-    <input id="i3_3" type="checkbox" name="33" />Take vitamin b12&nbsp;<input id="Text1" name="r33" type="text" style="width:150px" /><br />
-    <input id="i3_4" type="checkbox" name="34" /> Other vitamins&nbsp;<input id="Text1" name="r34" type="text" style="width:150px" /><br />
-    <input id="i3_5" type="checkbox" name="35" />Exercise for:&nbsp;<input id="Text1" name="r35" type="text" style="width:150px" /><br />
-    <input id="i3_6" type="checkbox" name="36" value="Obtain pelvic ultrasound" />Obtain pelvic ultrasound<br />
-    <input id="i3_7" type="checkbox" name="37" value="Do a clinical breast exam yearly" /> Do a clinical breast exam yearly<br />
-    <input id="i3_8" type="checkbox" name="38" />Obtain the following immunizations:<br />
-    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_1" name="381" />  the flu vaccine now and every winter&nbsp;<input class="obtain" name="r381" id="Text1" type="text" style="width:150px" /><br />
-    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_2" name="382" /> the tetanus vaccine now and once every 10 years&nbsp;<input class="obtain" name="r382" id="Text1" type="text" style="width:150px" /><br />
-    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_3" name="383" />  Pneumovax&nbsp;<input class="obtain" name="r383" id="Text1" type="text" style="width:150px" /><br />
-    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_4" name="384" /> Zoster&nbsp;<input class="obtain" name="r384" id="Text1" type="text" style="width:150px" /><br />
-    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_5" name="385" />  Hepatitis A vaccine&nbsp;<input class="obtain" name="r385" id="Text1" type="text" style="width:150px" /><br />
-    &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_6" name="386" /> Hepatitis B vaccine&nbsp;<input class="obtain" name="r386" id="Text1" type="text" style="width:150px" /><br />
-    <input id="i3_9" type="checkbox" name="39" />  Check if you are immune to:<br />
-    &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_1" name="391" value="Hepatitis A" />  Hepatitis A<br />
-    &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_2" name="392" value=" Hepatitis B">  Hepatitis B<br />
-    &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_3" name="393" />  Other&nbsp;<input class="Check" name="r393" id="Text1" type="text" style="width:150px" /><br />
-    <input id="i3_10" type="checkbox" name="310"/> Referral for:<br />
-    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_1" name="3101" />  Pelvic floor exercises&nbsp;<input class="Referral" name="r3101" id="Text1" type="text" style="width:150px" /><br />
-    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_2" name="3102" /> Physical therapist&nbsp;<input class="Referral" id="Text1" name="r3102" type="text" style="width:150px" /><br />
-    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_3" name="3103" />  Physician – specialist&nbsp;<input class="Referral" id="Text1" name="r3103" type="text" style="width:150px" /><br />
-    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_4" name="3104" />  Psychologist&nbsp;<input class="Referral" id="Text1" type="text" name="r3104" style="width:150px" /><br />
-    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_5" name="3105" />  Registered dietitian&nbsp;<input class="Referral" id="Text1" name="r3105" type="text" style="width:150px" /><br />
-    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_6" name="3106" />  Sex therapist&nbsp;<input class="Referral" id="Text1" type="text" name="r3106" style="width:150px" /><br />
-    &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_7" name="3107" />  social worker&nbsp;<input class="Referral" id="Text1" type="text" name="r3107" style="width:150px" /><br />
-    <input id="i3_11" type="checkbox" name="311" />  Prescription given for:&nbsp;<input id="Text1" name="r311" type="text" style="width:150px" /><br />
-
-
-    @*<input id="Button2" type="button" value="הדפס המלצות" />
-    <input id="Button1" type="button" value="הדפס תיק רפואי" />*@
-    <input id="ButtonSubmit" type="button"  data-toggle="modal" @*data-target="#myModal"*@ value="סיום תיק רפואי" />
-
-    </div>
-
-
-
-</form>
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                }
+            </select>
+        </div><br />
+        <br /><br />
+        <h3><b>RECOMMENDATION:</b></h3><br />
+        <div id="rec" class="form-group">
+            <div id="i1" class="divs">
+                <input id="i1_1" name="11" type="checkbox" value="Glucose" /> Glucose<br />
+                <input id="i1_2" name="12" type="checkbox" value="Lipid profile" /> Lipid profile<br />
+                <input id="i1_3" name="13" type="checkbox" value="Liver function" /> Liver function<br />
+                <input id="i1_4" name="14" type="checkbox" value="Renal profile" /> Renal profile<br />
+                <input id="i1_5" name="15" type="checkbox" value="Tsh" /> Tsh<br />
+                <input id="i1_6" name="16" type="checkbox" value="Vitamin b12" /> Vitamin b12<br />
+                <input id="i1_7" name="17" type="checkbox" value="Folic acid" /> Folic acid<br />
+                <input id="i1_8" name="18" type="checkbox" value="Vitamin d" /> Vitamin d<br />
+                <input id="i1_9" name="19" type="checkbox" value="Magnesium" /> Magnesium<br />
+                <input id="i1_10" name="110" type="checkbox" value="Iron" />Iron<br />
+                <input id="i1_11" name="111" type="checkbox" value="Occult blood" /> Occult blood<br />
 
             </div>
-            <div class="modal-body">
-                <p class="p_text"></p>
+            <div class="divs">
+                <input id="i1_12" name="112" type="checkbox" value="Ferritin" />  Ferritin  <br />
+                <input id="i1_13" name="113" type="checkbox" value="Cbc" />  Cbc       <br />
+                <input id="i1_14" name="114" type="checkbox" value="Sodium " />  Sodium    <br />
+                <input id="i1_15" name="115" type="checkbox" value="Potassium" />  Potassium <br />
+                <input id="i1_16" name="116" type="checkbox" value="Bun" />  Bun       <br />
+                <input id="i1_17" name="117" type="checkbox" value="Hgba1c" />  Hgba1c    <br />
+                <input id="i1_18" name="118" type="checkbox" value="urinalysis" />  urinalysis<br />
+                <input id="i1_19" name="119" type="checkbox" /><input name="r119" id="tText1" type="text" style="width:40px" /><br />
+                <input id="i1_20" name="120" type="checkbox" /><input name="r120" id="Text1" type="text" style="width:40px" /><br />
+                <input id="i1_21" name="121" type="checkbox" /><input name="r121" id="Text1" type="text" style="width:40px" /><br />
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">סגירה</button>
+            <div id="i2" class="divs">
+                <input id="i2_1" name="21" type="checkbox" value="bmd" /> bmd<br />
+                <input id="i2_2" name="22" type="checkbox" value="Bone scan" /> Bone scan<br />
+                <input id="i2_3" name="23" type="checkbox" value="Breast us" /> Breast us<br />
+                <input id="i2_4" name="24" type="checkbox" value="cbe" /> cbe<br />
+                <input id="i2_5" name="25" type="checkbox" value="colonoscopy" /> colonoscopy<br />
+                <input id="i2_6" name="26" type="checkbox" /> Ct&nbsp;<input name="r26" id="Text1" type="text" style="width:40px" /><br />
+                <input id="i2_7" name="27" type="checkbox" value="doppler" />  doppler<br />
+                <input id="i2_8" name="28" type="checkbox" value="ecc" />  ecc<br />
+                <input id="i2_9" name="29" type="checkbox" value="echo" />  echo<br />
+                <input id="i2_10" name="210" type="checkbox" value="eeg" /> eeg<br />
+                <input id="i2_11" name="211" type="checkbox" value="emg" /> emg<br />
+            </div>
+            <div class="divs">
+                <input id="i2_12" name="212" type="checkbox" value="gastroscopy" /> gastroscopy<br />
+                <input id="i2_13" name="213" type="checkbox" value="nolter" /> nolter<br />
+                <input id="i2_14" name="214" type="checkbox" value="mammography" /> mammography<br />
+                <input id="i2_15" name="215" type="checkbox" /> mri&nbsp;<input name="r215" id="Text1" type="text" style="width:40px" /><br />
+                <input id="i2_16" name="216" type="checkbox" value="pap" /> pap<br />
+                <input id="i2_17" name="217" type="checkbox" value="sigmoidoscopy" /> sigmoidoscopy<br />
+                <input id="i2_18" name="218" type="checkbox" value="Pelvic us" /> Pelvic us<br />
+                <input id="i2_19" name="219" type="checkbox" /> X-ray&nbsp;<input name="r219" id="Text1" type="text" style="width:40px" /><br />
+                <input id="i2_20" name="220" type="checkbox" /> us&nbsp;<input name="r220" id="Text1" type="text" style="width:40px" /><br />
+                <input id="i2_21" name="221" type="checkbox" />  <input id="Text1" name="r221" type="text" style="width:40px" /><br />
+                <input id="i2_22" name="222" type="checkbox" /> <input id="Text1" name="r222" type="text" style="width:40px" /><br />
+
+            </div>
+        </div>
+        <div id="nextGroup" class="form-group">
+            <div class="form-group">
+                <input id="i3_1" name="31" type="checkbox" value="Take vitamin d3" />  Take vitamin d3<br />
+                &nbsp; &nbsp; &nbsp; <input id="i3_1_1" name="311" class="block1" type="checkbox" value="1000 IU daily, which is equivalent to 5 drops of 200 IU or 35 drops once  a week" />  1000 IU daily, which is equivalent to 5<br /> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; drops of 200 IU or 35 drops once  a week<br />
+                &nbsp; &nbsp; &nbsp; <input id="i3_1_2" name="312" class="block1" type="checkbox" value="2000 IU daily, which is either 5 drops of 400 IU or 35 drops once a week" />  2000 IU daily, which is either 5 drops of 400 <br /> &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; IU or 35 drops once a week<br />
+                &nbsp; &nbsp; &nbsp; <input id="i3_1_3" name="313" class="block1" type="checkbox" />  Other&nbsp;<input name="r313" class="block1" id="Text1" type="text" style="width:150px" /><br />
+            </div>
+            <div class="form-group">
+                <input id="i3_2" name="32" type="checkbox" value="Take folic acid every day" /> Take folic acid every day<br />
+                &nbsp; &nbsp;&nbsp; <input id="i3_2_1" name="321" class="block2" type="checkbox" value="400 mcg" /> 400 mcg<br />
+                &nbsp; &nbsp; &nbsp;<input id="i3_2_2" name="322" class="block2" type="checkbox" /> Other&nbsp;<input name="r322" class="block2" id="Text1" type="text" style="width:150px" /><br />
+                <input id="i3_3" type="checkbox" name="33" />Take vitamin b12&nbsp;<input id="Text1" name="r33" type="text" style="width:150px" /><br />
+                <input id="i3_4" type="checkbox" name="34" /> Other vitamins&nbsp;<input id="Text1" name="r34" type="text" style="width:150px" /><br />
+                <input id="i3_5" type="checkbox" name="35" />Exercise for:&nbsp;<input id="Text1" name="r35" type="text" style="width:150px" /><br />
+                <input id="i3_6" type="checkbox" name="36" value="Obtain pelvic ultrasound" />Obtain pelvic ultrasound<br />
+                <input id="i3_7" type="checkbox" name="37" value="Do a clinical breast exam yearly" /> Do a clinical breast exam yearly<br />
+                <input id="i3_8" type="checkbox" name="38" />Obtain the following immunizations:<br />
+                &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_1" name="381" />  the flu vaccine now and every winter&nbsp;<input class="obtain" name="r381" id="Text1" type="text" style="width:150px" /><br />
+                &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_2" name="382" /> the tetanus vaccine now and once every 10 years&nbsp;<input class="obtain" name="r382" id="Text1" type="text" style="width:150px" /><br />
+                &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_3" name="383" />  Pneumovax&nbsp;<input class="obtain" name="r383" id="Text1" type="text" style="width:150px" /><br />
+                &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_4" name="384" /> Zoster&nbsp;<input class="obtain" name="r384" id="Text1" type="text" style="width:150px" /><br />
+                &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_5" name="385" />  Hepatitis A vaccine&nbsp;<input class="obtain" name="r385" id="Text1" type="text" style="width:150px" /><br />
+                &nbsp; &nbsp;&nbsp; <input class="obtain" type="checkbox" id="i3_8_6" name="386" /> Hepatitis B vaccine&nbsp;<input class="obtain" name="r386" id="Text1" type="text" style="width:150px" /><br />
+                <input id="i3_9" type="checkbox" name="39" />  Check if you are immune to:<br />
+                &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_1" name="391" value="Hepatitis A" />  Hepatitis A<br />
+                &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_2" name="392" value=" Hepatitis B">  Hepatitis B<br />
+                &nbsp; &nbsp;&nbsp; <input class="Check" type="checkbox" id="i3_9_3" name="393" />  Other&nbsp;<input class="Check" name="r393" id="Text1" type="text" style="width:150px" /><br />
+                <input id="i3_10" type="checkbox" name="310" /> Referral for:<br />
+                &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_1" name="3101" />  Pelvic floor exercises&nbsp;<input class="Referral" name="r3101" id="Text1" type="text" style="width:150px" /><br />
+                &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_2" name="3102" /> Physical therapist&nbsp;<input class="Referral" id="Text1" name="r3102" type="text" style="width:150px" /><br />
+                &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_3" name="3103" />  Physician – specialist&nbsp;<input class="Referral" id="Text1" name="r3103" type="text" style="width:150px" /><br />
+                &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_4" name="3104" />  Psychologist&nbsp;<input class="Referral" id="Text1" type="text" name="r3104" style="width:150px" /><br />
+                &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_5" name="3105" />  Registered dietitian&nbsp;<input class="Referral" id="Text1" name="r3105" type="text" style="width:150px" /><br />
+                &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_6" name="3106" />  Sex therapist&nbsp;<input class="Referral" id="Text1" type="text" name="r3106" style="width:150px" /><br />
+                &nbsp; &nbsp;&nbsp; <input class="Referral" type="checkbox" id="i3_10_7" name="3107" />  social worker&nbsp;<input class="Referral" id="Text1" type="text" name="r3107" style="width:150px" /><br />
+                <input id="i3_11" type="checkbox" name="311" />  Prescription given for:&nbsp;<input id="Text1" name="r311" type="text" style="width:150px" /><br />
+            </div>
+            @*<input id="Button2" type="button" value="הדפס המלצות" />
+                <input id="Button1" type="button" value="הדפס תיק רפואי" />*@
+            <div class="form-group" style="margin-left:7%;">
+                <input id="ButtonSubmit" type="button" data-toggle="modal" value="סיום תיק רפואי" />
             </div>
         </div>
 
+    </form>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="p_text"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">סגירה</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
