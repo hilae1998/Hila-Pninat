@@ -1,7 +1,4 @@
-﻿@*מסך 43*@
-@*לא לשכוח ליצור קישור לדף 33*@
-
-@{
+﻿@{
     ViewBag.Title = "ReciepitsListOfCustomers";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
@@ -9,20 +6,20 @@
     footer {
         position: absolute !important;
     }
+  
 </style>
 @model Bishvilaych.Controllers.MyCustomersRecepitModels
-<form id="form1" dir="rtl">
+<form id="form1" dir="rtl" class="container" style="margin-right:500px;">
 
-    <h2>לקוחה</h2>
-    <label>:מספר זהות</label>
-    <label>@Html.DisplayFor(model => model.MyC.Id)</label>
+    <h2 style="color:#810040">לקוחה</h2>
+    <label style="font-size:20px; color:#a74174" dir="ltr">:מספר זהות</label>
+    <label style="font-size:20px; color:#a74174">@Html.DisplayFor(model => model.MyC.Id)</label>&nbsp;&nbsp;&nbsp;&nbsp;
 
-    <label>:שם מלא</label>
-    <label>@Html.DisplayFor(model => model.MyC.FirstName)</label>
-    <label>@Html.DisplayFor(model => model.MyC.LastName)</label>
+    <label style="font-size:20px; color:#a74174" dir="ltr">:שם מלא</label>
+    <label style="font-size:20px; color:#a74174">@Html.DisplayFor(model => model.MyC.FirstName)</label>
+    <label style="font-size:20px; color:#a74174">@Html.DisplayFor(model => model.MyC.LastName)</label>
 
-
-    <h1>קבלות</h1>
+    <h1 style="color:#810040">קבלות</h1>
     <table id="tbl" dir="rtl" class="table table-hover" style="width:70%">
         <thead>
             <tr>
@@ -41,14 +38,14 @@
                         <td>@item.receiptDate.ToShortDateString()</td>
                         <td>@item.receiptNum</td>
                         <td>@item.Sum</td>
-                        <td>@Html.ActionLink("קישור לקבלה", "", "")</td>
+                        @*<td>@Html.ActionLink("קישור לקבלה", "", "")</td>*@
                     </tr>
                 }
             }
         </tbody>
     </table>
 
-    <p><a href="JavaScript:newPopup();">חדש</a></p>
+    <p><a  style="width:63px!important;" class="btnOkAdd"  href="JavaScript:newPopup();">חדש</a></p>
 
 </form>
 

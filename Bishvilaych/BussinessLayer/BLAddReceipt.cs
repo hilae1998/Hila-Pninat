@@ -26,7 +26,7 @@ namespace BussinessLayer
                 Params.Add("@PayBy", DBNull.Value);
             Params.Add("@chequaNum", BLCtrl.sendString(chequaNum,""));
             if (bank != 0)
-                Params.Add("@Bank", payBy);
+                Params.Add("@Bank", bank);
             else
                 Params.Add("@Bank", DBNull.Value);
             Params.Add("@Brunch", BLCtrl.sendString(runch,""));
@@ -56,7 +56,7 @@ namespace BussinessLayer
         
             Params.Add("@chequaNum", BLCtrl.sendString(chequaNum, ""));
             if (bank != 0)
-                Params.Add("@Bank", payBy);
+                Params.Add("@Bank", bank);
             else
                 Params.Add("@Bank", DBNull.Value);
             Params.Add("@Brunch", BLCtrl.sendString(runch, ""));

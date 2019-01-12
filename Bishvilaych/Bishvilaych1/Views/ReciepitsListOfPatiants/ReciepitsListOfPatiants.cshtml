@@ -1,35 +1,38 @@
-﻿@*מסך 41 קבלות למטופלת*@
-
-@{
+﻿@{
     ViewBag.Title = "ReciepitsListOfPatiants";
     Layout = "~/Views/Shared/_PatiantsLayoutPage.cshtml";
 }
 <style>
     footer {
-        position: absolute !important;
+        position: relative !important;
+    }
+    .logo {
+        margin-top: -90px !important;
+    }
+
+    .return {
+        margin-top: -60px !important;
     }
 </style>
 
 @model Bishvilaych.Controllers.MyPatiantsRecepitModels
-<form id="form1" dir="rtl">
+<form id="form1" dir="rtl" class="container">
 
+    <h2 style="color:#810040">מטופלת</h2>
+    <label style="font-size:20px; color:#a74174" dir="ltr">:מספר זהות</label>
+    <label style="font-size:20px; color:#a74174">@Html.DisplayFor(model => model.MyP.Id)</label>&nbsp;&nbsp;&nbsp;&nbsp;
 
-    <h2>מטופלת</h2>
-    <label>:מספר זהות</label>
-    <label>@Html.DisplayFor(model => model.MyP.Id)</label>
-
-    <label>:שם מלא</label>
-    <label>@Html.DisplayFor(model => model.MyP.FirstName)</label>
-    <label>@Html.DisplayFor(model => model.MyP.LastName)</label>
-
-    <h1>קבלות</h1>
+    <label style="font-size:20px; color:#a74174" dir="ltr">:שם מלא</label>
+    <label style="font-size:20px; color:#a74174">@Html.DisplayFor(model => model.MyP.FirstName)</label>
+    <label style="font-size:20px; color:#a74174">@Html.DisplayFor(model => model.MyP.LastName)</label>
+    <h1 style="color:#810040">קבלות</h1>
     <table id="tbl" class="table table-hover" style="width:70%">
         <thead>
             <tr>
                 <td>תאריך</td>
                 <td>מספר קבלה</td>
                 <td>סכום</td>
-                <td></td>
+                @*<td></td>*@
 
             </tr>
         </thead>
@@ -41,15 +44,15 @@
                         <td>@item.receiptDate.ToShortDateString()</td>
                         <td>@item.receiptNum</td>
                         <td>@item.Sum</td>
-                        <td>@Html.ActionLink("קישור לקבלה", "", "")</td>
+                        @*<td>@Html.ActionLink("קישור לקבלה", "", "")</td>*@
                     </tr>
                 }
             }
         </tbody>
     </table>
 
-    <p><a href="JavaScript:newPopup();">חדש</a></p>
-    
+    <p><a style="width:63px!important;" class="btnOkAdd" href="JavaScript:newPopup();">חדש</a></p>
+
 </form>
 
 <script type="text/javascript">

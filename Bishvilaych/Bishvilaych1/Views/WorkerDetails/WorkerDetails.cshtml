@@ -21,6 +21,7 @@
     footer {
         position: absolute !important;
     }
+
     .valid {
         color: green;
     }
@@ -56,7 +57,7 @@
         }
 </style>
 
-    <script>
+<script>
         function check() {
             $("#UserName1").on("blur", function () {
                 $.ajax({
@@ -70,7 +71,7 @@
                 error:function(){}})
         })
         }
-        $(document).ready(function(){       
+        $(document).ready(function(){
                 $("#message").hide()
             // When the user clicks on the password field, show the message box
             $("#Password1").focus( function () {
@@ -171,63 +172,89 @@
 </script>
 
 
+<div dir="rtl" class="container" style="margin-right:350px;margin-top:0px;width:400px">
+    <form id="form1" action="@Url.Action("updateWorker","WorkerDetails")" method="post">
 
-<form id="form1" action="@Url.Action("updateWorker","WorkerDetails")" method="post">
-    <div>
-        <select id="select1" name="Job">
-            @{
+        <div>
+            <label for="select1" style="font-size:25px;font-family:Arial">תפקיד:</label>
+            <select id="select1" class="selectpicker" multiple data-action-box="true" style="font-size:15px" name="Job">
+                @{
 
-                l2 = b.GetJob();
-                foreach (var item1 in l2)
-                {
-                    <option value="@item1.Code" @(Model.Job == item1.Code ? "selected='selected'" : "" )>@item1.Job</option>
-                }
-            }
-        </select>תפקיד<br />
-        <select id="select2" name="Authorization">
-            @{
-                List<Authorizations> l = new List<Authorizations>();
-                l = b.GetAuthorizations();
-                if (l != null)
-                {
-                    foreach (var item in l)
+                    l2 = b.GetJob();
+                    foreach (var item1 in l2)
                     {
-                        <option value="@item.Code" @(Model.Authorization == item.Code ? "selected='selected'" : "" )>@item.Authorization</option>
+                        <option value="@item1.Code" @(Model.Job == item1.Code ? "selected='selected'" : "" )>@item1.Job</option>
                     }
                 }
-            }
-        </select>הרשאה<br />
-        <input name="FirstName" type="text" style="width:150px" value="@Model.FirstName" required />שם<br />
-        <input name="LastName" type="text" style="width:150px" value="@Model.LastName" required />משפחה<br />
-        <input name="City" type="text" style="width:150px" value="@Model.City" required />עיר<br />
-        <input name="Street" type="text" style="width:150px" value="@Model.Street" required />כתובת<br />
-        <input name="Phone" type="text" style="width:150px" value="@Model.Phone" required />טלפון<br />
-        <input name="Phone2" type="text" style="width:150px" value="@Model.Phone2" />טלפון נוסף<br />
-        <input name="Fax" type="text" style="width:150px" value="@Model.Fax" />פקס<br />
-        <input name="Email" type="text" style="width:150px" value="@Model.Email" />אימייל<br />
-        <input name="BirthDate" ID="BirthDate" type="date" value="@Html.DisplayFor(model => model.BirthDate)" @*value="@Model.BirthDate"*@ onchange="dateValid(this.value)" required />תאריך לידה<br />  
-    </div>
-    <input id="Submit1" type="submit" value="עדכן" />
-</form>
-<div>@this.ViewBag.validation </div>
-<input type="button" onclick="showResetPassword()" value="קביעת סיסמא חדשה"/>
-<div id="ResetPassword" hidden>
-   <form id=form2 action="@Url.Action("SetUserNameAndPassword","WorkerDetails")" method="post">
-        <label>קביעת שם משתמש וסיסמא</label><br />
-        <input onblur="check()" id="UserName1" name="username"  maxlength="10" type="text" required placeholder="שם משתמש לא יותר מ 10 תווים"/>שם משתמש<br />
-        <input id="Password1" title="לפחות אות אחת,לפחות ספרה אחת,לפחות 6 תווים" name="password" pattern="(?=.*\d)(?=.*[a-z-A-Z]).{6,10}" maxlength="10" type="password" required placeholder="סיסמא בת 6-10 תווים"/>סיסמא<br />
-        <input id="rd1"  type="submit" value="אישור"/><br />
-       <div id="message">
-           <h3>הסיסמא חייבת להכיל:</h3>
-           <p id="letter" class="invalid"> <b>לפחות אות אחת באנגלית</b> </p>
-           <p id="number" class="invalid"> <b>לפחות ספרה אחת </b></p>
-           <p id="length" class="invalid"> <b>לפחות 6 תווים</b></p>
-       </div><br />
-       <div id="user" style="width:100px;height:50px;color:red;"></div>
+            </select><br />
+            <label for="select2" style="font-size:25px;font-family:Arial">הרשאה:</label>
+            <select id="select2" class="selectpicker" multiple data-action-box="true" style="font-size:15px" name="Authorization">
+                @{
+                    List<Authorizations> l = new List<Authorizations>();
+                    l = b.GetAuthorizations();
+                    if (l != null)
+                    {
+                        foreach (var item in l)
+                        {
+                            <option value="@item.Code" @(Model.Authorization == item.Code ? "selected='selected'" : "" )>@item.Authorization</option>
+                        }
+                    }
+                }
+            </select><br />
+
+            <label for="FirstName" style="font-size:25px;font-family:Arial">שם:</label>
+            <input name="FirstName" size="22" style="height:32px;" type="text" value="@Model.FirstName" maxlength="20" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="       הכנס/י שם פרטי    " required /><br />
+
+            <label for="LastName" style="font-size:25px;font-family:Arial">משפחה:</label>
+            <input name="LastName" size="22" style="height:32px;" type="text" value="@Model.LastName" maxlength="20" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="       הכנס/י שם משפחה    " required /><br />
+
+            <label for="City" style="font-size:25px;font-family:Arial">עיר:</label>
+            <input name="City" size="22" style="height:32px;" type="text" value="@Model.City" maxlength="20" pattern="[א-ת]{1,20}" title="אותיות בעברית בלבד" placeholder="       הכנס/י עיר    " required /><br />
+
+            <label for="Street" style="font-size:25px;font-family:Arial">כתובת:</label>
+            <input name="Street" size="22" style="height:32px;" type="text" value="@Model.Street" maxlength="40" pattern="[א-ת0-9]+[א-ת0-9 /\]+" title="אותיות בעברית ומספרים בלבד" placeholder="       הכנס/י כתובת    " required /><br />
+
+            <label for="Phone" style="font-size:25px;font-family:Arial">טלפון:</label>
+            <input name="Phone" size="22" style="height:32px;" type="text" value="@Model.Phone" maxlength="15" pattern="[0-9]{7,15}" title="נא הקש/י מספר בעל 7 ספרות ומעלה" placeholder="       הכנס/י מס' טלפון    " required /><br />
+
+            <label for="Phone2" style="font-size:25px;font-family:Arial">טלפון נוסף:</label>
+            <input name="Phone2" size="22" style="height:32px;" type="text" value="@Model.Phone2" maxlength="15" pattern="[0-9]{7,15}" title="נא הקש/י מספר בעל 7 ספרות ומעלה" placeholder="       הכנס/י מס' טלפון    " /><br />
+
+            <label for="Fax" style="font-size:25px;font-family:Arial">פקס:</label>
+            <input name="Fax" size="22" style="height:32px;" type="text" value="@Model.Fax" maxlength="15" pattern="[0-9]{7,15}" title="נא הקש/י מספר בעל 7 ספרות ומעלה" placeholder="       הכנס/י מס' פקס    " /><br />
+
+            <label for="Email" style="font-size:25px;font-family:Arial">אימייל:</label>
+            <input name="Email" size="22" style="height:32px;" type="text" value="@Model.Email" placeholder="       הכנס/י כתובת אימייל    " /><br />
+
+            <label for="BirthDate" style="font-size:25px;font-family:Arial">תאריך לידה:</label>
+            <input name="BirthDate" ID="BirthDate" size="22" style="height:32px;" type="date" value="@Html.DisplayFor(model => model.BirthDate)" onchange="dateValid(this.value)" placeholder="       הכנס/י תאריך לידה     " required /><br />
+        </div>
+        <input id="Submit1" class="btnOk" type="submit" value="עדכן" />
     </form>
 </div>
 
 
+<div class="container" style="margin-left:450px;margin-top:-450px;width:300px" >
+    <div>@this.ViewBag.validation </div>
+    <input type="button" class="btnOk" style="width:150px!important;" onclick="showResetPassword()" value="קביעת סיסמא חדשה" />
+    <div id="ResetPassword" hidden>
+        <form id=form2 action="@Url.Action("SetUserNameAndPassword","WorkerDetails")" method="post">
+            <input onblur="check()" id="UserName1" name="username" maxlength="10" type="text" required placeholder="שם משתמש לא יותר מ 10 תווים" />שם משתמש<br />
+            <input id="Password1" title="לפחות אות אחת,לפחות ספרה אחת,לפחות 6 תווים" name="password" pattern="(?=.*\d)(?=.*[a-z-A-Z]).{6,10}" maxlength="10" type="password" required placeholder="סיסמא בת 6-10 תווים" />סיסמא<br />
+            <br />
+            <input id="rd1" type="submit" value="אישור" class="btnOk" /><br />
+            <div id="message">
+            <br /><br />
+                <label dir="rtl">הסיסמא חייבת להכיל:</label><br />
+                <label id="letter" class="invalid"><b>לפחות אות אחת באנגלית</b></label><br />
+                <label id="number" class="invalid"><b>לפחות ספרה אחת </b></label><br />
+                <label id="length" class="invalid"><b>לפחות 6 תווים</b></label>
+            </div><br />
+            <div id="user" style="width:100px;height:50px;color:red;"></div>
+        </form>
+    </div>
+
+</div>
 
 
 
